@@ -1,37 +1,57 @@
-# 三勾点餐系统，校园点餐系统，门店点餐系统，三勾餐饮系统java+springboot+vue3
-
-#### 介绍
-三勾点餐系统，校园点餐系统，门店点餐系统，三勾餐饮系统java+springboot+vue3
-
-#### 软件架构
-软件架构说明
+### 三勾点餐系统、支持多端发布，一套代码发布到8个平台，面向开发，方便二次开发
 
 
-#### 安装教程
+**项目介绍** 
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
-
-#### 使用说明
-
-1.  xxxx
-2.  xxxx
-3.  xxxx
-
-#### 参与贡献
-
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
+三勾点餐系统基于java+springboot+element-plus+uniapp打造的面向开发的小程序商城，方便二次开发或直接使用，可发布到多端，包括微信小程序、微信公众号、QQ小程序、支付宝小程序、字节跳动小程序、百度小程序、android端、ios端。
 
 
-#### 特技
+官网地址：http://www.jjjshop.net/      
 
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+
+ **如果对您有帮助，您可以点右上角 "Star" 支持一下，这样我们才有继续免费下去的动力，谢谢！
+QQ交流群 (入群前，请在网页右上角点 "Star" )** 
+
+交流QQ群：618300870
+
+
+ **小程序截图**
+
+|  ![输入图片说明](https://images.gitee.com/uploads/images/2021/0925/171322_5f691e6e_1699189.jpeg "1.jpg")  |  ![输入图片说明](https://images.gitee.com/uploads/images/2021/0925/171334_b5339717_1699189.jpeg "2.jpg") |
+|---|---|
+| ![输入图片说明](https://images.gitee.com/uploads/images/2021/0925/171543_1ff039d8_1699189.jpeg "3.jpg")  |  ![输入图片说明](https://images.gitee.com/uploads/images/2021/0925/171555_f64ebfa9_1699189.jpeg "4.jpg") |
+| ![输入图片说明](https://images.gitee.com/uploads/images/2021/0925/171622_f01c4c17_1699189.jpeg "5.jpg") | ![输入图片说明](https://images.gitee.com/uploads/images/2021/0925/171633_c82a1010_1699189.jpeg "6.jpg") |
+
+
+
+
+ **后台截图** 
+
+| ![输入图片说明](https://images.gitee.com/uploads/images/2021/0925/172538_a041a251_1699189.png "11.png") | ![输入图片说明](https://images.gitee.com/uploads/images/2021/0925/172550_62826b56_1699189.png "22.png") |
+|---|---|
+| ![输入图片说明](https://images.gitee.com/uploads/images/2021/0925/172649_53b7d002_1699189.png "33.png") | ![输入图片说明](https://images.gitee.com/uploads/images/2021/0925/172702_68da5d24_1699189.png "44.png") |
+| ![输入图片说明](https://images.gitee.com/uploads/images/2021/0925/172720_0846dfd3_1699189.png "55.png") |  ![输入图片说明](https://images.gitee.com/uploads/images/2021/0925/172734_29a91fb5_1699189.png "66.png")  |
+
+
+
+
+ **软件架构**
+
+后端：springboot管理端页面：element-plus 小程序端：uniapp。
+
+部署环境建议：Linux + Nginx + springboot + MySQL5.7/8.0，上手建议直接用宝塔集成环境。
+
+ **安装教程、开发文档、操作手册请进入官网查询** 
+
+[官网链接](http://www.jjjshop.net)
+
+[安装文档](https://doc.jjjshop.net/chain)
+
+ **bug反馈**
+
+如果你发现了bug，请发送邮件到 bug@jiujiujia.net，我们将及时修复并更新。 
+
+ **特别鸣谢** 
+- element-plus:[https://element-plus.gitee.io/zh-CN/](https://element-plus.gitee.io/zh-CN/)
+- vue:[https://cn.vuejs.org/](https://cn.vuejs.org/)
+- 参考UI：https://gitee.com/tinypuppet/nxdc-milktea
