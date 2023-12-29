@@ -45,7 +45,7 @@ QQ交流群 (入群前，请在网页右上角点 "Star" )**
 
 [官网链接](http://www.jjjshop.net)
 
-[安装文档](https://doc.jjjshop.net/chain)
+[安装文档](https://doc.jjjshop.net/ChainJava)
 
  **bug反馈**
 
