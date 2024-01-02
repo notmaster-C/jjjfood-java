@@ -6,6 +6,10 @@
     -->
   <div id="diy-editor" ref="diy-editor" class="diy-editor form-horizontal">
     <template v-if="form.curItem">
+      	<!--顶部设置-->
+			<template v-if="form.curItem.type == 'page'">
+				<SetpagesIndex :curItem="form.curItem"></SetpagesIndex>
+			</template>
       <!--图片轮播-->
       <template v-if="form.curItem.type == 'banner'">
         <Banner :curItem="form.curItem" :selectedIndex="form.selectedIndex"></Banner>
@@ -49,7 +53,7 @@
 
 <script>
 import { deepClone } from '@/utils/base.js';
-import Setpages from './params/Setpages.vue';
+import SetpagesIndex from './params/Setpages.vue';
 import Banner from './params/Banner.vue';
 import Window from './params/Window.vue';
 import NavBar from './params/NavBar.vue';
@@ -64,7 +68,7 @@ import StoreSelect from '@/components/store/StoreSelect.vue';
 export default {
   components: {
     /*顶部设置*/
-    Setpages,
+    SetpagesIndex,
     /*图片轮播组件*/
     Banner,
     /*图片橱窗*/

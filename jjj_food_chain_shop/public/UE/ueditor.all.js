@@ -4,7 +4,7 @@
  * build: Wed Aug 10 2016 11:06:02 GMT+0800 (CST)
  */
 
-(function() {
+(function () {
 
   // editor.js
   UEDITOR_CONFIG = window.UEDITOR_CONFIG || {};
@@ -42,7 +42,7 @@
    * @unfile
    * @module UE.browser
    */
-  var browser = UE.browser = function() {
+  var browser = UE.browser = function () {
     var agent = navigator.userAgent.toLowerCase(),
       opera = window.opera,
       browser = {
@@ -341,7 +341,7 @@
      * } );
      * ```
      */
-    each: function(obj, iterator, context) {
+    each: function (obj, iterator, context) {
       if (obj == null) return;
       if (obj.length === +obj.length) {
         for (var i = 0, l = obj.length; i < l; i++) {
@@ -373,7 +373,7 @@
      * newObject.sayHello();
      * ```
      */
-    makeInstance: function(obj) {
+    makeInstance: function (obj) {
       var noop = new Function();
       noop.prototype = obj;
       obj = new noop;
@@ -424,7 +424,7 @@
      *
      * ```
      */
-    extend: function(t, s, b) {
+    extend: function (t, s, b) {
       if (s) {
         for (var k in s) {
           if (!b || !t.hasOwnProperty(k)) {
@@ -458,7 +458,7 @@
      *
      * ```
      */
-    extend2: function(t) {
+    extend2: function (t) {
       var a = arguments;
       for (var i = 1; i < a.length; i++) {
         var x = a[i];
@@ -501,7 +501,7 @@
      * sub.hello("早上好!");
      * ```
      */
-    inherits: function(subClass, superClass) {
+    inherits: function (subClass, superClass) {
       var oldP = subClass.prototype,
         newP = utils.makeInstance(superClass.prototype);
       utils.extend(newP, oldP, true);
@@ -535,8 +535,8 @@
      *
      * ```
      */
-    bind: function(fn, context) {
-      return function() {
+    bind: function (fn, context) {
+      return function () {
         return fn.apply(context, arguments);
       };
     },
@@ -590,9 +590,9 @@
      * testDefer();
      * ```
      */
-    defer: function(fn, delay, exclusion) {
+    defer: function (fn, delay, exclusion) {
       var timerID;
-      return function() {
+      return function () {
         if (exclusion) {
           clearTimeout(timerID);
         }
@@ -634,10 +634,10 @@
      * console.log( UE.utils.indexOf( arr, item, 5 ) );
      * ```
      */
-    indexOf: function(array, item, start) {
+    indexOf: function (array, item, start) {
       var index = -1;
       start = this.isNumber(start) ? start : 0;
-      this.each(array, function(v, i) {
+      this.each(array, function (v, i) {
         if (i >= start && v === item) {
           index = i;
           return false;
@@ -662,7 +662,7 @@
      *
      * ```
      */
-    removeItem: function(array, item) {
+    removeItem: function (array, item) {
       for (var i = 0, l = array.length; i < l; i++) {
         if (array[i] === item) {
           array.splice(i, 1);
@@ -692,7 +692,7 @@
      *
      *  ```
      */
-    trim: function(str) {
+    trim: function (str) {
       return str.replace(/(^[ \t\n\r]+)|([ \t\n\r]+$)/g, '');
     },
 
@@ -725,7 +725,7 @@
      *
      * ```
      */
-    listToMap: function(list) {
+    listToMap: function (list) {
       if (!list) return {};
       list = utils.isArray(list) ? list : list.split(',');
       for (var i = 0, ci, obj = {}; ci = list[i++];) {
@@ -748,8 +748,8 @@
      *
      * ```
      */
-    unhtml: function(str, reg) {
-      return str ? str.replace(reg || /[&<">'](?:(amp|lt|quot|gt|#39|nbsp|#\d+);)?/g, function(a, b) {
+    unhtml: function (str, reg) {
+      return str ? str.replace(reg || /[&<">'](?:(amp|lt|quot|gt|#39|nbsp|#\d+);)?/g, function (a, b) {
         if (b) {
           return a;
         } else {
@@ -759,7 +759,7 @@
             '"': '&quot;',
             '>': '&gt;',
             "'": '&#39;'
-          } [a]
+          }[a]
         }
 
       }) : '';
@@ -770,15 +770,15 @@
      * @param  { RegExp } reg 自定义的正则
      * @return { String }     转义后的字符串
      */
-    unhtmlForUrl: function(str, reg) {
-      return str ? str.replace(reg || /[<">']/g, function(a) {
+    unhtmlForUrl: function (str, reg) {
+      return str ? str.replace(reg || /[<">']/g, function (a) {
         return {
           '<': '&lt;',
           '&': '&amp;',
           '"': '&quot;',
           '>': '&gt;',
           "'": '&#39;'
-        } [a]
+        }[a]
 
       }) : '';
     },
@@ -799,8 +799,8 @@
      *
      * ```
      */
-    html: function(str) {
-      return str ? str.replace(/&((g|l|quo)t|amp|#39|nbsp);/g, function(m) {
+    html: function (str) {
+      return str ? str.replace(/&((g|l|quo)t|amp|#39|nbsp);/g, function (m) {
         return {
           '&lt;': '<',
           '&amp;': '&',
@@ -808,7 +808,7 @@
           '&gt;': '>',
           '&#39;': "'",
           '&nbsp;': ' '
-        } [m]
+        }[m]
       }) : '';
     },
 
@@ -827,14 +827,14 @@
      *
      * ```
      */
-    cssStyleToDomStyle: function() {
+    cssStyleToDomStyle: function () {
       var test = document.createElement('div').style,
         cache = {
           'float': test.cssFloat != undefined ? 'cssFloat' : test.styleFloat != undefined ? 'styleFloat' : 'float'
         };
 
-      return function(cssName) {
-        return cache[cssName] || (cache[cssName] = cssName.toLowerCase().replace(/-./g, function(match) {
+      return function (cssName) {
+        return cache[cssName] || (cache[cssName] = cssName.toLowerCase().replace(/-./g, function (match) {
           return match.charAt(1).toUpperCase();
         }));
       };
@@ -880,7 +880,7 @@
      *
      * ```
      */
-    loadFile: function() {
+    loadFile: function () {
       var tmpList = [];
 
       function getItem(doc, obj) {
@@ -896,7 +896,7 @@
 
       }
 
-      return function(doc, obj, fn) {
+      return function (doc, obj, fn) {
         var item = getItem(doc, obj);
         if (item) {
           if (item.ready) {
@@ -928,7 +928,7 @@
         for (var p in obj) {
           element.setAttribute(p, obj[p]);
         }
-        element.onload = element.onreadystatechange = function() {
+        element.onload = element.onreadystatechange = function () {
           if (!this.readyState || /loaded|complete/.test(this.readyState)) {
             item = getItem(doc, obj);
             if (item.funs.length > 0) {
@@ -940,7 +940,7 @@
             element.onload = element.onreadystatechange = null;
           }
         };
-        element.onerror = function() {
+        element.onerror = function () {
           throw Error('The load ' + (obj.href || obj.src) +
             ' fails,check the url settings of file ueditor.config.js ')
         };
@@ -978,7 +978,7 @@
      *
      * ```
      */
-    isEmptyObject: function(obj) {
+    isEmptyObject: function (obj) {
       if (obj == null) return true;
       if (this.isArray(obj) || this.isString(obj)) return obj.length === 0;
       for (var key in obj)
@@ -994,7 +994,7 @@
      * @example
      * rgb(255,255,255)  => "#ffffff"
      */
-    fixColor: function(name, value) {
+    fixColor: function (name, value) {
       if (/color/i.test(name) && /rgba?/.test(value)) {
         var array = value.split(",");
         if (array.length > 3)
@@ -1014,9 +1014,9 @@
      * @function
      * @param {String}    val style字符串
      */
-    optCss: function(val) {
+    optCss: function (val) {
       var padding, margin, border;
-      val = val.replace(/(padding|margin|border)\-([^:]+):([^;]+);?/gi, function(str, key, name, val) {
+      val = val.replace(/(padding|margin|border)\-([^:]+):([^;]+);?/gi, function (str, key, name, val) {
         if (val.split(' ').length == 1) {
           switch (key) {
             case 'padding':
@@ -1051,14 +1051,14 @@
           val += ';' + name + ':' +
             (t == b && b == l && l == r ? t :
               t == b && l == r ? (t + ' ' + l) :
-              l == r ? (t + ' ' + l + ' ' + b) : (t + ' ' + r + ' ' + b + ' ' + l)) + ';'
+                l == r ? (t + ' ' + l + ' ' + b) : (t + ' ' + r + ' ' + b + ' ' + l)) + ';'
         }
         return val;
       }
 
       val += opt(padding, 'padding') + opt(margin, 'margin');
       return val.replace(/^[ \n\r\t;]*|[ \n\r\t]*$/, '').replace(/;([ \n\r\t]+)|\1;/g, ';')
-        .replace(/(&((l|g)t|quot|#39))?;{2,}/g, function(a, b) {
+        .replace(/(&((l|g)t|quot|#39))?;{2,}/g, function (a, b) {
           return b ? b + ";;" : ';'
         });
     },
@@ -1077,7 +1077,7 @@
      * @param { Object } target 目标对象
      * @return { Object } 附加了source对象所有属性的target对象
      */
-    clone: function(source, target) {
+    clone: function (source, target) {
       var tmp;
       target = target || {};
       for (var i in source) {
@@ -1110,12 +1110,12 @@
      *
      * ```
      */
-    transUnitToPx: function(val) {
+    transUnitToPx: function (val) {
       if (!/(pt|cm)/.test(val)) {
         return val
       }
       var unit;
-      val.replace(/([\d.]+)(\w+)/, function(str, v, u) {
+      val.replace(/([\d.]+)(\w+)/, function (str, v, u) {
         val = v;
         unit = u;
       });
@@ -1145,17 +1145,17 @@
      *
      * ```
      */
-    domReady: function() {
+    domReady: function () {
 
       var fnArr = [];
 
       function doReady(doc) {
         //确保onready只执行一次
         doc.isReady = true;
-        for (var ci; ci = fnArr.pop(); ci()) {}
+        for (var ci; ci = fnArr.pop(); ci()) { }
       }
 
-      return function(onready, win) {
+      return function (onready, win) {
         win = win || window;
         var doc = win.document;
         onready && fnArr.push(onready);
@@ -1164,7 +1164,7 @@
         } else {
           doc.isReady && doReady(doc);
           if (browser.ie && browser.version != 11) {
-            (function() {
+            (function () {
               if (doc.isReady) return;
               try {
                 doc.documentElement.doScroll("left");
@@ -1174,15 +1174,15 @@
               }
               doReady(doc);
             })();
-            win.attachEvent('onload', function() {
+            win.attachEvent('onload', function () {
               doReady(doc)
             });
           } else {
-            doc.addEventListener("DOMContentLoaded", function() {
+            doc.addEventListener("DOMContentLoaded", function () {
               doc.removeEventListener("DOMContentLoaded", arguments.callee, false);
               doReady(doc);
             }, false);
-            win.addEventListener('load', function() {
+            win.addEventListener('load', function () {
               doReady(doc)
             }, false);
           }
@@ -1201,7 +1201,7 @@
      * @grammar UE.utils.cssRule('body',document) => 返回指定key的样式，并且指定是哪个document
      * @grammar UE.utils.cssRule('body','') =>null //清空给定的key值的背景颜色
      */
-    cssRule: browser.ie && browser.version != 11 ? function(key, style, doc) {
+    cssRule: browser.ie && browser.version != 11 ? function (key, style, doc) {
       var indexList, index;
       if (style === undefined || style && style.nodeType && style.nodeType == 9) {
         //获取样式
@@ -1234,7 +1234,7 @@
         indexList[key] = index;
       }
       sheetStyle.cssText = style;
-    } : function(key, style, doc) {
+    } : function (key, style, doc) {
       var head, node;
       if (style === undefined || style && style.nodeType && style.nodeType == 9) {
         //获取样式
@@ -1264,8 +1264,8 @@
         doc.getElementsByTagName('head')[0].appendChild(node);
       }
     },
-    sort: function(array, compareFn) {
-      compareFn = compareFn || function(item1, item2) {
+    sort: function (array, compareFn) {
+      compareFn = compareFn || function (item1, item2) {
         return item1.localeCompare(item2);
       };
       for (var i = 0, len = array.length; i < len; i++) {
@@ -1279,7 +1279,7 @@
       }
       return array;
     },
-    serializeParam: function(json) {
+    serializeParam: function (json) {
       var strArr = [];
       for (var i in json) {
         //忽略默认的几个参数
@@ -1296,7 +1296,7 @@
       }
       return strArr.join("&");
     },
-    formatUrl: function(url) {
+    formatUrl: function (url) {
       var u = url.replace(/&&/g, '&');
       u = u.replace(/\?&/g, '?');
       u = u.replace(/&$/g, '');
@@ -1304,7 +1304,7 @@
       u = u.replace(/&+/g, '&');
       return u;
     },
-    isCrossDomainUrl: function(url) {
+    isCrossDomainUrl: function (url) {
       var a = document.createElement('a');
       a.href = url;
       if (browser.ie) {
@@ -1314,7 +1314,7 @@
         (a.port == location.port || (a.port == '80' && location.port == '') || (a.port == '' && location.port ==
           '80')));
     },
-    clearEmptyAttrs: function(obj) {
+    clearEmptyAttrs: function (obj) {
       for (var p in obj) {
         if (obj[p] === '') {
           delete obj[p]
@@ -1322,7 +1322,7 @@
       }
       return obj;
     },
-    str2json: function(s) {
+    str2json: function (s) {
 
       if (!utils.isString(s)) return null;
       if (window.JSON) {
@@ -1332,7 +1332,7 @@
       }
 
     },
-    json2str: (function() {
+    json2str: (function () {
 
       if (window.JSON) {
 
@@ -1354,7 +1354,7 @@
           if (/["\\\x00-\x1f]/.test(source)) {
             source = source.replace(
               /["\\\x00-\x1f]/g,
-              function(match) {
+              function (match) {
                 var c = escapeMap[match];
                 if (c) {
                   return c;
@@ -1406,7 +1406,7 @@
             pad(source.getSeconds()) + '"';
         }
 
-        return function(value) {
+        return function (value) {
           switch (typeof value) {
             case 'undefined':
               return 'undefined';
@@ -1501,8 +1501,8 @@
    * @param { * } object 需要判断的对象
    * @return { Boolean } 给定的对象是否是普通对象
    */
-  utils.each(['String', 'Function', 'Array', 'Number', 'RegExp', 'Object', 'Date'], function(v) {
-    UE.utils['is' + v] = function(obj) {
+  utils.each(['String', 'Function', 'Array', 'Number', 'RegExp', 'Object', 'Date'], function (v) {
+    UE.utils['is' + v] = function (obj) {
       return Object.prototype.toString.apply(obj) == '[object ' + v + ']';
     }
   });
@@ -1539,7 +1539,7 @@
    * UE.EventBase.call(editor);
    * ```
    */
-  var EventBase = UE.EventBase = function() {};
+  var EventBase = UE.EventBase = function () { };
 
   EventBase.prototype = {
 
@@ -1565,20 +1565,20 @@
      * ```
      * @see UE.EventBase:fireEvent(String)
      */
-    addListener: function(types, listener) {
+    addListener: function (types, listener) {
       types = utils.trim(types).split(/\s+/);
       for (var i = 0, ti; ti = types[i++];) {
         getListener(this, ti, true).push(listener);
       }
     },
 
-    on: function(types, listener) {
+    on: function (types, listener) {
       return this.addListener(types, listener);
     },
-    off: function(types, listener) {
+    off: function (types, listener) {
       return this.removeListener(types, listener)
     },
-    trigger: function() {
+    trigger: function () {
       return this.fireEvent.apply(this, arguments);
     },
     /**
@@ -1592,7 +1592,7 @@
      * editor.removeListener("selectionchange",changeCallback);
      * ```
      */
-    removeListener: function(types, listener) {
+    removeListener: function (types, listener) {
       types = utils.trim(types).split(/\s+/);
       for (var i = 0, ti; ti = types[i++];) {
         utils.removeItem(getListener(this, ti) || [], listener);
@@ -1631,7 +1631,7 @@
      * editor.fireEvent("selectionchange", "Hello", "World");
      * ```
      */
-    fireEvent: function() {
+    fireEvent: function () {
       var types = arguments[0];
       types = utils.trim(types).split(' ');
       for (var i = 0, ti; ti = types[i++];) {
@@ -1687,7 +1687,7 @@
    * @constructor
    * @namespace dtd
    */
-  var dtd = dom.dtd = (function() {
+  var dtd = dom.dtd = (function () {
     function _(s) {
       for (var k in s) {
         s[k.toUpperCase()] = s[k];
@@ -1696,9 +1696,9 @@
     }
     var X = utils.extend2;
     var A = _({
-        isindex: 1,
-        fieldset: 1
-      }),
+      isindex: 1,
+      fieldset: 1
+    }),
       B = _({
         input: 1,
         button: 1,
@@ -1891,30 +1891,30 @@
       });
 
     var block = _({
-        address: 1,
-        blockquote: 1,
-        center: 1,
-        dir: 1,
-        div: 1,
-        dl: 1,
-        fieldset: 1,
-        form: 1,
-        h1: 1,
-        h2: 1,
-        h3: 1,
-        h4: 1,
-        h5: 1,
-        h6: 1,
-        hr: 1,
-        isindex: 1,
-        menu: 1,
-        noframes: 1,
-        ol: 1,
-        p: 1,
-        pre: 1,
-        table: 1,
-        ul: 1
-      }),
+      address: 1,
+      blockquote: 1,
+      center: 1,
+      dir: 1,
+      div: 1,
+      dl: 1,
+      fieldset: 1,
+      form: 1,
+      h1: 1,
+      h2: 1,
+      h3: 1,
+      h4: 1,
+      h5: 1,
+      h6: 1,
+      hr: 1,
+      isindex: 1,
+      menu: 1,
+      noframes: 1,
+      ol: 1,
+      p: 1,
+      pre: 1,
+      table: 1,
+      ul: 1
+    }),
 
       empty = _({
         area: 1,
@@ -2246,21 +2246,21 @@
     return tmpNode;
   }
   var attrFix = ie && browser.version < 9 ? {
-      tabindex: "tabIndex",
-      readonly: "readOnly",
-      "for": "htmlFor",
-      "class": "className",
-      maxlength: "maxLength",
-      cellspacing: "cellSpacing",
-      cellpadding: "cellPadding",
-      rowspan: "rowSpan",
-      colspan: "colSpan",
-      usemap: "useMap",
-      frameborder: "frameBorder"
-    } : {
-      tabindex: "tabIndex",
-      readonly: "readOnly"
-    },
+    tabindex: "tabIndex",
+    readonly: "readOnly",
+    "for": "htmlFor",
+    "class": "className",
+    maxlength: "maxLength",
+    cellspacing: "cellSpacing",
+    cellpadding: "cellPadding",
+    rowspan: "rowSpan",
+    colspan: "colSpan",
+    usemap: "useMap",
+    frameborder: "frameBorder"
+  } : {
+    tabindex: "tabIndex",
+    readonly: "readOnly"
+  },
     styleBlock = utils.listToMap([
       '-webkit-box', '-moz-box', 'block',
       'list-item', 'table', 'table-row-group',
@@ -2350,7 +2350,7 @@
      * }
      * ```
      */
-    getPosition: function(nodeA, nodeB) {
+    getPosition: function (nodeA, nodeB) {
       // 如果两个节点是同一个节点
       if (nodeA === nodeB) {
         // domUtils.POSITION_IDENTICAL
@@ -2384,7 +2384,7 @@
         return 1;
       }
       var i = -1;
-      while (i++, parentsA[i] === parentsB[i]) {}
+      while (i++, parentsA[i] === parentsB[i]) { }
       nodeA = parentsA[i];
       nodeB = parentsB[i];
       while (nodeA = nodeA.nextSibling) {
@@ -2428,7 +2428,7 @@
      *
      * ```
      */
-    getNodeIndex: function(node, ignoreTextNode) {
+    getNodeIndex: function (node, ignoreTextNode) {
       var preNode = node,
         i = 0;
       while (preNode = preNode.previousSibling) {
@@ -2464,7 +2464,7 @@
      *
      * ```
      */
-    inDoc: function(node, doc) {
+    inDoc: function (node, doc) {
       return domUtils.getPosition(node, doc) == 10;
     },
     /**
@@ -2525,7 +2525,7 @@
      * </body>
      * ```
      */
-    findParent: function(node, filterFn, includeSelf) {
+    findParent: function (node, filterFn, includeSelf) {
       if (node && !domUtils.isBody(node)) {
         node = includeSelf ? node : node.parentNode;
         while (node) {
@@ -2569,9 +2569,9 @@
      * console.log( queryTarget === node );
      * ```
      */
-    findParentByTagName: function(node, tagNames, includeSelf, excludeFn) {
+    findParentByTagName: function (node, tagNames, includeSelf, excludeFn) {
       tagNames = utils.listToMap(utils.isArray(tagNames) ? tagNames : [tagNames]);
-      return domUtils.findParent(node, function(node) {
+      return domUtils.findParent(node, function (node) {
         return tagNames[node.tagName] && !(excludeFn && excludeFn(node));
       }, includeSelf);
     },
@@ -2594,7 +2594,7 @@
      * @param { Boolean } includeSelf 查找的结果中是否允许包含当前查找的节点对象
      * @return { Array } 给定节点的祖先节点数组
      */
-    findParents: function(node, includeSelf, filterFn, closerFirst) {
+    findParents: function (node, includeSelf, filterFn, closerFirst) {
       var parents = includeSelf && (filterFn && filterFn(node) || !filterFn) ? [node] : [];
       while (node = domUtils.findParent(node, filterFn)) {
         parents.push(node);
@@ -2609,7 +2609,7 @@
      * @param { Node } newNode 新插入的节点， 该节点将置于目标节点之后
      * @return { Node } 新插入的节点
      */
-    insertAfter: function(node, newNode) {
+    insertAfter: function (node, newNode) {
       return node.nextSibling ? node.parentNode.insertBefore(newNode, node.nextSibling) :
         node.parentNode.appendChild(newNode);
     },
@@ -2650,7 +2650,7 @@
      * </script>
      * ```
      */
-    remove: function(node, keepChildren) {
+    remove: function (node, keepChildren) {
       var parent = node.parentNode,
         child;
       if (parent) {
@@ -2714,10 +2714,10 @@
      * @return { Node | NULL } 如果找满足条件的节点， 则返回该节点， 否则返回NULL
      * @see UE.dom.domUtils.getNextDomNode(Node)
      */
-    getNextDomNode: function(node, startFromChild, filterFn, guard) {
+    getNextDomNode: function (node, startFromChild, filterFn, guard) {
       return getDomNode(node, 'firstChild', 'nextSibling', startFromChild, filterFn, guard);
     },
-    getPreDomNode: function(node, startFromChild, filterFn, guard) {
+    getPreDomNode: function (node, startFromChild, filterFn, guard) {
       return getDomNode(node, 'lastChild', 'previousSibling', startFromChild, filterFn, guard);
     },
     /**
@@ -2736,7 +2736,7 @@
      * </script>
      * ```
      */
-    isBookmarkNode: function(node) {
+    isBookmarkNode: function (node) {
       return node.nodeType == 1 && node.id && /^_baidu_bookmark_/i.test(node.id);
     },
     /**
@@ -2750,7 +2750,7 @@
      * console.log( UE.dom.domUtils.getWindow( document.body ) === window );
      * ```
      */
-    getWindow: function(node) {
+    getWindow: function (node) {
       var doc = node.ownerDocument || node;
       return doc.defaultView || doc.parentWindow;
     },
@@ -2768,7 +2768,7 @@
      * console.log( commonAncestor.tagName.toLowerCase() === 'body' );
      * ```
      */
-    getCommonAncestor: function(nodeA, nodeB) {
+    getCommonAncestor: function (nodeA, nodeB) {
       if (nodeA === nodeB)
         return nodeA;
       var parentsA = [nodeA],
@@ -2789,7 +2789,7 @@
       }
       parentsA.reverse();
       parentsB.reverse();
-      while (i++, parentsA[i] === parentsB[i]) {}
+      while (i++, parentsA[i] === parentsB[i]) { }
       return i == 0 ? null : parentsA[i - 1];
 
     },
@@ -2841,18 +2841,18 @@
      * 则这些兄弟节点将被删除
      * @see UE.dom.domUtils.clearEmptySibling(Node)
      */
-    clearEmptySibling: function(node, ignoreNext, ignorePre) {
+    clearEmptySibling: function (node, ignoreNext, ignorePre) {
       function clear(next, dir) {
         var tmpNode;
         while (next && !domUtils.isBookmarkNode(next) && (domUtils.isEmptyInlineElement(next)
-            //这里不能把空格算进来会吧空格干掉，出现文字间的空格丢掉了
-            ||
-            !new RegExp('[^\t\n\r' + domUtils.fillChar + ']').test(next.nodeValue))) {
+          //这里不能把空格算进来会吧空格干掉，出现文字间的空格丢掉了
+          ||
+          !new RegExp('[^\t\n\r' + domUtils.fillChar + ']').test(next.nodeValue))) {
           tmpNode = next[dir];
           domUtils.remove(next);
           next = tmpNode;
         }
-      }!ignoreNext && clear(node.nextSibling, 'nextSibling');
+      } !ignoreNext && clear(node.nextSibling, 'nextSibling');
       !ignorePre && clear(node.previousSibling, 'previousSibling');
     },
     /**
@@ -2871,7 +2871,7 @@
      * </script>
      * ```
      */
-    split: function(node, offset) {
+    split: function (node, offset) {
       var doc = node.ownerDocument;
       if (browser.ie && offset == node.nodeValue.length) {
         var next = doc.createTextNode('');
@@ -2903,7 +2903,7 @@
      * </script>
      * ```
      */
-    isWhitespace: function(node) {
+    isWhitespace: function (node) {
       return !new RegExp('[^ \t\n\r' + domUtils.fillChar + ']').test(node.nodeValue);
     },
     /**
@@ -2920,7 +2920,7 @@
      * console.log( 'test的坐标为： ', location.x, ',', location.y );
      * ```
      */
-    getXY: function(element) {
+    getXY: function (element) {
       var x = 0,
         y = 0;
       while (element.offsetParent) {
@@ -2960,7 +2960,7 @@
      * });
      * ```
      */
-    on: function(element, type, handler) {
+    on: function (element, type, handler) {
 
       var types = utils.isArray(type) ? type : utils.trim(type).split(/\s+/),
         k = types.length;
@@ -2982,7 +2982,7 @@
                 handler._d.els.push(element);
               }
               if (!handler._d[key]) {
-                handler._d[key] = function(evt) {
+                handler._d[key] = function (evt) {
                   return handler.call(evt.srcElement, evt || window.event);
                 };
               }
@@ -3021,7 +3021,7 @@
      * });
      * ```
      */
-    un: function(element, type, handler) {
+    un: function (element, type, handler) {
       var types = utils.isArray(type) ? type : utils.trim(type).split(/\s+/),
         k = types.length;
       if (k)
@@ -3033,7 +3033,7 @@
             var key = type + handler.toString();
             try {
               element.detachEvent('on' + type, handler._d ? handler._d[key] : handler);
-            } catch (e) {}
+            } catch (e) { }
             if (handler._d && handler._d[key]) {
               var index = utils.indexOf(handler._d.els, element);
               if (index != -1) {
@@ -3071,7 +3071,7 @@
      * </script>
      * ```
      */
-    isSameElement: function(nodeA, nodeB) {
+    isSameElement: function (nodeA, nodeB) {
       if (nodeA.tagName != nodeB.tagName) {
         return false;
       }
@@ -3147,7 +3147,7 @@
      * </script>
      * ```
      */
-    isSameStyle: function(nodeA, nodeB) {
+    isSameStyle: function (nodeA, nodeB) {
       var styleA = nodeA.style.cssText.replace(/( ?; ?)/g, ';').replace(/( ?: ?)/g, ':'),
         styleB = nodeB.style.cssText.replace(/( ?; ?)/g, ';').replace(/( ?: ?)/g, ':');
       if (browser.opera) {
@@ -3207,7 +3207,7 @@
      * </script>
      * ```
      */
-    isBlockElm: function(node) {
+    isBlockElm: function (node) {
       return node.nodeType == 1 && (dtd.$block[node.tagName] || styleBlock[domUtils.getComputedStyle(node,
         'display')]) && !dtd.$nonChild[node.tagName];
     },
@@ -3222,7 +3222,7 @@
      * console.log( UE.dom.domUtils.isBody( document.body ) );
      * ```
      */
-    isBody: function(node) {
+    isBody: function (node) {
       return node && node.nodeType == 1 && node.tagName.toLowerCase() == 'body';
     },
     /**
@@ -3254,7 +3254,7 @@
      *
      * ```
      */
-    breakParent: function(node, parent) {
+    breakParent: function (node, parent) {
       var tmpNode,
         parentClone = node,
         clone = node,
@@ -3301,7 +3301,7 @@
      * <b>xx<i></i></b> => 0
      * ```
      */
-    isEmptyInlineElement: function(node) {
+    isEmptyInlineElement: function (node) {
       if (node.nodeType != 1 || !dtd.$removeEmpty[node.tagName]) {
         return 0;
       }
@@ -3345,7 +3345,7 @@
      *      console.log( node.childNodes.length );
      * ```
      */
-    trimWhiteTextNode: function(node) {
+    trimWhiteTextNode: function (node) {
       function remove(dir) {
         var child;
         while ((child = node[dir]) && child.nodeType == 3 && domUtils.isWhitespace(child)) {
@@ -3366,7 +3366,7 @@
      * ==> UE.dom.domUtils.mergeChild(node,'span')
      * <p><span style="font-size:12px;">xxaaxx</span></p>
      */
-    mergeChild: function(node, tagName, attrs) {
+    mergeChild: function (node, tagName, attrs) {
       var list = domUtils.getElementsByTagName(node, node.tagName.toLowerCase());
       for (var i = 0, ci; ci = list[i++];) {
         if (!ci.parentNode || domUtils.isBookmarkNode(ci)) {
@@ -3410,10 +3410,10 @@
      * @param { String } tagName 需要查找的节点的tagName， 多个tagName以空格分割
      * @return { Array } 符合条件的节点集合
      */
-    getElementsByTagName: function(node, name, filter) {
+    getElementsByTagName: function (node, name, filter) {
       if (filter && utils.isString(filter)) {
         var className = filter;
-        filter = function(node) {
+        filter = function (node) {
           return domUtils.hasClass(node, className)
         }
       }
@@ -3456,7 +3456,7 @@
      * </script>
      * ```
      */
-    mergeToParent: function(node) {
+    mergeToParent: function (node) {
       var parent = node.parentNode;
       while (parent && dtd.$removeEmpty[parent.tagName]) {
         if (parent.tagName == node.tagName || parent.tagName == 'A') { //针对a标签单独处理
@@ -3538,11 +3538,11 @@
      * </script>
      * ```
      */
-    mergeSibling: function(node, ignorePre, ignoreNext) {
+    mergeSibling: function (node, ignorePre, ignoreNext) {
       function merge(rtl, start, node) {
         var next;
         if ((next = node[rtl]) && !domUtils.isBookmarkNode(next) && next.nodeType == 1 && domUtils.isSameElement(
-            node, next)) {
+          node, next)) {
           while (next.firstChild) {
             if (start == 'firstChild') {
               node.insertBefore(next.lastChild, node.firstChild);
@@ -3552,7 +3552,7 @@
           }
           domUtils.remove(next);
         }
-      }!ignorePre && merge('previousSibling', 'firstChild', node);
+      } !ignorePre && merge('previousSibling', 'firstChild', node);
       !ignoreNext && merge('nextSibling', 'lastChild', node);
     },
 
@@ -3566,12 +3566,12 @@
      * UE.dom.domUtils.unSelectable( document.body );
      * ```
      */
-    unSelectable: ie && browser.ie9below || browser.opera ? function(node) {
+    unSelectable: ie && browser.ie9below || browser.opera ? function (node) {
       //for ie9
-      node.onselectstart = function() {
+      node.onselectstart = function () {
         return false;
       };
-      node.onclick = node.onkeyup = node.onkeydown = function() {
+      node.onclick = node.onkeyup = node.onkeydown = function () {
         return false;
       };
       node.unselectable = 'on';
@@ -3588,7 +3588,7 @@
             node.setAttribute("unselectable", "on");
         }
       }
-    } : function(node) {
+    } : function (node) {
       node.style.MozUserSelect =
         node.style.webkitUserSelect =
         node.style.msUserSelect =
@@ -3637,7 +3637,7 @@
      * </script>
      * ```
      */
-    removeAttributes: function(node, attrNames) {
+    removeAttributes: function (node, attrNames) {
       attrNames = utils.isArray(attrNames) ? attrNames : utils.trim(attrNames).replace(/[ ]{2,}/g, ' ').split(' ');
       for (var i = 0, ci; ci = attrNames[i++];) {
         ci = attrFix[ci] || ci;
@@ -3674,7 +3674,7 @@
      *
      * ```
      */
-    createElement: function(doc, tag, attrs) {
+    createElement: function (doc, tag, attrs) {
       return domUtils.setAttributes(doc.createElement(tag), attrs)
     },
     /**
@@ -3699,7 +3699,7 @@
      * </script>
      *
      */
-    setAttributes: function(node, attrs) {
+    setAttributes: function (node, attrs) {
       for (var attr in attrs) {
         if (attrs.hasOwnProperty(attr)) {
           var value = attrs[attr];
@@ -3747,12 +3747,12 @@
      * </script>
      * ```
      */
-    getComputedStyle: function(element, styleName) {
+    getComputedStyle: function (element, styleName) {
       //一下的属性单独处理
       var pros = 'width height top left';
 
       if (pros.indexOf(styleName) > -1) {
-        return element['offset' + styleName.replace(/^\w/, function(s) {
+        return element['offset' + styleName.replace(/^\w/, function (s) {
           return s.toUpperCase()
         })] + 'px';
       }
@@ -3775,7 +3775,7 @@
       try {
         var value = domUtils.getStyle(element, styleName) ||
           (window.getComputedStyle ? domUtils.getWindow(element).getComputedStyle(element, '').getPropertyValue(
-              styleName) :
+            styleName) :
             (element.currentStyle || element.style)[utils.cssStyleToDomStyle(styleName)]);
 
       } catch (e) {
@@ -3824,7 +3824,7 @@
      * </script>
      * ```
      */
-    removeClasses: function(elm, classNames) {
+    removeClasses: function (elm, classNames) {
       classNames = utils.isArray(classNames) ? classNames :
         utils.trim(classNames).replace(/[ ]{2,}/g, ' ').split(' ');
       for (var i = 0, ci, cls = elm.className; ci = classNames[i++];) {
@@ -3880,7 +3880,7 @@
      * <script>
      * ```
      */
-    addClass: function(elm, classNames) {
+    addClass: function (elm, classNames) {
       if (!elm) return;
       classNames = utils.trim(classNames).replace(/[ ]{2,}/g, ' ').split(' ');
       for (var i = 0, ci, cls = elm.className; ci = classNames[i++];) {
@@ -3933,7 +3933,7 @@
      * </script>
      * ```
      */
-    hasClass: function(element, className) {
+    hasClass: function (element, className) {
       if (utils.isRegExp(className)) {
         return className.test(element.className)
       }
@@ -3955,7 +3955,7 @@
      * UE.dom.domUtils.preventDefault( evt );
      * ```
      */
-    preventDefault: function(evt) {
+    preventDefault: function (evt) {
       evt.preventDefault ? evt.preventDefault() : (evt.returnValue = false);
     },
     /**
@@ -3979,7 +3979,7 @@
      * </script>
      * ```
      */
-    removeStyle: function(element, name) {
+    removeStyle: function (element, name) {
       if (browser.ie) {
         //针对color先单独处理一下
         if (name == 'color') {
@@ -4023,7 +4023,7 @@
      * </script>
      * ```
      */
-    getStyle: function(element, name) {
+    getStyle: function (element, name) {
       var value = element.style[utils.cssStyleToDomStyle(name)];
       return utils.fixColor(name, value);
     },
@@ -4051,7 +4051,7 @@
      * </script>
      * ```
      */
-    setStyle: function(element, name, value) {
+    setStyle: function (element, name, value) {
       element.style[utils.cssStyleToDomStyle(name)] = value;
       if (!utils.trim(element.style.cssText)) {
         this.removeAttributes(element, 'style')
@@ -4082,7 +4082,7 @@
      * </script>
      * ```
      */
-    setStyles: function(element, styles) {
+    setStyles: function (element, styles) {
       for (var name in styles) {
         if (styles.hasOwnProperty(name)) {
           domUtils.setStyle(element, name, styles[name]);
@@ -4094,7 +4094,7 @@
      * @private
      * @method removeDirtyAttr
      */
-    removeDirtyAttr: function(node) {
+    removeDirtyAttr: function (node) {
       for (var i = 0, ci, nodes = node.getElementsByTagName('*'); ci = nodes[i++];) {
         ci.removeAttribute('_moz_dirty');
       }
@@ -4144,10 +4144,10 @@
      * </script>
      * ```
      */
-    getChildCount: function(node, fn) {
+    getChildCount: function (node, fn) {
       var count = 0,
         first = node.firstChild;
-      fn = fn || function() {
+      fn = fn || function () {
         return 1;
       };
       while (first) {
@@ -4169,12 +4169,12 @@
      * UE.dom.domUtils.isEmptyNode( document.body );
      * ```
      */
-    isEmptyNode: function(node) {
-      return !node.firstChild || domUtils.getChildCount(node, function(node) {
+    isEmptyNode: function (node) {
+      return !node.firstChild || domUtils.getChildCount(node, function (node) {
         return !domUtils.isBr(node) && !domUtils.isBookmarkNode(node) && !domUtils.isWhitespace(node)
       }) == 0
     },
-    clearSelectedArr: function(nodes) {
+    clearSelectedArr: function (nodes) {
       var node;
       while (node = nodes.pop()) {
         domUtils.removeAttributes(node, ['class']);
@@ -4187,16 +4187,16 @@
      * @param    {window}   win      window对象
      * @param    {Number}    offsetTop    距离上方的偏移量
      */
-    scrollToView: function(node, win, offsetTop) {
-      var getViewPaneSize = function() {
-          var doc = win.document,
-            mode = doc.compatMode == 'CSS1Compat';
-          return {
-            width: (mode ? doc.documentElement.clientWidth : doc.body.clientWidth) || 0,
-            height: (mode ? doc.documentElement.clientHeight : doc.body.clientHeight) || 0
-          };
-        },
-        getScrollPosition = function(win) {
+    scrollToView: function (node, win, offsetTop) {
+      var getViewPaneSize = function () {
+        var doc = win.document,
+          mode = doc.compatMode == 'CSS1Compat';
+        return {
+          width: (mode ? doc.documentElement.clientWidth : doc.body.clientWidth) || 0,
+          height: (mode ? doc.documentElement.clientHeight : doc.body.clientHeight) || 0
+        };
+      },
+        getScrollPosition = function (win) {
           if ('pageXOffset' in win) {
             return {
               x: win.pageXOffset || 0,
@@ -4227,7 +4227,7 @@
      * @param { Node } node 需要判断的节点对象
      * @return { Boolean } 给定的节点是否是br节点
      */
-    isBr: function(node) {
+    isBr: function (node) {
       return node.nodeType == 1 && node.tagName == 'BR';
     },
     /**
@@ -4238,7 +4238,7 @@
      * @param { Boolean } isInStart 是否从节点内容的开始位置匹配
      * @returns { Boolean } 节点是否是填充节点
      */
-    isFillChar: function(node, isInStart) {
+    isFillChar: function (node, isInStart) {
       if (node.nodeType != 3)
         return false;
       var text = node.nodeValue;
@@ -4247,7 +4247,7 @@
       }
       return !text.replace(new RegExp(domUtils.fillChar, 'g'), '').length
     },
-    isStartInblock: function(range) {
+    isStartInblock: function (range) {
       var tmpRange = range.cloneRange(),
         flag = 0,
         start = tmpRange.startContainer,
@@ -4324,7 +4324,7 @@
      * @param { RegExp } reg 对内容执行判断的正则表达式对象
      * @return { Boolean } 是否是空元素
      */
-    isEmptyBlock: function(node, reg) {
+    isEmptyBlock: function (node, reg) {
       if (node.nodeType != 1)
         return 0;
       reg = reg || new RegExp('[ \xa0\t\r\n' + domUtils.fillChar + ']', 'g');
@@ -4366,7 +4366,7 @@
      * </script>
      * ```
      */
-    setViewportOffset: function(element, offset) {
+    setViewportOffset: function (element, offset) {
       var left = parseInt(element.style.left) | 0;
       var top = parseInt(element.style.top) | 0;
       var rect = element.getBoundingClientRect();
@@ -4404,7 +4404,7 @@
      * </script>
      * ```
      */
-    fillNode: function(doc, node) {
+    fillNode: function (doc, node) {
       var tmpNode = browser.ie ? doc.createTextNode(domUtils.fillChar) : doc.createElement('br');
       node.innerHTML = '';
       node.appendChild(tmpNode);
@@ -4472,7 +4472,7 @@
      * </script>
      * ```
      */
-    moveChild: function(src, tag, dir) {
+    moveChild: function (src, tag, dir) {
       while (src.firstChild) {
         if (dir && tag.firstChild) {
           tag.insertBefore(src.lastChild, tag.firstChild);
@@ -4503,7 +4503,7 @@
      * </script>
      * ```
      */
-    hasNoAttributes: function(node) {
+    hasNoAttributes: function (node) {
       return browser.ie ? /^<\w+\s*?>/.test(node.outerHTML) : node.attributes.length == 0;
     },
 
@@ -4515,7 +4515,7 @@
      * @remind 辅助节点是指编辑器要完成工作临时添加的节点， 在输出的时候将会从编辑器内移除， 不会影响最终的结果。
      * @return { Boolean } 给定的节点是否是一个辅助节点
      */
-    isCustomeNode: function(node) {
+    isCustomeNode: function (node) {
       return node.nodeType == 1 && node.getAttribute('_ue_custom_node_');
     },
 
@@ -4537,7 +4537,7 @@
      * </script>
      * ```
      */
-    isTagNode: function(node, tagNames) {
+    isTagNode: function (node, tagNames) {
       return node.nodeType == 1 && new RegExp('\\b' + node.tagName + '\\b', 'i').test(tagNames)
     },
 
@@ -4607,15 +4607,15 @@
      * console.log( node.nodeName );
      * ```
      */
-    filterNodeList: function(nodelist, filter, forAll) {
+    filterNodeList: function (nodelist, filter, forAll) {
       var results = [];
       if (!utils.isFunction(filter)) {
         var str = filter;
-        filter = function(n) {
+        filter = function (n) {
           return utils.indexOf(utils.isArray(str) ? str : str.split(' '), n.tagName.toLowerCase()) != -1
         };
       }
-      utils.each(nodelist, function(n) {
+      utils.each(nodelist, function (n) {
         filter(n) && results.push(n)
       });
       return results.length == 0 ? null : results.length == 1 || !forAll ? results[0] : results
@@ -4628,7 +4628,7 @@
      * @param node 需要检测的节点对象
      * @return { Number } 如果给定的选取range对象是在node内部的最末端， 则返回1, 否则返回0
      */
-    isInNodeEndBoundary: function(rng, node) {
+    isInNodeEndBoundary: function (rng, node) {
       var start = rng.startContainer;
       if (start.nodeType == 3 && rng.startOffset != start.nodeValue.length) {
         return 0;
@@ -4644,7 +4644,7 @@
       }
       return 1;
     },
-    isBoundaryNode: function(node, dir) {
+    isBoundaryNode: function (node, dir) {
       var tmp;
       while (!domUtils.isBody(node)) {
         tmp = node;
@@ -4682,7 +4682,7 @@
    */
 
 
-  (function() {
+  (function () {
     var guid = 0,
       fillChar = domUtils.fillChar,
       fillData;
@@ -4860,7 +4860,7 @@
      * @property { Document } document 当前Range所属的Document对象
      * @remind 不同range的的document属性可以是不同的
      */
-    var Range = dom.Range = function(document) {
+    var Range = dom.Range = function (document) {
       var me = this;
       me.startContainer =
         me.startOffset =
@@ -4894,7 +4894,7 @@
             fillData.nodeValue = fillData.nodeValue.replace(fillCharReg, '');
           }
         }
-      } catch (e) {}
+      } catch (e) { }
     }
 
     /**
@@ -4937,7 +4937,7 @@
        * </body>
        * ```
        */
-      cloneContents: function() {
+      cloneContents: function () {
         return this.collapsed ? null : execContentsAction(this, 0);
       },
 
@@ -4976,7 +4976,7 @@
        * </body>
        * ```
        */
-      deleteContents: function() {
+      deleteContents: function () {
         var txt;
         if (!this.collapsed) {
           execContentsAction(this, 1);
@@ -5032,7 +5032,7 @@
        *      </script>
        * </body>
        */
-      extractContents: function() {
+      extractContents: function () {
         return this.collapsed ? null : execContentsAction(this, 2);
       },
 
@@ -5078,7 +5078,7 @@
        * </script>
        * ```
        */
-      setStart: function(node, offset) {
+      setStart: function (node, offset) {
         return setEndPoint(true, node, offset, this);
       },
 
@@ -5090,7 +5090,7 @@
        * @see UE.dom.Range:setStart(Node,int)
        * @return { UE.dom.Range } 当前range对象
        */
-      setEnd: function(node, offset) {
+      setEnd: function (node, offset) {
         return setEndPoint(false, node, offset, this);
       },
 
@@ -5116,7 +5116,7 @@
        * </script>
        * ```
        */
-      setStartAfter: function(node) {
+      setStartAfter: function (node) {
         return this.setStart(node.parentNode, domUtils.getNodeIndex(node) + 1);
       },
 
@@ -5128,7 +5128,7 @@
        * @see UE.dom.Range:setStartAfter(Node)
        * @return { UE.dom.Range } 当前range对象
        */
-      setStartBefore: function(node) {
+      setStartBefore: function (node) {
         return this.setStart(node.parentNode, domUtils.getNodeIndex(node));
       },
 
@@ -5155,7 +5155,7 @@
        * </script>
        * ```
        */
-      setEndAfter: function(node) {
+      setEndAfter: function (node) {
         return this.setEnd(node.parentNode, domUtils.getNodeIndex(node) + 1);
       },
 
@@ -5167,7 +5167,7 @@
        * @see UE.dom.Range:setEndAfter(Node)
        * @return { UE.dom.Range } 当前range对象
        */
-      setEndBefore: function(node) {
+      setEndBefore: function (node) {
         return this.setEnd(node.parentNode, domUtils.getNodeIndex(node));
       },
 
@@ -5195,7 +5195,7 @@
        * </script>
        * ```
        */
-      setStartAtFirst: function(node) {
+      setStartAtFirst: function (node) {
         return this.setStart(node, 0);
       },
 
@@ -5208,7 +5208,7 @@
        * @see UE.dom.Range:setStartAtFirst(Node)
        * @return { UE.dom.Range } 当前range对象
        */
-      setStartAtLast: function(node) {
+      setStartAtLast: function (node) {
         return this.setStart(node, node.nodeType == 3 ? node.nodeValue.length : node.childNodes.length);
       },
 
@@ -5221,7 +5221,7 @@
        * @see UE.dom.Range:setStartAtFirst(Node)
        * @return { UE.dom.Range } 当前range对象
        */
-      setEndAtFirst: function(node) {
+      setEndAtFirst: function (node) {
         return this.setEnd(node, 0);
       },
 
@@ -5234,7 +5234,7 @@
        * @see UE.dom.Range:setStartAtFirst(Node)
        * @return { UE.dom.Range } 当前range对象
        */
-      setEndAtLast: function(node) {
+      setEndAtLast: function (node) {
         return this.setEnd(node, node.nodeType == 3 ? node.nodeValue.length : node.childNodes.length);
       },
 
@@ -5261,7 +5261,7 @@
        * </script>
        * ```
        */
-      selectNode: function(node) {
+      selectNode: function (node) {
         return this.setStartBefore(node).setEndAfter(node);
       },
 
@@ -5288,7 +5288,7 @@
        * </script>
        * ```
        */
-      selectNodeContents: function(node) {
+      selectNodeContents: function (node) {
         return this.setStart(node, 0).setEndAtLast(node);
       },
 
@@ -5298,7 +5298,7 @@
        * @remind 返回的range是一个全新的range对象， 其内部所有属性与当前被clone的range相同。
        * @return { UE.dom.Range } 当前range对象的一个副本
        */
-      cloneRange: function() {
+      cloneRange: function () {
         var me = this;
         return new Range(me.document).setStart(me.startContainer, me.startOffset).setEnd(me.endContainer, me.endOffset);
 
@@ -5350,7 +5350,7 @@
        * </script>
        * ```
        */
-      collapse: function(toStart) {
+      collapse: function (toStart) {
         var me = this;
         if (toStart) {
           me.endContainer = me.startContainer;
@@ -5401,7 +5401,7 @@
        * @return { UE.dom.Range } 当前range对象
        * @see UE.dom.domUtils.Range:shrinkBoundary()
        */
-      shrinkBoundary: function(ignoreEnd) {
+      shrinkBoundary: function (ignoreEnd) {
         var me = this,
           child,
           collapsed = me.collapsed;
@@ -5514,7 +5514,7 @@
        * </body>
        * ```
        */
-      getCommonAncestor: function(includeSelf, ignoreTextNode) {
+      getCommonAncestor: function (includeSelf, ignoreTextNode) {
         var me = this,
           start = me.startContainer,
           end = me.endContainer;
@@ -5575,7 +5575,7 @@
        * </script>
        * ```
        */
-      trimBoundary: function(ignoreEnd) {
+      trimBoundary: function (ignoreEnd) {
         this.txtToElmBoundary();
         var start = this.startContainer,
           offset = this.startOffset,
@@ -5632,17 +5632,17 @@
        *                      不论选区是否闭合， 都会执行该操作， 反之， 则不会对闭合的选区执行该操作
        * @return { UE.dom.Range } 当前range对象
        */
-      txtToElmBoundary: function(ignoreCollapsed) {
+      txtToElmBoundary: function (ignoreCollapsed) {
         function adjust(r, c) {
           var container = r[c + 'Container'],
             offset = r[c + 'Offset'];
           if (container.nodeType == 3) {
             if (!offset) {
-              r['set' + c.replace(/(\w)/, function(a) {
+              r['set' + c.replace(/(\w)/, function (a) {
                 return a.toUpperCase();
               }) + 'Before'](container);
             } else if (offset >= container.nodeValue.length) {
-              r['set' + c.replace(/(\w)/, function(a) {
+              r['set' + c.replace(/(\w)/, function (a) {
                 return a.toUpperCase();
               }) + 'After'](container);
             }
@@ -5663,7 +5663,7 @@
        * @remind 插入的节点可以是一个DocumentFragment依次插入多个节点
        * @return { UE.dom.Range } 当前range对象
        */
-      insertNode: function(node) {
+      insertNode: function (node) {
         var first = node,
           length = 1;
         if (node.nodeType == 11) {
@@ -5700,7 +5700,7 @@
        * @return { UE.dom.Range } 当前range对象
        * @see UE.dom.Range:collapse(Boolean)
        */
-      setCursor: function(toEnd, noFillData) {
+      setCursor: function (toEnd, noFillData) {
         return this.collapse(!toEnd).select(noFillData);
       },
 
@@ -5713,7 +5713,7 @@
        *                          end => 结束标记的ID或引用， id => 当前标记的类型， 如果为true，则表示
        *                          返回的记录的类型为ID， 反之则为引用
        */
-      createBookmark: function(serialize, same) {
+      createBookmark: function (serialize, same) {
         var endNode,
           startNode = this.document.createElement('span');
         startNode.style.cssText = 'display:none;line-height:0px;';
@@ -5743,7 +5743,7 @@
        *  @return { UE.dom.Range } 当前range对象
        *  @see UE.dom.Range:createBookmark(Boolean)
        */
-      moveToBookmark: function(bookmark) {
+      moveToBookmark: function (bookmark) {
         var start = bookmark.id ? this.document.getElementById(bookmark.start) : bookmark.start,
           end = bookmark.end && bookmark.id ? this.document.getElementById(bookmark.end) : bookmark.end;
         this.setStartBefore(start);
@@ -5771,7 +5771,7 @@
        * @param { Boolean } toBlock 是否要求扩大之后的父节点必须是block节点
        * @return { UE.dom.Range } 当前range对象
        */
-      enlarge: function(toBlock, stopFn) {
+      enlarge: function (toBlock, stopFn) {
         var isBody = domUtils.isBody,
           pre, node, tmp = this.document.createTextNode('');
         if (toBlock) {
@@ -5839,7 +5839,7 @@
             this.setStartBefore(this.startContainer);
           }
           while (this.endOffset == (this.endContainer.nodeType == 1 ? this.endContainer.childNodes.length :
-              this.endContainer.nodeValue.length)) {
+            this.endContainer.nodeValue.length)) {
             if (stopFn && stopFn(this.endContainer)) {
               break;
             }
@@ -5851,7 +5851,7 @@
         }
         return this;
       },
-      enlargeToBlockElm: function(ignoreEnd) {
+      enlargeToBlockElm: function (ignoreEnd) {
         while (!domUtils.isBlockElm(this.startContainer)) {
           this.setStartBefore(this.startContainer);
         }
@@ -5868,7 +5868,7 @@
        * @return { UE.dom.Range } 当前range对象
        * @see UE.dom.Range:shrinkBoundary()
        */
-      adjustmentBoundary: function() {
+      adjustmentBoundary: function () {
         if (!this.collapsed) {
           while (!domUtils.isBody(this.startContainer) &&
             this.startOffset == this.startContainer[this.startContainer.nodeType == 3 ? 'nodeValue' :
@@ -5917,15 +5917,15 @@
        * <p>xxxx[<strong style="font-size:12px">xxxx</strong>]x</p>
        * ```
        */
-      applyInlineStyle: function(tagName, attrs, list) {
+      applyInlineStyle: function (tagName, attrs, list) {
         if (this.collapsed) return this;
         this.trimBoundary().enlarge(false,
-          function(node) {
+          function (node) {
             return node.nodeType == 1 && domUtils.isBlockElm(node)
           }).adjustmentBoundary();
         var bookmark = this.createBookmark(),
           end = bookmark.end,
-          filterFn = function(node) {
+          filterFn = function (node) {
             return node.nodeType == 1 ? node.tagName.toLowerCase() != 'br' : !domUtils.isWhitespace(node);
           },
           current = domUtils.getNextDomNode(bookmark.start, false, filterFn),
@@ -5938,7 +5938,7 @@
             node = current;
             while (node && (node.nodeType == 3 || dtd[tagName][node.tagName]) && node !== end) {
               pre = node;
-              node = domUtils.getNextDomNode(node, node.nodeType == 1, null, function(parent) {
+              node = domUtils.getNextDomNode(node, node.nodeType == 1, null, function (parent) {
                 return dtd[tagName][parent.tagName];
               });
             }
@@ -5963,7 +5963,7 @@
             //处理下滑线在a上的情况
             var aNode;
             if (tagName == 'span' && attrs.style && /text\-decoration/.test(attrs.style) && (aNode = domUtils.findParentByTagName(
-                elm, 'a', true))) {
+              elm, 'a', true))) {
               domUtils.setAttributes(aNode, attrs);
               domUtils.remove(elm, true);
               elm = aNode;
@@ -6003,7 +6003,7 @@
        * @return { UE.dom.Range } 当前的range对象
        * @see UE.dom.Range:removeInlineStyle(String)
        */
-      removeInlineStyle: function(tagNames) {
+      removeInlineStyle: function (tagNames) {
         if (this.collapsed) return this;
         tagNames = utils.isArray(tagNames) ? tagNames : [tagNames];
         this.shrinkBoundary().adjustmentBoundary();
@@ -6050,12 +6050,12 @@
           domUtils.clearEmptySibling(end, false, true);
           end.parentNode.insertBefore(bookmark.end, end.nextSibling);
         }
-        var current = domUtils.getNextDomNode(bookmark.start, false, function(node) {
-            return node.nodeType == 1;
-          }),
+        var current = domUtils.getNextDomNode(bookmark.start, false, function (node) {
+          return node.nodeType == 1;
+        }),
           next;
         while (current && current !== bookmark.end) {
-          next = domUtils.getNextDomNode(current, true, function(node) {
+          next = domUtils.getNextDomNode(current, true, function (node) {
             return node.nodeType == 1;
           });
           if (utils.indexOf(tagNames, current.tagName.toLowerCase()) > -1) {
@@ -6071,7 +6071,7 @@
        * @method  getClosedNode
        * @return { Node | NULL } 如果当前选中的是自闭合节点， 则返回该节点， 否则返回NULL
        */
-      getClosedNode: function() {
+      getClosedNode: function () {
         var node;
         if (!this.collapsed) {
           var range = this.cloneRange().adjustmentBoundary().shrinkBoundary();
@@ -6091,7 +6091,7 @@
        * @return { UE.dom.Range } 返回当前Range对象
        */
       //这里不区分ie9以上，trace:3824
-      select: browser.ie ? function(noFillData, textRange) {
+      select: browser.ie ? function (noFillData, textRange) {
         var nativeRange;
         if (!this.collapsed)
           this.shrinkBoundary();
@@ -6101,7 +6101,7 @@
             nativeRange = this.document.body.createControlRange();
             nativeRange.addElement(node);
             nativeRange.select();
-          } catch (e) {}
+          } catch (e) { }
           return this;
         }
         var bookmark = this.createBookmark(),
@@ -6137,9 +6137,9 @@
         //IE在隐藏状态下不支持range操作，catch一下
         try {
           nativeRange.select();
-        } catch (e) {}
+        } catch (e) { }
         return this;
-      } : function(notInsertFillData) {
+      } : function (notInsertFillData) {
         function checkOffset(rng) {
 
           function check(node, offset, dir) {
@@ -6239,7 +6239,7 @@
        * @param { Number } offset 距离range开始位置处的偏移量， 如果为正数， 则向下偏移， 反之， 则向上偏移
        * @return { UE.dom.Range } 当前Range对象
        */
-      scrollToView: function(win, offset) {
+      scrollToView: function (win, offset) {
         win = win ? window : domUtils.getWindow(this.document);
         var me = this,
           span = me.document.createElement('span');
@@ -6257,7 +6257,7 @@
        * @method inFillChar
        * @return { Boolean } 如果是占位符返回true，否则返回false
        */
-      inFillChar: function() {
+      inFillChar: function () {
         var start = this.startContainer;
         if (this.collapsed && start.nodeType == 3 &&
           start.nodeValue.replace(new RegExp('^' + domUtils.fillChar), '').length + 1 == start.nodeValue.length
@@ -6291,15 +6291,15 @@
        * </body>
        * ```
        */
-      createAddress: function(ignoreEnd, ignoreTxt) {
+      createAddress: function (ignoreEnd, ignoreTxt) {
         var addr = {},
           me = this;
 
         function getAddress(isStart) {
           var node = isStart ? me.startContainer : me.endContainer;
-          var parents = domUtils.findParents(node, true, function(node) {
-              return !domUtils.isBody(node)
-            }),
+          var parents = domUtils.findParents(node, true, function (node) {
+            return !domUtils.isBody(node)
+          }),
             addrs = [];
           for (var i = 0, ci; ci = parents[i++];) {
             addrs.push(domUtils.getNodeIndex(ci, ignoreTxt));
@@ -6381,7 +6381,7 @@
        * </body>
        * ```
        */
-      moveToAddress: function(addr, ignoreEnd) {
+      moveToAddress: function (addr, ignoreEnd) {
         var me = this;
 
         function getNode(address, isStart) {
@@ -6421,7 +6421,7 @@
        * @param { UE.dom.Range } 需要判断的Range对象
        * @return { Boolean } 如果给定的Range对象与当前Range对象表示的是同一个选区， 则返回true， 否则返回false
        */
-      equals: function(rng) {
+      equals: function (rng) {
         for (var p in this) {
           if (this.hasOwnProperty(p)) {
             if (this[p] !== rng[p])
@@ -6512,7 +6512,7 @@
        * </script>
        * ```
        */
-      traversal: function(doFn, filterFn) {
+      traversal: function (doFn, filterFn) {
         if (this.collapsed)
           return this;
         var bookmark = this.createBookmark(),
@@ -6543,7 +6543,7 @@
    * @module UE.dom
    * @class Selection
    */
-  (function() {
+  (function () {
 
     function getBoundaryInformation(range, start) {
       var getIndex = domUtils.getNodeIndex;
@@ -6673,21 +6673,21 @@
       return null;
     }
 
-    var Selection = dom.Selection = function(doc) {
+    var Selection = dom.Selection = function (doc) {
       var me = this,
         iframe;
       me.document = doc;
       if (browser.ie9below) {
         iframe = domUtils.getWindow(doc).frameElement;
-        domUtils.on(iframe, 'beforedeactivate', function() {
+        domUtils.on(iframe, 'beforedeactivate', function () {
           me._bakIERange = me.getIERange();
         });
-        domUtils.on(iframe, 'activate', function() {
+        domUtils.on(iframe, 'activate', function () {
           try {
             if (!_getIERange(me) && me._bakIERange) {
               me._bakIERange.select();
             }
-          } catch (ex) {}
+          } catch (ex) { }
           me._bakIERange = null;
         });
       }
@@ -6696,7 +6696,7 @@
 
     Selection.prototype = {
 
-      rangeInBody: function(rng, txtRange) {
+      rangeInBody: function (rng, txtRange) {
         var node = browser.ie9below || txtRange ? rng.item ? rng.item() : rng.parentElement() : rng.startContainer;
 
         return node === this.document.body || domUtils.inDoc(node, this.document);
@@ -6711,7 +6711,7 @@
        * editor.selection.getNative();
        * ```
        */
-      getNative: function() {
+      getNative: function () {
         var doc = this.document;
         try {
           return !doc ? null : browser.ie9below ? doc.selection : domUtils.getWindow(doc).getSelection();
@@ -6729,7 +6729,7 @@
        * editor.selection.getIERange();
        * ```
        */
-      getIERange: function() {
+      getIERange: function () {
         var ieRange = _getIERange(this);
         if (!ieRange) {
           if (this._bakIERange) {
@@ -6743,7 +6743,7 @@
        * 缓存当前选区的range和选区的开始节点
        * @method cache
        */
-      cache: function() {
+      cache: function () {
         this.clear();
         this._cachedRange = this.getRange();
         this._cachedStartElement = this.getStart();
@@ -6759,7 +6759,7 @@
        * editor.selection.getStartElementPath();
        * ```
        */
-      getStartElementPath: function() {
+      getStartElementPath: function () {
         if (this._cachedStartElementPath) {
           return this._cachedStartElementPath;
         }
@@ -6774,7 +6774,7 @@
        * 清空缓存
        * @method clear
        */
-      clear: function() {
+      clear: function () {
         this._cachedStartElementPath = this._cachedRange = this._cachedStartElement = null;
       },
 
@@ -6782,7 +6782,7 @@
        * 编辑器是否得到了选区
        * @method isFocus
        */
-      isFocus: function() {
+      isFocus: function () {
         try {
           if (browser.ie9below) {
 
@@ -6806,7 +6806,7 @@
        * editor.selection.getRange();
        * ```
        */
-      getRange: function() {
+      getRange: function () {
         var me = this;
 
         function optimze(range) {
@@ -6872,7 +6872,7 @@
        * editor.selection.getStart();
        * ```
        */
-      getStart: function() {
+      getStart: function () {
         if (this._cachedStartElement) {
           return this._cachedStartElement;
         }
@@ -6922,7 +6922,7 @@
        * editor.selection.getText();
        * ```
        */
-      getText: function() {
+      getText: function () {
         var nativeSel, nativeRange;
         if (this.isFocus() && (nativeSel = this.getNative())) {
           nativeRange = browser.ie9below ? nativeSel.createRange() : nativeSel.getRangeAt(0);
@@ -6939,7 +6939,7 @@
        * editor.selection.clearRange();
        * ```
        */
-      clearRange: function() {
+      clearRange: function () {
         this.getNative()[browser.ie9below ? 'empty' : 'removeAllRanges']();
       }
     };
@@ -6967,7 +6967,7 @@
    * @class Editor
    */
 
-  (function() {
+  (function () {
     var uid = 0,
       _selectionChangeTimer;
 
@@ -6999,7 +6999,7 @@
         }));
         //不要产生多个textarea
         editor.textarea = textarea;
-      }!textarea.getAttribute('name') && textarea.setAttribute('name', editor.options.textarea);
+      } !textarea.getAttribute('name') && textarea.setAttribute('name', editor.options.textarea);
       textarea.value = editor.hasContents() ?
         (editor.options.allHtmlEnabled ? editor.getAllHtml() : editor.getContent(null, null, true)) :
         ''
@@ -7175,7 +7175,7 @@
      * ```
      * @see UE.Config
      */
-    var Editor = UE.Editor = function(options) {
+    var Editor = UE.Editor = function (options) {
       var me = this;
       me.uid = uid++;
       EventBase.call(me);
@@ -7202,7 +7202,7 @@
           tag: "script",
           type: "text/javascript",
           defer: "defer"
-        }, function() {
+        }, function () {
           UE.plugin.load(me);
           langReadied(me);
         });
@@ -7211,7 +7211,7 @@
       UE.instants['ueditorInstant' + me.uid] = me;
     };
     Editor.prototype = {
-      registerCommand: function(name, obj) {
+      registerCommand: function (name, obj) {
         this.commands[name] = obj;
       },
       /**
@@ -7228,7 +7228,7 @@
        * ```
        * @see UE.Editor.event:ready
        */
-      ready: function(fn) {
+      ready: function (fn) {
         var me = this;
         if (fn) {
           me.isReady ? fn.apply(me) : me.addListener('ready', fn);
@@ -7261,7 +7261,7 @@
        * } );
        * ```
        */
-      setOpt: function(key, val) {
+      setOpt: function (key, val) {
         var obj = {};
         if (utils.isString(key)) {
           obj[key] = val
@@ -7270,7 +7270,7 @@
         }
         utils.extend(this.options, obj, true);
       },
-      getOpt: function(key) {
+      getOpt: function (key) {
         return this.options[key]
       },
       /**
@@ -7281,7 +7281,7 @@
        * editor.destroy();
        * ```
        */
-      destroy: function() {
+      destroy: function () {
 
         var me = this;
         me.fireEvent('destroy');
@@ -7325,10 +7325,10 @@
        * @remind 执行该方法,会触发ready事件
        * @warning 必须且只能调用一次
        */
-      render: function(container) {
+      render: function (container) {
         var me = this,
           options = me.options,
-          getStyleValue = function(attr) {
+          getStyleValue = function (attr) {
             return parseInt(domUtils.getComputedStyle(container, attr));
           };
         if (utils.isString(container)) {
@@ -7379,12 +7379,12 @@
             //先注释掉了，加的原因忘记了，但开启会直接导致全屏模式下内容多时不会出现滚动条
             //                    scrolling :'no',
             src: 'javascript:void(function(){document.open();' + (options.customDomain && document.domain !=
-                location.hostname ? 'document.domain="' + document.domain + '";' : '') +
+              location.hostname ? 'document.domain="' + document.domain + '";' : '') +
               'document.write("' + html + '");document.close();}())'
           }));
           container.style.overflow = 'hidden';
           //解决如果是给定的百分比，会导致高度算不对的问题
-          setTimeout(function() {
+          setTimeout(function () {
             if (/%$/.test(options.initialFrameWidth)) {
               options.minFrameWidth = options.initialFrameWidth = container.offsetWidth;
               //如果这里给定宽度，会导致ie在拖动窗口大小时，编辑区域不随着变化
@@ -7404,7 +7404,7 @@
        * @private
        * @param { Element } doc 编辑器Iframe中的文档对象
        */
-      _setup: function(doc) {
+      _setup: function (doc) {
 
         var me = this,
           options = me.options;
@@ -7432,11 +7432,11 @@
           if (form.tagName == 'FORM') {
             me.form = form;
             if (me.options.autoSyncData) {
-              domUtils.on(me.window, 'blur', function() {
+              domUtils.on(me.window, 'blur', function () {
                 setValue(form, me);
               });
             } else {
-              domUtils.on(form, 'submit', function() {
+              domUtils.on(form, 'submit', function () {
                 setValue(this, me);
               });
             }
@@ -7446,7 +7446,7 @@
         if (options.initialContent) {
           if (options.autoClearinitialContent) {
             var oldExecCommand = me.execCommand;
-            me.execCommand = function() {
+            me.execCommand = function () {
               me.fireEvent('firstBeforeExecCommand');
               return oldExecCommand.apply(me, arguments);
             };
@@ -7462,7 +7462,7 @@
         }
         //如果要求focus, 就把光标定位到内容开始
         if (options.focus) {
-          setTimeout(function() {
+          setTimeout(function () {
             me.focus(me.options.focusInEnd);
             //如果自动清除开着，就不需要做selectionchange;
             !me.options.autoClearinitialContent && me._selectionChange();
@@ -7477,13 +7477,13 @@
 
         try {
           me.document.execCommand('2D-position', false, false);
-        } catch (e) {}
+        } catch (e) { }
         try {
           me.document.execCommand('enableInlineTableEditing', false, false);
-        } catch (e) {}
+        } catch (e) { }
         try {
           me.document.execCommand('enableObjectResizing', false, false);
-        } catch (e) {}
+        } catch (e) { }
 
         //挂接快捷键
         me._bindshortcutKeys();
@@ -7491,7 +7491,7 @@
         me.fireEvent('ready');
         options.onready && options.onready.call(me);
         if (!browser.ie9below) {
-          domUtils.on(me.window, ['blur', 'focus'], function(e) {
+          domUtils.on(me.window, ['blur', 'focus'], function (e) {
             //chrome下会出现alt+tab切换时，导致选区位置不对
             if (e.type == 'blur') {
               me._bakRange = me.selection.getRange();
@@ -7505,7 +7505,7 @@
             } else {
               try {
                 me._bakRange && me._bakRange.select();
-              } catch (e) {}
+              } catch (e) { }
             }
           });
         }
@@ -7513,10 +7513,10 @@
         if (browser.gecko && browser.version <= 10902) {
           //修复ff3.6初始化进来，不能点击获得焦点
           me.body.contentEditable = false;
-          setTimeout(function() {
+          setTimeout(function () {
             me.body.contentEditable = true;
           }, 100);
-          setInterval(function() {
+          setInterval(function () {
             me.body.style.height = me.iframe.offsetHeight - 20 + 'px'
           }, 100)
         }
@@ -7543,12 +7543,12 @@
        * @method sync
        * @param { String } formID 指定一个要同步数据的form的id,编辑器的数据会同步到你指定form下
        */
-      sync: function(formId) {
+      sync: function (formId) {
         var me = this,
           form = formId ? document.getElementById(formId) :
-          domUtils.findParent(me.iframe.parentNode, function(node) {
-            return node.tagName == 'FORM'
-          }, true);
+            domUtils.findParent(me.iframe.parentNode, function (node) {
+              return node.tagName == 'FORM'
+            }, true);
         form && setValue(form, me);
       },
 
@@ -7562,10 +7562,10 @@
        * editor.setHeight(number);
        * ```
        */
-      setHeight: function(height, notSetHeight) {
+      setHeight: function (height, notSetHeight) {
         if (height !== parseInt(this.iframe.parentNode.style.height)) {
           this.iframe.parentNode.style.height = height + 'px';
-        }!notSetHeight && (this.options.minFrameHeight = this.options.initialFrameHeight = height);
+        } !notSetHeight && (this.options.minFrameHeight = this.options.initialFrameHeight = height);
         this.body.style.height = height + 'px';
         !notSetHeight && this.trigger('setHeight')
       },
@@ -7593,7 +7593,7 @@
        * editor.addshortcutkey("Underline", "ctrl+85"); //^U
        * ```
        */
-      addshortcutkey: function(cmd, keys) {
+      addshortcutkey: function (cmd, keys) {
         var obj = {};
         if (keys) {
           obj[cmd] = keys
@@ -7608,10 +7608,10 @@
        * @method _bindshortcutKeys
        * @private
        */
-      _bindshortcutKeys: function() {
+      _bindshortcutKeys: function () {
         var me = this,
           shortcutkeys = this.shortcutkeys;
-        me.addListener('keydown', function(type, e) {
+        me.addListener('keydown', function (type, e) {
           var keyCode = e.keyCode || e.which;
           for (var i in shortcutkeys) {
             var tmp = shortcutkeys[i].split(',');
@@ -7621,9 +7621,9 @@
                 param = ti[1];
               if (/^(ctrl)(\+shift)?\+(\d+)$/.test(key.toLowerCase()) || /^(\d+)$/.test(key)) {
                 if (((RegExp.$1 == 'ctrl' ? (e.ctrlKey || e.metaKey) : 0) &&
-                    (RegExp.$2 != "" ? e[RegExp.$2.slice(1) + "Key"] : 1) &&
-                    keyCode == RegExp.$3
-                  ) ||
+                  (RegExp.$2 != "" ? e[RegExp.$2.slice(1) + "Key"] : 1) &&
+                  keyCode == RegExp.$3
+                ) ||
                   keyCode == RegExp.$1
                 ) {
                   if (me.queryCommandState(i, param) != -1)
@@ -7667,7 +7667,7 @@
        * } );
        * ```
        */
-      getContent: function(cmd, fn, notSetCursor, ignoreBlank, formatter) {
+      getContent: function (cmd, fn, notSetCursor, ignoreBlank, formatter) {
         var me = this;
         if (cmd && utils.isFunction(cmd)) {
           fn = cmd;
@@ -7692,24 +7692,24 @@
        * editor.getAllHtml(); //返回格式大致是: <html><head>...</head><body>...</body></html>
        * ```
        */
-      getAllHtml: function() {
+      getAllHtml: function () {
         var me = this,
           headHtml = [],
           html = '';
         me.fireEvent('getAllHtml', headHtml);
         if (browser.ie && browser.version > 8) {
           var headHtmlForIE9 = '';
-          utils.each(me.document.styleSheets, function(si) {
+          utils.each(me.document.styleSheets, function (si) {
             headHtmlForIE9 += (si.href ? '<link rel="stylesheet" type="text/css" href="' + si.href + '" />' :
               '<style>' + si.cssText + '</style>');
           });
-          utils.each(me.document.getElementsByTagName('script'), function(si) {
+          utils.each(me.document.getElementsByTagName('script'), function (si) {
             headHtmlForIE9 += si.outerHTML;
           });
 
         }
         return '<html><head>' + (me.options.charset ?
-            '<meta http-equiv="Content-Type" content="text/html; charset=' + me.options.charset + '"/>' : '') +
+          '<meta http-equiv="Content-Type" content="text/html; charset=' + me.options.charset + '"/>' : '') +
           (headHtmlForIE9 || me.document.getElementsByTagName('head')[0].innerHTML) + headHtml.join('\n') +
           '</head>' +
           '<body ' + (ie && browser.version < 9 ? 'class="view"' : '') + '>' + me.getContent(null, null, true) +
@@ -7726,13 +7726,13 @@
        * console.log(editor.getPlainTxt()); //输出:"1\n2\n
        * ```
        */
-      getPlainTxt: function() {
+      getPlainTxt: function () {
         var reg = new RegExp(domUtils.fillChar, 'g'),
           html = this.body.innerHTML.replace(/[\n\r]/g, ''); //ie要先去了\n在处理
         html = html.replace(/<(p|div)[^>]*>(<br\/?>|&nbsp;)<\/\1>/gi, '\n')
           .replace(/<br\/?>/gi, '\n')
           .replace(/<[^>/]+>/g, '')
-          .replace(/(\n)?<\/([^>]+)>/g, function(a, b, c) {
+          .replace(/(\n)?<\/([^>]+)>/g, function (a, b, c) {
             return dtd.$block[c] ? '\n' : b ? b : '';
           });
         //取出来的空格会有c2a0会变成乱码，处理这种情况\u00a0
@@ -7749,7 +7749,7 @@
        * console.log(editor.getPlainTxt()); //输出:"12
        * ```
        */
-      getContentTxt: function() {
+      getContentTxt: function () {
         var reg = new RegExp(domUtils.fillChar, 'g');
         //取出来的空格会有c2a0会变成乱码，处理这种情况\u00a0
         return this.body[browser.ie ? 'innerText' : 'textContent'].replace(reg, '').replace(/\u00a0/g, ' ');
@@ -7780,7 +7780,7 @@
        * editor.setContent('<p>new text</p>', true); //插入的结果是<p>old text</p><p>new text</p>
        * ```
        */
-      setContent: function(html, isAppendTo, notFireSelectionchange) {
+      setContent: function (html, isAppendTo, notFireSelectionchange) {
         var me = this;
 
         me.fireEvent('beforesetcontent', html);
@@ -7810,7 +7810,7 @@
             var p = me.document.createElement('p');
             while (child) {
               while (child && (child.nodeType == 3 || child.nodeType == 1 && dtd.p[child.tagName] && !dtd.$cdata[
-                  child.tagName])) {
+                child.tagName])) {
                 tmpNode = child.nextSibling;
                 p.appendChild(child);
                 child = tmpNode;
@@ -7862,7 +7862,7 @@
        * editor.focus(true)
        * ```
        */
-      focus: function(toEnd) {
+      focus: function (toEnd) {
         try {
           var me = this,
             rng = me.selection.getRange();
@@ -7890,13 +7890,13 @@
 
           }
           this.fireEvent('focus selectionchange');
-        } catch (e) {}
+        } catch (e) { }
 
       },
-      isFocus: function() {
+      isFocus: function () {
         return this.selection.isFocus();
       },
-      blur: function() {
+      blur: function () {
         var sel = this.selection.getNative();
         if (sel.empty && browser.ie) {
           var nativeRng = document.body.createTextRange();
@@ -7915,7 +7915,7 @@
        * @method _initEvents
        * @private
        */
-      _initEvents: function() {
+      _initEvents: function () {
         var me = this,
           doc = me.document,
           win = me.window;
@@ -7924,14 +7924,14 @@
           'mouseover', 'mouseout', 'selectstart'
         ], me._proxyDomEvent);
         domUtils.on(win, ['focus', 'blur'], me._proxyDomEvent);
-        domUtils.on(me.body, 'drop', function(e) {
+        domUtils.on(me.body, 'drop', function (e) {
           //阻止ff下默认的弹出新页面打开图片
           if (browser.gecko && e.stopPropagation) {
             e.stopPropagation();
           }
           me.fireEvent('contentchange')
         });
-        domUtils.on(doc, ['mouseup', 'keydown'], function(evt) {
+        domUtils.on(doc, ['mouseup', 'keydown'], function (evt) {
           //特殊键不触发selectionchange
           if (evt.type == 'keydown' && (evt.ctrlKey || evt.metaKey || evt.shiftKey || evt.altKey)) {
             return;
@@ -7947,7 +7947,7 @@
        * @return { * } fireEvent的返回值
        * @see UE.EventBase:fireEvent(String)
        */
-      _proxyDomEvent: function(evt) {
+      _proxyDomEvent: function (evt) {
         if (this.fireEvent('before' + evt.type.replace(/^on/, '').toLowerCase()) === false) {
           return false;
         }
@@ -7961,7 +7961,7 @@
        * @method _selectionChange
        * @private
        */
-      _selectionChange: function(delay, evt) {
+      _selectionChange: function (delay, evt) {
         var me = this;
         //有光标才做selectionchange 为了解决未focus时点击source不能触发更改工具栏状态的问题（source命令notNeedUndo=1）
         //            if ( !me.selection.isFocus() ){
@@ -7980,7 +7980,7 @@
           }
         }
         clearTimeout(_selectionChangeTimer);
-        _selectionChangeTimer = setTimeout(function() {
+        _selectionChangeTimer = setTimeout(function () {
           if (!me.selection || !me.selection.getNative()) {
             return;
           }
@@ -7998,7 +7998,7 @@
           var bakGetIERange;
           if (ieRange) {
             bakGetIERange = me.selection.getIERange;
-            me.selection.getIERange = function() {
+            me.selection.getIERange = function () {
               return ieRange;
             };
           }
@@ -8024,7 +8024,7 @@
        * @param { * } args 传给命令函数的参数
        * @return { * } 返回命令函数运行的返回值
        */
-      _callCmdFn: function(fnName, args) {
+      _callCmdFn: function (fnName, args) {
         var cmdName = args[0].toLowerCase(),
           cmd, cmdFn;
         cmd = this.commands[cmdName] || UE.commands[cmdName];
@@ -8048,7 +8048,7 @@
        * editor.execCommand(cmdName);
        * ```
        */
-      execCommand: function(cmdName) {
+      execCommand: function (cmdName) {
         cmdName = cmdName.toLowerCase();
         var me = this,
           result,
@@ -8089,7 +8089,7 @@
        * ```
        * @see COMMAND.LIST
        */
-      queryCommandState: function(cmdName) {
+      queryCommandState: function (cmdName) {
         return this._callCmdFn('queryCommandState', arguments);
       },
 
@@ -8103,7 +8103,7 @@
        * @grammar editor.queryCommandValue(cmdName)  =>  {*}
        * @see COMMAND.LIST
        */
-      queryCommandValue: function(cmdName) {
+      queryCommandValue: function (cmdName) {
         return this._callCmdFn('queryCommandValue', arguments);
       },
 
@@ -8129,7 +8129,7 @@
        * editor.hasContents(['span']);
        * ```
        */
-      hasContents: function(tags) {
+      hasContents: function (tags) {
         if (tags) {
           for (var i = 0, ci; ci = tags[i++];) {
             if (this.document.getElementsByTagName(ci).length > 0) {
@@ -8162,7 +8162,7 @@
        * editor.reset()
        * ```
        */
-      reset: function() {
+      reset: function () {
         this.fireEvent('reset');
       },
 
@@ -8174,7 +8174,7 @@
        * editor.setEnabled()
        * ```
        */
-      setEnabled: function() {
+      setEnabled: function () {
         var me = this,
           range;
         if (me.body.contentEditable == 'false') {
@@ -8199,7 +8199,7 @@
           me.fireEvent('selectionchange');
         }
       },
-      enable: function() {
+      enable: function () {
         return this.setEnabled();
       },
 
@@ -8226,7 +8226,7 @@
        * editor.setDisabled(['bold','insertimage']); //禁用工具栏中除加粗和插入图片之外的所有功能
        * ```
        */
-      setDisabled: function(except) {
+      setDisabled: function (except) {
         var me = this;
         except = except ? utils.isArray(except) ? except : [except] : [];
         if (me.body.contentEditable == 'true') {
@@ -8236,13 +8236,13 @@
           me.body.contentEditable = false;
           me.bkqueryCommandState = me.queryCommandState;
           me.bkqueryCommandValue = me.queryCommandValue;
-          me.queryCommandState = function(type) {
+          me.queryCommandState = function (type) {
             if (utils.indexOf(except, type) != -1) {
               return me.bkqueryCommandState.apply(me, arguments);
             }
             return -1;
           };
-          me.queryCommandValue = function(type) {
+          me.queryCommandValue = function (type) {
             if (utils.indexOf(except, type) != -1) {
               return me.bkqueryCommandValue.apply(me, arguments);
             }
@@ -8251,7 +8251,7 @@
           me.fireEvent('selectionchange');
         }
       },
-      disable: function(except) {
+      disable: function (except) {
         return this.setDisabled(except);
       },
 
@@ -8261,20 +8261,20 @@
        * @private
        * @param  { String } cont 要存入的内容
        */
-      _setDefaultContent: function() {
+      _setDefaultContent: function () {
         function clear() {
           var me = this;
           if (me.document.getElementById('initContent')) {
             me.body.innerHTML = '<p>' + (ie ? '' : '<br/>') + '</p>';
             me.removeListener('firstBeforeExecCommand focus', clear);
-            setTimeout(function() {
+            setTimeout(function () {
               me.focus();
               me._selectionChange();
             }, 0)
           }
         }
 
-        return function(cont) {
+        return function (cont) {
           var me = this;
           me.body.innerHTML = '<p id="initContent">' + cont + '</p>';
 
@@ -8290,7 +8290,7 @@
        * editor.setShow()
        * ```
        */
-      setShow: function() {
+      setShow: function () {
         var me = this,
           range = me.selection.getRange();
         if (me.container.style.display == 'none') {
@@ -8302,14 +8302,14 @@
             range.setStartAtFirst(me.body).collapse(true)
           }
           //ie下focus实效，所以做了个延迟
-          setTimeout(function() {
+          setTimeout(function () {
             range.select(true);
           }, 100);
           me.container.style.display = '';
         }
 
       },
-      show: function() {
+      show: function () {
         return this.setShow();
       },
       /**
@@ -8320,14 +8320,14 @@
        * editor.setHide()
        * ```
        */
-      setHide: function() {
+      setHide: function () {
         var me = this;
         if (!me.lastBk) {
           me.lastBk = me.selection.getRange().createBookmark(true);
         }
         me.container.style.display = 'none'
       },
-      hide: function() {
+      hide: function () {
         return this.setHide();
       },
 
@@ -8341,7 +8341,7 @@
        * editor.getLang('contextMenu.delete'); //如果当前是中文，那返回是的是'删除'
        * ```
        */
-      getLang: function(path) {
+      getLang: function (path) {
         var lang = UE.I18N[this.options.lang];
         if (!lang) {
           throw Error("not import language file");
@@ -8375,7 +8375,7 @@
        * editor.getContentLength() //返回3
        * ```
        */
-      getContentLength: function(ingoneHtml, tagNames) {
+      getContentLength: function (ingoneHtml, tagNames) {
         var count = this.getContent(false, false, true).length;
         if (ingoneHtml) {
           tagNames = (tagNames || []).concat(['hr', 'img', 'iframe']);
@@ -8400,7 +8400,7 @@
        * });
        * ```
        */
-      addInputRule: function(rule) {
+      addInputRule: function (rule) {
         this.inputRules.push(rule);
       },
 
@@ -8415,7 +8415,7 @@
        * ```
        * @see UE.Editor:addInputRule
        */
-      filterInputRule: function(root) {
+      filterInputRule: function (root) {
         for (var i = 0, ci; ci = this.inputRules[i++];) {
           ci.call(this, root)
         }
@@ -8434,7 +8434,7 @@
        * });
        * ```
        */
-      addOutputRule: function(rule) {
+      addOutputRule: function (rule) {
         this.outputRules.push(rule)
       },
 
@@ -8449,7 +8449,7 @@
        * ```
        * @see UE.Editor:addOutputRule
        */
-      filterOutputRule: function(root) {
+      filterOutputRule: function (root) {
         for (var i = 0, ci; ci = this.outputRules[i++];) {
           ci.call(this, root)
         }
@@ -8468,7 +8468,7 @@
        * editor.getActionUrl('imageManager'); //返回 "/ueditor/php/controller.php?action=listimage"
        * ```
        */
-      getActionUrl: function(action) {
+      getActionUrl: function (action) {
         var actionName = this.getOpt(action) || action,
           imageUrl = this.getOpt('imageUrl'),
           serverUrl = this.getOpt('serverUrl');
@@ -8491,7 +8491,7 @@
 
   // core/Editor.defaultoptions.js
   //维护编辑器一下默认的不在插件中的配置项
-  UE.Editor.defaultOptions = function(editor) {
+  UE.Editor.defaultOptions = function (editor) {
 
     var _url = editor.options.UEDITOR_HOME_URL;
     return {
@@ -8523,11 +8523,11 @@
   };
 
   // core/loadconfig.js
-  (function() {
+  (function () {
 
-    UE.Editor.prototype.loadServerConfig = function() {
+    UE.Editor.prototype.loadServerConfig = function () {
       var me = this;
-      setTimeout(function() {
+      setTimeout(function () {
         try {
           me.options.imageUrl && me.setOpt('serverUrl', me.options.imageUrl.replace(/^(.*[\/]).+([\.].+)$/,
             '$1controller$2'));
@@ -8541,7 +8541,7 @@
           configUrl && UE.ajax.request(configUrl, {
             'method': 'GET',
             'dataType': isJsonp ? 'jsonp' : '',
-            'onsuccess': function(r) {
+            'onsuccess': function (r) {
               try {
                 var config = isJsonp ? r : eval("(" + r.responseText + ")");
                 utils.extend(me.options, config);
@@ -8551,7 +8551,7 @@
                 showErrorMsg(me.getLang('loadconfigFormatError'));
               }
             },
-            'onerror': function() {
+            'onerror': function () {
               showErrorMsg(me.getLang('loadconfigHttpError'));
             }
           });
@@ -8569,15 +8569,15 @@
       }
     };
 
-    UE.Editor.prototype.isServerConfigLoaded = function() {
+    UE.Editor.prototype.isServerConfigLoaded = function () {
       var me = this;
       return me._serverConfigLoaded || false;
     };
 
-    UE.Editor.prototype.afterConfigReady = function(handler) {
+    UE.Editor.prototype.afterConfigReady = function (handler) {
       if (!handler || !utils.isFunction(handler)) return;
       var me = this;
-      var readyHandler = function() {
+      var readyHandler = function () {
         handler.apply(me, arguments);
         me.removeListener('serverConfigLoaded', readyHandler);
       };
@@ -8603,7 +8603,7 @@
    * 提供对ajax请求的支持
    * @module UE.ajax
    */
-  UE.ajax = function() {
+  UE.ajax = function () {
 
     //创建一个ajaxRequest对象
     var fnStr = 'XMLHttpRequest()';
@@ -8614,7 +8614,7 @@
       try {
         new ActiveXObject("Microsoft.XMLHTTP");
         fnStr = 'ActiveXObject(\'Microsoft.XMLHTTP\')'
-      } catch (e) {}
+      } catch (e) { }
     }
     var creatAjaxRequest = new Function('return new ' + fnStr);
 
@@ -8653,8 +8653,8 @@
           timeout: 5000,
           async: true,
           data: {}, //需要传递对象的话只能覆盖
-          onsuccess: function() {},
-          onerror: function() {}
+          onsuccess: function () { },
+          onerror: function () { }
         };
 
       if (typeof url === "object") {
@@ -8670,7 +8670,7 @@
         submitStr += (submitStr ? "&" : "") + json2str(ajaxOpts.data);
       }
       //超时检测
-      var timerID = setTimeout(function() {
+      var timerID = setTimeout(function () {
         if (xhr.readyState != 4) {
           timeIsOut = true;
           xhr.abort();
@@ -8682,7 +8682,7 @@
       var str = url + (url.indexOf("?") == -1 ? "?" : "&") + (method == "POST" ? "" : submitStr + "&noCache=" + +
         new Date);
       xhr.open(method, str, ajaxOpts.async);
-      xhr.onreadystatechange = function() {
+      xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {
           if (!timeIsOut && xhr.status == 200) {
             ajaxOpts.onsuccess(xhr);
@@ -8701,7 +8701,7 @@
 
     function doJsonp(url, opts) {
 
-      var successhandler = opts.onsuccess || function() {},
+      var successhandler = opts.onsuccess || function () { },
         scr = document.createElement('SCRIPT'),
         options = opts || {},
         charset = options['charset'],
@@ -8753,7 +8753,7 @@
       }
 
       function getCallBack(onTimeOut) {
-        return function() {
+        return function () {
           try {
             if (onTimeOut) {
               options.onerror && options.onerror();
@@ -8761,7 +8761,7 @@
               try {
                 clearTimeout(timer);
                 successhandler.apply(window, arguments);
-              } catch (e) {}
+              } catch (e) { }
             }
           } catch (exception) {
             options.onerror && options.onerror.call(window, exception);
@@ -8771,7 +8771,7 @@
             window[callbackFnName] = null;
             try {
               delete window[callbackFnName];
-            } catch (e) {}
+            } catch (e) { }
           }
         }
       }
@@ -8835,14 +8835,14 @@
        * } );
        * ```
        */
-      request: function(url, opts) {
+      request: function (url, opts) {
         if (opts && opts.dataType == 'jsonp') {
           doJsonp(url, opts);
         } else {
           doAjax(url, opts);
         }
       },
-      getJSONP: function(url, data, fn) {
+      getJSONP: function (url, data, fn) {
         var opts = {
           'data': data,
           'oncomplete': fn
@@ -8879,7 +8879,7 @@
    * UE.filterWord(html);
    * ```
    */
-  var filterWord = UE.filterWord = function() {
+  var filterWord = UE.filterWord = function () {
 
     //是否是word过来的内容
     function isWordDocument(str) {
@@ -8887,7 +8887,7 @@
     }
     //去掉小数
     function transUnit(v) {
-      v = v.replace(/[\d.]+\w+/g, function(m) {
+      v = v.replace(/[\d.]+\w+/g, function (m) {
         return utils.transUnitToPx(m);
       });
       return v;
@@ -8897,7 +8897,7 @@
       return str.replace(/[\t\r\n]+/g, ' ')
         .replace(/<!--[\s\S]*?-->/ig, "")
         //转换图片
-        .replace(/<v:shape [^>]*>[\s\S]*?.<\/v:shape>/gi, function(str) {
+        .replace(/<v:shape [^>]*>[\s\S]*?.<\/v:shape>/gi, function (str) {
           //opera能自己解析出image所这里直接返回空
           if (browser.opera) {
             return '';
@@ -8925,24 +8925,24 @@
           "")
         .replace(/<p [^>]*class="?MsoHeading"?[^>]*>(.*?)<\/p>/gi, "<p><strong>$1</strong></p>")
         //去掉多余的属性
-        .replace(/\s+(class|lang|align)\s*=\s*(['"]?)([\w-]+)\2/ig, function(str, name, marks, val) {
+        .replace(/\s+(class|lang|align)\s*=\s*(['"]?)([\w-]+)\2/ig, function (str, name, marks, val) {
           //保留list的标示
           return name == 'class' && val == 'MsoListParagraph' ? str : ''
         })
         //清除多余的font/span不能匹配&nbsp;有可能是空格
-        .replace(/<(font|span)[^>]*>(\s*)<\/\1>/gi, function(a, b, c) {
+        .replace(/<(font|span)[^>]*>(\s*)<\/\1>/gi, function (a, b, c) {
           return c.replace(/[\t\r\n ]+/g, ' ')
         })
         //处理style的问题
-        .replace(/(<[a-z][^>]*)\sstyle=(["'])([^\2]*?)\2/gi, function(str, tag, tmp, style) {
+        .replace(/(<[a-z][^>]*)\sstyle=(["'])([^\2]*?)\2/gi, function (str, tag, tmp, style) {
           var n = [],
             s = style.replace(/^\s+|\s+$/, '')
-            .replace(/&#39;/g, '\'')
-            .replace(/&quot;/gi, "'")
-            .replace(/[\d.]+(cm|pt)/g, function(str) {
-              return utils.transUnitToPx(str)
-            })
-            .split(/;\s*/g);
+              .replace(/&#39;/g, '\'')
+              .replace(/&quot;/gi, "'")
+              .replace(/[\d.]+(cm|pt)/g, function (str) {
+                return utils.transUnitToPx(str)
+              })
+              .split(/;\s*/g);
 
           for (var i = 0, v; v = s[i]; i++) {
 
@@ -8969,8 +8969,8 @@
                 case "mso-margin-right-alt":
                 case "mso-margin-bottom-alt":
                 case "mso-margin-left-alt":
-                  //ie下会出现挤到一起的情况
-                  //case "mso-table-layout-alt":
+                //ie下会出现挤到一起的情况
+                //case "mso-table-layout-alt":
                 case "mso-height":
                 case "mso-width":
                 case "mso-vertical-align-alt":
@@ -9018,8 +9018,8 @@
                     n[i] = "display:none";
                   }
                   continue;
-                  //                                case 'background':
-                  //                                    break;
+                //                                case 'background':
+                //                                    break;
                 case 'margin':
                   if (!/[1-9]/.test(value)) {
                     continue;
@@ -9029,7 +9029,7 @@
 
               if (
                 /^(mso|column|font-emph|lang|layout|line-break|list-image|nav|panose|punct|row|ruby|sep|size|src|tab-|table-border|text-(?:decor|trans)|top-bar|version|vnd|word-break)/
-                .test(name) ||
+                  .test(name) ||
                 /text\-indent|padding|margin/.test(name) && /\-[\d.]+/.test(value)
               ) {
                 continue;
@@ -9044,7 +9044,7 @@
 
     }
 
-    return function(html) {
+    return function (html) {
       return (isWordDocument(html) ? filterPasteWord(html) : html);
     };
   }();
@@ -9064,7 +9064,7 @@
    * @module UE
    */
 
-  (function() {
+  (function () {
 
     /**
      * 编辑器模拟的节点类
@@ -9086,7 +9086,7 @@
      * }
      * ```
      */
-    var uNode = UE.uNode = function(obj) {
+    var uNode = UE.uNode = function (obj) {
       this.type = obj.type;
       this.data = obj.data;
       this.tagName = obj.tagName;
@@ -9125,7 +9125,7 @@
 
     //创建uNode的静态方法
     //支持标签和html
-    uNode.createElement = function(html) {
+    uNode.createElement = function (html) {
       if (/[<>]/.test(html)) {
         return UE.htmlparser(html).children[0]
       } else {
@@ -9136,7 +9136,7 @@
         })
       }
     };
-    uNode.createText = function(data, noTrans) {
+    uNode.createText = function (data, noTrans) {
       return new UE.uNode({
         type: 'text',
         'data': noTrans ? data : utils.unhtml(data || '')
@@ -9190,7 +9190,7 @@
           //有可能做的不够
           attrhtml.push(a + (attrs[a] !== undefined ? '="' + (notTransAttrs[a] ? utils.html(attrs[a]).replace(
             /["]/g,
-            function(a) {
+            function (a) {
               return '&quot;'
             }) : utils.unhtml(attrs[a])) + '"' : ''))
         }
@@ -9298,7 +9298,7 @@
        * node.toHtml( true );
        * ```
        */
-      toHtml: function(formatter) {
+      toHtml: function (formatter) {
         var arr = [];
         nodeToHtml(this, arr, formatter, 0);
         return arr.join('')
@@ -9326,7 +9326,7 @@
        * node.innerHTML('<span>text</span>');
        * ```
        */
-      innerHTML: function(htmlstr) {
+      innerHTML: function (htmlstr) {
         if (this.type != 'element' || dtd.$empty[this.tagName]) {
           return this;
         }
@@ -9374,7 +9374,7 @@
        * node.innerText('<span>text</span>');
        * ```
        */
-      innerText: function(textStr, noTrans) {
+      innerText: function (textStr, noTrans) {
         if (this.type != 'element' || dtd.$empty[this.tagName]) {
           return this;
         }
@@ -9401,7 +9401,7 @@
        * node.getData();
        * ```
        */
-      getData: function() {
+      getData: function () {
         if (this.type == 'element')
           return '';
         return this.data
@@ -9416,7 +9416,7 @@
        * node.firstChild(); //返回第一个子节点
        * ```
        */
-      firstChild: function() {
+      firstChild: function () {
         //            if (this.type != 'element' || dtd.$empty[this.tagName]) {
         //                return this;
         //            }
@@ -9432,7 +9432,7 @@
        * node.lastChild(); //返回最后一个子节点
        * ```
        */
-      lastChild: function() {
+      lastChild: function () {
         //            if (this.type != 'element' || dtd.$empty[this.tagName] ) {
         //                return this;
         //            }
@@ -9448,7 +9448,7 @@
        * node.children[2].previousSibling(); //返回子节点node.children[1]
        * ```
        */
-      previousSibling: function() {
+      previousSibling: function () {
         var parent = this.parentNode;
         for (var i = 0, ci; ci = parent.children[i]; i++) {
           if (ci === this) {
@@ -9467,7 +9467,7 @@
        * node.children[2].nextSibling(); //如果有，返回子节点node.children[3]
        * ```
        */
-      nextSibling: function() {
+      nextSibling: function () {
         var parent = this.parentNode;
         for (var i = 0, ci; ci = parent.children[i++];) {
           if (ci === this) {
@@ -9487,7 +9487,7 @@
        * node.replaceChild(newNode, childNode); //用newNode替换childNode,childNode是node的子节点
        * ```
        */
-      replaceChild: function(target, source) {
+      replaceChild: function (target, source) {
         if (this.children) {
           if (target.parentNode) {
             target.parentNode.removeChild(target);
@@ -9513,7 +9513,7 @@
        * node.appendChild( newNode ); //在node内插入子节点newNode
        * ```
        */
-      appendChild: function(node) {
+      appendChild: function (node) {
         if (this.type == 'root' || (this.type == 'element' && !dtd.$empty[this.tagName])) {
           if (!this.children) {
             this.children = []
@@ -9546,7 +9546,7 @@
        * node.parentNode.insertBefore(newNode, node); //在node节点后面插入newNode
        * ```
        */
-      insertBefore: function(target, source) {
+      insertBefore: function (target, source) {
         if (this.children) {
           if (target.parentNode) {
             target.parentNode.removeChild(target);
@@ -9573,7 +9573,7 @@
        * node.parentNode.insertAfter(newNode, node); //在node节点后面插入newNode
        * ```
        */
-      insertAfter: function(target, source) {
+      insertAfter: function (target, source) {
         if (this.children) {
           if (target.parentNode) {
             target.parentNode.removeChild(target);
@@ -9600,7 +9600,7 @@
        * node.removeChild(childNode,true); //在node的子节点列表中移除child节点，并且吧child的子节点插入到移除的位置
        * ```
        */
-      removeChild: function(node, keepChildren) {
+      removeChild: function (node, keepChildren) {
         if (this.children) {
           for (var i = 0, ci; ci = this.children[i]; i++) {
             if (ci === node) {
@@ -9629,7 +9629,7 @@
        * node.getAttr('title');
        * ```
        */
-      getAttr: function(attrName) {
+      getAttr: function (attrName) {
         return this.attrs && this.attrs[attrName.toLowerCase()]
       },
 
@@ -9644,7 +9644,7 @@
        * node.setAttr('title','标题');
        * ```
        */
-      setAttr: function(attrName, attrVal) {
+      setAttr: function (attrName, attrVal) {
         if (!attrName) {
           delete this.attrs;
           return;
@@ -9679,7 +9679,7 @@
        * node.getIndex();
        * ```
        */
-      getIndex: function() {
+      getIndex: function () {
         var parent = this.parentNode;
         for (var i = 0, ci; ci = parent.children[i]; i++) {
           if (ci === this) {
@@ -9699,7 +9699,7 @@
        * node.getNodeById('textId');
        * ```
        */
-      getNodeById: function(id) {
+      getNodeById: function (id) {
         var node;
         if (this.children && this.children.length) {
           for (var i = 0, ci; ci = this.children[i++];) {
@@ -9720,11 +9720,11 @@
        * node.getNodesByTagName('span');
        * ```
        */
-      getNodesByTagName: function(tagNames) {
+      getNodesByTagName: function (tagNames) {
         tagNames = utils.trim(tagNames).replace(/[ ]{2,}/g, ' ').split(' ');
         var arr = [],
           me = this;
-        utils.each(tagNames, function(tagName) {
+        utils.each(tagNames, function (tagName) {
           if (me.children && me.children.length) {
             for (var i = 0, ci; ci = me.children[i++];) {
               getNodesByTagName(ci, tagName, arr)
@@ -9744,7 +9744,7 @@
        * node.getStyle('font-size');
        * ```
        */
-      getStyle: function(name) {
+      getStyle: function (name) {
         var cssStyle = this.getAttr('style');
         if (!cssStyle) {
           return ''
@@ -9767,7 +9767,7 @@
        * node.setStyle('font-size', '12px');
        * ```
        */
-      setStyle: function(name, val) {
+      setStyle: function (name, val) {
         function exec(name, val) {
           var reg = new RegExp('(^|;)\\s*' + name + ':([^;]+;?)', 'gi');
           cssStyle = cssStyle.replace(reg, '$1');
@@ -9802,7 +9802,7 @@
        * });
        * ```
        */
-      traversal: function(fn) {
+      traversal: function (fn) {
         if (this.children && this.children.length) {
           nodeTraversal(this, fn);
         }
@@ -9838,7 +9838,7 @@
    * ```
    */
 
-  var htmlparser = UE.htmlparser = function(htmlstr, ignoreBlank) {
+  var htmlparser = UE.htmlparser = function (htmlstr, ignoreBlank) {
     //todo 原来的方式  [^"'<>\/] 有\/就不能配对上 <TD vAlign=top background=../AAA.JPG> 这样的标签了
     //先去掉了，加上的原因忘了，这里先记录
     var re_tag =
@@ -9873,14 +9873,14 @@
     htmlstr = htmlstr.replace(new RegExp(domUtils.fillChar, 'g'), '');
     if (!ignoreBlank) {
       htmlstr = htmlstr.replace(new RegExp('[\\r\\t\\n' + (ignoreBlank ? '' : ' ') +
-        ']*<\/?(\\w+)\\s*(?:[^>]*)>[\\r\\t\\n' + (ignoreBlank ? '' : ' ') + ']*', 'g'), function(a, b) {
-        //br暂时单独处理
-        if (b && allowEmptyTags[b.toLowerCase()]) {
-          return a.replace(/(^[\n\r]+)|([\n\r]+$)/g, '');
-        }
-        return a.replace(new RegExp('^[\\r\\n' + (ignoreBlank ? '' : ' ') + ']+'), '').replace(new RegExp(
-          '[\\r\\n' + (ignoreBlank ? '' : ' ') + ']+$'), '');
-      });
+        ']*<\/?(\\w+)\\s*(?:[^>]*)>[\\r\\t\\n' + (ignoreBlank ? '' : ' ') + ']*', 'g'), function (a, b) {
+          //br暂时单独处理
+          if (b && allowEmptyTags[b.toLowerCase()]) {
+            return a.replace(/(^[\n\r]+)|([\n\r]+$)/g, '');
+          }
+          return a.replace(new RegExp('^[\\r\\n' + (ignoreBlank ? '' : ' ') + ']+'), '').replace(new RegExp(
+            '[\\r\\n' + (ignoreBlank ? '' : ' ') + ']+$'), '');
+        });
     }
 
     var notTransAttrs = {
@@ -10026,7 +10026,7 @@
           //comment
           comment(currentParent, match[2])
         }
-      } catch (e) {}
+      } catch (e) { }
 
       nextIndex = re_tag.lastIndex;
 
@@ -10064,7 +10064,7 @@
    * UE.filterNode(root,editor.options.filterRules);
    * ```
    */
-  var filterNode = UE.filterNode = function() {
+  var filterNode = UE.filterNode = function () {
     function filterNode(node, rules) {
       switch (node.type) {
         case 'text':
@@ -10107,7 +10107,7 @@
                   //todo 只先对style单独处理
                   if (a == 'style' && utils.isArray(attrs[a])) {
                     var tmpCssStyle = [];
-                    utils.each(attrs[a], function(v) {
+                    utils.each(attrs[a], function (v) {
                       var tmp;
                       if (tmp = node.getStyle(v)) {
                         tmpCssStyle.push(v + ':' + tmp);
@@ -10153,13 +10153,13 @@
       }
 
     }
-    return function(root, rules) {
+    return function (root, rules) {
       if (utils.isEmptyObject(rules)) {
         return root;
       }
       var val;
       if (val = rules['-']) {
-        utils.each(val.split(' '), function(k) {
+        utils.each(val.split(' '), function (k) {
           rules[k] = '-'
         })
       }
@@ -10181,10 +10181,10 @@
    * Time: 6:15 PM
    * To change this template use File | Settings | File Templates.
    */
-  UE.plugin = function() {
+  UE.plugin = function () {
     var _plugins = {};
     return {
-      register: function(pluginName, fn, oldOptionName, afterDisabled) {
+      register: function (pluginName, fn, oldOptionName, afterDisabled) {
         if (oldOptionName && utils.isFunction(oldOptionName)) {
           afterDisabled = oldOptionName;
           oldOptionName = null
@@ -10196,32 +10196,32 @@
           afterDisabled: afterDisabled
         }
       },
-      load: function(editor) {
-        utils.each(_plugins, function(plugin) {
+      load: function (editor) {
+        utils.each(_plugins, function (plugin) {
           var _export = plugin.execFn.call(editor);
           if (editor.options[plugin.optionName] !== false) {
             if (_export) {
               //后边需要再做扩展
-              utils.each(_export, function(v, k) {
+              utils.each(_export, function (v, k) {
                 switch (k.toLowerCase()) {
                   case 'shortcutkey':
                     editor.addshortcutkey(v);
                     break;
                   case 'bindevents':
-                    utils.each(v, function(fn, eventName) {
+                    utils.each(v, function (fn, eventName) {
                       editor.addListener(eventName, fn);
                     });
                     break;
                   case 'bindmultievents':
-                    utils.each(utils.isArray(v) ? v : [v], function(event) {
+                    utils.each(utils.isArray(v) ? v : [v], function (event) {
                       var types = utils.trim(event.type).split(/\s+/);
-                      utils.each(types, function(eventName) {
+                      utils.each(types, function (eventName) {
                         editor.addListener(eventName, event.handler);
                       });
                     });
                     break;
                   case 'commands':
-                    utils.each(v, function(execFn, execName) {
+                    utils.each(v, function (execFn, execName) {
                       editor.commands[execName] = execFn
                     });
                     break;
@@ -10243,11 +10243,11 @@
 
         });
         //向下兼容
-        utils.each(UE.plugins, function(plugin) {
+        utils.each(UE.plugins, function (plugin) {
           plugin.call(editor);
         });
       },
-      run: function(pluginName, editor) {
+      run: function (pluginName, editor) {
         var plugin = _plugins[pluginName];
         if (plugin) {
           plugin.exeFn.call(editor)
@@ -10308,14 +10308,14 @@
 
   // core/localstorage.js
   //存储媒介封装
-  var LocalStorage = UE.LocalStorage = (function() {
+  var LocalStorage = UE.LocalStorage = (function () {
 
     var storage = window.localStorage || getUserData() || null,
       LOCAL_FILE = 'localStorage';
 
     return {
 
-      saveLocalData: function(key, data) {
+      saveLocalData: function (key, data) {
 
         if (storage && data) {
           storage.setItem(key, data);
@@ -10326,7 +10326,7 @@
 
       },
 
-      getLocalData: function(key) {
+      getLocalData: function (key) {
 
         if (storage) {
           return storage.getItem(key);
@@ -10336,7 +10336,7 @@
 
       },
 
-      removeItem: function(key) {
+      removeItem: function (key) {
 
         storage && storage.removeItem(key);
 
@@ -10357,7 +10357,7 @@
 
       return {
 
-        getItem: function(key) {
+        getItem: function (key) {
 
           var result = null;
 
@@ -10366,13 +10366,13 @@
             container.load(LOCAL_FILE);
             result = container.getAttribute(key);
             document.body.removeChild(container);
-          } catch (e) {}
+          } catch (e) { }
 
           return result;
 
         },
 
-        setItem: function(key, value) {
+        setItem: function (key, value) {
 
           document.body.appendChild(container);
           container.setAttribute(key, value);
@@ -10393,7 +10393,7 @@
         //
         //},
 
-        removeItem: function(key) {
+        removeItem: function (key) {
 
           document.body.appendChild(container);
           container.removeAttribute(key);
@@ -10408,11 +10408,11 @@
 
   })();
 
-  (function() {
+  (function () {
 
     var ROOTKEY = 'ueditor_preference';
 
-    UE.Editor.prototype.setPreferences = function(key, value) {
+    UE.Editor.prototype.setPreferences = function (key, value) {
       var obj = {};
       if (utils.isString(key)) {
         obj[key] = value;
@@ -10428,7 +10428,7 @@
       data && LocalStorage.saveLocalData(ROOTKEY, utils.json2str(data));
     };
 
-    UE.Editor.prototype.getPreferences = function(key) {
+    UE.Editor.prototype.getPreferences = function (key) {
       var data = LocalStorage.getLocalData(ROOTKEY);
       if (data && (data = utils.str2json(data))) {
         return key ? data[key] : data
@@ -10436,7 +10436,7 @@
       return null;
     };
 
-    UE.Editor.prototype.removePreferences = function(key) {
+    UE.Editor.prototype.removePreferences = function (key) {
       var data = LocalStorage.getLocalData(ROOTKEY);
       if (data && (data = utils.str2json(data))) {
         data[key] = undefined;
@@ -10452,7 +10452,7 @@
   ///import core
   ///plugin 编辑器默认的过滤转换机制
 
-  UE.plugins['defaultfilter'] = function() {
+  UE.plugins['defaultfilter'] = function () {
     var me = this;
     me.setOpt({
       'allowDivTransToP': true,
@@ -10460,7 +10460,7 @@
     });
     //默认的过滤处理
     //进入编辑器的内容处理
-    me.addInputRule(function(root) {
+    me.addInputRule(function (root) {
       var allowDivTransToP = this.options.allowDivTransToP;
       var val;
 
@@ -10474,7 +10474,7 @@
         return false;
       }
       //进行默认的处理
-      root.traversal(function(node) {
+      root.traversal(function (node) {
         if (node.type == 'element') {
           if (!dtd.$cdata[node.tagName] && me.options.autoClearEmptyNode && dtd.$inline[node.tagName] && !
             dtd.$empty[node.tagName] && (!node.attrs || utils.isEmptyObject(node.attrs))) {
@@ -10537,7 +10537,7 @@
               //
               //                        }
               //p标签不允许嵌套
-              utils.each(node.children, function(n) {
+              utils.each(node.children, function (n) {
                 if (n.type == 'element' && n.tagName == 'p') {
                   var next = n.nextSibling();
                   node.parentNode.insertAfter(n, node);
@@ -10598,7 +10598,7 @@
                 node.setAttr()
               }
               var tmpNodes = node.getNodesByTagName('ol ul');
-              UE.utils.each(tmpNodes, function(n) {
+              UE.utils.each(tmpNodes, function (n) {
                 node.parentNode.insertAfter(n, node);
               });
               break;
@@ -10625,14 +10625,14 @@
     });
 
     //从编辑器出去的内容处理
-    me.addOutputRule(function(root) {
+    me.addOutputRule(function (root) {
 
       var val;
-      root.traversal(function(node) {
+      root.traversal(function (node) {
         if (node.type == 'element') {
 
           if (me.options.autoClearEmptyNode && dtd.$inline[node.tagName] && !dtd.$empty[node.tagName] && (!
-              node.attrs || utils.isEmptyObject(node.attrs))) {
+            node.attrs || utils.isEmptyObject(node.attrs))) {
 
             if (!node.firstChild()) node.parentNode.removeChild(node);
             else if (node.tagName == 'span' && (!node.attrs || utils.isEmptyObject(node.attrs))) {
@@ -10716,7 +10716,7 @@
    */
 
   UE.commands['inserthtml'] = {
-    execCommand: function(command, html, notNeedFilter) {
+    execCommand: function (command, html, notNeedFilter) {
       var me = this,
         range,
         div;
@@ -10771,7 +10771,7 @@
 
             }
           }
-        }!range.collapsed && range.deleteContents();
+        } !range.collapsed && range.deleteContents();
         if (range.startContainer.nodeType == 1) {
           var child = range.startContainer.childNodes[range.startOffset],
             pre;
@@ -10860,11 +10860,11 @@
           nextNode = child.nextSibling;
           if (!hadBreak && child.nodeType == domUtils.NODE_ELEMENT && domUtils.isBlockElm(child)) {
 
-            parent = domUtils.findParent(child, function(node) {
+            parent = domUtils.findParent(child, function (node) {
               return domUtils.isBlockElm(node);
             });
             if (parent && parent.tagName.toLowerCase() != 'body' && !(dtd[parent.tagName][child.nodeName] &&
-                child.parentNode === parent)) {
+              child.parentNode === parent)) {
               if (!dtd[parent.tagName][child.nodeName]) {
                 pre = parent;
               } else {
@@ -10934,13 +10934,13 @@
         //加上true因为在删除表情等时会删两次，第一次是删的fillData
         try {
           range.select(true);
-        } catch (e) {}
+        } catch (e) { }
 
       }
 
 
 
-      setTimeout(function() {
+      setTimeout(function () {
         range = me.selection.getRange();
         range.scrollToView(me.autoHeightEnabled, me.autoHeightEnabled ? domUtils.getXY(me.iframe).y : 0);
         me.fireEvent('afterinserthtml', html);
@@ -10967,7 +10967,7 @@
    * ```
    */
 
-  UE.plugins['autotypeset'] = function() {
+  UE.plugins['autotypeset'] = function () {
 
     this.setOpt({
       'autotypeset': {
@@ -11148,9 +11148,9 @@
                 }
                 tmpNode = pN;
                 if (tmpNode.tagName == 'P' && domUtils.getStyle(tmpNode, 'text-align') == 'center') {
-                  if (!domUtils.isBody(tmpNode) && domUtils.getChildCount(tmpNode, function(node) {
-                      return !domUtils.isBr(node) && !domUtils.isWhitespace(node)
-                    }) == 1) {
+                  if (!domUtils.isBody(tmpNode) && domUtils.getChildCount(tmpNode, function (node) {
+                    return !domUtils.isBr(node) && !domUtils.isWhitespace(node)
+                  }) == 1) {
                     pre = tmpNode.previousSibling;
                     next = tmpNode.nextSibling;
                     if (pre && next && pre.nodeType == 1 && next.nodeType == 1 && pre.tagName == next.tagName &&
@@ -11177,9 +11177,9 @@
                   pN = img.parentNode;
                   domUtils.setStyle(img, 'float', 'none');
                   tmpNode = img;
-                  while (pN && domUtils.getChildCount(pN, function(node) {
-                      return !domUtils.isBr(node) && !domUtils.isWhitespace(node)
-                    }) == 1 &&
+                  while (pN && domUtils.getChildCount(pN, function (node) {
+                    return !domUtils.isBr(node) && !domUtils.isWhitespace(node)
+                  }) == 1 &&
                     (dtd.$inline[pN.tagName] || pN.tagName == 'A')) {
                     tmpNode = pN;
                     pN = pN.parentNode;
@@ -11208,14 +11208,14 @@
         //去掉冗余的标签
         if (opt.removeEmptyNode) {
           if (opt.removeTagNames[ci.tagName.toLowerCase()] && domUtils.hasNoAttributes(ci) && domUtils.isEmptyBlock(
-              ci)) {
+            ci)) {
             domUtils.remove(ci);
           }
         }
       }
       if (opt.tobdc) {
         var root = UE.htmlparser(cont.innerHTML);
-        root.traversal(function(node) {
+        root.traversal(function (node) {
           if (node.type == 'text') {
             node.data = ToDBC(node.data)
           }
@@ -11224,7 +11224,7 @@
       }
       if (opt.bdc2sb) {
         var root = UE.htmlparser(cont.innerHTML);
-        root.traversal(function(node) {
+        root.traversal(function (node) {
           if (node.type == 'text') {
             node.data = DBC2SB(node.data)
           }
@@ -11278,7 +11278,7 @@
     }
 
     me.commands['autotypeset'] = {
-      execCommand: function() {
+      execCommand: function () {
         me.removeListener('beforepaste', autotype);
         if (opt.pasteFilter) {
           me.addListener('beforepaste', autotype);
@@ -11310,14 +11310,14 @@
    * ```
    */
 
-  UE.plugin.register('autosubmit', function() {
+  UE.plugin.register('autosubmit', function () {
     return {
       shortcutkey: {
         "autosubmit": "ctrl+13" //手动提交
       },
       commands: {
         'autosubmit': {
-          execCommand: function() {
+          execCommand: function () {
             var me = this,
               form = domUtils.findParentByTagName(me.iframe, "form", false);
             if (form) {
@@ -11339,7 +11339,7 @@
    * @file
    * @since 1.2.6.1
    */
-  UE.plugin.register('background', function() {
+  UE.plugin.register('background', function () {
     var me = this,
       cssRuleId = 'editor_background',
       isSetColored,
@@ -11348,7 +11348,7 @@
     function stringToObj(str) {
       var obj = {},
         styles = str.split(';');
-      utils.each(styles, function(v) {
+      utils.each(styles, function (v) {
         var index = v.indexOf(':'),
           key = utils.trim(v.substr(0, index)).toLowerCase();
         key && (obj[key] = utils.trim(v.substr(index + 1) || ''));
@@ -11372,7 +11372,7 @@
     //重写editor.hasContent方法
 
     var orgFn = me.hasContents;
-    me.hasContents = function() {
+    me.hasContents = function () {
       if (me.queryCommandValue('background')) {
         return true
       }
@@ -11380,7 +11380,7 @@
     };
     return {
       bindEvents: {
-        'getAllHtml': function(type, headHtml) {
+        'getAllHtml': function (type, headHtml) {
           var body = this.body,
             su = domUtils.getComputedStyle(body, "background-image"),
             url = "";
@@ -11396,7 +11396,7 @@
             'background-repeat': domUtils.getComputedStyle(body, "background-repeat") || "",
             'background-position': browser.ie ? (domUtils.getComputedStyle(body, "background-position-x") +
               " " + domUtils.getComputedStyle(body, "background-position-y")) : domUtils.getComputedStyle(
-              body, "background-position"),
+                body, "background-position"),
             'height': domUtils.getComputedStyle(body, "height")
           };
           for (var name in bgObj) {
@@ -11407,13 +11407,13 @@
           html += '}</style> ';
           headHtml.push(html);
         },
-        'aftersetcontent': function() {
+        'aftersetcontent': function () {
           if (isSetColored == false) setBackground();
         }
       },
-      inputRule: function(root) {
+      inputRule: function (root) {
         isSetColored = false;
-        utils.each(root.getNodesByTagName('p'), function(p) {
+        utils.each(root.getNodesByTagName('p'), function (p) {
           var styles = p.getAttr('data-background');
           if (styles) {
             isSetColored = true;
@@ -11422,7 +11422,7 @@
           }
         })
       },
-      outputRule: function(root) {
+      outputRule: function (root) {
         var me = this,
           styles = (utils.cssRule(cssRuleId, me.document) || '').replace(/[\n\r]+/g, '').match(reg);
         if (styles) {
@@ -11432,10 +11432,10 @@
       },
       commands: {
         'background': {
-          execCommand: function(cmd, obj) {
+          execCommand: function (cmd, obj) {
             setBackground(obj);
           },
-          queryCommandValue: function() {
+          queryCommandValue: function () {
             var me = this,
               styles = (utils.cssRule(cssRuleId, me.document) || '').replace(/[\n\r]+/g, '').match(reg);
             return styles ? stringToObj(styles[1]) : null;
@@ -11480,7 +11480,7 @@
    */
 
   UE.commands['imagefloat'] = {
-    execCommand: function(cmd, align) {
+    execCommand: function (cmd, align) {
       var me = this,
         range = me.selection.getRange();
       if (!range.collapsed) {
@@ -11497,9 +11497,9 @@
               }
               tmpNode = pN;
               if (tmpNode.tagName == 'P' && domUtils.getStyle(tmpNode, 'text-align') == 'center') {
-                if (!domUtils.isBody(tmpNode) && domUtils.getChildCount(tmpNode, function(node) {
-                    return !domUtils.isBr(node) && !domUtils.isWhitespace(node);
-                  }) == 1) {
+                if (!domUtils.isBody(tmpNode) && domUtils.getChildCount(tmpNode, function (node) {
+                  return !domUtils.isBr(node) && !domUtils.isWhitespace(node);
+                }) == 1) {
                   pre = tmpNode.previousSibling;
                   next = tmpNode.nextSibling;
                   if (pre && next && pre.nodeType == 1 && next.nodeType == 1 && pre.tagName == next.tagName &&
@@ -11531,9 +11531,9 @@
                 domUtils.setStyle(img, 'float', '');
                 domUtils.removeAttributes(img, 'align');
                 tmpNode = img;
-                while (pN && domUtils.getChildCount(pN, function(node) {
-                    return !domUtils.isBr(node) && !domUtils.isWhitespace(node);
-                  }) == 1 &&
+                while (pN && domUtils.getChildCount(pN, function (node) {
+                  return !domUtils.isBr(node) && !domUtils.isWhitespace(node);
+                }) == 1 &&
                   (dtd.$inline[pN.tagName] || pN.tagName == 'A')) {
                   tmpNode = pN;
                   pN = pN.parentNode;
@@ -11564,7 +11564,7 @@
         }
       }
     },
-    queryCommandValue: function() {
+    queryCommandValue: function () {
       var range = this.selection.getRange(),
         startNode, floatStyle;
       if (range.collapsed) {
@@ -11582,13 +11582,13 @@
           left: 1,
           right: 1,
           center: 1
-        } [floatStyle] ? floatStyle: 'none';
+        }[floatStyle] ? floatStyle : 'none';
       }
       return 'none';
 
 
     },
-    queryCommandState: function() {
+    queryCommandState: function () {
       var range = this.selection.getRange(),
         startNode;
 
@@ -11634,7 +11634,7 @@
    */
 
   UE.commands['insertimage'] = {
-    execCommand: function(cmd, opt) {
+    execCommand: function (cmd, opt) {
 
       opt = utils.isArray(opt) ? opt : [opt];
       if (!opt.length) {
@@ -11650,20 +11650,20 @@
 
       function unhtmlData(imgCi) {
 
-        utils.each('width,height,border,hspace,vspace'.split(','), function(item) {
+        utils.each('width,height,border,hspace,vspace'.split(','), function (item) {
 
           if (imgCi[item]) {
             imgCi[item] = parseInt(imgCi[item], 10) || 0;
           }
         });
 
-        utils.each('src,_src'.split(','), function(item) {
+        utils.each('src,_src'.split(','), function (item) {
 
           if (imgCi[item]) {
             imgCi[item] = utils.unhtmlForUrl(imgCi[item]);
           }
         });
-        utils.each('title,alt'.split(','), function(item) {
+        utils.each('title,alt'.split(','), function (item) {
 
           if (imgCi[item]) {
             imgCi[item] = utils.unhtml(imgCi[item]);
@@ -11672,7 +11672,7 @@
       }
 
       if (img && /img/i.test(img.tagName) && (img.className != "edui-faked-video" || img.className.indexOf(
-          "edui-upload-video") != -1) && !img.getAttribute("word_img")) {
+        "edui-upload-video") != -1) && !img.getAttribute("word_img")) {
         var first = opt.shift();
         var floatStyle = first['floatStyle'];
         delete first['floatStyle'];
@@ -11740,12 +11740,12 @@
    */
 
   UE.commands['image'] = {
-    execCommand: function(cmdName) {
+    execCommand: function (cmdName) {
       var me = this;
-      openUpload(function(images) {
+      openUpload(function (images) {
         var html = [];
-        images.forEach(function(item) {
-          html.push('<p><img src="' + item.file_path + '" width="100%"></p>');
+        images.forEach(function (item) {
+          html.push('<p><img src="' + item.filePath + '" width="100%"></p>');
         });
         me.execCommand('insertHtml', html.join(''), true);
       });
@@ -11783,7 +11783,7 @@
    * ```
    */
 
-  UE.plugins['justify'] = function() {
+  UE.plugins['justify'] = function () {
     var me = this,
       block = domUtils.isBlockElm,
       defaultValue = {
@@ -11792,9 +11792,9 @@
         center: 1,
         justify: 1
       },
-      doJustify = function(range, style) {
+      doJustify = function (range, style) {
         var bookmark = range.createBookmark(),
-          filterFn = function(node) {
+          filterFn = function (node) {
             return node.nodeType == 1 ? node.tagName.toLowerCase() != 'br' && !domUtils.isBookmarkNode(node) : !
               domUtils.isWhitespace(node);
           };
@@ -11809,7 +11809,7 @@
             tmpRange.setStartBefore(current);
             while (current && current !== bookmark2.end && !block(current)) {
               tmpNode = current;
-              current = domUtils.getNextDomNode(current, false, null, function(node) {
+              current = domUtils.getNextDomNode(current, false, null, function (node) {
                 return !block(node);
               });
             }
@@ -11839,7 +11839,7 @@
       };
 
     UE.commands['justify'] = {
-      execCommand: function(cmdName, align) {
+      execCommand: function (cmdName, align) {
         var range = this.selection.getRange(),
           txt;
 
@@ -11859,12 +11859,12 @@
 
         return true;
       },
-      queryCommandValue: function() {
+      queryCommandValue: function () {
         var startNode = this.selection.getStart(),
           value = domUtils.getComputedStyle(startNode, 'text-align');
         return defaultValue[value] ? value : 'left';
       },
-      queryCommandState: function() {
+      queryCommandState: function () {
         var start = this.selection.getStart(),
           cell = start && domUtils.findParentByTagName(start, ["td", "th", "caption"], true);
 
@@ -12007,7 +12007,7 @@
    * ```
    */
 
-  UE.plugins['font'] = function() {
+  UE.plugins['font'] = function () {
     var me = this,
       fonts = {
         'forecolor': 'color',
@@ -12032,49 +12032,49 @@
       };
     me.setOpt({
       'fontfamily': [{
-          name: 'songti',
-          val: '宋体,SimSun'
-        },
-        {
-          name: 'yahei',
-          val: '微软雅黑,Microsoft YaHei'
-        },
-        {
-          name: 'kaiti',
-          val: '楷体,楷体_GB2312, SimKai'
-        },
-        {
-          name: 'heiti',
-          val: '黑体, SimHei'
-        },
-        {
-          name: 'lishu',
-          val: '隶书, SimLi'
-        },
-        {
-          name: 'andaleMono',
-          val: 'andale mono'
-        },
-        {
-          name: 'arial',
-          val: 'arial, helvetica,sans-serif'
-        },
-        {
-          name: 'arialBlack',
-          val: 'arial black,avant garde'
-        },
-        {
-          name: 'comicSansMs',
-          val: 'comic sans ms'
-        },
-        {
-          name: 'impact',
-          val: 'impact,chicago'
-        },
-        {
-          name: 'timesNewRoman',
-          val: 'times new roman'
-        }
+        name: 'songti',
+        val: '宋体,SimSun'
+      },
+      {
+        name: 'yahei',
+        val: '微软雅黑,Microsoft YaHei'
+      },
+      {
+        name: 'kaiti',
+        val: '楷体,楷体_GB2312, SimKai'
+      },
+      {
+        name: 'heiti',
+        val: '黑体, SimHei'
+      },
+      {
+        name: 'lishu',
+        val: '隶书, SimLi'
+      },
+      {
+        name: 'andaleMono',
+        val: 'andale mono'
+      },
+      {
+        name: 'arial',
+        val: 'arial, helvetica,sans-serif'
+      },
+      {
+        name: 'arialBlack',
+        val: 'arial black,avant garde'
+      },
+      {
+        name: 'comicSansMs',
+        val: 'comic sans ms'
+      },
+      {
+        name: 'impact',
+        val: 'impact,chicago'
+      },
+      {
+        name: 'timesNewRoman',
+        val: 'times new roman'
+      }
       ],
       'fontsize': [10, 11, 12, 14, 16, 18, 20, 24, 36]
     });
@@ -12082,9 +12082,9 @@
     function mergeWithParent(node) {
       var parent;
       while (parent = node.parentNode) {
-        if (parent.tagName == 'SPAN' && domUtils.getChildCount(parent, function(child) {
-            return !domUtils.isBookmarkNode(child) && !domUtils.isBr(child)
-          }) == 1) {
+        if (parent.tagName == 'SPAN' && domUtils.getChildCount(parent, function (child) {
+          return !domUtils.isBookmarkNode(child) && !domUtils.isBr(child)
+        }) == 1) {
           parent.style.cssText += node.style.cssText;
           domUtils.remove(node, true);
           node = parent;
@@ -12103,7 +12103,7 @@
           var start = rng.startContainer.childNodes[rng.startOffset];
           if (start && domUtils.isTagNode(start, 'span')) {
             var bk = rng.createBookmark();
-            utils.each(domUtils.getElementsByTagName(start, 'span'), function(span) {
+            utils.each(domUtils.getElementsByTagName(start, 'span'), function (span) {
               if (!span.parentNode || domUtils.isBookmarkNode(span)) return;
               if (cmdName == 'backcolor' && domUtils.getComputedStyle(span, 'background-color').toLowerCase() ===
                 value) {
@@ -12133,7 +12133,7 @@
       } else {
         common = domUtils.getCommonAncestor(bk.start, bk.end);
       }
-      utils.each(domUtils.getElementsByTagName(common, 'span'), function(span) {
+      utils.each(domUtils.getElementsByTagName(common, 'span'), function (span) {
         if (!span.parentNode || domUtils.isBookmarkNode(span)) return;
         if (/\s*border\s*:\s*none;?\s*/i.test(span.style.cssText)) {
           if (/^\s*border\s*:\s*none;?\s*$/.test(span.style.cssText)) {
@@ -12144,7 +12144,7 @@
           return
         }
         if (/border/i.test(span.style.cssText) && span.parentNode.tagName == 'SPAN' && /border/i.test(span.parentNode
-            .style.cssText)) {
+          .style.cssText)) {
           span.style.cssText = span.style.cssText.replace(/border[^:]*:[^;]+;?/gi, '');
         }
         if (!(cmdName == 'fontborder' && value == 'none')) {
@@ -12169,7 +12169,7 @@
         mergeWithParent(span);
         if (browser.ie && browser.version > 8) {
           //拷贝父亲们的特别的属性,这里只做背景颜色的处理
-          var parent = domUtils.findParent(span, function(n) {
+          var parent = domUtils.findParent(span, function (n) {
             return n.tagName == 'SPAN' && /background-color/.test(n.style.cssText)
           });
           if (parent && !/background-color/.test(span.style.cssText)) {
@@ -12182,8 +12182,8 @@
       mergeChild(rng, cmdName, value)
     }
 
-    me.addInputRule(function(root) {
-      utils.each(root.getNodesByTagName('u s del font strike'), function(node) {
+    me.addInputRule(function (root) {
+      utils.each(root.getNodesByTagName('u s del font strike'), function (node) {
         if (node.tagName == 'font') {
           var cssStyle = [];
           for (var p in node.attrs) {
@@ -12198,7 +12198,7 @@
                     '5': '24',
                     '6': '32',
                     '7': '48'
-                  } [node.attrs[p]] || node.attrs[p]) + 'px');
+                  }[node.attrs[p]] || node.attrs[p]) + 'px');
                 break;
               case 'color':
                 cssStyle.push('color:' + node.attrs[p]);
@@ -12272,12 +12272,12 @@
     //        });
     //    });
     for (var p in fonts) {
-      (function(cmd, style) {
+      (function (cmd, style) {
         UE.commands[cmd] = {
-          execCommand: function(cmdName, value) {
+          execCommand: function (cmdName, value) {
             value = value || (this.queryCommandState(cmdName) ? 'none' : cmdName == 'underline' ? 'underline' :
               cmdName == 'fontborder' ? '1px solid #000' :
-              'line-through');
+                'line-through');
             var me = this,
               range = this.selection.getRange(),
               text;
@@ -12313,7 +12313,7 @@
                 var span = domUtils.findParentByTagName(range.startContainer, 'span', true);
                 text = me.document.createTextNode('font');
                 if (span && !span.children.length && !span[browser.ie ? 'innerText' : 'textContent'].replace(
-                    fillCharReg, '').length) {
+                  fillCharReg, '').length) {
                   //for ie hack when enter
                   range.insertNode(text);
                   if (needCmd[cmd]) {
@@ -12361,7 +12361,7 @@
 
 
                   if (opera) {
-                    setTimeout(function() {
+                    setTimeout(function () {
                       range.setStart(span, 0).collapse(true);
                       mergesibling(range, cmdName, value);
                       range.select();
@@ -12382,7 +12382,7 @@
             }
             return true;
           },
-          queryCommandValue: function(cmdName) {
+          queryCommandValue: function (cmdName) {
             var startNode = this.selection.getStart();
 
             //trace:946
@@ -12432,7 +12432,7 @@
 
             return domUtils.getComputedStyle(startNode, style);
           },
-          queryCommandState: function(cmdName) {
+          queryCommandState: function (cmdName) {
             if (!needCmd[cmdName])
               return 0;
             var val = this.queryCommandValue(cmdName);
@@ -12494,7 +12494,7 @@
    * ```
    */
 
-  UE.plugins['link'] = function() {
+  UE.plugins['link'] = function () {
     function optimize(range) {
       var start = range.startContainer,
         end = range.endContainer;
@@ -12509,7 +12509,7 @@
 
 
     UE.commands['unlink'] = {
-      execCommand: function() {
+      execCommand: function () {
         var range = this.selection.getRange(),
           bookmark;
         if (range.collapsed && !domUtils.findParentByTagName(range.startContainer, 'a', true)) {
@@ -12519,7 +12519,7 @@
         optimize(range);
         range.removeInlineStyle('a').moveToBookmark(bookmark).select();
       },
-      queryCommandState: function() {
+      queryCommandState: function () {
         return !this.highlight && this.queryCommandValue('link') ? 0 : -1;
       }
 
@@ -12533,7 +12533,7 @@
       if (start.nodeType == 1 && link) {
         start = start.childNodes[range.startOffset];
         if (start && start.nodeType == 1 && start.tagName == 'A' && /^(?:https?|ftp|file)\s*:\s*\/\//.test(start[
-            browser.ie ? 'innerText' : 'textContent'])) {
+          browser.ie ? 'innerText' : 'textContent'])) {
           start[browser.ie ? 'innerText' : 'textContent'] = utils.html(opt.textValue || opt.href);
 
         }
@@ -12568,7 +12568,7 @@
       }
     }
     UE.commands['link'] = {
-      execCommand: function(cmdName, opt) {
+      execCommand: function (cmdName, opt) {
         var range;
         opt._href && (opt._href = utils.unhtml(opt._href, /[<">]/g));
         opt.href && (opt.href = utils.unhtml(opt.href, /[<">]/g));
@@ -12578,7 +12578,7 @@
         range.collapse().select(true);
 
       },
-      queryCommandValue: function() {
+      queryCommandValue: function () {
         var range = this.selection.getRange(),
           node;
         if (range.collapsed) {
@@ -12588,7 +12588,7 @@
           node = node.nodeType == 1 ? node : node.parentNode;
 
           if (node && (node = domUtils.findParentByTagName(node, 'a', true)) && !domUtils.isInNodeEndBoundary(
-              range, node)) {
+            range, node)) {
 
             return node;
           }
@@ -12598,7 +12598,7 @@
           var start = range.startContainer.nodeType == 3 || !range.startContainer.childNodes[range.startOffset] ?
             range.startContainer : range.startContainer.childNodes[range.startOffset],
             end = range.endContainer.nodeType == 3 || range.endOffset == 0 ? range.endContainer : range.endContainer
-            .childNodes[range.endOffset - 1],
+              .childNodes[range.endOffset - 1],
             common = range.getCommonAncestor();
           node = domUtils.findParentByTagName(common, 'a', true);
           if (!node && common.nodeType == 1) {
@@ -12620,7 +12620,7 @@
         }
 
       },
-      queryCommandState: function() {
+      queryCommandState: function () {
         //判断如果是视频的话连接不可用
         //fix 853
         var img = this.selection.getRange().getClosedNode(),
@@ -12639,14 +12639,14 @@
   ///commandsTitle  插入Iframe
   ///commandsDialog  dialogs\insertframe
 
-  UE.plugins['insertframe'] = function() {
+  UE.plugins['insertframe'] = function () {
     var me = this;
 
     function deleteIframe() {
       me._iframe && delete me._iframe;
     }
 
-    me.addListener("selectionchange", function() {
+    me.addListener("selectionchange", function () {
       deleteIframe();
     });
 
@@ -12661,7 +12661,7 @@
   ///commandsTitle  涂鸦
   ///commandsDialog  dialogs\scrawl
   UE.commands['scrawl'] = {
-    queryCommandState: function() {
+    queryCommandState: function () {
       return (browser.ie && browser.version <= 8) ? -1 : 0;
     }
   };
@@ -12688,20 +12688,20 @@
    * ```
    */
 
-  UE.plugins['removeformat'] = function() {
+  UE.plugins['removeformat'] = function () {
     var me = this;
     me.setOpt({
       'removeFormatTags': 'b,big,code,del,dfn,em,font,i,ins,kbd,q,samp,small,span,strike,strong,sub,sup,tt,u,var',
       'removeFormatAttributes': 'class,style,lang,width,height,align,hspace,valign'
     });
     me.commands['removeformat'] = {
-      execCommand: function(cmdName, tags, style, attrs, notIncludeA) {
+      execCommand: function (cmdName, tags, style, attrs, notIncludeA) {
 
         var tagReg = new RegExp('^(?:' + (tags || this.options.removeFormatTags).replace(/,/g, '|') + ')$', 'i'),
           removeFormatAttributes = style ? [] : (attrs || this.options.removeFormatAttributes).split(','),
           range = new dom.Range(this.document),
           bookmark, node, parent,
-          filter = function(node) {
+          filter = function (node) {
             return node.nodeType == 1;
           };
 
@@ -12886,14 +12886,14 @@
    */
 
 
-  UE.plugins['blockquote'] = function() {
+  UE.plugins['blockquote'] = function () {
     var me = this;
 
     function getObj(editor) {
       return domUtils.filterNodeList(editor.selection.getStartElementPath(), 'blockquote');
     }
     me.commands['blockquote'] = {
-      execCommand: function(cmdName, attrs) {
+      execCommand: function (cmdName, attrs) {
         var range = this.selection.getRange(),
           obj = getObj(this),
           blockquote = dtd.blockquote,
@@ -12902,12 +12902,12 @@
         if (obj) {
 
           var start = range.startContainer,
-            startBlock = domUtils.isBlockElm(start) ? start : domUtils.findParent(start, function(node) {
+            startBlock = domUtils.isBlockElm(start) ? start : domUtils.findParent(start, function (node) {
               return domUtils.isBlockElm(node)
             }),
 
             end = range.endContainer,
-            endBlock = domUtils.isBlockElm(end) ? end : domUtils.findParent(end, function(node) {
+            endBlock = domUtils.isBlockElm(end) ? end : domUtils.findParent(end, function (node) {
               return domUtils.isBlockElm(node)
             });
 
@@ -12917,7 +12917,7 @@
 
 
           if (startBlock.tagName == 'LI' || startBlock.tagName == 'TD' || startBlock === obj || domUtils.isBody(
-              startBlock)) {
+            startBlock)) {
             domUtils.remove(obj, true);
           } else {
             domUtils.breakParent(startBlock, obj);
@@ -12940,7 +12940,7 @@
             if (!bi.childNodes.length) {
               domUtils.remove(bi);
             } else if (domUtils.getPosition(bi, startBlock) & domUtils.POSITION_FOLLOWING && domUtils.getPosition(
-                bi, endBlock) & domUtils.POSITION_PRECEDING) {
+              bi, endBlock) & domUtils.POSITION_PRECEDING) {
               domUtils.remove(bi, true);
             }
           }
@@ -13028,7 +13028,7 @@
         }
         range.moveToBookmark(bookmark).select();
       },
-      queryCommandState: function() {
+      queryCommandState: function () {
         return getObj(this) ? 1 : 0;
       }
     };
@@ -13066,7 +13066,7 @@
    */
   UE.commands['touppercase'] =
     UE.commands['tolowercase'] = {
-      execCommand: function(cmd) {
+      execCommand: function (cmd) {
         var me = this;
         var rng = me.selection.getRange();
         if (rng.collapsed) {
@@ -13074,7 +13074,7 @@
         }
         var bk = rng.createBookmark(),
           bkEnd = bk.end,
-          filterFn = function(node) {
+          filterFn = function (node) {
             return !domUtils.isBr(node) && !domUtils.isWhitespace(node);
           },
           curNode = domUtils.getNextDomNode(bk.start, false, filterFn);
@@ -13113,14 +13113,14 @@
    * ```
    */
   UE.commands['indent'] = {
-    execCommand: function() {
+    execCommand: function () {
       var me = this,
         value = me.queryCommandState("indent") ? "0em" : (me.options.indentValue || '2em');
       me.execCommand('Paragraph', 'p', {
         style: 'text-indent:' + value
       });
     },
-    queryCommandState: function() {
+    queryCommandState: function () {
       var pN = domUtils.filterNodeList(this.selection.getStartElementPath(), 'p h1 h2 h3 h4 h5 h6');
       return pN && pN.style.textIndent && parseInt(pN.style.textIndent) ? 1 : 0;
     }
@@ -13146,7 +13146,7 @@
    * ```
    */
   UE.commands['print'] = {
-    execCommand: function() {
+    execCommand: function () {
       this.window.print();
     },
     notNeedUndo: 1
@@ -13172,7 +13172,7 @@
    * ```
    */
   UE.commands['preview'] = {
-    execCommand: function() {
+    execCommand: function () {
       var w = window.open('', '_blank', ''),
         d = w.document;
       d.open();
@@ -13203,10 +13203,10 @@
    * editor.execCommand( 'selectall' );
    * ```
    */
-  UE.plugins['selectall'] = function() {
+  UE.plugins['selectall'] = function () {
     var me = this;
     me.commands['selectall'] = {
-      execCommand: function() {
+      execCommand: function () {
         //去掉了原生的selectAll,因为会出现报错和当内容为空时，不能出现闭合状态的光标
         var me = this,
           body = me.body,
@@ -13266,14 +13266,14 @@
    * ```
    */
 
-  UE.plugins['paragraph'] = function() {
+  UE.plugins['paragraph'] = function () {
     var me = this,
       block = domUtils.isBlockElm,
       notExchange = ['TD', 'LI', 'PRE'],
 
-      doParagraph = function(range, style, attrs, sourceCmdName) {
+      doParagraph = function (range, style, attrs, sourceCmdName) {
         var bookmark = range.createBookmark(),
-          filterFn = function(node) {
+          filterFn = function (node) {
             return node.nodeType == 1 ? node.tagName.toLowerCase() != 'br' && !domUtils.isBookmarkNode(node) : !
               domUtils.isWhitespace(node);
           },
@@ -13289,7 +13289,7 @@
             tmpRange.setStartBefore(current);
             while (current && current !== bookmark2.end && !block(current)) {
               tmpNode = current;
-              current = domUtils.getNextDomNode(current, false, null, function(node) {
+              current = domUtils.getNextDomNode(current, false, null, function (node) {
                 return !block(node);
               });
             }
@@ -13363,7 +13363,7 @@
       'h6': ''
     });
     me.commands['paragraph'] = {
-      execCommand: function(cmdName, style, attrs, sourceCmdName) {
+      execCommand: function (cmdName, style, attrs, sourceCmdName) {
         var range = this.selection.getRange();
         //闭合时单独处理
         if (range.collapsed) {
@@ -13407,7 +13407,7 @@
 
         return true;
       },
-      queryCommandValue: function() {
+      queryCommandValue: function () {
         var node = domUtils.filterNodeList(this.selection.getStartElementPath(), 'p h1 h2 h3 h4 h5 h6');
         return node ? node.tagName.toLowerCase() : '';
       }
@@ -13421,9 +13421,9 @@
    * @file
    * @since 1.2.6.1
    */
-  (function() {
+  (function () {
     var block = domUtils.isBlockElm,
-      getObj = function(editor) {
+      getObj = function (editor) {
         //            var startNode = editor.selection.getStart(),
         //                parents;
         //            if ( startNode ) {
@@ -13435,15 +13435,15 @@
         //                    }
         //                }
         //            }
-        return domUtils.filterNodeList(editor.selection.getStartElementPath(), function(n) {
+        return domUtils.filterNodeList(editor.selection.getStartElementPath(), function (n) {
           return n && n.nodeType == 1 && n.getAttribute('dir')
         });
 
       },
-      doDirectionality = function(range, editor, forward) {
+      doDirectionality = function (range, editor, forward) {
 
         var bookmark,
-          filterFn = function(node) {
+          filterFn = function (node) {
             return node.nodeType == 1 ? !domUtils.isBookmarkNode(node) : !domUtils.isWhitespace(node);
           },
 
@@ -13464,7 +13464,7 @@
             tmpRange.setStartBefore(current);
             while (current && current !== bookmark2.end && !block(current)) {
               tmpNode = current;
-              current = domUtils.getNextDomNode(current, false, null, function(node) {
+              current = domUtils.getNextDomNode(current, false, null, function (node) {
                 return !block(node);
               });
             }
@@ -13516,7 +13516,7 @@
      * ```
      */
     UE.commands['directionality'] = {
-      execCommand: function(cmdName, forward) {
+      execCommand: function (cmdName, forward) {
         var range = this.selection.getRange();
         //闭合时单独处理
         if (range.collapsed) {
@@ -13532,7 +13532,7 @@
         range.select();
         return true;
       },
-      queryCommandValue: function() {
+      queryCommandValue: function () {
         var node = getObj(this);
         return node ? node.getAttribute('dir') : 'ltr';
       }
@@ -13558,10 +13558,10 @@
    * editor.execCommand( 'horizontal' );
    * ```
    */
-  UE.plugins['horizontal'] = function() {
+  UE.plugins['horizontal'] = function () {
     var me = this;
     me.commands['horizontal'] = {
-      execCommand: function(cmdName) {
+      execCommand: function (cmdName) {
         var me = this;
         if (me.queryCommandState(cmdName) !== -1) {
           me.execCommand('insertHtml', '<hr>');
@@ -13591,7 +13591,7 @@
 
       },
       //边界在table里不能加分隔线
-      queryCommandState: function() {
+      queryCommandState: function () {
         return domUtils.filterNodeList(this.selection.getStartElementPath(), 'table') ? -1 : 0;
       }
     };
@@ -13628,7 +13628,7 @@
     //            }
     //        }
     //    })
-    me.addListener('delkeydown', function(name, evt) {
+    me.addListener('delkeydown', function (name, evt) {
       var rng = this.selection.getRange();
       rng.txtToElmBoundary(true);
       if (domUtils.isStartInblock(rng)) {
@@ -13677,7 +13677,7 @@
    * ```
    */
   UE.commands['time'] = UE.commands["date"] = {
-    execCommand: function(cmd, format) {
+    execCommand: function (cmd, format) {
       var date = new Date;
 
       function formatTime(date, format) {
@@ -13722,7 +13722,7 @@
    * ```
    */
 
-  UE.plugins['rowspacing'] = function() {
+  UE.plugins['rowspacing'] = function () {
     var me = this;
     me.setOpt({
       'rowspacingtop': ['5', '10', '15', '20', '25'],
@@ -13730,16 +13730,16 @@
 
     });
     me.commands['rowspacing'] = {
-      execCommand: function(cmdName, value, dir) {
+      execCommand: function (cmdName, value, dir) {
         this.execCommand('paragraph', 'p', {
           style: 'margin-' + dir + ':' + value + 'px'
         });
         return true;
       },
-      queryCommandValue: function(cmdName, dir) {
-        var pN = domUtils.filterNodeList(this.selection.getStartElementPath(), function(node) {
-            return domUtils.isBlockElm(node)
-          }),
+      queryCommandValue: function (cmdName, dir) {
+        var pN = domUtils.filterNodeList(this.selection.getStartElementPath(), function (node) {
+          return domUtils.isBlockElm(node)
+        }),
           value;
         //trace:1026
         if (pN) {
@@ -13761,7 +13761,7 @@
    * @file
    * @since 1.2.6.1
    */
-  UE.plugins['lineheight'] = function() {
+  UE.plugins['lineheight'] = function () {
     var me = this;
     me.setOpt({
       'lineheight': ['1', '1.5', '1.75', '2', '3', '4', '5']
@@ -13791,14 +13791,14 @@
      */
 
     me.commands['lineheight'] = {
-      execCommand: function(cmdName, value) {
+      execCommand: function (cmdName, value) {
         this.execCommand('paragraph', 'p', {
           style: 'line-height:' + (value == "1" ? "normal" : value + 'em')
         });
         return true;
       },
-      queryCommandValue: function() {
-        var pN = domUtils.filterNodeList(this.selection.getStartElementPath(), function(node) {
+      queryCommandValue: function () {
+        var pN = domUtils.filterNodeList(this.selection.getStartElementPath(), function (node) {
           return domUtils.isBlockElm(node)
         });
         if (pN) {
@@ -13819,9 +13819,9 @@
    * @since 1.2.6.1
    */
 
-  UE.plugins['insertcode'] = function() {
+  UE.plugins['insertcode'] = function () {
     var me = this;
-    me.ready(function() {
+    me.ready(function () {
       utils.cssRule('pre', 'pre{margin:.5em 0;padding:.4em .6em;border-radius:8px;background:#f8f8f8;}',
         me.document)
     });
@@ -13877,7 +13877,7 @@
      */
 
     me.commands['insertcode'] = {
-      execCommand: function(cmd, lang) {
+      execCommand: function (cmd, lang) {
         var me = this,
           rng = me.selection.getRange(),
           pre = domUtils.findParentByTagName(rng.startContainer, 'pre', true);
@@ -13894,14 +13894,14 @@
 
             utils.each(UE.filterNode(UE.htmlparser(div.innerHTML.replace(/[\r\t]/g, '')), me.options.filterTxtRules)
               .children,
-              function(node) {
+              function (node) {
                 if (browser.ie && browser.ie11below && browser.version > 8) {
 
                   if (node.type == 'element') {
                     if (node.tagName == 'br') {
                       code += '\n'
                     } else if (!dtd.$empty[node.tagName]) {
-                      utils.each(node.children, function(cn) {
+                      utils.each(node.children, function (cn) {
                         if (cn.type == 'element') {
                           if (cn.tagName == 'br') {
                             code += '\n'
@@ -13929,7 +13929,7 @@
                       if (node.tagName == 'br') {
                         code += '<br>'
                       } else if (!dtd.$empty[node.tagName]) {
-                        utils.each(node.children, function(cn) {
+                        utils.each(node.children, function (cn) {
                           if (cn.type == 'element') {
                             if (cn.tagName == 'br') {
                               code += '<br>'
@@ -13973,7 +13973,7 @@
           var tmpNode = pre.previousSibling;
 
           if (tmpNode && (tmpNode.nodeType == 3 && tmpNode.nodeValue.length == 1 && browser.ie && browser.version ==
-              6 || domUtils.isEmptyBlock(tmpNode))) {
+            6 || domUtils.isEmptyBlock(tmpNode))) {
 
             domUtils.remove(tmpNode)
           }
@@ -13988,10 +13988,10 @@
 
 
       },
-      queryCommandValue: function() {
+      queryCommandValue: function () {
         var path = this.selection.getStartElementPath();
         var lang = '';
-        utils.each(path, function(node) {
+        utils.each(path, function (node) {
           if (node.nodeName == 'PRE') {
             var match = node.className.match(/brush:([^;]+)/);
             lang = match && match[1] ? match[1] : '';
@@ -14002,11 +14002,11 @@
       }
     };
 
-    me.addInputRule(function(root) {
-      utils.each(root.getNodesByTagName('pre'), function(pre) {
+    me.addInputRule(function (root) {
+      utils.each(root.getNodesByTagName('pre'), function (pre) {
         var brs = pre.getNodesByTagName('br');
         if (brs.length) {
-          browser.ie && browser.ie11below && browser.version > 8 && utils.each(brs, function(br) {
+          browser.ie && browser.ie11below && browser.version > 8 && utils.each(brs, function (br) {
             var txt = UE.uNode.createText('\n');
             br.parentNode.insertBefore(txt, br);
             br.parentNode.removeChild(br);
@@ -14017,7 +14017,7 @@
           return;
         var code = pre.innerText().split(/\n/);
         pre.innerHTML('');
-        utils.each(code, function(c) {
+        utils.each(code, function (c) {
           if (c.length) {
             pre.appendChild(UE.uNode.createText(c));
           }
@@ -14025,10 +14025,10 @@
         })
       })
     });
-    me.addOutputRule(function(root) {
-      utils.each(root.getNodesByTagName('pre'), function(pre) {
+    me.addOutputRule(function (root) {
+      utils.each(root.getNodesByTagName('pre'), function (pre) {
         var code = '';
-        utils.each(pre.children, function(n) {
+        utils.each(pre.children, function (n) {
           if (n.type == 'text') {
             //在ie下文本内容有可能末尾带有\n要去掉
             //trace:3396
@@ -14065,7 +14065,7 @@
     };
     //将queyCommamndState重置
     var orgQuery = me.queryCommandState;
-    me.queryCommandState = function(cmd) {
+    me.queryCommandState = function (cmd) {
       var me = this;
 
       if (!me.notNeedCodeQuery[cmd.toLowerCase()] && me.selection && me.queryCommandValue('insertcode')) {
@@ -14073,7 +14073,7 @@
       }
       return UE.Editor.prototype.queryCommandState.apply(this, arguments)
     };
-    me.addListener('beforeenterkeydown', function() {
+    me.addListener('beforeenterkeydown', function () {
       var rng = me.selection.getRange();
       var pre = domUtils.findParentByTagName(rng.startContainer, 'pre', true);
       if (pre) {
@@ -14186,7 +14186,7 @@
 
     });
 
-    me.addListener('tabkeydown', function(cmd, evt) {
+    me.addListener('tabkeydown', function (cmd, evt) {
       var rng = me.selection.getRange();
       var pre = domUtils.findParentByTagName(rng.startContainer, 'pre', true);
       if (pre) {
@@ -14243,7 +14243,7 @@
     });
 
 
-    me.addListener('beforeinserthtml', function(evtName, html) {
+    me.addListener('beforeinserthtml', function (evtName, html) {
       var me = this,
         rng = me.selection.getRange(),
         pre = domUtils.findParentByTagName(rng.startContainer, 'pre', true);
@@ -14254,12 +14254,12 @@
         var htmlstr = '';
         if (browser.ie && browser.version > 8) {
 
-          utils.each(UE.filterNode(UE.htmlparser(html), me.options.filterTxtRules).children, function(node) {
+          utils.each(UE.filterNode(UE.htmlparser(html), me.options.filterTxtRules).children, function (node) {
             if (node.type == 'element') {
               if (node.tagName == 'br') {
                 htmlstr += '\n'
               } else if (!dtd.$empty[node.tagName]) {
-                utils.each(node.children, function(cn) {
+                utils.each(node.children, function (cn) {
                   if (cn.type == 'element') {
                     if (cn.tagName == 'br') {
                       htmlstr += '\n'
@@ -14286,12 +14286,12 @@
         } else {
           var frag = me.document.createDocumentFragment();
 
-          utils.each(UE.filterNode(UE.htmlparser(html), me.options.filterTxtRules).children, function(node) {
+          utils.each(UE.filterNode(UE.htmlparser(html), me.options.filterTxtRules).children, function (node) {
             if (node.type == 'element') {
               if (node.tagName == 'br') {
                 frag.appendChild(me.document.createElement('br'))
               } else if (!dtd.$empty[node.tagName]) {
-                utils.each(node.children, function(cn) {
+                utils.each(node.children, function (cn) {
                   if (cn.type == 'element') {
                     if (cn.tagName == 'br') {
 
@@ -14328,7 +14328,7 @@
       }
     });
     //方向键的处理
-    me.addListener('keydown', function(cmd, evt) {
+    me.addListener('keydown', function (cmd, evt) {
       var me = this,
         keyCode = evt.keyCode || evt.which;
       if (keyCode == 40) {
@@ -14348,7 +14348,7 @@
       }
     });
     //trace:3395
-    me.addListener('delkeydown', function(type, evt) {
+    me.addListener('delkeydown', function (type, evt) {
       var rng = this.selection.getRange();
       rng.txtToElmBoundary(true);
       var start = rng.startContainer;
@@ -14385,7 +14385,7 @@
    */
 
   UE.commands['cleardoc'] = {
-    execCommand: function(cmdName) {
+    execCommand: function (cmdName) {
       var me = this,
         enterTag = me.options.enterTag,
         range = me.selection.getRange();
@@ -14396,7 +14396,7 @@
         me.body.innerHTML = "<p>" + (ie ? "" : "<br/>") + "</p>";
         range.setStart(me.body.firstChild, 0).setCursor(false, true);
       }
-      setTimeout(function() {
+      setTimeout(function () {
         me.fireEvent("clearDoc");
       }, 0);
 
@@ -14411,11 +14411,11 @@
    * @file
    * @since 1.2.6.1
    */
-  UE.plugin.register('anchor', function() {
+  UE.plugin.register('anchor', function () {
 
     return {
       bindEvents: {
-        'ready': function() {
+        'ready': function () {
           utils.cssRule('anchor',
             '.anchorclass{background: url(\'' +
             this.options.themePath +
@@ -14424,8 +14424,8 @@
             this.document);
         }
       },
-      outputRule: function(root) {
-        utils.each(root.getNodesByTagName('img'), function(a) {
+      outputRule: function (root) {
+        utils.each(root.getNodesByTagName('img'), function (a) {
           var val;
           if (val = a.getAttr('anchorname')) {
             a.tagName = 'a';
@@ -14437,8 +14437,8 @@
           }
         })
       },
-      inputRule: function(root) {
-        utils.each(root.getNodesByTagName('a'), function(a) {
+      inputRule: function (root) {
+        utils.each(root.getNodesByTagName('a'), function (a) {
           var val;
           if ((val = a.getAttr('name')) && !a.getAttr('href')) {
             a.tagName = 'img';
@@ -14466,7 +14466,7 @@
          * ```
          */
         'anchor': {
-          execCommand: function(cmd, name) {
+          execCommand: function (cmd, name) {
             var range = this.selection.getRange(),
               img = range.getClosedNode();
             if (img && img.getAttribute('anchorname')) {
@@ -14508,16 +14508,16 @@
    * To change this template use File | Settings | File Templates.
    */
 
-  UE.plugins['wordcount'] = function() {
+  UE.plugins['wordcount'] = function () {
     var me = this;
     me.setOpt('wordCount', true);
-    me.addListener('contentchange', function() {
+    me.addListener('contentchange', function () {
       me.fireEvent('wordcount');
     });
     var timer;
-    me.addListener('ready', function() {
+    me.addListener('ready', function () {
       var me = this;
-      domUtils.on(me.body, "keyup", function(evt) {
+      domUtils.on(me.body, "keyup", function (evt) {
         var code = evt.keyCode || evt.which,
           //忽略的按键,ctr,alt,shift,方向键
           ignores = {
@@ -14531,7 +14531,7 @@
           };
         if (code in ignores) return;
         clearTimeout(timer);
-        timer = setTimeout(function() {
+        timer = setTimeout(function () {
           me.fireEvent('wordcount');
         }, 200)
       })
@@ -14545,7 +14545,7 @@
    * @file
    * @since 1.2.6.1
    */
-  UE.plugins['pagebreak'] = function() {
+  UE.plugins['pagebreak'] = function () {
     var me = this,
       notBreakTags = ['td'];
     me.setOpt('pageBreakTag', '_ueditor_page_break_tag_');
@@ -14558,13 +14558,13 @@
         while (firstChild && firstChild.nodeType == 1 && domUtils.isEmptyBlock(firstChild)) {
           tmpNode = firstChild;
           firstChild = firstChild.firstChild;
-        }!tmpNode && (tmpNode = node);
+        } !tmpNode && (tmpNode = node);
         domUtils.fillNode(me.document, tmpNode);
       }
     }
     //分页符样式添加
 
-    me.ready(function() {
+    me.ready(function () {
       utils.cssRule('pagebreak',
         '.pagebreak{display:block;clear:both !important;cursor:default !important;width: 100% !important;margin:0;}',
         me.document);
@@ -14573,8 +14573,8 @@
     function isHr(node) {
       return node && node.nodeType == 1 && node.tagName == 'HR' && node.className == 'pagebreak';
     }
-    me.addInputRule(function(root) {
-      root.traversal(function(node) {
+    me.addInputRule(function (root) {
+      root.traversal(function (node) {
         if (node.type == 'text' && node.data == me.options.pageBreakTag) {
           var hr = UE.uNode.createElement(
             '<hr class="pagebreak" noshade="noshade" size="5" style="-webkit-user-select: none;">');
@@ -14583,8 +14583,8 @@
         }
       })
     });
-    me.addOutputRule(function(node) {
-      utils.each(node.getNodesByTagName('hr'), function(n) {
+    me.addOutputRule(function (node) {
+      utils.each(node.getNodesByTagName('hr'), function (n) {
         if (n.getAttr('class') == 'pagebreak') {
           var txt = UE.uNode.createText(me.options.pageBreakTag);
           n.parentNode.insertBefore(txt, n);
@@ -14609,7 +14609,7 @@
      */
 
     me.commands['pagebreak'] = {
-      execCommand: function() {
+      execCommand: function () {
         var range = me.selection.getRange(),
           hr = me.document.createElement('hr');
         domUtils.setAttributes(hr, {
@@ -14715,13 +14715,13 @@
   ///commandsTitle  本地图片引导上传
   ///commandsDialog  dialogs\wordimage
 
-  UE.plugin.register('wordimage', function() {
+  UE.plugin.register('wordimage', function () {
     var me = this,
       images = [];
     return {
       commands: {
         'wordimage': {
-          execCommand: function() {
+          execCommand: function () {
             var images = domUtils.getElementsByTagName(me.body, "img");
             var urlList = [];
             for (var i = 0, ci; ci = images[i++];) {
@@ -14730,7 +14730,7 @@
             }
             return urlList;
           },
-          queryCommandState: function() {
+          queryCommandState: function () {
             images = domUtils.getElementsByTagName(me.body, "img");
             for (var i = 0, ci; ci = images[i++];) {
               if (ci.getAttribute("word_img")) {
@@ -14742,8 +14742,8 @@
           notNeedUndo: true
         }
       },
-      inputRule: function(root) {
-        utils.each(root.getNodesByTagName('img'), function(img) {
+      inputRule: function (root) {
+        utils.each(root.getNodesByTagName('img'), function (img) {
           var attrs = img.attrs,
             flag = parseInt(attrs.width) < 128 || parseInt(attrs.height) < 43,
             opt = me.options,
@@ -14756,7 +14756,7 @@
               word_img: attrs.src,
               src: src,
               'style': 'background:url(' + (flag ? opt.themePath + opt.theme + '/images/word.gif' : opt
-                  .langPath + opt.lang + '/images/localimage.png') +
+                .langPath + opt.lang + '/images/localimage.png') +
                 ') no-repeat center center;border:1px solid #ddd'
             })
           }
@@ -14766,11 +14766,11 @@
   });
 
   // plugins/dragdrop.js
-  UE.plugins['dragdrop'] = function() {
+  UE.plugins['dragdrop'] = function () {
 
     var me = this;
-    me.ready(function() {
-      domUtils.on(this.body, 'dragend', function() {
+    me.ready(function () {
+      domUtils.on(this.body, 'dragend', function () {
         var rng = me.selection.getRange();
         var node = rng.getClosedNode() || me.selection.getStart();
 
@@ -14788,7 +14788,7 @@
 
 
           if ((pre && pre.nodeType == 1 && !domUtils.isEmptyBlock(pre) || !pre) && (!next || next && !
-              domUtils.isEmptyBlock(next))) {
+            domUtils.isEmptyBlock(next))) {
             if (pre && pre.tagName == 'P' && !domUtils.isEmptyBlock(pre)) {
               pre.appendChild(node);
               domUtils.moveChild(next, pre);
@@ -14812,7 +14812,7 @@
 
       })
     });
-    me.addListener('keyup', function(type, evt) {
+    me.addListener('keyup', function (type, evt) {
       var keyCode = evt.keyCode || evt.which;
       if (keyCode == 13) {
         var rng = me.selection.getRange(),
@@ -14856,7 +14856,7 @@
    * ```
    */
 
-  UE.plugins['undo'] = function() {
+  UE.plugins['undo'] = function () {
     var saveSceneTimer;
     var me = this,
       maxUndoCount = me.options.maxUndoCount || 20,
@@ -14897,7 +14897,7 @@
       this.index = 0;
       this.hasUndo = false;
       this.hasRedo = false;
-      this.undo = function() {
+      this.undo = function () {
         if (this.hasUndo) {
           if (!this.list[this.index - 1] && this.list.length == 1) {
             this.reset();
@@ -14912,7 +14912,7 @@
           this.restore(--this.index);
         }
       };
-      this.redo = function() {
+      this.redo = function () {
         if (this.hasRedo) {
           while (this.list[this.index].content == this.list[this.index + 1].content) {
             this.index++;
@@ -14924,7 +14924,7 @@
         }
       };
 
-      this.restore = function() {
+      this.restore = function () {
         var me = this.editor;
         var scene = this.list[this.index];
         var root = UE.htmlparser(scene.content.replace(fillchar, ''));
@@ -14937,7 +14937,7 @@
         me.fireEvent('afterscencerestore');
         //处理undo后空格不展位的问题
         if (browser.ie) {
-          utils.each(domUtils.getElementsByTagName(me.document, 'td th caption p'), function(node) {
+          utils.each(domUtils.getElementsByTagName(me.document, 'td th caption p'), function (node) {
             if (domUtils.isEmptyNode(node)) {
               domUtils.fillNode(me.document, node);
             }
@@ -14947,7 +14947,7 @@
         try {
           var rng = new dom.Range(me.document).moveToAddress(scene.address);
           rng.select(noNeedFillCharTags[rng.startContainer.nodeName.toLowerCase()]);
-        } catch (e) {}
+        } catch (e) { }
 
         this.update();
         this.clearKey();
@@ -14955,7 +14955,7 @@
         me.fireEvent('reset', true);
       };
 
-      this.getScene = function() {
+      this.getScene = function () {
         var me = this.editor;
         var rng = me.selection.getRange(),
           rngAddress = rng.createAddress(false, true);
@@ -14975,7 +14975,7 @@
           content: cont
         }
       };
-      this.save = function(notCompareRange, notSetCursor) {
+      this.save = function (notCompareRange, notSetCursor) {
         clearTimeout(saveSceneTimer);
         var currentScene = this.getScene(notSetCursor),
           lastScene = this.list[this.index];
@@ -15001,18 +15001,18 @@
         this.update();
 
       };
-      this.update = function() {
+      this.update = function () {
         this.hasRedo = !!this.list[this.index + 1];
         this.hasUndo = !!this.list[this.index - 1];
       };
-      this.reset = function() {
+      this.reset = function () {
         this.list = [];
         this.index = 0;
         this.hasUndo = false;
         this.hasRedo = false;
         this.clearKey();
       };
-      this.clearKey = function() {
+      this.clearKey = function () {
         keycont = 0;
         lastKeyCode = null;
       };
@@ -15025,7 +15025,7 @@
       this.undoManger.save();
     }
 
-    me.addListener('saveScene', function() {
+    me.addListener('saveScene', function () {
       var args = Array.prototype.splice.call(arguments, 1);
       this.undoManger.save.apply(this.undoManger, args);
     });
@@ -15033,44 +15033,44 @@
     //    me.addListener('beforeexeccommand', saveScene);
     //    me.addListener('afterexeccommand', saveScene);
 
-    me.addListener('reset', function(type, exclude) {
+    me.addListener('reset', function (type, exclude) {
       if (!exclude) {
         this.undoManger.reset();
       }
     });
     me.commands['redo'] = me.commands['undo'] = {
-      execCommand: function(cmdName) {
+      execCommand: function (cmdName) {
         this.undoManger[cmdName]();
       },
-      queryCommandState: function(cmdName) {
+      queryCommandState: function (cmdName) {
         return this.undoManger['has' + (cmdName.toLowerCase() == 'undo' ? 'Undo' : 'Redo')] ? 0 : -1;
       },
       notNeedUndo: 1
     };
 
     var keys = {
-        //  /*Backspace*/ 8:1, /*Delete*/ 46:1,
-        /*Shift*/
-        16: 1,
-        /*Ctrl*/
-        17: 1,
-        /*Alt*/
-        18: 1,
-        37: 1,
-        38: 1,
-        39: 1,
-        40: 1
+      //  /*Backspace*/ 8:1, /*Delete*/ 46:1,
+      /*Shift*/
+      16: 1,
+      /*Ctrl*/
+      17: 1,
+      /*Alt*/
+      18: 1,
+      37: 1,
+      38: 1,
+      39: 1,
+      40: 1
 
-      },
+    },
       keycont = 0,
       lastKeyCode;
     //输入法状态下不计算字符数
     var inputType = false;
-    me.addListener('ready', function() {
-      domUtils.on(this.body, 'compositionstart', function() {
+    me.addListener('ready', function () {
+      domUtils.on(this.body, 'compositionstart', function () {
         inputType = true;
       });
-      domUtils.on(this.body, 'compositionend', function() {
+      domUtils.on(this.body, 'compositionend', function () {
         inputType = false;
       })
     });
@@ -15081,7 +15081,7 @@
 
     });
     var isCollapsed = true;
-    me.addListener('keydown', function(type, evt) {
+    me.addListener('keydown', function (type, evt) {
 
       var me = this;
       var keyCode = evt.keyCode || evt.which;
@@ -15103,9 +15103,9 @@
           cont.undoManger.save(false, true);
           cont.fireEvent('selectionchange');
         }
-        saveSceneTimer = setTimeout(function() {
+        saveSceneTimer = setTimeout(function () {
           if (inputType) {
-            var interalTimer = setInterval(function() {
+            var interalTimer = setInterval(function () {
               if (!inputType) {
                 save(me);
                 clearInterval(interalTimer)
@@ -15123,7 +15123,7 @@
         }
       }
     });
-    me.addListener('keyup', function(type, evt) {
+    me.addListener('keyup', function (type, evt) {
       var keyCode = evt.keyCode || evt.which;
       if (!keys[keyCode] && !evt.ctrlKey && !evt.metaKey && !evt.shiftKey && !evt.altKey) {
         if (inputType)
@@ -15135,17 +15135,17 @@
       }
     });
     //扩展实例，添加关闭和开启命令undo
-    me.stopCmdUndo = function() {
+    me.stopCmdUndo = function () {
       me.__hasEnterExecCommand = true;
     };
-    me.startCmdUndo = function() {
+    me.startCmdUndo = function () {
       me.__hasEnterExecCommand = false;
     }
   };
 
 
   // plugins/copy.js
-  UE.plugin.register('copy', function() {
+  UE.plugin.register('copy', function () {
 
     var me = this;
 
@@ -15159,7 +15159,7 @@
       var client = me.zeroclipboard = new ZeroClipboard();
 
       // 复制内容
-      client.on('copy', function(e) {
+      client.on('copy', function (e) {
         var client = e.client,
           rng = me.selection.getRange(),
           div = document.createElement('div');
@@ -15170,7 +15170,7 @@
         rng.select();
       });
       // hover事件传递到target
-      client.on('mouseover mouseout', function(e) {
+      client.on('mouseover mouseout', function (e) {
         var target = e.target;
         if (e.type == 'mouseover') {
           domUtils.addClass(target, 'edui-state-hover');
@@ -15179,14 +15179,14 @@
         }
       });
       // flash加载不成功
-      client.on('wrongflash noflash', function() {
+      client.on('wrongflash noflash', function () {
         ZeroClipboard.destroy();
       });
     }
 
     return {
       bindEvents: {
-        'ready': function() {
+        'ready': function () {
           if (!browser.ie) {
             if (window.ZeroClipboard) {
               initZeroClipboard();
@@ -15196,7 +15196,7 @@
                 tag: "script",
                 type: "text/javascript",
                 defer: "defer"
-              }, function() {
+              }, function () {
                 initZeroClipboard();
               });
             }
@@ -15205,7 +15205,7 @@
       },
       commands: {
         'copy': {
-          execCommand: function(cmd) {
+          execCommand: function (cmd) {
             if (!me.document.execCommand('copy')) {
               alert(me.getLang('copymsg'));
             }
@@ -15228,7 +15228,7 @@
    * @description 粘贴
    * @author zhanyi
    */
-  UE.plugins['paste'] = function() {
+  UE.plugins['paste'] = function () {
     function getClipboardData(callback) {
       var doc = this.document;
       if (doc.getElementById('baidu_pastebin')) {
@@ -15252,7 +15252,7 @@
 
       range.selectNodeContents(pastebin).select(true);
 
-      setTimeout(function() {
+      setTimeout(function () {
         if (browser.webkit) {
           for (var i = 0, pastebins = doc.querySelectorAll('#baidu_pastebin'), pi; pi = pastebins[i++];) {
             if (domUtils.isEmptyNode(pi)) {
@@ -15265,7 +15265,7 @@
         }
         try {
           pastebin.parentNode.removeChild(pastebin);
-        } catch (e) {}
+        } catch (e) { }
         range.moveToBookmark(bk).select(true);
         callback(pastebin);
       }, 0);
@@ -15280,27 +15280,27 @@
     var txtContent, htmlContent, address;
 
     function getPureHtml(html) {
-      return html.replace(/<(\/?)([\w\-]+)([^>]*)>/gi, function(a, b, tagName, attrs) {
+      return html.replace(/<(\/?)([\w\-]+)([^>]*)>/gi, function (a, b, tagName, attrs) {
         tagName = tagName.toLowerCase();
         if ({
-            img: 1
-          } [tagName]) {
+          img: 1
+        }[tagName]) {
           return a;
         }
-        attrs = attrs.replace(/([\w\-]*?)\s*=\s*(("([^"]*)")|('([^']*)')|([^\s>]+))/gi, function(str, atr, val) {
+        attrs = attrs.replace(/([\w\-]*?)\s*=\s*(("([^"]*)")|('([^']*)')|([^\s>]+))/gi, function (str, atr, val) {
           if ({
-              'src': 1,
-              'href': 1,
-              'name': 1
-            } [atr.toLowerCase()]) {
+            'src': 1,
+            'href': 1,
+            'name': 1
+          }[atr.toLowerCase()]) {
             return atr + '=' + val + ' '
           }
           return ''
         });
         if ({
-            'span': 1,
-            'div': 1
-          } [tagName]) {
+          'span': 1,
+          'div': 1
+        }[tagName]) {
           return ''
         } else {
 
@@ -15385,7 +15385,7 @@
           if (br && br.type == 'element' && br.tagName == 'br') {
             root.removeChild(br)
           }
-          utils.each(me.body.querySelectorAll('div'), function(node) {
+          utils.each(me.body.querySelectorAll('div'), function (node) {
             if (domUtils.isEmptyBlock(node)) {
               domUtils.remove(node, true)
             }
@@ -15418,7 +15418,7 @@
       }
     }
 
-    me.addListener('pasteTransfer', function(cmd, plainType) {
+    me.addListener('pasteTransfer', function (cmd, plainType) {
 
       if (address && txtContent && htmlContent && txtContent != htmlContent) {
         var range = me.selection.getRange();
@@ -15461,7 +15461,7 @@
               }
             }
             if (range.endOffset == range.endContainer[range.endContainer.nodeType == 3 ? 'nodeValue' :
-                'childNodes'].length) {
+              'childNodes'].length) {
               range.setEndAfter(range.endContainer);
             } else {
               break;
@@ -15493,8 +15493,8 @@
       }
     });
 
-    me.addListener('ready', function() {
-      domUtils.on(me.body, 'cut', function() {
+    me.addListener('ready', function () {
+      domUtils.on(me.body, 'cut', function () {
         var range = me.selection.getRange();
         if (!range.collapsed && me.undoManger) {
           me.undoManger.save();
@@ -15502,11 +15502,11 @@
       });
 
       //ie下beforepaste在点击右键时也会触发，所以用监控键盘才处理
-      domUtils.on(me.body, browser.ie || browser.opera ? 'keydown' : 'paste', function(e) {
+      domUtils.on(me.body, browser.ie || browser.opera ? 'keydown' : 'paste', function (e) {
         if ((browser.ie || browser.opera) && ((!e.ctrlKey && !e.metaKey) || e.keyCode != '86')) {
           return;
         }
-        getClipboardData.call(me, function(div) {
+        getClipboardData.call(me, function (div) {
           filter(div);
         });
       });
@@ -15514,9 +15514,9 @@
     });
 
     me.commands['paste'] = {
-      execCommand: function(cmd) {
+      execCommand: function (cmd) {
         if (browser.ie) {
-          getClipboardData.call(me, function(div) {
+          getClipboardData.call(me, function (div) {
             filter(div);
           });
           me.document.execCommand('paste');
@@ -15536,11 +15536,11 @@
    * @since 1.2.6.1
    */
 
-  UE.plugins['pasteplain'] = function() {
+  UE.plugins['pasteplain'] = function () {
     var me = this;
     me.setOpt({
       'pasteplain': false,
-      'filterTxtRules': function() {
+      'filterTxtRules': function () {
         function transP(node) {
           node.tagName = 'p';
           node.setStyle();
@@ -15558,7 +15558,7 @@
           'br': {
             $: {}
           },
-          div: function(node) {
+          div: function (node) {
             var tmpNode, p = UE.uNode.createElement('p');
             while (tmpNode = node.firstChild()) {
               if (tmpNode.type == 'text' || !UE.dom.dtd.$block[tmpNode.tagName]) {
@@ -15592,7 +15592,7 @@
           'h4': transP,
           'h5': transP,
           'h6': transP,
-          'td': function(node) {
+          'td': function (node) {
             //没有内容的td直接删掉
             var txt = !!node.innerText();
             if (txt) {
@@ -15629,10 +15629,10 @@
      * ```
      */
     me.commands['pasteplain'] = {
-      queryCommandState: function() {
+      queryCommandState: function () {
         return pasteplain ? 1 : 0;
       },
-      execCommand: function() {
+      execCommand: function () {
         pasteplain = !pasteplain | 0;
       },
       notNeedUndo: 1
@@ -15646,7 +15646,7 @@
    * @since 1.2.6.1
    */
 
-  UE.plugins['list'] = function() {
+  UE.plugins['list'] = function () {
     var me = this,
       notExchange = {
         'TD': 1,
@@ -15712,7 +15712,7 @@
       }
     }
 
-    me.ready(function() {
+    me.ready(function () {
       var customCss = [];
       for (var p in customStyle) {
         if (p == 'dash' || p == 'dot') {
@@ -15767,9 +15767,9 @@
         customCss.join('\n'), me.document);
     });
     //单独处理剪切的问题
-    me.ready(function() {
-      domUtils.on(me.body, 'cut', function() {
-        setTimeout(function() {
+    me.ready(function () {
+      domUtils.on(me.body, 'cut', function () {
+        setTimeout(function () {
           var rng = me.selection.getRange(),
             li;
           //trace:3416
@@ -15811,7 +15811,7 @@
 
     }
 
-    me.addListener('beforepaste', function(type, html) {
+    me.addListener('beforepaste', function (type, html) {
       var me = this,
         rng = me.selection.getRange(),
         li;
@@ -15819,7 +15819,7 @@
       if (li = domUtils.findParentByTagName(rng.startContainer, 'li', true)) {
         var list = li.parentNode,
           tagName = list.tagName == 'OL' ? 'ul' : 'ol';
-        utils.each(root.getNodesByTagName(tagName), function(n) {
+        utils.each(root.getNodesByTagName(tagName), function (n) {
           n.tagName = list.tagName;
           n.setAttr();
           if (n.parentNode === root) {
@@ -15852,11 +15852,11 @@
       html.html = root.toHtml();
     });
     //导出时，去掉p标签
-    me.getOpt('disablePInList') === true && me.addOutputRule(function(root) {
-      utils.each(root.getNodesByTagName('li'), function(li) {
+    me.getOpt('disablePInList') === true && me.addOutputRule(function (root) {
+      utils.each(root.getNodesByTagName('li'), function (li) {
         var newChildrens = [],
           index = 0;
-        utils.each(li.children, function(n) {
+        utils.each(li.children, function (n) {
           if (n.tagName == 'p') {
             var tmpNode;
             while (tmpNode = n.children.pop()) {
@@ -15880,8 +15880,8 @@
       });
     });
     //进入编辑器的li要套p标签
-    me.addInputRule(function(root) {
-      utils.each(root.getNodesByTagName('li'), function(li) {
+    me.addInputRule(function (root) {
+      utils.each(root.getNodesByTagName('li'), function (li) {
         var tmpP = UE.uNode.createElement('p');
         for (var i = 0, ci; ci = li.children[i];) {
           if (ci.type == 'text' || dtd.p[ci.tagName]) {
@@ -15914,13 +15914,13 @@
       });
       if (me.options.autoTransWordToList) {
         var orderlisttype = {
-            'num1': /^\d+\)/,
-            'decimal': /^\d+\./,
-            'lower-alpha': /^[a-z]+\)/,
-            'upper-alpha': /^[A-Z]+\./,
-            'cn': /^[\u4E00\u4E8C\u4E09\u56DB\u516d\u4e94\u4e03\u516b\u4e5d]+[\u3001]/,
-            'cn2': /^\([\u4E00\u4E8C\u4E09\u56DB\u516d\u4e94\u4e03\u516b\u4e5d]+\)/
-          },
+          'num1': /^\d+\)/,
+          'decimal': /^\d+\./,
+          'lower-alpha': /^[a-z]+\)/,
+          'upper-alpha': /^[A-Z]+\./,
+          'cn': /^[\u4E00\u4E8C\u4E09\u56DB\u516d\u4e94\u4e03\u516b\u4e5d]+[\u3001]/,
+          'cn2': /^\([\u4E00\u4E8C\u4E09\u56DB\u516d\u4e94\u4e03\u516b\u4e5d]+\)/
+        },
           unorderlisttype = {
             'square': 'n'
           };
@@ -15928,7 +15928,7 @@
         function checkListType(content, container) {
           var span = container.firstChild();
           if (span && span.type == 'element' && span.tagName == 'span' && /Wingdings|Symbol/.test(span.getStyle(
-              'font-family'))) {
+            'font-family'))) {
             for (var p in unorderlisttype) {
               if (unorderlisttype[p] == span.data) {
                 return p
@@ -15943,7 +15943,7 @@
           }
 
         }
-        utils.each(root.getNodesByTagName('p'), function(node) {
+        utils.each(root.getNodesByTagName('p'), function (node) {
           if (node.getAttr('class') != 'MsoListParagraph') {
             return
           }
@@ -16005,12 +16005,12 @@
     });
 
     //调整索引标签
-    me.addListener('contentchange', function() {
+    me.addListener('contentchange', function () {
       adjustListStyle(me.document)
     });
 
     function adjustListStyle(doc, ignore) {
-      utils.each(domUtils.getElementsByTagName(doc, 'ol ul'), function(node) {
+      utils.each(domUtils.getElementsByTagName(doc, 'ol ul'), function (node) {
 
         if (!domUtils.inDoc(node, doc))
           return;
@@ -16042,7 +16042,7 @@
         style && (node.style.cssText = 'list-style-type:' + style);
         node.className = utils.trim(node.className.replace(/list-paddingleft-\w+/, '')) + ' list-paddingleft-' +
           type;
-        utils.each(domUtils.getElementsByTagName(node, 'li'), function(li) {
+        utils.each(domUtils.getElementsByTagName(node, 'li'), function (li) {
           li.style.cssText && (li.style.cssText = '');
           if (!li.firstChild) {
             domUtils.remove(li);
@@ -16095,7 +16095,7 @@
     function adjustList(list, tag, style, ignoreEmpty) {
       var nextList = list.nextSibling;
       if (nextList && nextList.nodeType == 1 && nextList.tagName.toLowerCase() == tag && (getStyle(nextList) ||
-          domUtils.getStyle(nextList, 'list-style-type') || (tag == 'ol' ? 'decimal' : 'disc')) == style) {
+        domUtils.getStyle(nextList, 'list-style-type') || (tag == 'ol' ? 'decimal' : 'disc')) == style) {
         domUtils.moveChild(nextList, list);
         if (nextList.childNodes.length == 0) {
           domUtils.remove(nextList);
@@ -16106,12 +16106,12 @@
       }
       var preList = list.previousSibling;
       if (preList && preList.nodeType == 1 && preList.tagName.toLowerCase() == tag && (getStyle(preList) ||
-          domUtils.getStyle(preList, 'list-style-type') || (tag == 'ol' ? 'decimal' : 'disc')) == style) {
+        domUtils.getStyle(preList, 'list-style-type') || (tag == 'ol' ? 'decimal' : 'disc')) == style) {
         domUtils.moveChild(list, preList);
       }
       if (preList && domUtils.isFillChar(preList)) {
         domUtils.remove(preList);
-      }!ignoreEmpty && domUtils.isEmptyBlock(list) && domUtils.remove(list);
+      } !ignoreEmpty && domUtils.isEmptyBlock(list) && domUtils.remove(list);
       if (getStyle(list)) {
         adjustListStyle(list.ownerDocument, true)
       }
@@ -16123,7 +16123,7 @@
       }
       try {
         domUtils.setStyle(list, 'list-style-type', style);
-      } catch (e) {}
+      } catch (e) { }
     }
 
     function clearEmptySibling(node) {
@@ -16137,7 +16137,7 @@
       }
     }
 
-    me.addListener('keydown', function(type, evt) {
+    me.addListener('keydown', function (type, evt) {
       function preventAndSave() {
         evt.preventDefault ? evt.preventDefault() : (evt.returnValue = false);
         me.fireEvent('contentchange');
@@ -16159,7 +16159,7 @@
       var keyCode = evt.keyCode || evt.which;
       if (keyCode == 13 && !evt.shiftKey) { //回车
         var rng = me.selection.getRange(),
-          parent = domUtils.findParent(rng.startContainer, function(node) {
+          parent = domUtils.findParent(rng.startContainer, function (node) {
             return domUtils.isBlockElm(node)
           }, true),
           li = domUtils.findParentByTagName(rng.startContainer, 'li', true);
@@ -16174,10 +16174,10 @@
           }
         }
         var range = me.selection.getRange(),
-          start = findList(range.startContainer, function(node) {
+          start = findList(range.startContainer, function (node) {
             return node.tagName == 'TABLE';
           }),
-          end = range.collapsed ? start : findList(range.endContainer, function(node) {
+          end = range.collapsed ? start : findList(range.endContainer, function (node) {
             return node.tagName == 'TABLE';
           });
 
@@ -16435,7 +16435,7 @@
       }
     });
 
-    me.addListener('keyup', function(type, evt) {
+    me.addListener('keyup', function (type, evt) {
       var keyCode = evt.keyCode || evt.which;
       if (keyCode == 8) {
         var rng = me.selection.getRange(),
@@ -16447,7 +16447,7 @@
       }
     });
     //处理tab键
-    me.addListener('tabkeydown', function() {
+    me.addListener('tabkeydown', function () {
 
       var range = me.selection.getRange();
 
@@ -16504,7 +16504,7 @@
           if (bk.end) {
             while (current && !(domUtils.getPosition(current, bk.end) & domUtils.POSITION_FOLLOWING)) {
               if (checkLevel(current)) {
-                current = domUtils.getNextDomNode(current, false, null, function(node) {
+                current = domUtils.getNextDomNode(current, false, null, function (node) {
                   return node !== closeList
                 });
                 continue;
@@ -16528,7 +16528,7 @@
                       }
                     }
                   } else {
-                    li = domUtils.getNextDomNode(current, false, null, function(node) {
+                    li = domUtils.getNextDomNode(current, false, null, function (node) {
                       return node !== closeList
                     });
                   }
@@ -16630,14 +16630,14 @@
 
     me.commands['insertorderedlist'] =
       me.commands['insertunorderedlist'] = {
-        execCommand: function(command, style) {
+        execCommand: function (command, style) {
 
           if (!style) {
             style = command.toLowerCase() == 'insertorderedlist' ? 'decimal' : 'disc';
           }
           var me = this,
             range = this.selection.getRange(),
-            filterFn = function(node) {
+            filterFn = function (node) {
               return node.nodeType == 1 ? node.tagName.toLowerCase() != 'br' : !domUtils.isWhitespace(node);
             },
             tag = command.toLowerCase() == 'insertorderedlist' ? 'ol' : 'ul',
@@ -16814,7 +16814,7 @@
           if (bko.end && !modifyEnd) {
             range.setEndAfter(me.document.getElementById(bko.end));
           }
-          range.enlarge(true, function(node) {
+          range.enlarge(true, function (node) {
             return notExchange[node.tagName];
           });
 
@@ -16844,7 +16844,7 @@
 
               while (current && current !== bk.end && (!block(current) || domUtils.isBookmarkNode(current))) {
                 tmpNode = current;
-                current = domUtils.getNextDomNode(current, false, null, function(node) {
+                current = domUtils.getNextDomNode(current, false, null, function (node) {
                   return !notExchange[node.tagName];
                 });
               }
@@ -16891,7 +16891,7 @@
           range.moveToBookmark(bko).select();
 
         },
-        queryCommandState: function(command) {
+        queryCommandState: function (command) {
           var tag = command.toLowerCase() == 'insertorderedlist' ? 'ol' : 'ul';
           var path = this.selection.getStartElementPath();
           for (var i = 0, ci; ci = path[i++];) {
@@ -16905,7 +16905,7 @@
           return 0;
 
         },
-        queryCommandValue: function(command) {
+        queryCommandValue: function (command) {
           var tag = command.toLowerCase() == 'insertorderedlist' ? 'ol' : 'ul';
           var path = this.selection.getStartElementPath(),
             node;
@@ -16933,9 +16933,9 @@
    * @since 1.2.6.1
    */
 
-  (function() {
+  (function () {
     var sourceEditors = {
-      textarea: function(editor, holder) {
+      textarea: function (editor, holder) {
         var textarea = holder.ownerDocument.createElement('textarea');
         textarea.style.cssText =
           'position:absolute;resize:none;width:100%;height:100%;border:0;padding:0;margin:0;overflow-y:auto;';
@@ -16943,20 +16943,20 @@
         if (browser.ie && browser.version < 8) {
           textarea.style.width = holder.offsetWidth + 'px';
           textarea.style.height = holder.offsetHeight + 'px';
-          holder.onresize = function() {
+          holder.onresize = function () {
             textarea.style.width = holder.offsetWidth + 'px';
             textarea.style.height = holder.offsetHeight + 'px';
           };
         }
         holder.appendChild(textarea);
         return {
-          setContent: function(content) {
+          setContent: function (content) {
             textarea.value = content;
           },
-          getContent: function() {
+          getContent: function () {
             return textarea.value;
           },
-          select: function() {
+          select: function () {
             var range;
             if (browser.ie) {
               range = textarea.createTextRange();
@@ -16968,7 +16968,7 @@
               textarea.focus();
             }
           },
-          dispose: function() {
+          dispose: function () {
             holder.removeChild(textarea);
             // todo
             holder.onresize = null;
@@ -16977,7 +16977,7 @@
           }
         };
       },
-      codemirror: function(editor, holder) {
+      codemirror: function (editor, holder) {
 
         var codeEditor = window.CodeMirror(holder, {
           mode: "text/html",
@@ -16992,19 +16992,19 @@
           'position:absolute;left:0;top:0;width:100%;height:100%;';
         codeEditor.refresh();
         return {
-          getCodeMirror: function() {
+          getCodeMirror: function () {
             return codeEditor;
           },
-          setContent: function(content) {
+          setContent: function (content) {
             codeEditor.setValue(content);
           },
-          getContent: function() {
+          getContent: function () {
             return codeEditor.getValue();
           },
-          select: function() {
+          select: function () {
             codeEditor.focus();
           },
-          dispose: function() {
+          dispose: function () {
             holder.removeChild(dom);
             dom = null;
             codeEditor = null;
@@ -17013,7 +17013,7 @@
       }
     };
 
-    UE.plugins['source'] = function() {
+    UE.plugins['source'] = function () {
       var me = this;
       var opt = this.options;
       var sourceMode = false;
@@ -17059,7 +17059,7 @@
        */
 
       me.commands['source'] = {
-        execCommand: function() {
+        execCommand: function () {
 
           sourceMode = !sourceMode;
           if (sourceMode) {
@@ -17076,7 +17076,7 @@
             me.fireEvent('beforegetcontent');
             var root = UE.htmlparser(me.body.innerHTML);
             me.filterOutputRule(root);
-            root.traversal(function(node) {
+            root.traversal(function (node) {
               if (node.type == 'element') {
                 switch (node.tagName) {
                   case 'td':
@@ -17105,7 +17105,7 @@
 
             orgSetContent = me.setContent;
 
-            me.setContent = function(html) {
+            me.setContent = function (html) {
               //这里暂时不触发事件，防止报错
               var root = UE.htmlparser(html);
               me.filterInputRule(root);
@@ -17113,25 +17113,25 @@
               sourceEditor.setContent(html);
             };
 
-            setTimeout(function() {
+            setTimeout(function () {
               sourceEditor.select();
-              me.addListener('fullscreenchanged', function() {
+              me.addListener('fullscreenchanged', function () {
                 try {
                   sourceEditor.getCodeMirror().refresh()
-                } catch (e) {}
+                } catch (e) { }
               });
             });
 
             //重置getContent，源码模式下取值也能是最新的数据
             oldGetContent = me.getContent;
-            me.getContent = function() {
+            me.getContent = function () {
               return sourceEditor.getContent() || '<p>' + (browser.ie ? '' : '<br/>') + '</p>';
             };
           } else {
             me.iframe.style.cssText = bakCssText;
             var cont = sourceEditor.getContent() || '<p>' + (browser.ie ? '' : '<br/>') + '</p>';
             //处理掉block节点前后的空格,有可能会误命中，暂时不考虑
-            cont = cont.replace(new RegExp('[\\r\\t\\n ]*<\/?(\\w+)\\s*(?:[^>]*)>', 'g'), function(a, b) {
+            cont = cont.replace(new RegExp('[\\r\\t\\n ]*<\/?(\\w+)\\s*(?:[^>]*)>', 'g'), function (a, b) {
               if (b && !dtd.$inlineWithA[b.toLowerCase()]) {
                 return a.replace(/(^[\n\r\t ]*)|([\n\r\t ]*$)/g, '');
               }
@@ -17165,13 +17165,13 @@
               document.body.appendChild(input);
 
               me.body.contentEditable = false;
-              setTimeout(function() {
+              setTimeout(function () {
                 domUtils.setViewportOffset(input, {
                   left: -32768,
                   top: 0
                 });
                 input.focus();
-                setTimeout(function() {
+                setTimeout(function () {
                   me.body.contentEditable = true;
                   me.selection.getRange().moveToAddress(bakAddress).select(true);
                   domUtils.remove(input);
@@ -17182,20 +17182,20 @@
               //ie下有可能报错，比如在代码顶头的情况
               try {
                 me.selection.getRange().moveToAddress(bakAddress).select(true);
-              } catch (e) {}
+              } catch (e) { }
 
             }
           }
           this.fireEvent('sourcemodechanged', sourceMode);
         },
-        queryCommandState: function() {
+        queryCommandState: function () {
           return sourceMode | 0;
         },
         notNeedUndo: 1
       };
       var oldQueryCommandState = me.queryCommandState;
 
-      me.queryCommandState = function(cmdName) {
+      me.queryCommandState = function (cmdName) {
         cmdName = cmdName.toLowerCase();
         if (sourceMode) {
           //源码模式下可以开启的命令
@@ -17209,15 +17209,15 @@
 
       if (opt.sourceEditor == "codemirror") {
 
-        me.addListener("ready", function() {
+        me.addListener("ready", function () {
           utils.loadFile(document, {
             src: opt.codeMirrorJsUrl || opt.UEDITOR_HOME_URL + "third-party/codemirror/codemirror.js",
             tag: "script",
             type: "text/javascript",
             defer: "defer"
-          }, function() {
+          }, function () {
             if (opt.sourceEditorFirst) {
-              setTimeout(function() {
+              setTimeout(function () {
                 me.execCommand("source");
               }, 0);
             }
@@ -17246,11 +17246,11 @@
    * @description 处理回车
    * @author zhanyi
    */
-  UE.plugins['enterkey'] = function() {
+  UE.plugins['enterkey'] = function () {
     var hTag,
       me = this,
       tag = me.options.enterTag;
-    me.addListener('keyup', function(type, evt) {
+    me.addListener('keyup', function (type, evt) {
 
       var keyCode = evt.keyCode || evt.which;
       if (keyCode == 13) {
@@ -17304,7 +17304,7 @@
       }
     });
 
-    me.addListener('keydown', function(type, evt) {
+    me.addListener('keydown', function (type, evt) {
       var keyCode = evt.keyCode || evt.which;
       if (keyCode == 13) { //回车
         if (me.fireEvent('beforeenterkeydown')) {
@@ -17421,22 +17421,22 @@
 
   // plugins/keystrokes.js
   /* 处理特殊键的兼容性问题 */
-  UE.plugins['keystrokes'] = function() {
+  UE.plugins['keystrokes'] = function () {
     var me = this;
     var collapsed = true;
-    me.addListener('keydown', function(type, evt) {
+    me.addListener('keydown', function (type, evt) {
       var keyCode = evt.keyCode || evt.which,
         rng = me.selection.getRange();
 
       //处理全选的情况
       if (!rng.collapsed && !(evt.ctrlKey || evt.shiftKey || evt.altKey || evt.metaKey) && (keyCode >= 65 &&
-          keyCode <= 90 ||
-          keyCode >= 48 && keyCode <= 57 ||
-          keyCode >= 96 && keyCode <= 111 || {
-            13: 1,
-            8: 1,
-            46: 1
-          } [keyCode])) {
+        keyCode <= 90 ||
+        keyCode >= 48 && keyCode <= 57 ||
+        keyCode >= 96 && keyCode <= 111 || {
+          13: 1,
+          8: 1,
+          46: 1
+        }[keyCode])) {
 
         var tmpNode = rng.startContainer;
         if (domUtils.isFillChar(tmpNode)) {
@@ -17538,7 +17538,7 @@
         if (range.collapsed) {
           range.insertNode(span.cloneNode(true).firstChild).setCursor(true);
         } else {
-          var filterFn = function(node) {
+          var filterFn = function (node) {
             return domUtils.isBlockElm(node) && !excludeTagNameForTabKey[node.tagName.toLowerCase()]
 
           };
@@ -17581,7 +17581,7 @@
         }
       }
     });
-    me.addListener('keyup', function(type, evt) {
+    me.addListener('keyup', function (type, evt) {
       var keyCode = evt.keyCode || evt.which,
         rng, me = this;
       if (keyCode == keymap.Backspace) {
@@ -17621,7 +17621,7 @@
 
         //chrome下如果删除了inline标签，浏览器会有记忆，在输入文字还是会套上刚才删除的标签，所以这里再选一次就不会了
         if (!collapsed && (rng.startContainer.nodeType == 3 || rng.startContainer.nodeType == 1 && domUtils.isEmptyBlock(
-            rng.startContainer))) {
+          rng.startContainer))) {
           if (browser.ie) {
             var span = rng.document.createElement('span');
             rng.insertNode(span).setStartBefore(span).collapse(true);
@@ -17645,7 +17645,7 @@
   ///commandsTitle  修复chrome下图片不能点击的问题，出现八个角可改变大小
   //修复chrome下图片不能点击的问题，出现八个角可改变大小
 
-  UE.plugins['fiximgclick'] = (function() {
+  UE.plugins['fiximgclick'] = (function () {
 
     var elementUpdated = false;
 
@@ -17664,7 +17664,7 @@
       };
     }
 
-    (function() {
+    (function () {
       var rect = [
         //[left, top, width, height]
         [0, 0, -1, -1],
@@ -17678,7 +17678,7 @@
       ];
 
       Scale.prototype = {
-        init: function(editor) {
+        init: function (editor) {
           var me = this;
           me.editor = editor;
           me.startPos = this.prePos = {
@@ -17694,7 +17694,7 @@
           cover.id = me.editor.ui.id + '_imagescale_cover';
           cover.style.cssText = 'position:absolute;display:none;z-index:' + (me.editor.options.zIndex) +
             ';filter:alpha(opacity=0); opacity:0;background:#CCC;';
-          domUtils.on(cover, 'mousedown click', function() {
+          domUtils.on(cover, 'mousedown click', function () {
             me.hide();
           });
 
@@ -17713,7 +17713,7 @@
           me.initStyle();
           me.initEvents();
         },
-        initStyle: function() {
+        initStyle: function () {
           utils.cssRule('imagescale',
             '.edui-editor-imagescale{display:none;position:absolute;border:1px solid #38B2CE;cursor:hand;-webkit-box-sizing: content-box;-moz-box-sizing: content-box;box-sizing: content-box;}' +
             '.edui-editor-imagescale span{position:absolute;width:6px;height:6px;overflow:hidden;font-size:0px;display:block;background-color:#3C9DD0;}' +
@@ -17727,13 +17727,13 @@
             '.edui-editor-imagescale .edui-editor-imagescale-hand7{cursor:se-resize;top:100%;margin-top:-3px;left:100%;margin-left:-3px;}'
           );
         },
-        initEvents: function() {
+        initEvents: function () {
           var me = this;
 
           me.startPos.x = me.startPos.y = 0;
           me.isDraging = false;
         },
-        _eventHandler: function(e) {
+        _eventHandler: function (e) {
           var me = this;
           switch (e.type) {
             case 'mousedown':
@@ -17781,7 +17781,7 @@
               break;
           }
         },
-        updateTargetElement: function() {
+        updateTargetElement: function () {
           var me = this;
           domUtils.setStyles(me.target, {
             'width': me.resizer.style.width,
@@ -17791,7 +17791,7 @@
           me.target.height = parseInt(me.resizer.style.height);
           me.attachTo(me.target);
         },
-        updateContainerStyle: function(dir, offset) {
+        updateContainerStyle: function (dir, offset) {
           var me = this,
             dom = me.resizer,
             tmp;
@@ -17813,7 +17813,7 @@
             dom.style.height = me._validScaledProp('height', tmp) + 'px';
           }
         },
-        _validScaledProp: function(prop, value) {
+        _validScaledProp: function (prop, value) {
           var ele = this.resizer,
             wrap = document;
 
@@ -17833,10 +17833,10 @@
                 .offsetTop : value;
           }
         },
-        hideCover: function() {
+        hideCover: function () {
           this.cover.style.display = 'none';
         },
-        showCover: function() {
+        showCover: function () {
           var me = this,
             editorPos = domUtils.getXY(me.editor.ui.getDom()),
             iframePos = domUtils.getXY(me.editor.iframe);
@@ -17850,7 +17850,7 @@
             'display': ''
           })
         },
-        show: function(targetObj) {
+        show: function (targetObj) {
           var me = this;
           me.resizer.style.display = 'block';
           if (targetObj) me.attachTo(targetObj);
@@ -17862,7 +17862,7 @@
           me.editor.fireEvent('afterscaleshow', me);
           me.editor.fireEvent('saveScene');
         },
-        hide: function() {
+        hide: function () {
           var me = this;
           me.hideCover();
           me.resizer.style.display = 'none';
@@ -17871,12 +17871,12 @@
           domUtils.un(me.doc, 'mouseup', me.proxy(me._eventHandler, me));
           me.editor.fireEvent('afterscalehide', me);
         },
-        proxy: function(fn, context) {
-          return function(e) {
+        proxy: function (fn, context) {
+          return function (e) {
             return fn.apply(context || this, arguments);
           };
         },
-        attachTo: function(targetObj) {
+        attachTo: function (targetObj) {
           var me = this,
             target = me.target = targetObj,
             resizer = this.resizer,
@@ -17896,14 +17896,14 @@
       }
     })();
 
-    return function() {
+    return function () {
       var me = this,
         imageScale;
 
       me.setOpt('imageScaleEnabled', true);
 
       if (!browser.ie && me.options.imageScaleEnabled) {
-        me.addListener('click', function(type, e) {
+        me.addListener('click', function (type, e) {
 
           var range = me.selection.getRange(),
             img = range.getClosedNode();
@@ -17922,27 +17922,27 @@
               imageScale.init(me);
               me.ui.getDom().appendChild(imageScale.resizer);
 
-              var _keyDownHandler = function(e) {
-                  imageScale.hide();
-                  if (imageScale.target) me.selection.getRange().selectNode(imageScale.target).select();
-                },
-                _mouseDownHandler = function(e) {
+              var _keyDownHandler = function (e) {
+                imageScale.hide();
+                if (imageScale.target) me.selection.getRange().selectNode(imageScale.target).select();
+              },
+                _mouseDownHandler = function (e) {
                   var ele = e.target || e.srcElement;
                   if (ele && (ele.className === undefined || ele.className.indexOf('edui-editor-imagescale') ==
-                      -1)) {
+                    -1)) {
                     _keyDownHandler(e);
                   }
                 },
                 timer;
 
-              me.addListener('afterscaleshow', function(e) {
+              me.addListener('afterscaleshow', function (e) {
                 me.addListener('beforekeydown', _keyDownHandler);
                 me.addListener('beforemousedown', _mouseDownHandler);
                 domUtils.on(document, 'keydown', _keyDownHandler);
                 domUtils.on(document, 'mousedown', _mouseDownHandler);
                 me.selection.getNative().removeAllRanges();
               });
-              me.addListener('afterscalehide', function(e) {
+              me.addListener('afterscalehide', function (e) {
                 me.removeListener('beforekeydown', _keyDownHandler);
                 me.removeListener('beforemousedown', _mouseDownHandler);
                 domUtils.un(document, 'keydown', _keyDownHandler);
@@ -17953,17 +17953,17 @@
                 }
               });
               //TODO 有iframe的情况，mousedown不能往下传。。
-              domUtils.on(imageScale.resizer, 'mousedown', function(e) {
+              domUtils.on(imageScale.resizer, 'mousedown', function (e) {
                 me.selection.getNative().removeAllRanges();
                 var ele = e.target || e.srcElement;
                 if (ele && ele.className.indexOf('edui-editor-imagescale-hand') == -1) {
-                  timer = setTimeout(function() {
+                  timer = setTimeout(function () {
                     imageScale.hide();
                     if (imageScale.target) me.selection.getRange().selectNode(ele).select();
                   }, 200);
                 }
               });
-              domUtils.on(imageScale.resizer, 'mouseup', function(e) {
+              domUtils.on(imageScale.resizer, 'mouseup', function (e) {
                 var ele = e.target || e.srcElement;
                 if (ele && ele.className.indexOf('edui-editor-imagescale-hand') == -1) {
                   clearTimeout(timer);
@@ -17978,7 +17978,7 @@
       }
 
       if (browser.webkit) {
-        me.addListener('click', function(type, e) {
+        me.addListener('click', function (type, e) {
           if (e.target.tagName == 'IMG' && me.body.contentEditable != "false") {
             var range = new dom.Range(me.document);
             range.selectNode(e.target).select();
@@ -17998,16 +17998,16 @@
    * @author zhanyi
    */
 
-  UE.plugin.register('autolink', function() {
+  UE.plugin.register('autolink', function () {
     var cont = 0;
 
     return !browser.ie ? {
 
       bindEvents: {
-        'reset': function() {
+        'reset': function () {
           cont = 0;
         },
-        'keydown': function(type, evt) {
+        'keydown': function (type, evt) {
           var me = this;
           var keyCode = evt.keyCode || evt.which;
 
@@ -18049,7 +18049,7 @@
             } while (charCode != 160 && charCode != 32);
 
             if (range.toString().replace(new RegExp(domUtils.fillChar, 'g'), '').match(
-                /(?:https?:\/\/|ssh:\/\/|ftp:\/\/|file:\/|www\.)/i)) {
+              /(?:https?:\/\/|ssh:\/\/|ftp:\/\/|file:\/|www\.)/i)) {
               while (range.toString().length) {
                 if (/^(?:https?:\/\/|ssh:\/\/|ftp:\/\/|file:\/|www\.)/i.test(range.toString())) {
                   break;
@@ -18099,7 +18099,7 @@
         }
       }
     } : {}
-  }, function() {
+  }, function () {
     var keyCodes = {
       37: 1,
       38: 1,
@@ -18132,7 +18132,7 @@
         lastChild = lastChild.lastChild;
       }
     }
-    browser.ie && this.addListener('keyup', function(cmd, evt) {
+    browser.ie && this.addListener('keyup', function (cmd, evt) {
       var me = this,
         keyCode = evt.keyCode;
       if (keyCodes[keyCode]) {
@@ -18184,7 +18184,7 @@
    * @description 自动伸展
    * @author zhanyi
    */
-  UE.plugins['autoheight'] = function() {
+  UE.plugins['autoheight'] = function () {
     var me = this;
     //提供开关，就算加载也可以关闭
     me.autoHeightEnabled = me.options.autoHeightEnabled !== false;
@@ -18203,7 +18203,7 @@
       clearTimeout(timer);
       if (isFullscreen) return;
       if (!me.queryCommandState || me.queryCommandState && me.queryCommandState('source') != 1) {
-        timer = setTimeout(function() {
+        timer = setTimeout(function () {
 
           var node = me.body.lastChild;
           while (node && node.nodeType != 1) {
@@ -18228,13 +18228,13 @@
       }
     }
     var isFullscreen;
-    me.addListener('fullscreenchanged', function(cmd, f) {
+    me.addListener('fullscreenchanged', function (cmd, f) {
       isFullscreen = f
     });
-    me.addListener('destroy', function() {
+    me.addListener('destroy', function () {
       me.removeListener('contentchange afterinserthtml keyup mouseup', adjustHeight)
     });
-    me.enableAutoHeight = function() {
+    me.enableAutoHeight = function () {
       var me = this;
       if (!me.autoHeightEnabled) {
         return;
@@ -18246,12 +18246,12 @@
       me.addListener('contentchange afterinserthtml keyup mouseup', adjustHeight);
       //ff不给事件算得不对
 
-      setTimeout(function() {
+      setTimeout(function () {
         adjustHeight.call(me);
       }, browser.gecko ? 100 : 0);
       me.fireEvent('autoheightchanged', me.autoHeightEnabled);
     };
-    me.disableAutoHeight = function() {
+    me.disableAutoHeight = function () {
 
       me.body.style.overflowY = bakOverflow || '';
 
@@ -18262,16 +18262,16 @@
       me.fireEvent('autoheightchanged', me.autoHeightEnabled);
     };
 
-    me.on('setHeight', function() {
+    me.on('setHeight', function () {
       me.disableAutoHeight()
     });
-    me.addListener('ready', function() {
+    me.addListener('ready', function () {
       me.enableAutoHeight();
       //trace:1764
       var timer;
-      domUtils.on(browser.ie ? me.body : me.document, browser.webkit ? 'dragover' : 'drop', function() {
+      domUtils.on(browser.ie ? me.body : me.document, browser.webkit ? 'dragover' : 'drop', function () {
         clearTimeout(timer);
-        timer = setTimeout(function() {
+        timer = setTimeout(function () {
           //trace:3681
           adjustHeight.call(me);
         }, 100);
@@ -18279,7 +18279,7 @@
       });
       //修复内容过多时，回到顶部，顶部内容被工具栏遮挡问题
       var lastScrollY;
-      window.onscroll = function() {
+      window.onscroll = function () {
         if (lastScrollY === null) {
           lastScrollY = this.scrollY
         } else if (this.scrollY == 0 && lastScrollY != 0) {
@@ -18303,7 +18303,7 @@
    *  modified by chengchao01
    *  注意： 引入此功能后，在IE6下会将body的背景图片覆盖掉！
    */
-  UE.plugins['autofloat'] = function() {
+  UE.plugins['autofloat'] = function () {
     var me = this,
       lang = me.getLang();
     me.setOpt({
@@ -18385,16 +18385,16 @@
         unsetFloating();
       }
     }
-    var defer_updateFloating = utils.defer(function() {
+    var defer_updateFloating = utils.defer(function () {
       updateFloating();
     }, browser.ie ? 200 : 100, true);
 
-    me.addListener('destroy', function() {
+    me.addListener('destroy', function () {
       domUtils.un(window, ['scroll', 'resize'], updateFloating);
       me.removeListener('keydown', defer_updateFloating);
     });
 
-    me.addListener('ready', function() {
+    me.addListener('ready', function () {
       if (checkHasUI(me)) {
         //加载了ui组件，但在new时，没有加载ui，导致编辑器实例上没有ui类，所以这里做判断
         if (!me.ui) {
@@ -18411,23 +18411,23 @@
         domUtils.on(window, ['scroll', 'resize'], updateFloating);
         me.addListener('keydown', defer_updateFloating);
 
-        me.addListener('beforefullscreenchange', function(t, enabled) {
+        me.addListener('beforefullscreenchange', function (t, enabled) {
           if (enabled) {
             unsetFloating();
           }
         });
-        me.addListener('fullscreenchanged', function(t, enabled) {
+        me.addListener('fullscreenchanged', function (t, enabled) {
           if (!enabled) {
             updateFloating();
           }
         });
-        me.addListener('sourcemodechanged', function(t, enabled) {
-          setTimeout(function() {
+        me.addListener('sourcemodechanged', function (t, enabled) {
+          setTimeout(function () {
             updateFloating();
           }, 0);
         });
-        me.addListener("clearDoc", function() {
-          setTimeout(function() {
+        me.addListener("clearDoc", function () {
+          setTimeout(function () {
             updateFloating();
           }, 0);
 
@@ -18444,7 +18444,7 @@
    * @since 1.2.6.1
    */
 
-  UE.plugins['video'] = function() {
+  UE.plugins['video'] = function () {
     var me = this;
 
     /**
@@ -18470,27 +18470,27 @@
     }
 
     function switchImgAndVideo(root, img2video) {
-      utils.each(root.getNodesByTagName(img2video ? 'img' : 'embed video'), function(node) {
+      utils.each(root.getNodesByTagName(img2video ? 'img' : 'embed video'), function (node) {
         var className = node.getAttr('class');
         if (className && className.indexOf('edui-faked-video') != -1) {
           var html = creatInsertStr(img2video ? node.getAttr('_url') : node.getAttr('src'), node.getAttr(
-              'width'), node.getAttr('height'), null, node.getStyle('float') || '', className, img2video ?
+            'width'), node.getAttr('height'), null, node.getStyle('float') || '', className, img2video ?
             'embed' : 'image');
           node.parentNode.replaceChild(UE.uNode.createElement(html), node);
         }
         if (className && className.indexOf('edui-upload-video') != -1) {
           var html = creatInsertStr(img2video ? node.getAttr('_url') : node.getAttr('src'), node.getAttr(
-              'width'), node.getAttr('height'), null, node.getStyle('float') || '', className, img2video ?
+            'width'), node.getAttr('height'), null, node.getStyle('float') || '', className, img2video ?
             'video' : 'image');
           node.parentNode.replaceChild(UE.uNode.createElement(html), node);
         }
       })
     }
 
-    me.addOutputRule(function(root) {
+    me.addOutputRule(function (root) {
       switchImgAndVideo(root, true)
     });
-    me.addInputRule(function(root) {
+    me.addInputRule(function (root) {
       switchImgAndVideo(root)
     });
 
@@ -18561,7 +18561,7 @@
      * ```
      */
     me.commands["insertvideo"] = {
-      execCommand: function(cmd, videoObjs, type) {
+      execCommand: function (cmd, videoObjs, type) {
         videoObjs = utils.isArray(videoObjs) ? videoObjs : [videoObjs];
         var html = [],
           id = 'tmpVedio',
@@ -18581,7 +18581,7 @@
           me.execCommand('imagefloat', videoObjs[i].align)
         }*/
       },
-      queryCommandState: function() {
+      queryCommandState: function () {
         var img = me.selection.getRange().getClosedNode(),
           flag = img && (img.className == "edui-faked-video" || img.className.indexOf("edui-upload-video") != -
             1);
@@ -18604,8 +18604,8 @@
    * @param table
    * @constructor
    */
-  (function() {
-    var UETable = UE.UETable = function(table) {
+  (function () {
+    var UETable = UE.UETable = function (table) {
       this.table = table;
       this.indexTable = [];
       this.selectedTds = [];
@@ -18614,17 +18614,17 @@
     };
 
     //===以下为静态工具方法===
-    UETable.removeSelectedClass = function(cells) {
-      utils.each(cells, function(cell) {
+    UETable.removeSelectedClass = function (cells) {
+      utils.each(cells, function (cell) {
         domUtils.removeClasses(cell, "selectTdClass");
       })
     };
-    UETable.addSelectedClass = function(cells) {
-      utils.each(cells, function(cell) {
+    UETable.addSelectedClass = function (cells) {
+      utils.each(cells, function (cell) {
         domUtils.addClass(cell, "selectTdClass");
       })
     };
-    UETable.isEmptyBlock = function(node) {
+    UETable.isEmptyBlock = function (node) {
       var reg = new RegExp(domUtils.fillChar, 'g');
       if (node[browser.ie ? 'innerText' : 'textContent'].replace(/^\s*$/, '').replace(reg, '').length > 0) {
         return 0;
@@ -18637,7 +18637,7 @@
         }
       return 1;
     };
-    UETable.getWidth = function(cell) {
+    UETable.getWidth = function (cell) {
       if (!cell) return 0;
       return parseInt(domUtils.getComputedStyle(cell, "width"), 10);
     };
@@ -18648,7 +18648,7 @@
      * @param table cell or table cells , 支持单个单元格dom对象 或者 单元格dom对象数组
      * @return { align: 'left' || 'right' || 'center', valign: 'top' || 'middle' || 'bottom' } 或者 null
      */
-    UETable.getTableCellAlignState = function(cells) {
+    UETable.getTableCellAlignState = function (cells) {
 
       !utils.isArray(cells) && (cells = [cells]);
 
@@ -18657,9 +18657,9 @@
         tempStatus = null,
         isSame = true; //状态是否相同
 
-      utils.each(cells, function(cellNode) {
+      utils.each(cells, function (cellNode) {
 
-        utils.each(status, function(currentState) {
+        utils.each(status, function (currentState) {
 
           tempStatus = cellNode.getAttribute(currentState);
 
@@ -18684,7 +18684,7 @@
      * 根据当前选区获取相关的table信息
      * @return {Object}
      */
-    UETable.getTableItemsByRange = function(editor) {
+    UETable.getTableItemsByRange = function (editor) {
       var start = editor.selection.getStart();
 
       //ff下会选中bookmark
@@ -18705,7 +18705,7 @@
         caption: caption
       }
     };
-    UETable.getUETableBySelected = function(editor) {
+    UETable.getUETableBySelected = function (editor) {
       var table = UETable.getTableItemsByRange(editor).table;
       if (table && table.ueTable && table.ueTable.selectedTds.length) {
         return table.ueTable;
@@ -18713,12 +18713,12 @@
       return null;
     };
 
-    UETable.getDefaultValue = function(editor, table) {
+    UETable.getDefaultValue = function (editor, table) {
       var borderMap = {
-          thin: '0px',
-          medium: '1px',
-          thick: '2px'
-        },
+        thin: '0px',
+        medium: '1px',
+        thick: '2px'
+      },
         tableBorder, tdPadding, tdBorder, tmpValue;
       if (!table) {
         table = editor.document.createElement('table');
@@ -18756,7 +18756,7 @@
      * 根据当前点击的td或者table获取索引对象
      * @param tdOrTable
      */
-    UETable.getUETable = function(tdOrTable) {
+    UETable.getUETable = function (tdOrTable) {
       var tag = tdOrTable.tagName.toLowerCase();
       tdOrTable = (tag == "td" || tag == "th" || tag == 'caption') ? domUtils.findParentByTagName(tdOrTable,
         "table", true) : tdOrTable;
@@ -18766,7 +18766,7 @@
       return tdOrTable.ueTable;
     };
 
-    UETable.cloneCell = function(cell, ignoreMerge, keepPro) {
+    UETable.cloneCell = function (cell, ignoreMerge, keepPro) {
       if (!cell || utils.isString(cell)) {
         return this.table.ownerDocument.createElement(cell || 'td');
       }
@@ -18791,7 +18791,7 @@
     }
 
     UETable.prototype = {
-      getMaxRows: function() {
+      getMaxRows: function () {
         var rows = this.table.rows,
           maxLen = 1;
         for (var i = 0, row; row = rows[i]; i++) {
@@ -18806,7 +18806,7 @@
       /**
        * 获取当前表格的最大列数
        */
-      getMaxCols: function() {
+      getMaxCols: function () {
         var rows = this.table.rows,
           maxLen = 0,
           cellRows = {};
@@ -18830,7 +18830,7 @@
         }
         return maxLen;
       },
-      getCellColIndex: function(cell) {
+      getCellColIndex: function (cell) {
 
       },
       /**
@@ -18838,7 +18838,7 @@
        * @param cell
        * @param right
        */
-      getHSideCell: function(cell, right) {
+      getHSideCell: function (cell, right) {
         try {
           var cellInfo = this.getCellInfo(cell),
             previewRowIndex, previewColIndex;
@@ -18846,11 +18846,11 @@
             range = this.cellsRange;
           //首行或者首列没有前置单元格
           if ((!right && (!len ? !cellInfo.colIndex : !range.beginColIndex)) || (right && (!len ? (cellInfo.colIndex ==
-              (this.colsNum - 1)) : (range.endColIndex == this.colsNum - 1)))) return null;
+            (this.colsNum - 1)) : (range.endColIndex == this.colsNum - 1)))) return null;
 
           previewRowIndex = !len ? cellInfo.rowIndex : range.beginRowIndex;
           previewColIndex = !right ? (!len ? (cellInfo.colIndex < 1 ? 0 : (cellInfo.colIndex - 1)) : range.beginColIndex -
-              1) :
+            1) :
             (!len ? cellInfo.colIndex + 1 : range.endColIndex + 1);
           return this.getCell(this.indexTable[previewRowIndex][previewColIndex].rowIndex, this.indexTable[
             previewRowIndex][previewColIndex].cellIndex);
@@ -18858,7 +18858,7 @@
           showError(e);
         }
       },
-      getTabNextCell: function(cell, preRowIndex) {
+      getTabNextCell: function (cell, preRowIndex) {
         var cellInfo = this.getCellInfo(cell),
           rowIndex = preRowIndex || cellInfo.rowIndex,
           colIndex = cellInfo.colIndex + 1 + (cellInfo.colSpan - 1),
@@ -18874,7 +18874,7 @@
             nextCell = this.getCell(this.indexTable[rowIndex][colIndex].rowIndex, this.indexTable[rowIndex][
               colIndex
             ].cellIndex);
-          } catch (e) {}
+          } catch (e) { }
         }
         return nextCell;
 
@@ -18884,7 +18884,7 @@
        * @param cell
        * @param bottom
        */
-      getVSideCell: function(cell, bottom, ignoreRange) {
+      getVSideCell: function (cell, bottom, ignoreRange) {
         try {
           var cellInfo = this.getCellInfo(cell),
             nextRowIndex, nextColIndex;
@@ -18892,7 +18892,7 @@
             range = this.cellsRange;
           //末行或者末列没有后置单元格
           if ((!bottom && (cellInfo.rowIndex == 0)) || (bottom && (!len ? (cellInfo.rowIndex + cellInfo.rowSpan >
-              this.rowsNum - 1) : (range.endRowIndex == this.rowsNum - 1)))) return null;
+            this.rowsNum - 1) : (range.endRowIndex == this.rowsNum - 1)))) return null;
 
           nextRowIndex = !bottom ? (!len ? cellInfo.rowIndex - 1 : range.beginRowIndex - 1) :
             (!len ? (cellInfo.rowIndex + cellInfo.rowSpan) : range.endRowIndex + 1);
@@ -18906,7 +18906,7 @@
       /**
        * 获取相同结束位置的单元格，xOrY指代了是获取x轴相同还是y轴相同
        */
-      getSameEndPosCells: function(cell, xOrY) {
+      getSameEndPosCells: function (cell, xOrY) {
         try {
           var flag = (xOrY.toLowerCase() === "x"),
             end = domUtils.getXY(cell)[flag ? 'x' : 'y'] + cell["offset" + (flag ? 'Width' : 'Height')],
@@ -18935,14 +18935,14 @@
           showError(e);
         }
       },
-      setCellContent: function(cell, content) {
+      setCellContent: function (cell, content) {
         cell.innerHTML = content || (browser.ie ? domUtils.fillChar : "<br />");
       },
       cloneCell: UETable.cloneCell,
       /**
        * 获取跟当前单元格的右边竖线为左边的所有未合并单元格
        */
-      getSameStartPosXCells: function(cell) {
+      getSameStartPosXCells: function (cell) {
         try {
           var start = domUtils.getXY(cell).x + cell.offsetWidth,
             rows = this.table.rows,
@@ -18966,7 +18966,7 @@
       /**
        * 更新table对应的索引表
        */
-      update: function(table) {
+      update: function (table) {
         this.table = table || this.table;
         this.selectedTds = [];
         this.cellsRange = {};
@@ -19032,7 +19032,7 @@
         //当框选后删除行或者列后撤销，需要重建选区。
         var tds = domUtils.getElementsByTagName(this.table, "td"),
           selectTds = [];
-        utils.each(tds, function(td) {
+        utils.each(tds, function (td) {
           if (domUtils.hasClass(td, "selectTdClass")) {
             selectTds.push(td);
           }
@@ -19061,7 +19061,7 @@
       /**
        * 获取单元格的索引信息
        */
-      getCellInfo: function(cell) {
+      getCellInfo: function (cell) {
         if (!cell) return;
         var cellIndex = cell.cellIndex,
           rowIndex = cell.parentNode.rowIndex,
@@ -19077,13 +19077,13 @@
       /**
        * 根据行列号获取单元格
        */
-      getCell: function(rowIndex, cellIndex) {
+      getCell: function (rowIndex, cellIndex) {
         return rowIndex < this.rowsNum && this.table.rows[rowIndex].cells[cellIndex] || null;
       },
       /**
        * 删除单元格
        */
-      deleteCell: function(cell, rowIndex) {
+      deleteCell: function (cell, rowIndex) {
         rowIndex = typeof rowIndex == 'number' ? rowIndex : cell.parentNode.rowIndex;
         var row = this.table.rows[rowIndex];
         row.deleteCell(cell.cellIndex);
@@ -19091,7 +19091,7 @@
       /**
        * 根据始末两个单元格获取被框选的所有单元格范围
        */
-      getCellsRange: function(cellA, cellB) {
+      getCellsRange: function (cellA, cellB) {
         function checkRange(beginRowIndex, beginColIndex, endRowIndex, endColIndex) {
           var tmpBeginRowIndex = beginRowIndex,
             tmpBeginColIndex = beginColIndex,
@@ -19181,7 +19181,7 @@
       /**
        * 依据cellsRange获取对应的单元格集合
        */
-      getCells: function(range) {
+      getCells: function (range) {
         //每次获取cells之前必须先清除上次的选择，否则会对后续获取操作造成影响
         this.clearSelected();
         var beginRowIndex = range.beginRowIndex,
@@ -19211,7 +19211,7 @@
       /**
        * 清理已经选中的单元格
        */
-      clearSelected: function() {
+      clearSelected: function () {
         UETable.removeSelectedClass(this.selectedTds);
         this.selectedTds = [];
         this.cellsRange = {};
@@ -19219,17 +19219,17 @@
       /**
        * 根据range设置已经选中的单元格
        */
-      setSelected: function(range) {
+      setSelected: function (range) {
         var cells = this.getCells(range);
         UETable.addSelectedClass(cells);
         this.selectedTds = cells;
         this.cellsRange = range;
       },
-      isFullRow: function() {
+      isFullRow: function () {
         var range = this.cellsRange;
         return (range.endColIndex - range.beginColIndex + 1) == this.colsNum;
       },
-      isFullCol: function() {
+      isFullCol: function () {
         var range = this.cellsRange,
           table = this.table,
           ths = table.getElementsByTagName("th"),
@@ -19242,7 +19242,7 @@
        * @param cell
        * @param top
        */
-      getNextCell: function(cell, bottom, ignoreRange) {
+      getNextCell: function (cell, bottom, ignoreRange) {
         try {
           var cellInfo = this.getCellInfo(cell),
             nextRowIndex, nextColIndex;
@@ -19250,7 +19250,7 @@
             range = this.cellsRange;
           //末行或者末列没有后置单元格
           if ((!bottom && (cellInfo.rowIndex == 0)) || (bottom && (!len ? (cellInfo.rowIndex + cellInfo.rowSpan >
-              this.rowsNum - 1) : (range.endRowIndex == this.rowsNum - 1)))) return null;
+            this.rowsNum - 1) : (range.endRowIndex == this.rowsNum - 1)))) return null;
 
           nextRowIndex = !bottom ? (!len ? cellInfo.rowIndex - 1 : range.beginRowIndex - 1) :
             (!len ? (cellInfo.rowIndex + cellInfo.rowSpan) : range.endRowIndex + 1);
@@ -19261,7 +19261,7 @@
           showError(e);
         }
       },
-      getPreviewCell: function(cell, top) {
+      getPreviewCell: function (cell, top) {
         try {
           var cellInfo = this.getCellInfo(cell),
             previewRowIndex, previewColIndex;
@@ -19269,12 +19269,12 @@
             range = this.cellsRange;
           //首行或者首列没有前置单元格
           if ((!top && (!len ? !cellInfo.colIndex : !range.beginColIndex)) || (top && (!len ? (cellInfo.rowIndex >
-              (this.colsNum - 1)) : (range.endColIndex == this.colsNum - 1)))) return null;
+            (this.colsNum - 1)) : (range.endColIndex == this.colsNum - 1)))) return null;
 
           previewRowIndex = !top ? (!len ? cellInfo.rowIndex : range.beginRowIndex) :
             (!len ? (cellInfo.rowIndex < 1 ? 0 : (cellInfo.rowIndex - 1)) : range.beginRowIndex);
           previewColIndex = !top ? (!len ? (cellInfo.colIndex < 1 ? 0 : (cellInfo.colIndex - 1)) : range.beginColIndex -
-              1) :
+            1) :
             (!len ? cellInfo.colIndex : range.endColIndex + 1);
           return this.getCell(this.indexTable[previewRowIndex][previewColIndex].rowIndex, this.indexTable[
             previewRowIndex][previewColIndex].cellIndex);
@@ -19285,7 +19285,7 @@
       /**
        * 移动单元格中的内容
        */
-      moveContent: function(cellTo, cellFrom) {
+      moveContent: function (cellTo, cellFrom) {
         if (UETable.isEmptyBlock(cellFrom)) return;
         if (UETable.isEmptyBlock(cellTo)) {
           cellTo.innerHTML = cellFrom.innerHTML;
@@ -19302,7 +19302,7 @@
       /**
        * 向右合并单元格
        */
-      mergeRight: function(cell) {
+      mergeRight: function (cell) {
         var cellInfo = this.getCellInfo(cell),
           rightColIndex = cellInfo.colIndex + cellInfo.colSpan,
           rightCellInfo = this.indexTable[cellInfo.rowIndex][rightColIndex],
@@ -19320,7 +19320,7 @@
       /**
        * 向下合并单元格
        */
-      mergeDown: function(cell) {
+      mergeDown: function (cell) {
         var cellInfo = this.getCellInfo(cell),
           downRowIndex = cellInfo.rowIndex + cellInfo.rowSpan,
           downCellInfo = this.indexTable[downRowIndex][cellInfo.colIndex],
@@ -19334,7 +19334,7 @@
       /**
        * 合并整个range中的内容
        */
-      mergeRange: function() {
+      mergeRange: function () {
         //由于合并操作可以在任意时刻进行，所以无法通过鼠标位置等信息实时生成range，只能通过缓存实例中的cellsRange对象来访问
         var range = this.cellsRange,
           leftTopCell = this.getCell(range.beginRowIndex, this.indexTable[range.beginRowIndex][range.beginColIndex]
@@ -19385,7 +19385,7 @@
       /**
        * 插入一行单元格
        */
-      insertRow: function(rowIndex, sourceCell) {
+      insertRow: function (rowIndex, sourceCell) {
         var numCols = this.colsNum,
           table = this.table,
           row = table.insertRow(rowIndex),
@@ -19446,7 +19446,7 @@
        * 删除一行单元格
        * @param rowIndex
        */
-      deleteRow: function(rowIndex) {
+      deleteRow: function (rowIndex) {
         var row = this.table.rows[rowIndex],
           infoRow = this.indexTable[rowIndex],
           colsNum = this.colsNum,
@@ -19489,14 +19489,14 @@
           deleteTds.push(cell);
         }
         var mergeTds = [];
-        utils.each(deleteTds, function(td) {
+        utils.each(deleteTds, function (td) {
           if (td.rowSpan == 1) {
             td.parentNode.removeChild(td);
           } else {
             mergeTds.push(td);
           }
         });
-        utils.each(mergeTds, function(td) {
+        utils.each(mergeTds, function (td) {
           td.rowSpan--;
         });
         row.parentNode.removeChild(row);
@@ -19504,7 +19504,7 @@
         //this.table.deleteRow(rowIndex);
         this.update();
       },
-      insertCol: function(colIndex, sourceCell, defaultValue) {
+      insertCol: function (colIndex, sourceCell, defaultValue) {
         var rowsNum = this.rowsNum,
           rowIndex = 0,
           tableRow, cell,
@@ -19574,7 +19574,7 @@
           tdBorder: 1
         });
       },
-      updateWidth: function(width, defaultValue) {
+      updateWidth: function (width, defaultValue) {
         var table = this.table,
           tmpWidth = UETable.getWidth(table) - defaultValue.tdPadding * 2 - defaultValue.tdBorder + width;
         if (tmpWidth < table.ownerDocument.body.offsetWidth) {
@@ -19582,11 +19582,11 @@
           return;
         }
         var tds = domUtils.getElementsByTagName(this.table, "td th");
-        utils.each(tds, function(td) {
+        utils.each(tds, function (td) {
           td.setAttribute("width", width);
         })
       },
-      deleteCol: function(colIndex) {
+      deleteCol: function (colIndex) {
         var indexTable = this.indexTable,
           tableRows = this.table.rows,
           backTableWidth = this.table.getAttribute("width"),
@@ -19613,14 +19613,14 @@
         this.table.setAttribute("width", backTableWidth - backTdWidth);
         this.update();
       },
-      splitToCells: function(cell) {
+      splitToCells: function (cell) {
         var me = this,
           cells = this.splitToRows(cell);
-        utils.each(cells, function(cell) {
+        utils.each(cells, function (cell) {
           me.splitToCols(cell);
         })
       },
-      splitToRows: function(cell) {
+      splitToRows: function (cell) {
         var cellInfo = this.getCellInfo(cell),
           rowIndex = cellInfo.rowIndex,
           colIndex = cellInfo.colIndex,
@@ -19645,7 +19645,7 @@
         this.update();
         return results;
       },
-      getPreviewMergedCellsNum: function(rowIndex, colIndex) {
+      getPreviewMergedCellsNum: function (rowIndex, colIndex) {
         var indexRow = this.indexTable[rowIndex],
           num = 0;
         for (var i = 0; i < colIndex;) {
@@ -19656,7 +19656,7 @@
         }
         return num;
       },
-      splitToCols: function(cell) {
+      splitToCols: function (cell) {
         var backWidth = (cell.offsetWidth / cell.colSpan - 22).toFixed(0),
 
           cellInfo = this.getCellInfo(cell),
@@ -19694,14 +19694,14 @@
         this.update();
         return results;
       },
-      isLastCell: function(cell, rowsNum, colsNum) {
+      isLastCell: function (cell, rowsNum, colsNum) {
         rowsNum = rowsNum || this.rowsNum;
         colsNum = colsNum || this.colsNum;
         var cellInfo = this.getCellInfo(cell);
         return ((cellInfo.rowIndex + cellInfo.rowSpan) == rowsNum) &&
           ((cellInfo.colIndex + cellInfo.colSpan) == colsNum);
       },
-      getLastCell: function(cells) {
+      getLastCell: function (cells) {
         cells = cells || this.table.getElementsByTagName("td");
         var firstInfo = this.getCellInfo(cells[0]);
         var me = this,
@@ -19710,12 +19710,12 @@
           cellsNum = 0,
           cols = 0,
           rows;
-        utils.each(cells, function(cell) {
+        utils.each(cells, function (cell) {
           if (cell.parentNode == tr) cols += cell.colSpan || 1;
           cellsNum += cell.rowSpan * cell.colSpan || 1;
         });
         rows = cellsNum / cols;
-        utils.each(cells, function(cell) {
+        utils.each(cells, function (cell) {
           if (me.isLastCell(cell, rows, cols)) {
             last = cell;
             return false;
@@ -19724,21 +19724,21 @@
         return last;
 
       },
-      selectRow: function(rowIndex) {
+      selectRow: function (rowIndex) {
         var indexRow = this.indexTable[rowIndex],
           start = this.getCell(indexRow[0].rowIndex, indexRow[0].cellIndex),
           end = this.getCell(indexRow[this.colsNum - 1].rowIndex, indexRow[this.colsNum - 1].cellIndex),
           range = this.getCellsRange(start, end);
         this.setSelected(range);
       },
-      selectTable: function() {
+      selectTable: function () {
         var tds = this.table.getElementsByTagName("td"),
           range = this.getCellsRange(tds[0], tds[tds.length - 1]);
         this.setSelected(range);
       },
-      setBackground: function(cells, value) {
+      setBackground: function (cells, value) {
         if (typeof value === "string") {
-          utils.each(cells, function(cell) {
+          utils.each(cells, function (cell) {
             cell.style.backgroundColor = value;
           })
         } else if (typeof value === "object") {
@@ -19749,7 +19749,7 @@
           var rowIndex = this.getCellInfo(cells[0]).rowIndex,
             count = 0,
             colors = value.colorList,
-            getColor = function(list, index, repeat) {
+            getColor = function (list, index, repeat) {
               return list[index] ? list[index] : repeat ? list[index % list.length] : "";
             };
           for (var i = 0, cell; cell = cells[i++];) {
@@ -19759,8 +19759,8 @@
           }
         }
       },
-      removeBackground: function(cells) {
-        utils.each(cells, function(cell) {
+      removeBackground: function (cells) {
+        utils.each(cells, function (cell) {
           cell.style.backgroundColor = "";
         })
       }
@@ -19768,7 +19768,7 @@
 
     };
 
-    function showError(e) {}
+    function showError(e) { }
   })();
 
   // plugins/table.cmds.js
@@ -19780,27 +19780,27 @@
    * To change this template use File | Settings | File Templates.
    */
   ;
-  (function() {
+  (function () {
     var UT = UE.UETable,
-      getTableItemsByRange = function(editor) {
+      getTableItemsByRange = function (editor) {
         return UT.getTableItemsByRange(editor);
       },
-      getUETableBySelected = function(editor) {
+      getUETableBySelected = function (editor) {
         return UT.getUETableBySelected(editor)
       },
-      getDefaultValue = function(editor, table) {
+      getDefaultValue = function (editor, table) {
         return UT.getDefaultValue(editor, table);
       },
-      getUETable = function(tdOrTable) {
+      getUETable = function (tdOrTable) {
         return UT.getUETable(tdOrTable);
       };
 
 
     UE.commands['inserttable'] = {
-      queryCommandState: function() {
+      queryCommandState: function () {
         return getTableItemsByRange(this).table ? -1 : 0;
       },
-      execCommand: function(cmd, opt) {
+      execCommand: function (cmd, opt) {
         function createTable(opt, tdWidth) {
           var html = [],
             rowsNum = opt.numRows,
@@ -19827,7 +19827,7 @@
         var me = this;
         var range = this.selection.getRange(),
           start = range.startContainer,
-          firstParentBlock = domUtils.findParent(start, function(node) {
+          firstParentBlock = domUtils.findParent(start, function (node) {
             return domUtils.isBlockElm(node);
           }, true) || me.body;
 
@@ -19842,10 +19842,10 @@
     };
 
     UE.commands['insertparagraphbeforetable'] = {
-      queryCommandState: function() {
+      queryCommandState: function () {
         return getTableItemsByRange(this).cell ? 0 : -1;
       },
-      execCommand: function() {
+      execCommand: function () {
         var table = getTableItemsByRange(this).table;
         if (table) {
           var p = this.document.createElement("p");
@@ -19857,11 +19857,11 @@
     };
 
     UE.commands['deletetable'] = {
-      queryCommandState: function() {
+      queryCommandState: function () {
         var rng = this.selection.getRange();
         return domUtils.findParentByTagName(rng.startContainer, 'table', true) ? 0 : -1;
       },
-      execCommand: function(cmd, table) {
+      execCommand: function (cmd, table) {
         var rng = this.selection.getRange();
         table = table || domUtils.findParentByTagName(rng.startContainer, 'table', true);
         if (table) {
@@ -19887,10 +19887,10 @@
       }
     };
     UE.commands['cellalign'] = {
-      queryCommandState: function() {
+      queryCommandState: function () {
         return getSelectedArr(this).length ? 0 : -1
       },
-      execCommand: function(cmd, align) {
+      execCommand: function (cmd, align) {
         var selectedTds = getSelectedArr(this);
         if (selectedTds.length) {
           for (var i = 0, ci; ci = selectedTds[i++];) {
@@ -19900,10 +19900,10 @@
       }
     };
     UE.commands['cellvalign'] = {
-      queryCommandState: function() {
+      queryCommandState: function () {
         return getSelectedArr(this).length ? 0 : -1;
       },
-      execCommand: function(cmd, valign) {
+      execCommand: function (cmd, valign) {
         var selectedTds = getSelectedArr(this);
         if (selectedTds.length) {
           for (var i = 0, ci; ci = selectedTds[i++];) {
@@ -19913,14 +19913,14 @@
       }
     };
     UE.commands['insertcaption'] = {
-      queryCommandState: function() {
+      queryCommandState: function () {
         var table = getTableItemsByRange(this).table;
         if (table) {
           return table.getElementsByTagName('caption').length == 0 ? 1 : -1;
         }
         return -1;
       },
-      execCommand: function() {
+      execCommand: function () {
         var table = getTableItemsByRange(this).table;
         if (table) {
           var caption = this.document.createElement('caption');
@@ -19933,7 +19933,7 @@
       }
     };
     UE.commands['deletecaption'] = {
-      queryCommandState: function() {
+      queryCommandState: function () {
         var rng = this.selection.getRange(),
           table = domUtils.findParentByTagName(rng.startContainer, 'table');
         if (table) {
@@ -19941,7 +19941,7 @@
         }
         return -1;
       },
-      execCommand: function() {
+      execCommand: function () {
         var rng = this.selection.getRange(),
           table = domUtils.findParentByTagName(rng.startContainer, 'table');
         if (table) {
@@ -19953,7 +19953,7 @@
       }
     };
     UE.commands['inserttitle'] = {
-      queryCommandState: function() {
+      queryCommandState: function () {
         var table = getTableItemsByRange(this).table;
         if (table) {
           var firstRow = table.rows[0];
@@ -19961,7 +19961,7 @@
         }
         return -1;
       },
-      execCommand: function() {
+      execCommand: function () {
         var table = getTableItemsByRange(this).table;
         if (table) {
           getUETable(table).insertRow(0, 'th');
@@ -19971,7 +19971,7 @@
       }
     };
     UE.commands['deletetitle'] = {
-      queryCommandState: function() {
+      queryCommandState: function () {
         var table = getTableItemsByRange(this).table;
         if (table) {
           var firstRow = table.rows[0];
@@ -19979,7 +19979,7 @@
         }
         return -1;
       },
-      execCommand: function() {
+      execCommand: function () {
         var table = getTableItemsByRange(this).table;
         if (table) {
           domUtils.remove(table.rows[0])
@@ -19989,7 +19989,7 @@
       }
     };
     UE.commands['inserttitlecol'] = {
-      queryCommandState: function() {
+      queryCommandState: function () {
         var table = getTableItemsByRange(this).table;
         if (table) {
           var lastRow = table.rows[table.rows.length - 1];
@@ -19997,7 +19997,7 @@
         }
         return -1;
       },
-      execCommand: function(cmd) {
+      execCommand: function (cmd) {
         var table = getTableItemsByRange(this).table;
         if (table) {
           getUETable(table).insertCol(0, 'th');
@@ -20008,7 +20008,7 @@
       }
     };
     UE.commands['deletetitlecol'] = {
-      queryCommandState: function() {
+      queryCommandState: function () {
         var table = getTableItemsByRange(this).table;
         if (table) {
           var lastRow = table.rows[table.rows.length - 1];
@@ -20016,7 +20016,7 @@
         }
         return -1;
       },
-      execCommand: function() {
+      execCommand: function () {
         var table = getTableItemsByRange(this).table;
         if (table) {
           for (var i = 0; i < table.rows.length; i++) {
@@ -20030,7 +20030,7 @@
     };
 
     UE.commands["mergeright"] = {
-      queryCommandState: function(cmd) {
+      queryCommandState: function (cmd) {
         var tableItems = getTableItemsByRange(this),
           table = tableItems.table,
           cell = tableItems.cell;
@@ -20051,7 +20051,7 @@
         return (rightCellInfo.rowIndex == cellInfo.rowIndex && rightCellInfo.rowSpan == cellInfo.rowSpan) ? 0 :
           -1;
       },
-      execCommand: function(cmd) {
+      execCommand: function (cmd) {
         var rng = this.selection.getRange(),
           bk = rng.createBookmark(true);
         var cell = getTableItemsByRange(this).cell,
@@ -20061,7 +20061,7 @@
       }
     };
     UE.commands["mergedown"] = {
-      queryCommandState: function(cmd) {
+      queryCommandState: function (cmd) {
         var tableItems = getTableItemsByRange(this),
           table = tableItems.table,
           cell = tableItems.cell;
@@ -20082,7 +20082,7 @@
         return (downCellInfo.colIndex == cellInfo.colIndex && downCellInfo.colSpan == cellInfo.colSpan) ? 0 : -
           1;
       },
-      execCommand: function() {
+      execCommand: function () {
         var rng = this.selection.getRange(),
           bk = rng.createBookmark(true);
         var cell = getTableItemsByRange(this).cell,
@@ -20092,10 +20092,10 @@
       }
     };
     UE.commands["mergecells"] = {
-      queryCommandState: function() {
+      queryCommandState: function () {
         return getUETableBySelected(this) ? 0 : -1;
       },
-      execCommand: function() {
+      execCommand: function () {
         var ut = getUETableBySelected(this);
         if (ut && ut.selectedTds.length) {
           var cell = ut.selectedTds[0];
@@ -20113,14 +20113,14 @@
       }
     };
     UE.commands["insertrow"] = {
-      queryCommandState: function() {
+      queryCommandState: function () {
         var tableItems = getTableItemsByRange(this),
           cell = tableItems.cell;
         return cell && (cell.tagName == "TD" || (cell.tagName == 'TH' && tableItems.tr !== tableItems.table.rows[
-            0])) &&
+          0])) &&
           getUETable(tableItems.table).rowsNum < this.options.maxRowNum ? 0 : -1;
       },
-      execCommand: function() {
+      execCommand: function () {
         var rng = this.selection.getRange(),
           bk = rng.createBookmark(true);
         var tableItems = getTableItemsByRange(this),
@@ -20143,13 +20143,13 @@
     };
     //后插入行
     UE.commands["insertrownext"] = {
-      queryCommandState: function() {
+      queryCommandState: function () {
         var tableItems = getTableItemsByRange(this),
           cell = tableItems.cell;
         return cell && (cell.tagName == "TD") && getUETable(tableItems.table).rowsNum < this.options.maxRowNum ?
           0 : -1;
       },
-      execCommand: function() {
+      execCommand: function () {
         var rng = this.selection.getRange(),
           bk = rng.createBookmark(true);
         var tableItems = getTableItemsByRange(this),
@@ -20171,11 +20171,11 @@
       }
     };
     UE.commands["deleterow"] = {
-      queryCommandState: function() {
+      queryCommandState: function () {
         var tableItems = getTableItemsByRange(this);
         return tableItems.cell ? 0 : -1;
       },
-      execCommand: function() {
+      execCommand: function () {
         var cell = getTableItemsByRange(this).cell,
           ut = getUETable(cell),
           cellsRange = ut.cellsRange,
@@ -20210,13 +20210,13 @@
       }
     };
     UE.commands["insertcol"] = {
-      queryCommandState: function(cmd) {
+      queryCommandState: function (cmd) {
         var tableItems = getTableItemsByRange(this),
           cell = tableItems.cell;
         return cell && (cell.tagName == "TD" || (cell.tagName == 'TH' && cell !== tableItems.tr.cells[0])) &&
           getUETable(tableItems.table).colsNum < this.options.maxColNum ? 0 : -1;
       },
-      execCommand: function(cmd) {
+      execCommand: function (cmd) {
         var rng = this.selection.getRange(),
           bk = rng.createBookmark(true);
         if (this.queryCommandState(cmd) == -1) return;
@@ -20237,12 +20237,12 @@
       }
     };
     UE.commands["insertcolnext"] = {
-      queryCommandState: function() {
+      queryCommandState: function () {
         var tableItems = getTableItemsByRange(this),
           cell = tableItems.cell;
         return cell && getUETable(tableItems.table).colsNum < this.options.maxColNum ? 0 : -1;
       },
-      execCommand: function() {
+      execCommand: function () {
         var rng = this.selection.getRange(),
           bk = rng.createBookmark(true);
         var cell = getTableItemsByRange(this).cell,
@@ -20262,11 +20262,11 @@
     };
 
     UE.commands["deletecol"] = {
-      queryCommandState: function() {
+      queryCommandState: function () {
         var tableItems = getTableItemsByRange(this);
         return tableItems.cell ? 0 : -1;
       },
-      execCommand: function() {
+      execCommand: function () {
         var cell = getTableItemsByRange(this).cell,
           ut = getUETable(cell),
           range = ut.cellsRange,
@@ -20305,7 +20305,7 @@
       }
     };
     UE.commands["splittocells"] = {
-      queryCommandState: function() {
+      queryCommandState: function () {
         var tableItems = getTableItemsByRange(this),
           cell = tableItems.cell;
         if (!cell) return -1;
@@ -20313,7 +20313,7 @@
         if (ut.selectedTds.length > 0) return -1;
         return cell && (cell.colSpan > 1 || cell.rowSpan > 1) ? 0 : -1;
       },
-      execCommand: function() {
+      execCommand: function () {
         var rng = this.selection.getRange(),
           bk = rng.createBookmark(true);
         var cell = getTableItemsByRange(this).cell,
@@ -20323,7 +20323,7 @@
       }
     };
     UE.commands["splittorows"] = {
-      queryCommandState: function() {
+      queryCommandState: function () {
         var tableItems = getTableItemsByRange(this),
           cell = tableItems.cell;
         if (!cell) return -1;
@@ -20331,7 +20331,7 @@
         if (ut.selectedTds.length > 0) return -1;
         return cell && cell.rowSpan > 1 ? 0 : -1;
       },
-      execCommand: function() {
+      execCommand: function () {
         var rng = this.selection.getRange(),
           bk = rng.createBookmark(true);
         var cell = getTableItemsByRange(this).cell,
@@ -20341,7 +20341,7 @@
       }
     };
     UE.commands["splittocols"] = {
-      queryCommandState: function() {
+      queryCommandState: function () {
         var tableItems = getTableItemsByRange(this),
           cell = tableItems.cell;
         if (!cell) return -1;
@@ -20349,7 +20349,7 @@
         if (ut.selectedTds.length > 0) return -1;
         return cell && cell.colSpan > 1 ? 0 : -1;
       },
-      execCommand: function() {
+      execCommand: function () {
         var rng = this.selection.getRange(),
           bk = rng.createBookmark(true);
         var cell = getTableItemsByRange(this).cell,
@@ -20362,10 +20362,10 @@
 
     UE.commands["adaptbytext"] =
       UE.commands["adaptbywindow"] = {
-        queryCommandState: function() {
+        queryCommandState: function () {
           return getTableItemsByRange(this).table ? 0 : -1
         },
-        execCommand: function(cmd) {
+        execCommand: function (cmd) {
           var tableItems = getTableItemsByRange(this),
             table = tableItems.table;
           if (table) {
@@ -20373,7 +20373,7 @@
               resetTdWidth(table, this);
             } else {
               var cells = domUtils.getElementsByTagName(table, "td th");
-              utils.each(cells, function(cell) {
+              utils.each(cells, function (cell) {
                 cell.removeAttribute("width");
               });
               table.removeAttribute("width");
@@ -20384,12 +20384,12 @@
 
     //平均分配各列
     UE.commands['averagedistributecol'] = {
-      queryCommandState: function() {
+      queryCommandState: function () {
         var ut = getUETableBySelected(this);
         if (!ut) return -1;
         return ut.isFullRow() || ut.isFullCol() ? 0 : -1;
       },
-      execCommand: function(cmd) {
+      execCommand: function (cmd) {
         var me = this,
           ut = getUETableBySelected(me);
 
@@ -20418,12 +20418,12 @@
         }
 
         function setAverageWidth(averageWidth) {
-          utils.each(domUtils.getElementsByTagName(ut.table, "th"), function(node) {
+          utils.each(domUtils.getElementsByTagName(ut.table, "th"), function (node) {
             node.setAttribute("width", "");
           });
           var cells = ut.isFullRow() ? domUtils.getElementsByTagName(ut.table, "td") : ut.selectedTds;
 
-          utils.each(cells, function(node) {
+          utils.each(cells, function (node) {
             if (node.colSpan == 1) {
               node.setAttribute("width", averageWidth);
             }
@@ -20437,13 +20437,13 @@
     };
     //平均分配各行
     UE.commands['averagedistributerow'] = {
-      queryCommandState: function() {
+      queryCommandState: function () {
         var ut = getUETableBySelected(this);
         if (!ut) return -1;
         if (ut.selectedTds && /th/ig.test(ut.selectedTds[0].tagName)) return -1;
         return ut.isFullRow() || ut.isFullCol() ? 0 : -1;
       },
-      execCommand: function(cmd) {
+      execCommand: function (cmd) {
         var me = this,
           ut = getUETableBySelected(me);
 
@@ -20489,7 +20489,7 @@
 
         function setAverageHeight(averageHeight) {
           var cells = ut.isFullCol() ? domUtils.getElementsByTagName(ut.table, "td") : ut.selectedTds;
-          utils.each(cells, function(node) {
+          utils.each(cells, function (node) {
             if (node.rowSpan == 1) {
               node.setAttribute("height", averageHeight);
             }
@@ -20504,10 +20504,10 @@
 
     //单元格对齐方式
     UE.commands['cellalignment'] = {
-      queryCommandState: function() {
+      queryCommandState: function () {
         return getTableItemsByRange(this).table ? 0 : -1
       },
-      execCommand: function(cmd, data) {
+      execCommand: function (cmd, data) {
         var me = this,
           ut = getUETableBySelected(me);
 
@@ -20522,7 +20522,7 @@
           }
           me.selection.getRange().setCursor(true);
         } else {
-          utils.each(ut.selectedTds, function(cell) {
+          utils.each(ut.selectedTds, function (cell) {
             domUtils.setAttributes(cell, data);
           });
         }
@@ -20531,7 +20531,7 @@
        * 查询当前点击的单元格的对齐状态， 如果当前已经选择了多个单元格， 则会返回所有单元格经过统一协调过后的状态
        * @see UE.UETable.getTableCellAlignState
        */
-      queryCommandValue: function(cmd) {
+      queryCommandValue: function (cmd) {
 
         var activeMenuCell = getTableItemsByRange(this).cell;
 
@@ -20558,13 +20558,13 @@
     };
     //表格对齐方式
     UE.commands['tablealignment'] = {
-      queryCommandState: function() {
+      queryCommandState: function () {
         if (browser.ie && browser.version < 8) {
           return -1;
         }
         return getTableItemsByRange(this).table ? 0 : -1
       },
-      execCommand: function(cmd, value) {
+      execCommand: function (cmd, value) {
         var me = this,
           start = me.selection.getStart(),
           table = start && domUtils.findParentByTagName(start, ["table"], true);
@@ -20577,10 +20577,10 @@
 
     //表格属性
     UE.commands['edittable'] = {
-      queryCommandState: function() {
+      queryCommandState: function () {
         return getTableItemsByRange(this).table ? 0 : -1
       },
-      execCommand: function(cmd, color) {
+      execCommand: function (cmd, color) {
         var rng = this.selection.getRange(),
           table = domUtils.findParentByTagName(rng.startContainer, 'table');
         if (table) {
@@ -20588,7 +20588,7 @@
             domUtils.getElementsByTagName(table, "th"),
             domUtils.getElementsByTagName(table, "caption")
           );
-          utils.each(arr, function(node) {
+          utils.each(arr, function (node) {
             node.style.borderColor = color;
           });
         }
@@ -20596,10 +20596,10 @@
     };
     //单元格属性
     UE.commands['edittd'] = {
-      queryCommandState: function() {
+      queryCommandState: function () {
         return getTableItemsByRange(this).table ? 0 : -1
       },
-      execCommand: function(cmd, bkColor) {
+      execCommand: function (cmd, bkColor) {
         var me = this,
           ut = getUETableBySelected(me);
 
@@ -20610,7 +20610,7 @@
             cell.style.backgroundColor = bkColor;
           }
         } else {
-          utils.each(ut.selectedTds, function(cell) {
+          utils.each(ut.selectedTds, function (cell) {
             cell.style.backgroundColor = bkColor;
           });
         }
@@ -20618,10 +20618,10 @@
     };
 
     UE.commands["settablebackground"] = {
-      queryCommandState: function() {
+      queryCommandState: function () {
         return getSelectedArr(this).length > 1 ? 0 : -1;
       },
-      execCommand: function(cmd, value) {
+      execCommand: function (cmd, value) {
         var cells, ut;
         cells = getSelectedArr(this);
         ut = getUETable(cells[0]);
@@ -20630,7 +20630,7 @@
     };
 
     UE.commands["cleartablebackground"] = {
-      queryCommandState: function() {
+      queryCommandState: function () {
         var cells = getSelectedArr(this);
         if (!cells.length) return -1;
         for (var i = 0, cell; cell = cells[i++];) {
@@ -20638,7 +20638,7 @@
         }
         return -1;
       },
-      execCommand: function() {
+      execCommand: function () {
         var cells = getSelectedArr(this),
           ut = getUETable(cells[0]);
         ut.removeBackground(cells);
@@ -20646,7 +20646,7 @@
     };
 
     UE.commands["interlacetable"] = UE.commands["uninterlacetable"] = {
-      queryCommandState: function(cmd) {
+      queryCommandState: function (cmd) {
         var table = getTableItemsByRange(this).table;
         if (!table) return -1;
         var interlaced = table.getAttribute("interlaced");
@@ -20658,7 +20658,7 @@
           return (!interlaced || interlaced === "disabled") ? -1 : 0;
         }
       },
-      execCommand: function(cmd, classList) {
+      execCommand: function (cmd, classList) {
         var table = getTableItemsByRange(this).table;
         if (cmd == "interlacetable") {
           table.setAttribute("interlaced", "enabled");
@@ -20670,14 +20670,14 @@
       }
     };
     UE.commands["setbordervisible"] = {
-      queryCommandState: function(cmd) {
+      queryCommandState: function (cmd) {
         var table = getTableItemsByRange(this).table;
         if (!table) return -1;
         return 0;
       },
-      execCommand: function() {
+      execCommand: function () {
         var table = getTableItemsByRange(this).table;
-        utils.each(domUtils.getElementsByTagName(table, 'td'), function(td) {
+        utils.each(domUtils.getElementsByTagName(table, 'td'), function (td) {
           td.style.borderWidth = '1px';
           td.style.borderStyle = 'solid';
         })
@@ -20686,16 +20686,16 @@
 
     function resetTdWidth(table, editor) {
       var tds = domUtils.getElementsByTagName(table, 'td th');
-      utils.each(tds, function(td) {
+      utils.each(tds, function (td) {
         td.removeAttribute("width");
       });
       table.setAttribute('width', getTableWidth(editor, true, getDefaultValue(editor, table)));
       var tdsWidths = [];
-      setTimeout(function() {
-        utils.each(tds, function(td) {
+      setTimeout(function () {
+        utils.each(tds, function (td) {
           (td.colSpan == 1) && tdsWidths.push(td.offsetWidth)
         })
-        utils.each(tds, function(td, i) {
+        utils.each(tds, function (td, i) {
           (td.colSpan == 1) && td.setAttribute("width", tdsWidths[i] + "");
         })
       }, 0);
@@ -20727,7 +20727,7 @@
    * Time: 上午10:05
    * To change this template use File | Settings | File Templates.
    */
-  UE.plugins['table'] = function() {
+  UE.plugins['table'] = function () {
     var me = this,
       tabTimer = null,
       //拖动计时器
@@ -20747,30 +20747,30 @@
       //双击允许的时间范围
       dblclickTime = 360,
       UT = UE.UETable,
-      getUETable = function(tdOrTable) {
+      getUETable = function (tdOrTable) {
         return UT.getUETable(tdOrTable);
       },
-      getUETableBySelected = function(editor) {
+      getUETableBySelected = function (editor) {
         return UT.getUETableBySelected(editor);
       },
-      getDefaultValue = function(editor, table) {
+      getDefaultValue = function (editor, table) {
         return UT.getDefaultValue(editor, table);
       },
-      removeSelectedClass = function(cells) {
+      removeSelectedClass = function (cells) {
         return UT.removeSelectedClass(cells);
       };
 
     function showError(e) {
       //        throw e;
     }
-    me.ready(function() {
+    me.ready(function () {
       var me = this;
       var orgGetText = me.selection.getText;
-      me.selection.getText = function() {
+      me.selection.getText = function () {
         var table = getUETableBySelected(me);
         if (table) {
           var str = '';
-          utils.each(table.selectedTds, function(td) {
+          utils.each(table.selectedTds, function (td) {
             str += td[browser.ie ? 'innerText' : 'textContent'];
           })
           return str;
@@ -20834,7 +20834,7 @@
       "averagedistributecol": 1,
       "averagedistributerow": 1
     };
-    me.ready(function() {
+    me.ready(function () {
       utils.cssRule('table',
         //选中的td上的样式
         '.selectTdClass{background-color:#edf5fa !important}' +
@@ -20850,7 +20850,7 @@
 
       var tableCopyList, isFullCol, isFullRow;
       //注册del/backspace事件
-      me.addListener('keydown', function(cmd, evt) {
+      me.addListener('keydown', function (cmd, evt) {
         var me = this;
         var keyCode = evt.keyCode || evt.which;
 
@@ -20923,7 +20923,7 @@
                 preNode = table.previousSibling;
               if (cell === start && (!preNode || preNode.nodeType == 1 && preNode.tagName == 'TABLE') &&
                 domUtils.isStartInblock(rng)) {
-                var first = domUtils.findParent(me.selection.getStart(), function(n) {
+                var first = domUtils.findParent(me.selection.getStart(), function (n) {
                   return domUtils.isBlockElm(n)
                 }, true);
                 if (first && (/t(h|d)/i.test(first.tagName) || first === start.firstChild)) {
@@ -20957,12 +20957,12 @@
           }
         }
       });
-      me.addListener("tablehasdeleted", function() {
+      me.addListener("tablehasdeleted", function () {
         toggleDraggableState(this, false, "", null);
         if (dragButton) domUtils.remove(dragButton);
       });
 
-      me.addListener('beforepaste', function(cmd, html) {
+      me.addListener('beforepaste', function (cmd, html) {
         var me = this;
         var rng = me.selection.getRange();
         if (domUtils.findParentByTagName(rng.startContainer, 'caption', true)) {
@@ -21072,8 +21072,8 @@
 
             var defaultValue = getDefaultValue(me),
               width = me.body.offsetWidth -
-              (needIEHack ? parseInt(domUtils.getComputedStyle(me.body, 'margin-left'), 10) * 2 : 0) -
-              defaultValue.tableBorder * 2 - (me.options.offsetWidth || 0);
+                (needIEHack ? parseInt(domUtils.getComputedStyle(me.body, 'margin-left'), 10) * 2 : 0) -
+                defaultValue.tableBorder * 2 - (me.options.offsetWidth || 0);
             me.execCommand('insertHTML', '<table  ' +
               (isFullCol && isFullRow ? 'width="' + width + '"' : '') +
               '>' + table.innerHTML.replace(/>\s*</g, '><').replace(/\bth\b/gi, "td") + '</table>')
@@ -21088,17 +21088,17 @@
           div.innerHTML = html.html;
           tables = div.getElementsByTagName("table");
           if (domUtils.findParentByTagName(me.selection.getStart(), 'table')) {
-            utils.each(tables, function(t) {
+            utils.each(tables, function (t) {
               domUtils.remove(t)
             });
             if (domUtils.findParentByTagName(me.selection.getStart(), 'caption', true)) {
               div.innerHTML = div[browser.ie ? 'innerText' : 'textContent'];
             }
           } else {
-            utils.each(tables, function(table) {
+            utils.each(tables, function (table) {
               removeStyleSize(table, true);
               domUtils.removeAttributes(table, ['style', 'border']);
-              utils.each(domUtils.getElementsByTagName(table, "td"), function(td) {
+              utils.each(domUtils.getElementsByTagName(table, "td"), function (td) {
                 if (isEmptyBlock(td)) {
                   domUtils.fillNode(me.document, td);
                 }
@@ -21111,23 +21111,23 @@
         }
       });
 
-      me.addListener('afterpaste', function() {
-        utils.each(domUtils.getElementsByTagName(me.body, "table"), function(table) {
+      me.addListener('afterpaste', function () {
+        utils.each(domUtils.getElementsByTagName(me.body, "table"), function (table) {
           if (table.offsetWidth > me.body.offsetWidth) {
             var defaultValue = getDefaultValue(me, table);
             table.style.width = me.body.offsetWidth - (needIEHack ? parseInt(domUtils.getComputedStyle(
               me.body, 'margin-left'), 10) * 2 : 0) - defaultValue.tableBorder * 2 - (me.options.offsetWidth ||
-              0) + 'px'
+                0) + 'px'
           }
         })
       });
-      me.addListener('blur', function() {
+      me.addListener('blur', function () {
         tableCopyList = null;
       });
       var timer;
-      me.addListener('keydown', function() {
+      me.addListener('keydown', function () {
         clearTimeout(timer);
-        timer = setTimeout(function() {
+        timer = setTimeout(function () {
           var rng = me.selection.getRange(),
             cell = domUtils.findParentByTagName(rng.startContainer, ['th', 'td'], true);
           if (cell) {
@@ -21139,14 +21139,14 @@
 
         }, 100);
       });
-      me.addListener("selectionchange", function() {
+      me.addListener("selectionchange", function () {
         toggleDraggableState(me, false, "", null);
       });
 
 
       //内容变化时触发索引更新
       //todo 可否考虑标记检测，如果不涉及表格的变化就不进行索引重建和更新
-      me.addListener("contentchange", function() {
+      me.addListener("contentchange", function () {
         var me = this;
         //尽可能排除一些不需要更新的状况
         hideDragLine(me);
@@ -21154,7 +21154,7 @@
         var rng = me.selection.getRange();
         var start = rng.startContainer;
         start = domUtils.findParentByTagName(start, ['td', 'th'], true);
-        utils.each(domUtils.getElementsByTagName(me.document, 'table'), function(table) {
+        utils.each(domUtils.getElementsByTagName(me.document, 'table'), function (table) {
           if (me.fireEvent("excludetable", table) === true) return;
           table.ueTable = new UT(table);
           //trace:3742
@@ -21175,22 +21175,22 @@
           //                        }
           //                    }
           //                });
-          table.onmouseover = function() {
+          table.onmouseover = function () {
             me.fireEvent('tablemouseover', table);
           };
-          table.onmousemove = function() {
+          table.onmousemove = function () {
             me.fireEvent('tablemousemove', table);
             me.options.tableDragable && toggleDragButton(true, this, me);
-            utils.defer(function() {
+            utils.defer(function () {
               me.fireEvent('contentchange', 50)
             }, true)
           };
-          table.onmouseout = function() {
+          table.onmouseout = function () {
             me.fireEvent('tablemouseout', table);
             toggleDraggableState(me, false, "", null);
             hideDragLine(me);
           };
-          table.onclick = function(evt) {
+          table.onclick = function (evt) {
             evt = me.window.event || evt;
             var target = getParentTdOrTh(evt.target || evt.srcElement);
             if (!target) return;
@@ -21255,7 +21255,7 @@
 
       domUtils.on(me.document, "mousemove", mouseMoveEvent);
 
-      domUtils.on(me.document, "mouseout", function(evt) {
+      domUtils.on(me.document, "mouseout", function (evt) {
         var target = evt.target || evt.srcElement;
         if (target.tagName == "TABLE") {
           toggleDraggableState(me, false, "", null);
@@ -21264,19 +21264,19 @@
       /**
        * 表格隔行变色
        */
-      me.addListener("interlacetable", function(type, table, classList) {
+      me.addListener("interlacetable", function (type, table, classList) {
         if (!table) return;
         var me = this,
           rows = table.rows,
           len = rows.length,
-          getClass = function(list, index, repeat) {
+          getClass = function (list, index, repeat) {
             return list[index] ? list[index] : repeat ? list[index % list.length] : "";
           };
         for (var i = 0; i < len; i++) {
           rows[i].className = getClass(classList || me.options.classList, i, true);
         }
       });
-      me.addListener("uninterlacetable", function(type, table) {
+      me.addListener("uninterlacetable", function (type, table) {
         if (!table) return;
         var me = this,
           rows = table.rows,
@@ -21290,11 +21290,11 @@
       me.addListener("mousedown", mouseDownEvent);
       me.addListener("mouseup", mouseUpEvent);
       //拖动的时候触发mouseup
-      domUtils.on(me.body, 'dragstart', function(evt) {
+      domUtils.on(me.body, 'dragstart', function (evt) {
         mouseUpEvent.call(me, 'dragstart', evt);
       });
-      me.addOutputRule(function(root) {
-        utils.each(root.getNodesByTagName('div'), function(n) {
+      me.addOutputRule(function (root) {
+        utils.each(root.getNodesByTagName('div'), function (n) {
           if (n.getAttr('id') == 'ue_tableDragLine') {
             n.parentNode.removeChild(n);
           }
@@ -21302,10 +21302,10 @@
       });
 
       var currentRowIndex = 0;
-      me.addListener("mousedown", function() {
+      me.addListener("mousedown", function () {
         currentRowIndex = 0;
       });
-      me.addListener('tabkeydown', function() {
+      me.addListener('tabkeydown', function () {
         var range = this.selection.getRange(),
           common = range.getCommonAncestor(true, true),
           table = domUtils.findParentByTagName(common, 'table');
@@ -21340,10 +21340,10 @@
         }
 
       });
-      browser.ie && me.addListener('selectionchange', function() {
+      browser.ie && me.addListener('selectionchange', function () {
         toggleDraggableState(this, false, "", null);
       });
-      me.addListener("keydown", function(type, evt) {
+      me.addListener("keydown", function (type, evt) {
         var me = this;
         //处理在表格的最后一个输入tab产生新的表格
         var keyCode = evt.keyCode || evt.which;
@@ -21357,30 +21357,30 @@
         notCtrlKey && ut.clearSelected();
       });
 
-      me.addListener("beforegetcontent", function() {
+      me.addListener("beforegetcontent", function () {
         switchBorderColor(this, false);
-        browser.ie && utils.each(this.document.getElementsByTagName('caption'), function(ci) {
+        browser.ie && utils.each(this.document.getElementsByTagName('caption'), function (ci) {
           if (domUtils.isEmptyNode(ci)) {
             ci.innerHTML = '&nbsp;'
           }
         });
       });
-      me.addListener("aftergetcontent", function() {
+      me.addListener("aftergetcontent", function () {
         switchBorderColor(this, true);
       });
-      me.addListener("getAllHtml", function() {
+      me.addListener("getAllHtml", function () {
         removeSelectedClass(me.document.getElementsByTagName("td"));
       });
       //修正全屏状态下插入的表格宽度在非全屏状态下撑开编辑器的情况
-      me.addListener("fullscreenchanged", function(type, fullscreen) {
+      me.addListener("fullscreenchanged", function (type, fullscreen) {
         if (!fullscreen) {
           var ratio = this.body.offsetWidth / document.body.offsetWidth,
             tables = domUtils.getElementsByTagName(this.body, "table");
-          utils.each(tables, function(table) {
+          utils.each(tables, function (table) {
             if (table.offsetWidth < me.body.offsetWidth) return false;
             var tds = domUtils.getElementsByTagName(table, "td"),
               backWidths = [];
-            utils.each(tds, function(td) {
+            utils.each(tds, function (td) {
               backWidths.push(td.offsetWidth);
             });
             for (var i = 0, td; td = tds[i]; i++) {
@@ -21393,7 +21393,7 @@
 
       //重写execCommand命令，用于处理框选时的处理
       var oldExecCommand = me.execCommand;
-      me.execCommand = function(cmd, datatat) {
+      me.execCommand = function (cmd, datatat) {
 
         var me = this,
           args = arguments;
@@ -21580,7 +21580,7 @@
     function toggleDragButton(show, table, editor) {
       if (!show) {
         if (dragOver) return;
-        dragButtonTimer = setTimeout(function() {
+        dragButtonTimer = setTimeout(function () {
           !dragOver && dragButton && dragButton.parentNode && dragButton.parentNode.removeChild(dragButton);
         }, 2000);
       } else {
@@ -21599,19 +21599,19 @@
         "dialogs/table/dragicon.png);position: absolute;cursor:move;top:" + (pos.y - 15) + "px;left:" + (pos.x) +
         "px;";
       domUtils.unSelectable(dragButton);
-      dragButton.onmouseover = function(evt) {
+      dragButton.onmouseover = function (evt) {
         dragOver = true;
       };
-      dragButton.onmouseout = function(evt) {
+      dragButton.onmouseout = function (evt) {
         dragOver = false;
       };
-      domUtils.on(dragButton, 'click', function(type, evt) {
+      domUtils.on(dragButton, 'click', function (type, evt) {
         doClick(evt, this);
       });
-      domUtils.on(dragButton, 'dblclick', function(type, evt) {
+      domUtils.on(dragButton, 'dblclick', function (type, evt) {
         doDblClick(evt);
       });
-      domUtils.on(dragButton, 'dragstart', function(type, evt) {
+      domUtils.on(dragButton, 'dragstart', function (type, evt) {
         domUtils.preventDefault(evt);
       });
       var timer;
@@ -21619,7 +21619,7 @@
       function doClick(evt, button) {
         // 部分浏览器下需要清理
         clearTimeout(timer);
-        timer = setTimeout(function() {
+        timer = setTimeout(function () {
           editor.fireEvent("tableClicked", table, button);
         }, 300);
       }
@@ -21742,7 +21742,7 @@
         };
 
         //切换状态
-        line.onmouseout = function() {
+        line.onmouseout = function () {
           this.style.display = 'none';
         };
 
@@ -21830,7 +21830,7 @@
 
         if (ut) {
           var td = getTargetTd(me, evt);
-          utils.each(ut.selectedTds, function(ti) {
+          utils.each(ut.selectedTds, function (ti) {
             if (ti === td) {
               flag = true;
             }
@@ -21840,7 +21840,7 @@
             ut.clearSelected()
           } else {
             td = ut.selectedTds[0];
-            setTimeout(function() {
+            setTimeout(function () {
               me.selection.getRange().setStart(td, 0).setCursor(false, true);
             }, 0);
 
@@ -21893,24 +21893,24 @@
             var oldWidth = [],
               newWidth = [];
 
-            utils.each(cells, function(cell) {
+            utils.each(cells, function (cell) {
 
               oldWidth.push(cell.offsetWidth);
 
             });
 
-            utils.each(cells, function(cell) {
+            utils.each(cells, function (cell) {
 
               cell.removeAttribute("width");
 
             });
 
-            window.setTimeout(function() {
+            window.setTimeout(function () {
 
               //是否允许改变
               var changeable = true;
 
-              utils.each(cells, function(cell, index) {
+              utils.each(cells, function (cell, index) {
 
                 var width = cell.offsetWidth;
 
@@ -21925,7 +21925,7 @@
 
               var change = changeable ? newWidth : oldWidth;
 
-              utils.each(cells, function(cell, index) {
+              utils.each(cells, function (cell, index) {
 
                 cell.width = change[index] - getTabcellSpace();
 
@@ -21952,7 +21952,7 @@
       removeSelectedClass(domUtils.getElementsByTagName(me.body, "td th"));
       //trace:3113
       //选中单元格，点击table外部，不会清掉table上挂的ueTable,会引起getUETableBySelected方法返回值
-      utils.each(me.document.getElementsByTagName('table'), function(t) {
+      utils.each(me.document.getElementsByTagName('table'), function (t) {
         t.ueTable = null;
       });
       startTd = getTargetTd(me, evt);
@@ -21986,7 +21986,7 @@
       //是否正在等待resize的缓冲中
       isInResizeBuffer = true;
 
-      tableDragTimer = setTimeout(function() {
+      tableDragTimer = setTimeout(function () {
         tableBorderDrag(evt);
       }, dblclickTime);
 
@@ -22074,7 +22074,7 @@
           y: evt.clientY
         };
 
-        tableResizeTimer = setTimeout(function() {
+        tableResizeTimer = setTimeout(function () {
           singleClickState > 0 && singleClickState--;
         }, dblclickTime);
 
@@ -22236,7 +22236,7 @@
 
           var i = 0;
 
-          utils.each(cells, function(cellGroup) {
+          utils.each(cells, function (cellGroup) {
 
             cellGroup.left.width = (+cellGroup.left.width) + changeValue;
             cellGroup.right && (cellGroup.right.width = (+cellGroup.right.width) - changeValue);
@@ -22245,7 +22245,7 @@
 
         } else {
 
-          utils.each(cells, function(cellGroup) {
+          utils.each(cells, function (cellGroup) {
             cellGroup.left.width -= -changeValue;
           });
 
@@ -22305,12 +22305,12 @@
       //记录想关的单元格
       var borderCells = [];
 
-      utils.each(rows, function(tabRow) {
+      utils.each(rows, function (tabRow) {
 
         var cells = tabRow.cells,
           currIndex = 0;
 
-        utils.each(cells, function(tabCell) {
+        utils.each(cells, function (tabCell) {
 
           currIndex += (tabCell.colSpan || 1);
 
@@ -22378,7 +22378,7 @@
       changeValue = Math.abs(changeValue);
 
       //只关心非最后一个单元格就可以
-      utils.each(cells, function(cellGroup) {
+      utils.each(cells, function (cellGroup) {
 
         var curCell = cellGroup[direction];
 
@@ -22416,7 +22416,7 @@
 
       try {
         cell.width = width;
-      } catch (e) {}
+      } catch (e) { }
 
       return width;
 
@@ -22488,7 +22488,7 @@
 
       }
 
-      getTabcellSpace = function() {
+      getTabcellSpace = function () {
         return UT.tabcellSpace;
       };
 
@@ -22636,7 +22636,7 @@
    * To change this template use File | Settings | File Templates.
    */
 
-  UE.UETable.prototype.sortTable = function(sortByCellIndex, compareFn) {
+  UE.UETable.prototype.sortTable = function (sortByCellIndex, compareFn) {
     var table = this.table,
       rows = table.rows,
       trArray = [],
@@ -22657,27 +22657,27 @@
     }
 
     var Fn = {
-      'reversecurrent': function(td1, td2) {
+      'reversecurrent': function (td1, td2) {
         return 1;
       },
-      'orderbyasc': function(td1, td2) {
+      'orderbyasc': function (td1, td2) {
         var value1 = td1.innerText || td1.textContent,
           value2 = td2.innerText || td2.textContent;
         return value1.localeCompare(value2);
       },
-      'reversebyasc': function(td1, td2) {
+      'reversebyasc': function (td1, td2) {
         var value1 = td1.innerHTML,
           value2 = td2.innerHTML;
         return value2.localeCompare(value1);
       },
-      'orderbynum': function(td1, td2) {
+      'orderbynum': function (td1, td2) {
         var value1 = td1[browser.ie ? 'innerText' : 'textContent'].match(/\d+/),
           value2 = td2[browser.ie ? 'innerText' : 'textContent'].match(/\d+/);
         if (value1) value1 = +value1[0];
         if (value2) value2 = +value2[0];
         return (value1 || 0) - (value2 || 0);
       },
-      'reversebynum': function(td1, td2) {
+      'reversebynum': function (td1, td2) {
         var value1 = td1[browser.ie ? 'innerText' : 'textContent'].match(/\d+/),
           value2 = td2[browser.ie ? 'innerText' : 'textContent'].match(/\d+/);
         if (value1) value1 = +value1[0];
@@ -22692,7 +22692,7 @@
 
     //th不参与排序
     flag && trArray.splice(0, 1);
-    trArray = utils.sort(trArray, function(tr1, tr2) {
+    trArray = utils.sort(trArray, function (tr1, tr2) {
       var result;
       if (compareFn && typeof compareFn === "function") {
         result = compareFn.call(this, tr1.cells[sortByCellIndex], tr2.cells[sortByCellIndex]);
@@ -22717,18 +22717,18 @@
     }
   };
 
-  UE.plugins['tablesort'] = function() {
+  UE.plugins['tablesort'] = function () {
     var me = this,
       UT = UE.UETable,
-      getUETable = function(tdOrTable) {
+      getUETable = function (tdOrTable) {
         return UT.getUETable(tdOrTable);
       },
-      getTableItemsByRange = function(editor) {
+      getTableItemsByRange = function (editor) {
         return UT.getTableItemsByRange(editor);
       };
 
 
-    me.ready(function() {
+    me.ready(function () {
       //添加表格可排序的样式
       utils.cssRule('tablesort',
         'table.sortEnabled tr.firstRow th,table.sortEnabled tr.firstRow td{padding-right:20px;background-repeat: no-repeat;background-position: center right;' +
@@ -22736,7 +22736,7 @@
         me.document);
 
       //做单元格合并操作时,清除可排序标识
-      me.addListener("afterexeccommand", function(type, cmd) {
+      me.addListener("afterexeccommand", function (type, cmd) {
         if (cmd == 'mergeright' || cmd == 'mergedown' || cmd == 'mergecells') {
           this.execCommand('disablesort');
         }
@@ -22747,7 +22747,7 @@
 
     //表格排序
     UE.commands['sorttable'] = {
-      queryCommandState: function() {
+      queryCommandState: function () {
         var me = this,
           tableItems = getTableItemsByRange(me);
         if (!tableItems.cell) return -1;
@@ -22758,7 +22758,7 @@
         }
         return 0;
       },
-      execCommand: function(cmd, fn) {
+      execCommand: function (cmd, fn) {
         var me = this,
           range = me.selection.getRange(),
           bk = range.createBookmark(true),
@@ -22770,13 +22770,13 @@
         range.moveToBookmark(bk);
         try {
           range.select();
-        } catch (e) {}
+        } catch (e) { }
       }
     };
 
     //设置表格可排序,清除表格可排序
     UE.commands["enablesort"] = UE.commands["disablesort"] = {
-      queryCommandState: function(cmd) {
+      queryCommandState: function (cmd) {
         var table = getTableItemsByRange(this).table;
         if (table && cmd == 'enablesort') {
           var cells = domUtils.getElementsByTagName(table, 'th td');
@@ -22787,7 +22787,7 @@
 
         return !table ? -1 : cmd == 'enablesort' ^ table.getAttribute('data-sort') != 'sortEnabled' ? -1 : 0;
       },
-      execCommand: function(cmd) {
+      execCommand: function (cmd) {
         var table = getTableItemsByRange(this).table;
         table.setAttribute("data-sort", cmd == "enablesort" ? "sortEnabled" : "sortDisabled");
         cmd == "enablesort" ? domUtils.addClass(table, "sortEnabled") : domUtils.removeClasses(table,
@@ -22809,7 +22809,7 @@
    * @author zhanyi
    */
 
-  UE.plugins['contextmenu'] = function() {
+  UE.plugins['contextmenu'] = function () {
     var me = this;
     me.setOpt('enableContextMenu', true);
     if (me.getOpt('enableContextMenu') === false) {
@@ -22818,384 +22818,384 @@
     var lang = me.getLang("contextMenu"),
       menu,
       items = me.options.contextMenu || [{
-          label: lang['selectall'],
-          cmdName: 'selectall'
+        label: lang['selectall'],
+        cmdName: 'selectall'
+      },
+      {
+        label: lang.cleardoc,
+        cmdName: 'cleardoc',
+        exec: function () {
+          if (confirm(lang.confirmclear)) {
+            this.execCommand('cleardoc');
+          }
+        }
+      },
+        '-',
+      {
+        label: lang.unlink,
+        cmdName: 'unlink'
+      },
+        '-',
+      {
+        group: lang.paragraph,
+        icon: 'justifyjustify',
+        subMenu: [{
+          label: lang.justifyleft,
+          cmdName: 'justify',
+          value: 'left'
         },
         {
-          label: lang.cleardoc,
-          cmdName: 'cleardoc',
-          exec: function() {
-            if (confirm(lang.confirmclear)) {
-              this.execCommand('cleardoc');
+          label: lang.justifyright,
+          cmdName: 'justify',
+          value: 'right'
+        },
+        {
+          label: lang.justifycenter,
+          cmdName: 'justify',
+          value: 'center'
+        },
+        {
+          label: lang.justifyjustify,
+          cmdName: 'justify',
+          value: 'justify'
+        }
+        ]
+      },
+        '-',
+      {
+        group: lang.table,
+        icon: 'table',
+        subMenu: [{
+          label: lang.inserttable,
+          cmdName: 'inserttable'
+        },
+        {
+          label: lang.deletetable,
+          cmdName: 'deletetable'
+        },
+          '-',
+        {
+          label: lang.deleterow,
+          cmdName: 'deleterow'
+        },
+        {
+          label: lang.deletecol,
+          cmdName: 'deletecol'
+        },
+        {
+          label: lang.insertcol,
+          cmdName: 'insertcol'
+        },
+        {
+          label: lang.insertcolnext,
+          cmdName: 'insertcolnext'
+        },
+        {
+          label: lang.insertrow,
+          cmdName: 'insertrow'
+        },
+        {
+          label: lang.insertrownext,
+          cmdName: 'insertrownext'
+        },
+          '-',
+        {
+          label: lang.insertcaption,
+          cmdName: 'insertcaption'
+        },
+        {
+          label: lang.deletecaption,
+          cmdName: 'deletecaption'
+        },
+        {
+          label: lang.inserttitle,
+          cmdName: 'inserttitle'
+        },
+        {
+          label: lang.deletetitle,
+          cmdName: 'deletetitle'
+        },
+        {
+          label: lang.inserttitlecol,
+          cmdName: 'inserttitlecol'
+        },
+        {
+          label: lang.deletetitlecol,
+          cmdName: 'deletetitlecol'
+        },
+          '-',
+        {
+          label: lang.mergecells,
+          cmdName: 'mergecells'
+        },
+        {
+          label: lang.mergeright,
+          cmdName: 'mergeright'
+        },
+        {
+          label: lang.mergedown,
+          cmdName: 'mergedown'
+        },
+          '-',
+        {
+          label: lang.splittorows,
+          cmdName: 'splittorows'
+        },
+        {
+          label: lang.splittocols,
+          cmdName: 'splittocols'
+        },
+        {
+          label: lang.splittocells,
+          cmdName: 'splittocells'
+        },
+          '-',
+        {
+          label: lang.averageDiseRow,
+          cmdName: 'averagedistributerow'
+        },
+        {
+          label: lang.averageDisCol,
+          cmdName: 'averagedistributecol'
+        },
+          '-',
+        {
+          label: lang.edittd,
+          cmdName: 'edittd',
+          exec: function () {
+            if (UE.ui['edittd']) {
+              new UE.ui['edittd'](this);
             }
+            this.getDialog('edittd').open();
           }
         },
-        '-',
         {
-          label: lang.unlink,
-          cmdName: 'unlink'
-        },
-        '-',
-        {
-          group: lang.paragraph,
-          icon: 'justifyjustify',
-          subMenu: [{
-              label: lang.justifyleft,
-              cmdName: 'justify',
-              value: 'left'
-            },
-            {
-              label: lang.justifyright,
-              cmdName: 'justify',
-              value: 'right'
-            },
-            {
-              label: lang.justifycenter,
-              cmdName: 'justify',
-              value: 'center'
-            },
-            {
-              label: lang.justifyjustify,
-              cmdName: 'justify',
-              value: 'justify'
+          label: lang.edittable,
+          cmdName: 'edittable',
+          exec: function () {
+            if (UE.ui['edittable']) {
+              new UE.ui['edittable'](this);
             }
-          ]
-        },
-        '-',
-        {
-          group: lang.table,
-          icon: 'table',
-          subMenu: [{
-              label: lang.inserttable,
-              cmdName: 'inserttable'
-            },
-            {
-              label: lang.deletetable,
-              cmdName: 'deletetable'
-            },
-            '-',
-            {
-              label: lang.deleterow,
-              cmdName: 'deleterow'
-            },
-            {
-              label: lang.deletecol,
-              cmdName: 'deletecol'
-            },
-            {
-              label: lang.insertcol,
-              cmdName: 'insertcol'
-            },
-            {
-              label: lang.insertcolnext,
-              cmdName: 'insertcolnext'
-            },
-            {
-              label: lang.insertrow,
-              cmdName: 'insertrow'
-            },
-            {
-              label: lang.insertrownext,
-              cmdName: 'insertrownext'
-            },
-            '-',
-            {
-              label: lang.insertcaption,
-              cmdName: 'insertcaption'
-            },
-            {
-              label: lang.deletecaption,
-              cmdName: 'deletecaption'
-            },
-            {
-              label: lang.inserttitle,
-              cmdName: 'inserttitle'
-            },
-            {
-              label: lang.deletetitle,
-              cmdName: 'deletetitle'
-            },
-            {
-              label: lang.inserttitlecol,
-              cmdName: 'inserttitlecol'
-            },
-            {
-              label: lang.deletetitlecol,
-              cmdName: 'deletetitlecol'
-            },
-            '-',
-            {
-              label: lang.mergecells,
-              cmdName: 'mergecells'
-            },
-            {
-              label: lang.mergeright,
-              cmdName: 'mergeright'
-            },
-            {
-              label: lang.mergedown,
-              cmdName: 'mergedown'
-            },
-            '-',
-            {
-              label: lang.splittorows,
-              cmdName: 'splittorows'
-            },
-            {
-              label: lang.splittocols,
-              cmdName: 'splittocols'
-            },
-            {
-              label: lang.splittocells,
-              cmdName: 'splittocells'
-            },
-            '-',
-            {
-              label: lang.averageDiseRow,
-              cmdName: 'averagedistributerow'
-            },
-            {
-              label: lang.averageDisCol,
-              cmdName: 'averagedistributecol'
-            },
-            '-',
-            {
-              label: lang.edittd,
-              cmdName: 'edittd',
-              exec: function() {
-                if (UE.ui['edittd']) {
-                  new UE.ui['edittd'](this);
-                }
-                this.getDialog('edittd').open();
-              }
-            },
-            {
-              label: lang.edittable,
-              cmdName: 'edittable',
-              exec: function() {
-                if (UE.ui['edittable']) {
-                  new UE.ui['edittable'](this);
-                }
-                this.getDialog('edittable').open();
-              }
-            },
-            {
-              label: lang.setbordervisible,
-              cmdName: 'setbordervisible'
-            }
-          ]
+            this.getDialog('edittable').open();
+          }
         },
         {
-          group: lang.tablesort,
-          icon: 'tablesort',
-          subMenu: [{
-              label: lang.enablesort,
-              cmdName: 'enablesort'
-            },
-            {
-              label: lang.disablesort,
-              cmdName: 'disablesort'
-            },
-            '-',
-            {
-              label: lang.reversecurrent,
-              cmdName: 'sorttable',
-              value: 'reversecurrent'
-            },
-            {
-              label: lang.orderbyasc,
-              cmdName: 'sorttable',
-              value: 'orderbyasc'
-            },
-            {
-              label: lang.reversebyasc,
-              cmdName: 'sorttable',
-              value: 'reversebyasc'
-            },
-            {
-              label: lang.orderbynum,
-              cmdName: 'sorttable',
-              value: 'orderbynum'
-            },
-            {
-              label: lang.reversebynum,
-              cmdName: 'sorttable',
-              value: 'reversebynum'
-            }
-          ]
-        },
-        {
-          group: lang.borderbk,
-          icon: 'borderBack',
-          subMenu: [{
-              label: lang.setcolor,
-              cmdName: "interlacetable",
-              exec: function() {
-                this.execCommand("interlacetable");
-              }
-            },
-            {
-              label: lang.unsetcolor,
-              cmdName: "uninterlacetable",
-              exec: function() {
-                this.execCommand("uninterlacetable");
-              }
-            },
-            {
-              label: lang.setbackground,
-              cmdName: "settablebackground",
-              exec: function() {
-                this.execCommand("settablebackground", {
-                  repeat: true,
-                  colorList: ["#bbb", "#ccc"]
-                });
-              }
-            },
-            {
-              label: lang.unsetbackground,
-              cmdName: "cleartablebackground",
-              exec: function() {
-                this.execCommand("cleartablebackground");
-              }
-            },
-            {
-              label: lang.redandblue,
-              cmdName: "settablebackground",
-              exec: function() {
-                this.execCommand("settablebackground", {
-                  repeat: true,
-                  colorList: ["red", "blue"]
-                });
-              }
-            },
-            {
-              label: lang.threecolorgradient,
-              cmdName: "settablebackground",
-              exec: function() {
-                this.execCommand("settablebackground", {
-                  repeat: true,
-                  colorList: ["#aaa", "#bbb", "#ccc"]
-                });
-              }
-            }
-          ]
-        },
-        {
-          group: lang.aligntd,
-          icon: 'aligntd',
-          subMenu: [{
-              cmdName: 'cellalignment',
-              value: {
-                align: 'left',
-                vAlign: 'top'
-              }
-            },
-            {
-              cmdName: 'cellalignment',
-              value: {
-                align: 'center',
-                vAlign: 'top'
-              }
-            },
-            {
-              cmdName: 'cellalignment',
-              value: {
-                align: 'right',
-                vAlign: 'top'
-              }
-            },
-            {
-              cmdName: 'cellalignment',
-              value: {
-                align: 'left',
-                vAlign: 'middle'
-              }
-            },
-            {
-              cmdName: 'cellalignment',
-              value: {
-                align: 'center',
-                vAlign: 'middle'
-              }
-            },
-            {
-              cmdName: 'cellalignment',
-              value: {
-                align: 'right',
-                vAlign: 'middle'
-              }
-            },
-            {
-              cmdName: 'cellalignment',
-              value: {
-                align: 'left',
-                vAlign: 'bottom'
-              }
-            },
-            {
-              cmdName: 'cellalignment',
-              value: {
-                align: 'center',
-                vAlign: 'bottom'
-              }
-            },
-            {
-              cmdName: 'cellalignment',
-              value: {
-                align: 'right',
-                vAlign: 'bottom'
-              }
-            }
-          ]
-        },
-        {
-          group: lang.aligntable,
-          icon: 'aligntable',
-          subMenu: [{
-              cmdName: 'tablealignment',
-              className: 'left',
-              label: lang.tableleft,
-              value: "left"
-            },
-            {
-              cmdName: 'tablealignment',
-              className: 'center',
-              label: lang.tablecenter,
-              value: "center"
-            },
-            {
-              cmdName: 'tablealignment',
-              className: 'right',
-              label: lang.tableright,
-              value: "right"
-            }
-          ]
-        },
-        '-',
-        {
-          label: lang.insertparagraphbefore,
-          cmdName: 'insertparagraph',
-          value: true
-        },
-        {
-          label: lang.insertparagraphafter,
-          cmdName: 'insertparagraph'
-        },
-        {
-          label: lang['copy'],
-          cmdName: 'copy'
-        },
-        {
-          label: lang['paste'],
-          cmdName: 'paste'
+          label: lang.setbordervisible,
+          cmdName: 'setbordervisible'
         }
+        ]
+      },
+      {
+        group: lang.tablesort,
+        icon: 'tablesort',
+        subMenu: [{
+          label: lang.enablesort,
+          cmdName: 'enablesort'
+        },
+        {
+          label: lang.disablesort,
+          cmdName: 'disablesort'
+        },
+          '-',
+        {
+          label: lang.reversecurrent,
+          cmdName: 'sorttable',
+          value: 'reversecurrent'
+        },
+        {
+          label: lang.orderbyasc,
+          cmdName: 'sorttable',
+          value: 'orderbyasc'
+        },
+        {
+          label: lang.reversebyasc,
+          cmdName: 'sorttable',
+          value: 'reversebyasc'
+        },
+        {
+          label: lang.orderbynum,
+          cmdName: 'sorttable',
+          value: 'orderbynum'
+        },
+        {
+          label: lang.reversebynum,
+          cmdName: 'sorttable',
+          value: 'reversebynum'
+        }
+        ]
+      },
+      {
+        group: lang.borderbk,
+        icon: 'borderBack',
+        subMenu: [{
+          label: lang.setcolor,
+          cmdName: "interlacetable",
+          exec: function () {
+            this.execCommand("interlacetable");
+          }
+        },
+        {
+          label: lang.unsetcolor,
+          cmdName: "uninterlacetable",
+          exec: function () {
+            this.execCommand("uninterlacetable");
+          }
+        },
+        {
+          label: lang.setbackground,
+          cmdName: "settablebackground",
+          exec: function () {
+            this.execCommand("settablebackground", {
+              repeat: true,
+              colorList: ["#bbb", "#ccc"]
+            });
+          }
+        },
+        {
+          label: lang.unsetbackground,
+          cmdName: "cleartablebackground",
+          exec: function () {
+            this.execCommand("cleartablebackground");
+          }
+        },
+        {
+          label: lang.redandblue,
+          cmdName: "settablebackground",
+          exec: function () {
+            this.execCommand("settablebackground", {
+              repeat: true,
+              colorList: ["red", "blue"]
+            });
+          }
+        },
+        {
+          label: lang.threecolorgradient,
+          cmdName: "settablebackground",
+          exec: function () {
+            this.execCommand("settablebackground", {
+              repeat: true,
+              colorList: ["#aaa", "#bbb", "#ccc"]
+            });
+          }
+        }
+        ]
+      },
+      {
+        group: lang.aligntd,
+        icon: 'aligntd',
+        subMenu: [{
+          cmdName: 'cellalignment',
+          value: {
+            align: 'left',
+            vAlign: 'top'
+          }
+        },
+        {
+          cmdName: 'cellalignment',
+          value: {
+            align: 'center',
+            vAlign: 'top'
+          }
+        },
+        {
+          cmdName: 'cellalignment',
+          value: {
+            align: 'right',
+            vAlign: 'top'
+          }
+        },
+        {
+          cmdName: 'cellalignment',
+          value: {
+            align: 'left',
+            vAlign: 'middle'
+          }
+        },
+        {
+          cmdName: 'cellalignment',
+          value: {
+            align: 'center',
+            vAlign: 'middle'
+          }
+        },
+        {
+          cmdName: 'cellalignment',
+          value: {
+            align: 'right',
+            vAlign: 'middle'
+          }
+        },
+        {
+          cmdName: 'cellalignment',
+          value: {
+            align: 'left',
+            vAlign: 'bottom'
+          }
+        },
+        {
+          cmdName: 'cellalignment',
+          value: {
+            align: 'center',
+            vAlign: 'bottom'
+          }
+        },
+        {
+          cmdName: 'cellalignment',
+          value: {
+            align: 'right',
+            vAlign: 'bottom'
+          }
+        }
+        ]
+      },
+      {
+        group: lang.aligntable,
+        icon: 'aligntable',
+        subMenu: [{
+          cmdName: 'tablealignment',
+          className: 'left',
+          label: lang.tableleft,
+          value: "left"
+        },
+        {
+          cmdName: 'tablealignment',
+          className: 'center',
+          label: lang.tablecenter,
+          value: "center"
+        },
+        {
+          cmdName: 'tablealignment',
+          className: 'right',
+          label: lang.tableright,
+          value: "right"
+        }
+        ]
+      },
+        '-',
+      {
+        label: lang.insertparagraphbefore,
+        cmdName: 'insertparagraph',
+        value: true
+      },
+      {
+        label: lang.insertparagraphafter,
+        cmdName: 'insertparagraph'
+      },
+      {
+        label: lang['copy'],
+        cmdName: 'copy'
+      },
+      {
+        label: lang['paste'],
+        cmdName: 'paste'
+      }
       ];
     if (!items.length) {
       return;
     }
     var uiUtils = UE.ui.uiUtils;
 
-    me.addListener('contextmenu', function(type, evt) {
+    me.addListener('contextmenu', function (type, evt) {
 
       var offset = uiUtils.getViewportOffsetByEvent(evt);
       me.fireEvent('beforeselectionchange');
@@ -23204,14 +23204,14 @@
       }
       for (var i = 0, ti, contextItems = []; ti = items[i]; i++) {
         var last;
-        (function(item) {
+        (function (item) {
           if (item == '-') {
             if ((last = contextItems[contextItems.length - 1]) && last !== '-') {
               contextItems.push('-');
             }
           } else if (item.hasOwnProperty("group")) {
             for (var j = 0, cj, subMenu = []; cj = item.subMenu[j]; j++) {
-              (function(subItem) {
+              (function (subItem) {
                 if (subItem == '-') {
                   if ((last = subMenu[subMenu.length - 1]) && last !== '-') {
                     subMenu.push('-');
@@ -23226,9 +23226,9 @@
                         '')) || "",
                       'className': 'edui-for-' + subItem.cmdName + (subItem.className ? (' edui-for-' +
                         subItem.cmdName + '-' + subItem.className) : ''),
-                      onclick: subItem.exec ? function() {
+                      onclick: subItem.exec ? function () {
                         subItem.exec.call(me);
-                      } : function() {
+                      } : function () {
                         me.execCommand(subItem.cmdName, subItem.value);
                       }
                     });
@@ -23274,9 +23274,9 @@
               contextItems.push({
                 'label': item.label || me.getLang("contextMenu." + item.cmdName),
                 className: 'edui-for-' + (item.icon ? item.icon : item.cmdName + (item.value || '')),
-                onclick: item.exec ? function() {
+                onclick: item.exec ? function () {
                   item.exec.call(me);
-                } : function() {
+                } : function () {
                   me.execCommand(item.cmdName, item.value);
                 }
               });
@@ -23316,7 +23316,7 @@
     });
 
     // 添加复制的flash按钮
-    me.addListener('aftershowcontextmenu', function(type, menu) {
+    me.addListener('aftershowcontextmenu', function (type, menu) {
       if (me.zeroclipboard) {
         var items = menu.items;
         for (var key in items) {
@@ -23342,7 +23342,7 @@
    * @author xuheng
    */
 
-  UE.plugins['shortcutmenu'] = function() {
+  UE.plugins['shortcutmenu'] = function () {
     var me = this,
       menu,
       items = me.options.shortcutMenu || [];
@@ -23351,7 +23351,7 @@
       return;
     }
 
-    me.addListener('contextmenu mouseup', function(type, e) {
+    me.addListener('contextmenu mouseup', function (type, e) {
       var me = this,
         customEvt = {
           type: type,
@@ -23362,7 +23362,7 @@
           clientY: e.clientY
         };
 
-      setTimeout(function() {
+      setTimeout(function () {
         var rng = me.selection.getRange();
         if (rng.collapsed === false || type == "contextmenu") {
 
@@ -23400,7 +23400,7 @@
       }
     });
 
-    me.addListener('keydown', function(type) {
+    me.addListener('keydown', function (type) {
       if (type == "keydown") {
         menu && !menu.isHidden && menu.hide();
       }
@@ -23419,7 +23419,7 @@
    * @since 1.2.6.1
    */
 
-  UE.plugins['basestyle'] = function() {
+  UE.plugins['basestyle'] = function () {
 
     /**
      * 字体加粗
@@ -23494,12 +23494,12 @@
      * ```
      */
     var basestyles = {
-        'bold': ['strong', 'b'],
-        'italic': ['em', 'i'],
-        'subscript': ['sub'],
-        'superscript': ['sup']
-      },
-      getObj = function(editor, tagNames) {
+      'bold': ['strong', 'b'],
+      'italic': ['em', 'i'],
+      'subscript': ['sub'],
+      'superscript': ['sup']
+    },
+      getObj = function (editor, tagNames) {
         return domUtils.filterNodeList(editor.selection.getStartElementPath(), tagNames);
       },
       me = this;
@@ -23509,8 +23509,8 @@
       "Italic": "ctrl+73", //^I
       "Underline": "ctrl+85" //^U
     });
-    me.addInputRule(function(root) {
-      utils.each(root.getNodesByTagName('b i'), function(node) {
+    me.addInputRule(function (root) {
+      utils.each(root.getNodesByTagName('b i'), function (node) {
         switch (node.tagName) {
           case 'b':
             node.tagName = 'strong';
@@ -23521,9 +23521,9 @@
       });
     });
     for (var style in basestyles) {
-      (function(cmd, tagNames) {
+      (function (cmd, tagNames) {
         me.commands[cmd] = {
-          execCommand: function(cmdName) {
+          execCommand: function (cmdName) {
             var range = me.selection.getRange(),
               obj = getObj(this, tagNames);
             if (range.collapsed) {
@@ -23554,7 +23554,7 @@
             }
             range.select();
           },
-          queryCommandState: function() {
+          queryCommandState: function () {
             return getObj(this, tagNames) ? 1 : 0;
           }
         };
@@ -23569,7 +23569,7 @@
    * 选取路径命令
    * @file
    */
-  UE.plugins['elementpath'] = function() {
+  UE.plugins['elementpath'] = function () {
     var currentLevel,
       tagNames,
       me = this;
@@ -23578,13 +23578,13 @@
       return;
     }
     me.commands['elementpath'] = {
-      execCommand: function(cmdName, level) {
+      execCommand: function (cmdName, level) {
         var start = tagNames[level],
           range = me.selection.getRange();
         currentLevel = level * 1;
         range.selectNode(start).select();
       },
-      queryCommandValue: function() {
+      queryCommandValue: function () {
         //产生一个副本，不能修改原来的startElementPath;
         var parents = [].concat(this.selection.getStartElementPath()).reverse(),
           names = [];
@@ -23630,14 +23630,14 @@
    * editor.execCommand( 'formatmatch' );
    * ```
    */
-  UE.plugins['formatmatch'] = function() {
+  UE.plugins['formatmatch'] = function () {
 
     var me = this,
       list = [],
       img,
       flag = 0;
 
-    me.addListener('reset', function() {
+    me.addListener('reset', function () {
       list = [];
       flag = 0;
     });
@@ -23709,7 +23709,7 @@
     }
 
     me.commands['formatmatch'] = {
-      execCommand: function(cmdName) {
+      execCommand: function (cmdName) {
 
         if (flag) {
           flag = 0;
@@ -23725,7 +23725,7 @@
         if (!img || img.tagName != 'IMG') {
           range.collapse(true).shrinkBoundary();
           var start = range.startContainer;
-          list = domUtils.findParents(start, true, function(node) {
+          list = domUtils.findParents(start, true, function (node) {
             return !domUtils.isBlockElm(node) && node.nodeType == 1;
           });
           //a不能加入格式刷, 并且克隆节点
@@ -23743,7 +23743,7 @@
 
 
       },
-      queryCommandState: function() {
+      queryCommandState: function () {
         return flag;
       },
       notNeedUndo: 1
@@ -23763,7 +23763,7 @@
    * @author zhanyi
    */
 
-  UE.plugin.register('searchreplace', function() {
+  UE.plugin.register('searchreplace', function () {
     var me = this;
 
     var _blockElm = {
@@ -23912,7 +23912,7 @@
     return {
       commands: {
         'searchreplace': {
-          execCommand: function(cmdName, opt) {
+          execCommand: function (cmdName, opt) {
             utils.extend(opt, {
               all: false,
               casesensitive: false,
@@ -23977,36 +23977,36 @@
    * editor.execCommand( 'customstyle' );
    * ```
    */
-  UE.plugins['customstyle'] = function() {
+  UE.plugins['customstyle'] = function () {
     var me = this;
     me.setOpt({
       'customstyle': [{
-          tag: 'h1',
-          name: 'tc',
-          style: 'font-size:32px;font-weight:bold;border-bottom:#ccc 2px solid;padding:0 4px 0 0;text-align:center;margin:0 0 20px 0;'
-        },
-        {
-          tag: 'h1',
-          name: 'tl',
-          style: 'font-size:32px;font-weight:bold;border-bottom:#ccc 2px solid;padding:0 4px 0 0;text-align:left;margin:0 0 10px 0;'
-        },
-        {
-          tag: 'span',
-          name: 'im',
-          style: 'font-size:16px;font-style:italic;font-weight:bold;line-height:18px;'
-        },
-        {
-          tag: 'span',
-          name: 'hi',
-          style: 'font-size:16px;font-style:italic;font-weight:bold;color:rgb(51, 153, 204);line-height:18px;'
-        }
+        tag: 'h1',
+        name: 'tc',
+        style: 'font-size:32px;font-weight:bold;border-bottom:#ccc 2px solid;padding:0 4px 0 0;text-align:center;margin:0 0 20px 0;'
+      },
+      {
+        tag: 'h1',
+        name: 'tl',
+        style: 'font-size:32px;font-weight:bold;border-bottom:#ccc 2px solid;padding:0 4px 0 0;text-align:left;margin:0 0 10px 0;'
+      },
+      {
+        tag: 'span',
+        name: 'im',
+        style: 'font-size:16px;font-style:italic;font-weight:bold;line-height:18px;'
+      },
+      {
+        tag: 'span',
+        name: 'hi',
+        style: 'font-size:16px;font-style:italic;font-weight:bold;color:rgb(51, 153, 204);line-height:18px;'
+      }
       ]
     });
     me.commands['customstyle'] = {
-      execCommand: function(cmdName, obj) {
+      execCommand: function (cmdName, obj) {
         var me = this,
           tagName = obj.tag,
-          node = domUtils.findParent(me.selection.getStart(), function(node) {
+          node = domUtils.findParent(me.selection.getStart(), function (node) {
             return node.getAttribute('label');
           }, true),
           range, bk, tmpObj = {};
@@ -24051,7 +24051,7 @@
                 domUtils.remove(ni, true);
               }
             }
-            node = domUtils.findParent(common, function(node) {
+            node = domUtils.findParent(common, function (node) {
               return node.getAttribute('label') == obj.label;
             }, true);
             if (node) {
@@ -24068,7 +24068,7 @@
             range = me.selection.getRange();
             if (!range.collapsed) {
               range.collapse();
-              node = domUtils.findParent(me.selection.getStart(), function(node) {
+              node = domUtils.findParent(me.selection.getStart(), function (node) {
                 return node.getAttribute('label') == obj.label;
               }, true);
               var pNode = me.document.createElement('p');
@@ -24093,10 +24093,10 @@
         }
 
       },
-      queryCommandValue: function() {
+      queryCommandValue: function () {
         var parent = domUtils.filterNodeList(
           this.selection.getStartElementPath(),
-          function(node) {
+          function (node) {
             return node.getAttribute('label')
           }
         );
@@ -24104,13 +24104,13 @@
       }
     };
     //当去掉customstyle是，如果是块元素，用p代替
-    me.addListener('keyup', function(type, evt) {
+    me.addListener('keyup', function (type, evt) {
       var keyCode = evt.keyCode || evt.which;
 
       if (keyCode == 32 || keyCode == 13) {
         var range = me.selection.getRange();
         if (range.collapsed) {
-          var node = domUtils.findParent(me.selection.getStart(), function(node) {
+          var node = domUtils.findParent(me.selection.getStart(), function (node) {
             return node.getAttribute('label');
           }, true);
           if (node && dtd.$block[node.tagName] && domUtils.isEmptyNode(node)) {
@@ -24135,7 +24135,7 @@
   /**
    * 远程图片抓取,当开启本插件时所有不符合本地域名的图片都将被抓取成为本地服务器上的图片
    */
-  UE.plugins['catchremoteimage'] = function() {
+  UE.plugins['catchremoteimage'] = function () {
     var me = this,
       ajax = UE.ajax;
 
@@ -24145,11 +24145,11 @@
       catchRemoteImageEnable: false
     });
 
-    me.addListener("afterpaste", function() {
+    me.addListener("afterpaste", function () {
       me.fireEvent("catchRemoteImage");
     });
 
-    me.addListener("catchRemoteImage", function() {
+    me.addListener("catchRemoteImage", function () {
 
       var catcherLocalDomain = me.getOpt('catcherLocalDomain'),
         catcherActionUrl = me.getActionUrl(me.getOpt('catcherActionName')),
@@ -24158,7 +24158,7 @@
 
       var remoteImages = [],
         imgs = domUtils.getElementsByTagName(me.document, "img"),
-        test = function(src, urls) {
+        test = function (src, urls) {
           if (src.indexOf(location.host) != -1 || /(^\.)|(^\/)/.test(src)) {
             return true;
           }
@@ -24185,7 +24185,7 @@
       if (remoteImages.length) {
         catchremoteimage(remoteImages, {
           //成功抓取
-          success: function(r) {
+          success: function (r) {
             try {
               var info = r.state !== undefined ? r : eval("(" + r.responseText + ")");
             } catch (e) {
@@ -24211,7 +24211,7 @@
             me.fireEvent('catchremotesuccess')
           },
           //回调失败，本次请求超时
-          error: function() {
+          error: function () {
             me.fireEvent("catchremoteerror");
           }
         });
@@ -24241,7 +24241,7 @@
    * @file
    * @since 1.4.2
    */
-  UE.plugin.register('snapscreen', function() {
+  UE.plugin.register('snapscreen', function () {
 
     var me = this;
     var snapplugin;
@@ -24282,7 +24282,7 @@
          * ```
          */
         'snapscreen': {
-          execCommand: function(cmd) {
+          execCommand: function (cmd) {
             var url, local, res;
             var lang = me.getLang("snapScreen_plugin");
 
@@ -24321,7 +24321,7 @@
             }
             url = me.getActionUrl(me.getOpt('snapscreenActionName'));
             local = getLocation(url);
-            setTimeout(function() {
+            setTimeout(function () {
               try {
                 res = snapplugin.saveSnapshot(local.hostname, local.path, local.port);
               } catch (e) {
@@ -24332,7 +24332,7 @@
               onSuccess(res);
             }, 50);
           },
-          queryCommandState: function() {
+          queryCommandState: function () {
             return (navigator.userAgent.indexOf("Windows", 0) != -1) ? 0 : -1;
           }
         }
@@ -24362,7 +24362,7 @@
    */
 
   UE.commands['insertparagraph'] = {
-    execCommand: function(cmdName, front) {
+    execCommand: function (cmdName, front) {
       var me = this,
         range = me.selection.getRange(),
         start = range.startContainer,
@@ -24463,7 +24463,7 @@
   //    };
   //};
 
-  UE.plugin.register('webapp', function() {
+  UE.plugin.register('webapp', function () {
     var me = this;
 
     function createInsertStr(obj, toEmbed) {
@@ -24483,8 +24483,8 @@
 
     }
     return {
-      outputRule: function(root) {
-        utils.each(root.getNodesByTagName('img'), function(node) {
+      outputRule: function (root) {
+        utils.each(root.getNodesByTagName('img'), function (node) {
           var html;
           if (node.getAttr('class') == 'edui-faked-webapp') {
             html = createInsertStr({
@@ -24501,8 +24501,8 @@
           }
         })
       },
-      inputRule: function(root) {
-        utils.each(root.getNodesByTagName('iframe'), function(node) {
+      inputRule: function (root) {
+        utils.each(root.getNodesByTagName('iframe'), function (node) {
           if (node.getAttr('class') == 'edui-faked-webapp') {
             var img = UE.uNode.createElement(createInsertStr({
               title: node.getAttr('title'),
@@ -24541,7 +24541,7 @@
          * ```
          */
         'webapp': {
-          execCommand: function(cmd, obj) {
+          execCommand: function (cmd, obj) {
 
             var me = this,
               str = createInsertStr(utils.extend(obj, {
@@ -24549,7 +24549,7 @@
               }), false);
             me.execCommand("inserthtml", str);
           },
-          queryCommandState: function() {
+          queryCommandState: function () {
             var me = this,
               img = me.selection.getRange().getClosedNode(),
               flag = img && (img.className == "edui-faked-webapp");
@@ -24568,27 +24568,27 @@
   ///commandsName  template
   ///commandsTitle  模板
   ///commandsDialog  dialogs\template
-  UE.plugins['template'] = function() {
+  UE.plugins['template'] = function () {
     UE.commands['template'] = {
-      execCommand: function(cmd, obj) {
+      execCommand: function (cmd, obj) {
         obj.html && this.execCommand("inserthtml", obj.html);
       }
     };
-    this.addListener("click", function(type, evt) {
+    this.addListener("click", function (type, evt) {
       var el = evt.target || evt.srcElement,
         range = this.selection.getRange();
-      var tnode = domUtils.findParent(el, function(node) {
+      var tnode = domUtils.findParent(el, function (node) {
         if (node.className && domUtils.hasClass(node, "ue_t")) {
           return node;
         }
       }, true);
       tnode && range.selectNode(tnode).shrinkBoundary().select();
     });
-    this.addListener("keydown", function(type, evt) {
+    this.addListener("keydown", function (type, evt) {
       var range = this.selection.getRange();
       if (!range.collapsed) {
         if (!evt.ctrlKey && !evt.metaKey && !evt.shiftKey && !evt.altKey) {
-          var tnode = domUtils.findParent(range.startContainer, function(node) {
+          var tnode = domUtils.findParent(range.startContainer, function (node) {
             if (node.className && domUtils.hasClass(node, "ue_t")) {
               return node;
             }
@@ -24607,7 +24607,7 @@
    * 插入音乐命令
    * @file
    */
-  UE.plugin.register('music', function() {
+  UE.plugin.register('music', function () {
     var me = this;
 
     function creatInsertStr(url, width, height, align, cssfloat, toEmbed) {
@@ -24624,8 +24624,8 @@
         ' wmode="transparent" play="true" loop="false" menu="false" allowscriptaccess="never" allowfullscreen="true" >';
     }
     return {
-      outputRule: function(root) {
-        utils.each(root.getNodesByTagName('img'), function(node) {
+      outputRule: function (root) {
+        utils.each(root.getNodesByTagName('img'), function (node) {
           var html;
           if (node.getAttr('class') == 'edui-faked-music') {
             var cssfloat = node.getStyle('float');
@@ -24637,8 +24637,8 @@
           }
         })
       },
-      inputRule: function(root) {
-        utils.each(root.getNodesByTagName('embed'), function(node) {
+      inputRule: function (root) {
+        utils.each(root.getNodesByTagName('embed'), function (node) {
           if (node.getAttr('class') == 'edui-faked-music') {
             var cssfloat = node.getStyle('float');
             var align = node.getAttr('align');
@@ -24670,12 +24670,12 @@
          * ```
          */
         'music': {
-          execCommand: function(cmd, musicObj) {
+          execCommand: function (cmd, musicObj) {
             var me = this,
               str = creatInsertStr(musicObj.url, musicObj.width || 400, musicObj.height || 95, "none", false);
             me.execCommand("inserthtml", str);
           },
-          queryCommandState: function() {
+          queryCommandState: function () {
             var me = this,
               img = me.selection.getRange().getClosedNode(),
               flag = img && (img.className == "edui-faked-music");
@@ -24694,7 +24694,7 @@
    * @author Jinqn
    * @date 2013-10-14
    */
-  UE.plugin.register('autoupload', function() {
+  UE.plugin.register('autoupload', function () {
 
     function sendAndInsertFile(file, editor) {
       var me = editor;
@@ -24709,7 +24709,7 @@
       maxSize = me.getOpt(filetype + 'MaxSize');
       allowFiles = me.getOpt(filetype + 'AllowFiles');
       actionUrl = me.getActionUrl(me.getOpt(filetype + 'ActionName'));
-      errorHandler = function(title) {
+      errorHandler = function (title) {
         var loader = me.document.getElementById(loadingId);
         loader && domUtils.remove(loader);
         me.fireEvent('showmessage', {
@@ -24724,7 +24724,7 @@
         loadingHtml = '<img class="loadingclass" id="' + loadingId + '" src="' +
           me.options.themePath + me.options.theme +
           '/images/spacer.gif" title="' + (me.getLang('autoupload.loading') || '') + '" >';
-        successHandler = function(data) {
+        successHandler = function (data) {
           var link = urlPrefix + data.url,
             loader = me.document.getElementById(loadingId);
           if (loader) {
@@ -24742,7 +24742,7 @@
           me.options.themePath + me.options.theme +
           '/images/spacer.gif" title="' + (me.getLang('autoupload.loading') || '') + '" >' +
           '</p>';
-        successHandler = function(data) {
+        successHandler = function (data) {
           var link = urlPrefix + data.url,
             loader = me.document.getElementById(loadingId);
 
@@ -24772,7 +24772,7 @@
       /* 判断文件格式是否超出允许 */
       var fileext = file.name ? file.name.substr(file.name.lastIndexOf('.')) : '';
       if ((fileext && filetype != 'image') || (allowFiles && (allowFiles.join('') + '.').indexOf(fileext.toLowerCase() +
-          '.') == -1)) {
+        '.') == -1)) {
         errorHandler(me.getLang('autoupload.exceedTypeError'));
         return;
       }
@@ -24787,7 +24787,7 @@
       fd.append('type', 'ajax');
       xhr.open("post", url, true);
       xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
-      xhr.addEventListener('load', function(e) {
+      xhr.addEventListener('load', function (e) {
         try {
           var json = (new Function("return " + utils.trim(e.target.response)))();
           if (json.state == 'SUCCESS' && json.url) {
@@ -24812,13 +24812,13 @@
     }
 
     return {
-      outputRule: function(root) {
-        utils.each(root.getNodesByTagName('img'), function(n) {
+      outputRule: function (root) {
+        utils.each(root.getNodesByTagName('img'), function (n) {
           if (/\b(loaderrorclass)|(bloaderrorclass)\b/.test(n.getAttr('class'))) {
             n.parentNode.removeChild(n);
           }
         });
-        utils.each(root.getNodesByTagName('p'), function(n) {
+        utils.each(root.getNodesByTagName('p'), function (n) {
           if (/\bloadpara\b/.test(n.getAttr('class'))) {
             n.parentNode.removeChild(n);
           }
@@ -24826,10 +24826,10 @@
       },
       bindEvents: {
         //插入粘贴板的图片，拖放插入图片
-        'ready': function(e) {
+        'ready': function (e) {
           var me = this;
           if (window.FormData && window.FileReader) {
-            domUtils.on(me.body, 'paste drop', function(e) {
+            domUtils.on(me.body, 'paste drop', function (e) {
               var hasImg = false,
                 items;
               //获取粘贴板文件列表或者拖放文件列表
@@ -24850,7 +24850,7 @@
 
             });
             //取消拖放图片时出现的文字光标位置提示
-            domUtils.on(me.body, 'dragover', function(e) {
+            domUtils.on(me.body, 'dragover', function (e) {
               if (e.dataTransfer.types[0] == 'Files') {
                 e.preventDefault();
               }
@@ -24875,7 +24875,7 @@
   });
 
   // plugins/autosave.js
-  UE.plugin.register('autosave', function() {
+  UE.plugin.register('autosave', function () {
 
     var me = this,
       //无限循环保护
@@ -24906,8 +24906,8 @@
       saveData = me.body.innerHTML;
 
       if (editor.fireEvent("beforeautosave", {
-          content: saveData
-        }) === false) {
+        content: saveData
+      }) === false) {
         return;
       }
 
@@ -24925,7 +24925,7 @@
         saveInterval: 500
       },
       bindEvents: {
-        'ready': function() {
+        'ready': function () {
 
           var _suffix = "-drafts-data",
             key = null;
@@ -24941,7 +24941,7 @@
 
         },
 
-        'contentchange': function() {
+        'contentchange': function () {
           //新增加的代码
           if (!me.getOpt('enableAutoSave')) {
             return;
@@ -24956,7 +24956,7 @@
 
           if (me.options.saveInterval > 0) {
 
-            me._saveFlag = window.setTimeout(function() {
+            me._saveFlag = window.setTimeout(function () {
 
               save(me);
 
@@ -24973,7 +24973,7 @@
       },
       commands: {
         'clearlocaldata': {
-          execCommand: function(cmd, name) {
+          execCommand: function (cmd, name) {
             if (saveKey && me.getPreferences(saveKey)) {
               me.removePreferences(saveKey)
             }
@@ -24983,7 +24983,7 @@
         },
 
         'getlocaldata': {
-          execCommand: function(cmd, name) {
+          execCommand: function (cmd, name) {
             return saveKey ? me.getPreferences(saveKey) || '' : '';
           },
           notNeedUndo: true,
@@ -24991,13 +24991,13 @@
         },
 
         'drafts': {
-          execCommand: function(cmd, name) {
+          execCommand: function (cmd, name) {
             if (saveKey) {
               me.body.innerHTML = me.getPreferences(saveKey) || '<p>' + domUtils.fillHtml + '</p>';
               me.focus(true);
             }
           },
-          queryCommandState: function() {
+          queryCommandState: function () {
             return saveKey ? (me.getPreferences(saveKey) === null ? -1 : 0) : -1;
           },
           notNeedUndo: true,
@@ -25009,20 +25009,20 @@
   });
 
   // plugins/charts.js
-  UE.plugin.register('charts', function() {
+  UE.plugin.register('charts', function () {
 
     var me = this;
 
     return {
       bindEvents: {
-        'chartserror': function() {}
+        'chartserror': function () { }
       },
       commands: {
         'charts': {
-          execCommand: function(cmd, data) {
+          execCommand: function (cmd, data) {
 
             var tableNode = domUtils.findParentByTagName(this.selection.getRange().startContainer, 'table',
-                true),
+              true),
               flagText = [],
               config = {};
 
@@ -25062,7 +25062,7 @@
 
 
           },
-          queryCommandState: function(cmd, name) {
+          queryCommandState: function (cmd, name) {
 
             var tableNode = domUtils.findParentByTagName(this.selection.getRange().startContainer, 'table',
               true);
@@ -25071,8 +25071,8 @@
           }
         }
       },
-      inputRule: function(root) {
-        utils.each(root.getNodesByTagName('table'), function(tableNode) {
+      inputRule: function (root) {
+        utils.each(root.getNodesByTagName('table'), function (tableNode) {
 
           if (tableNode.getAttr("data-chart") !== undefined) {
             tableNode.setAttr("style");
@@ -25081,8 +25081,8 @@
         })
 
       },
-      outputRule: function(root) {
-        utils.each(root.getNodesByTagName('table'), function(tableNode) {
+      outputRule: function (root) {
+        utils.each(root.getNodesByTagName('table'), function (tableNode) {
 
           if (tableNode.getAttr("data-chart") !== undefined) {
             tableNode.setAttr("style", "display: none;");
@@ -25159,7 +25159,7 @@
    * @file
    * @since 1.3.0
    */
-  UE.plugin.register('section', function() {
+  UE.plugin.register('section', function () {
     /* 目录节点对象 */
     function Section(option) {
       this.tag = '';
@@ -25192,26 +25192,26 @@
     return {
       bindMultiEvents: {
         type: 'aftersetcontent afterscencerestore',
-        handler: function() {
+        handler: function () {
           me.fireEvent('updateSections');
         }
       },
       bindEvents: {
         /* 初始化、拖拽、粘贴、执行setcontent之后 */
-        'ready': function() {
+        'ready': function () {
           me.fireEvent('updateSections');
-          domUtils.on(me.body, 'drop paste', function() {
+          domUtils.on(me.body, 'drop paste', function () {
             me.fireEvent('updateSections');
           });
         },
         /* 执行paragraph命令之后 */
-        'afterexeccommand': function(type, cmd) {
+        'afterexeccommand': function (type, cmd) {
           if (cmd == 'paragraph') {
             me.fireEvent('updateSections');
           }
         },
         /* 部分键盘操作，触发updateSections事件 */
-        'keyup': function(type, e) {
+        'keyup': function (type, e) {
           var me = this,
             range = me.selection.getRange();
           if (range.collapsed != true) {
@@ -25226,18 +25226,18 @@
       },
       commands: {
         'getsections': {
-          execCommand: function(cmd, levels) {
+          execCommand: function (cmd, levels) {
             var levelFn = levels || ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
 
             for (var i = 0; i < levelFn.length; i++) {
               if (typeof levelFn[i] == 'string') {
-                levelFn[i] = function(fn) {
-                  return function(node) {
+                levelFn[i] = function (fn) {
+                  return function (node) {
                     return node.tagName == fn.toUpperCase()
                   };
                 }(levelFn[i]);
               } else if (typeof levelFn[i] != 'function') {
-                levelFn[i] = function(node) {
+                levelFn[i] = function (node) {
                   return null;
                 }
               }
@@ -25298,7 +25298,7 @@
           notNeedUndo: true
         },
         'movesection': {
-          execCommand: function(cmd, sourceSection, targetSection, isAfter) {
+          execCommand: function (cmd, sourceSection, targetSection, isAfter) {
 
             var me = this,
               targetAddress,
@@ -25311,7 +25311,7 @@
 
             /* 判断目标地址是否被源章节包含 */
             if (!targetAddress || !target || isContainsAddress(sourceSection.startAddress, sourceSection.endAddress,
-                targetAddress)) return;
+              targetAddress)) return;
 
             var startNode = getNodeFromAddress(sourceSection.startAddress, me.body),
               endNode = getNodeFromAddress(sourceSection.endAddress, me.body),
@@ -25365,7 +25365,7 @@
           }
         },
         'deletesection': {
-          execCommand: function(cmd, section, keepChildren) {
+          execCommand: function (cmd, section, keepChildren) {
             var me = this;
 
             if (!section) return;
@@ -25386,7 +25386,7 @@
 
             if (!keepChildren) {
               while (current && domUtils.inDoc(endNode, me.document) && !(domUtils.getPosition(current, endNode) &
-                  domUtils.POSITION_FOLLOWING)) {
+                domUtils.POSITION_FOLLOWING)) {
                 nextNode = current.nextSibling;
                 domUtils.remove(current);
                 current = nextNode;
@@ -25399,7 +25399,7 @@
           }
         },
         'selectsection': {
-          execCommand: function(cmd, section) {
+          execCommand: function (cmd, section) {
             if (!section && !section.dom) return false;
             var me = this,
               range = me.selection.getRange(),
@@ -25414,7 +25414,7 @@
           notNeedUndo: true
         },
         'scrolltosection': {
-          execCommand: function(cmd, section) {
+          execCommand: function (cmd, section) {
             if (!section && !section.dom) return false;
             var me = this,
               range = me.selection.getRange(),
@@ -25440,7 +25440,7 @@
    * @file
    * @since 1.2.6.1
    */
-  UE.plugin.register('serverparam', function() {
+  UE.plugin.register('serverparam', function () {
 
     var me = this,
       serverParam = {};
@@ -25520,7 +25520,7 @@
          * ```
          */
         'serverparam': {
-          execCommand: function(cmd, key, value) {
+          execCommand: function (cmd, key, value) {
             if (key === undefined || key === null) { //不传参数,清空列表
               serverParam = {};
             } else if (utils.isString(key)) { //传入键值
@@ -25535,7 +25535,7 @@
               utils.extend(serverParam, key(), true);
             }
           },
-          queryCommandValue: function() {
+          queryCommandValue: function () {
             return serverParam || {};
           }
         }
@@ -25548,7 +25548,7 @@
   /**
    * 插入附件
    */
-  UE.plugin.register('insertfile', function() {
+  UE.plugin.register('insertfile', function () {
 
     var me = this;
 
@@ -25590,14 +25590,14 @@
     return {
       commands: {
         'insertfile': {
-          execCommand: function(command, filelist) {
+          execCommand: function (command, filelist) {
             filelist = utils.isArray(filelist) ? filelist : [filelist];
 
             var i, item, icon, title,
               html = '',
               URL = me.getOpt('UEDITOR_HOME_URL'),
               iconDir = URL + (URL.substr(URL.length - 1) == '/' ? '' : '/') +
-              'dialogs/attachment/fileTypeImages/';
+                'dialogs/attachment/fileTypeImages/';
             for (i = 0; i < filelist.length; i++) {
               item = filelist[i];
               icon = iconDir + getFileIcon(item.url);
@@ -25626,7 +25626,7 @@
    * @author robbenmu
    */
 
-  UE.plugins.xssFilter = function() {
+  UE.plugins.xssFilter = function () {
 
     var config = UEDITOR_CONFIG;
     var whitList = config.whitList;
@@ -25641,7 +25641,7 @@
         return false;
       }
 
-      UE.utils.each(attrs, function(val, key) {
+      UE.utils.each(attrs, function (val, key) {
 
         if (whitList[tagName].indexOf(key) === -1) {
           node.setAttr(key);
@@ -25651,12 +25651,12 @@
 
     // 添加inserthtml\paste等操作用的过滤规则
     if (whitList && config.xssFilterRules) {
-      this.options.filterRules = function() {
+      this.options.filterRules = function () {
 
         var result = {};
 
-        UE.utils.each(whitList, function(val, key) {
-          result[key] = function(node) {
+        UE.utils.each(whitList, function (val, key) {
+          result[key] = function (node) {
             return filter(node);
           };
         });
@@ -25667,16 +25667,16 @@
 
     var tagList = [];
 
-    UE.utils.each(whitList, function(val, key) {
+    UE.utils.each(whitList, function (val, key) {
       tagList.push(key);
     });
 
     // 添加input过滤规则
     //
     if (whitList && config.inputXssFilter) {
-      this.addInputRule(function(root) {
+      this.addInputRule(function (root) {
 
-        root.traversal(function(node) {
+        root.traversal(function (node) {
           if (node.type !== 'element') {
             return false;
           }
@@ -25687,9 +25687,9 @@
     // 添加output过滤规则
     //
     if (whitList && config.outputXssFilter) {
-      this.addOutputRule(function(root) {
+      this.addOutputRule(function (root) {
 
-        root.traversal(function(node) {
+        root.traversal(function (node) {
           if (node.type !== 'element') {
             return false;
           }
@@ -25707,7 +25707,7 @@
   UE.ui = baidu.editor.ui = {};
 
   // ui/uiutils.js
-  (function() {
+  (function () {
     var browser = baidu.editor.browser,
       domUtils = baidu.editor.dom.domUtils;
 
@@ -25717,15 +25717,15 @@
     var uidCount = 0;
 
     var uiUtils = baidu.editor.ui.uiUtils = {
-      uid: function(obj) {
+      uid: function (obj) {
         return (obj ? obj[uidMagic] || (obj[uidMagic] = ++uidCount) : ++uidCount);
       },
-      hook: function(fn, callback) {
+      hook: function (fn, callback) {
         var dg;
         if (fn && fn._callbacks) {
           dg = fn;
         } else {
-          dg = function() {
+          dg = function () {
             var q;
             if (fn) {
               q = fn.apply(this, arguments);
@@ -25745,18 +25745,18 @@
         dg._callbacks.push(callback);
         return dg;
       },
-      createElementByHtml: function(html) {
+      createElementByHtml: function (html) {
         var el = document.createElement('div');
         el.innerHTML = html;
         el = el.firstChild;
         el.parentNode.removeChild(el);
         return el;
       },
-      getViewportElement: function() {
+      getViewportElement: function () {
         return (browser.ie && browser.quirks) ?
           document.body : document.documentElement;
       },
-      getClientRect: function(element) {
+      getClientRect: function (element) {
         var bcr;
         //trace  IE6下在控制编辑器显隐时可能会报错，catch一下
         try {
@@ -25786,7 +25786,7 @@
         rect.right = rect.left + rect.width;
         return rect;
       },
-      getViewportRect: function() {
+      getViewportRect: function () {
         var viewportEl = uiUtils.getViewportElement();
         var width = (window.innerWidth || viewportEl.clientWidth) | 0;
         var height = (window.innerHeight || viewportEl.clientHeight) | 0;
@@ -25799,7 +25799,7 @@
           right: width
         };
       },
-      setViewportOffset: function(element, offset) {
+      setViewportOffset: function (element, offset) {
         var rect;
         var fixedLayer = uiUtils.getFixedLayer();
         if (element.parentNode === fixedLayer) {
@@ -25809,7 +25809,7 @@
           domUtils.setViewportOffset(element, offset);
         }
       },
-      getEventOffset: function(evt) {
+      getEventOffset: function (evt) {
         var el = evt.target || evt.srcElement;
         var rect = uiUtils.getClientRect(el);
         var offset = uiUtils.getViewportOffsetByEvent(evt);
@@ -25818,7 +25818,7 @@
           top: offset.top - rect.top
         };
       },
-      getViewportOffsetByEvent: function(evt) {
+      getViewportOffsetByEvent: function (evt) {
         var el = evt.target || evt.srcElement;
         var frameEl = domUtils.getWindow(el).frameElement;
         var offset = {
@@ -25832,14 +25832,14 @@
         }
         return offset;
       },
-      setGlobal: function(id, obj) {
+      setGlobal: function (id, obj) {
         root[id] = obj;
         return magic + '["' + id + '"]';
       },
-      unsetGlobal: function(id) {
+      unsetGlobal: function (id) {
         delete root[id];
       },
-      copyAttributes: function(tgt, src) {
+      copyAttributes: function (tgt, src) {
         var attributes = src.attributes;
         var k = attributes.length;
         while (k--) {
@@ -25855,20 +25855,20 @@
           tgt.style.cssText += ';' + src.style.cssText;
         }
       },
-      removeStyle: function(el, styleName) {
+      removeStyle: function (el, styleName) {
         if (el.style.removeProperty) {
           el.style.removeProperty(styleName);
         } else if (el.style.removeAttribute) {
           el.style.removeAttribute(styleName);
         } else throw '';
       },
-      contains: function(elA, elB) {
+      contains: function (elA, elB) {
         return elA && elB && (elA === elB ? false : (
           elA.contains ? elA.contains(elB) :
-          elA.compareDocumentPosition(elB) & 16
+            elA.compareDocumentPosition(elB) & 16
         ));
       },
-      startDrag: function(evt, callbacks, doc) {
+      startDrag: function (evt, callbacks, doc) {
         var doc = doc || document;
         var startX = evt.clientX;
         var startY = evt.clientY;
@@ -25913,7 +25913,7 @@
         }
         callbacks.ondragstart();
       },
-      getFixedLayer: function() {
+      getFixedLayer: function () {
         var layer = document.getElementById('edui_fixedlayer');
         if (layer == null) {
           layer = document.createElement('div');
@@ -25933,7 +25933,7 @@
         }
         return layer;
       },
-      makeUnselectable: function(element) {
+      makeUnselectable: function (element) {
         if (browser.opera || (browser.ie && browser.version < 9)) {
           element.unselectable = 'on';
           if (element.hasChildNodes()) {
@@ -25976,26 +25976,26 @@
 
 
   // ui/uibase.js
-  (function() {
+  (function () {
     var utils = baidu.editor.utils,
       uiUtils = baidu.editor.ui.uiUtils,
       EventBase = baidu.editor.EventBase,
-      UIBase = baidu.editor.ui.UIBase = function() {};
+      UIBase = baidu.editor.ui.UIBase = function () { };
 
     UIBase.prototype = {
       className: '',
       uiName: '',
-      initOptions: function(options) {
+      initOptions: function (options) {
         var me = this;
         for (var k in options) {
           me[k] = options[k];
         }
         this.id = this.id || 'edui' + uiUtils.uid();
       },
-      initUIBase: function() {
+      initUIBase: function () {
         this._globalKey = utils.unhtml(uiUtils.setGlobal(this.id, this));
       },
-      render: function(holder) {
+      render: function (holder) {
         var html = this.renderHtml();
         var el = uiUtils.createElementByHtml(html);
 
@@ -26026,20 +26026,20 @@
         }
         this.postRender();
       },
-      getDom: function(name) {
+      getDom: function (name) {
         if (!name) {
           return document.getElementById(this.id);
         } else {
           return document.getElementById(this.id + '_' + name);
         }
       },
-      postRender: function() {
+      postRender: function () {
         this.fireEvent('postrender');
       },
-      getHtmlTpl: function() {
+      getHtmlTpl: function () {
         return '';
       },
-      formatHtml: function(tpl) {
+      formatHtml: function (tpl) {
         var prefix = 'edui-' + this.uiName;
         return (tpl
           .replace(/##/g, this.id)
@@ -26047,10 +26047,10 @@
           .replace(/%%/g, (this.uiName ? prefix : '') + ' ' + this.className)
           .replace(/\$\$/g, this._globalKey));
       },
-      renderHtml: function() {
+      renderHtml: function () {
         return this.formatHtml(this.getHtmlTpl());
       },
-      dispose: function() {
+      dispose: function () {
         var box = this.getDom();
         if (box) baidu.editor.dom.domUtils.remove(box);
         uiUtils.unsetGlobal(this.id);
@@ -26061,19 +26061,19 @@
 
 
   // ui/separator.js
-  (function() {
+  (function () {
     var utils = baidu.editor.utils,
       UIBase = baidu.editor.ui.UIBase,
-      Separator = baidu.editor.ui.Separator = function(options) {
+      Separator = baidu.editor.ui.Separator = function (options) {
         this.initOptions(options);
         this.initSeparator();
       };
     Separator.prototype = {
       uiName: 'separator',
-      initSeparator: function() {
+      initSeparator: function () {
         this.initUIBase();
       },
-      getHtmlTpl: function() {
+      getHtmlTpl: function () {
         return '<div id="##" class="edui-box %%"></div>';
       }
     };
@@ -26085,49 +26085,49 @@
   // ui/mask.js
   ///import core
   ///import uicore
-  (function() {
+  (function () {
     var utils = baidu.editor.utils,
       domUtils = baidu.editor.dom.domUtils,
       UIBase = baidu.editor.ui.UIBase,
       uiUtils = baidu.editor.ui.uiUtils;
 
-    var Mask = baidu.editor.ui.Mask = function(options) {
+    var Mask = baidu.editor.ui.Mask = function (options) {
       this.initOptions(options);
       this.initUIBase();
     };
     Mask.prototype = {
-      getHtmlTpl: function() {
+      getHtmlTpl: function () {
         return '<div id="##" class="edui-mask %%" onclick="return $$._onClick(event, this);" onmousedown="return $$._onMouseDown(event, this);"></div>';
       },
-      postRender: function() {
+      postRender: function () {
         var me = this;
-        domUtils.on(window, 'resize', function() {
-          setTimeout(function() {
+        domUtils.on(window, 'resize', function () {
+          setTimeout(function () {
             if (!me.isHidden()) {
               me._fill();
             }
           });
         });
       },
-      show: function(zIndex) {
+      show: function (zIndex) {
         this._fill();
         this.getDom().style.display = '';
         this.getDom().style.zIndex = zIndex;
       },
-      hide: function() {
+      hide: function () {
         this.getDom().style.display = 'none';
         this.getDom().style.zIndex = '';
       },
-      isHidden: function() {
+      isHidden: function () {
         return this.getDom().style.display == 'none';
       },
-      _onMouseDown: function() {
+      _onMouseDown: function () {
         return false;
       },
-      _onClick: function(e, target) {
+      _onClick: function (e, target) {
         this.fireEvent('click', e, target);
       },
-      _fill: function() {
+      _fill: function () {
         var el = this.getDom();
         var vpRect = uiUtils.getViewportRect();
         el.style.width = vpRect.width + 'px';
@@ -26141,12 +26141,12 @@
   // ui/popup.js
   ///import core
   ///import uicore
-  (function() {
+  (function () {
     var utils = baidu.editor.utils,
       uiUtils = baidu.editor.ui.uiUtils,
       domUtils = baidu.editor.dom.domUtils,
       UIBase = baidu.editor.ui.UIBase,
-      Popup = baidu.editor.ui.Popup = function(options) {
+      Popup = baidu.editor.ui.Popup = function (options) {
         this.initOptions(options);
         this.initPopup();
       };
@@ -26180,11 +26180,11 @@
       autoRender: true,
       canSideLeft: true,
       canSideUp: true,
-      initPopup: function() {
+      initPopup: function () {
         this.initUIBase();
         allPopups.push(this);
       },
-      getHtmlTpl: function() {
+      getHtmlTpl: function () {
         return '<div id="##" class="edui-popup %%" onmousedown="return false;">' +
           ' <div id="##_body" class="edui-popup-body">' +
           ' <iframe style="position:absolute;z-index:-1;left:0;top:0;background-color: transparent;" frameborder="0" width="100%" height="100%" src="about:blank"></iframe>' +
@@ -26195,7 +26195,7 @@
           ' </div>' +
           '</div>';
       },
-      getContentHtmlTpl: function() {
+      getContentHtmlTpl: function () {
         if (this.content) {
           if (typeof this.content == 'string') {
             return this.content;
@@ -26207,7 +26207,7 @@
 
       },
       _UIBase_postRender: UIBase.prototype.postRender,
-      postRender: function() {
+      postRender: function () {
 
 
         if (this.content instanceof UIBase) {
@@ -26238,7 +26238,7 @@
           //阻止在combox上的鼠标滚轮事件, 防止用户的正常操作被误解
           if (window.XMLHttpRequest) {
 
-            domUtils.on(content, ('onmousewheel' in document.body) ? 'mousewheel' : 'DOMMouseScroll', function(
+            domUtils.on(content, ('onmousewheel' in document.body) ? 'mousewheel' : 'DOMMouseScroll', function (
               e) {
 
               if (e.preventDefault) {
@@ -26262,7 +26262,7 @@
           } else {
 
             //ie6
-            domUtils.on(this.getDom(), 'mousewheel', function(e) {
+            domUtils.on(this.getDom(), 'mousewheel', function (e) {
 
               e.returnValue = false;
 
@@ -26277,16 +26277,16 @@
         this.hide(true);
         this._UIBase_postRender();
       },
-      _doAutoRender: function() {
+      _doAutoRender: function () {
         if (!this.getDom() && this.autoRender) {
           this.render();
         }
       },
-      mesureSize: function() {
+      mesureSize: function () {
         var box = this.getDom('content');
         return uiUtils.getClientRect(box);
       },
-      fitSize: function() {
+      fitSize: function () {
         if (this.captureWheel && this.sized) {
           return this.__size;
         }
@@ -26307,10 +26307,10 @@
         this.captureWheel && (this.getDom('content').style.overflow = 'auto');
         return size;
       },
-      showAnchor: function(element, hoz) {
+      showAnchor: function (element, hoz) {
         this.showAnchorRect(uiUtils.getClientRect(element), hoz);
       },
-      showAnchorRect: function(rect, hoz, adj) {
+      showAnchorRect: function (rect, hoz, adj) {
         this._doAutoRender();
         var vpRect = uiUtils.getViewportRect();
         this.getDom().style.visibility = 'hidden';
@@ -26344,7 +26344,7 @@
         this.getDom().style.visibility = 'visible';
 
       },
-      showAt: function(offset) {
+      showAt: function (offset) {
         var left = offset.left;
         var top = offset.top;
         var rect = {
@@ -26357,7 +26357,7 @@
         };
         this.showAnchorRect(rect, false, true);
       },
-      _show: function() {
+      _show: function () {
         if (this._hidden) {
           var box = this.getDom();
           box.style.display = '';
@@ -26368,14 +26368,14 @@
           this.fireEvent('show');
         }
       },
-      isHidden: function() {
+      isHidden: function () {
         return this._hidden;
       },
-      show: function() {
+      show: function () {
         this._doAutoRender();
         this._show();
       },
-      hide: function(notNofity) {
+      hide: function (notNofity) {
         if (!this._hidden && this.getDom()) {
           this.getDom().style.display = 'none';
           this._hidden = true;
@@ -26384,17 +26384,17 @@
           }
         }
       },
-      queryAutoHide: function(el) {
+      queryAutoHide: function (el) {
         return !el || !uiUtils.contains(this.getDom(), el);
       }
     };
     utils.inherits(Popup, UIBase);
 
-    domUtils.on(document, 'mousedown', function(evt) {
+    domUtils.on(document, 'mousedown', function (evt) {
       var el = evt.target || evt.srcElement;
       closeAllPopup(evt, el);
     });
-    domUtils.on(window, 'scroll', function(evt, el) {
+    domUtils.on(window, 'scroll', function (evt, el) {
       closeAllPopup(evt, el);
     });
 
@@ -26404,37 +26404,37 @@
   // ui/colorpicker.js
   ///import core
   ///import uicore
-  (function() {
+  (function () {
     var utils = baidu.editor.utils,
       UIBase = baidu.editor.ui.UIBase,
-      ColorPicker = baidu.editor.ui.ColorPicker = function(options) {
+      ColorPicker = baidu.editor.ui.ColorPicker = function (options) {
         this.initOptions(options);
         this.noColorText = this.noColorText || this.editor.getLang("clearColor");
         this.initUIBase();
       };
 
     ColorPicker.prototype = {
-      getHtmlTpl: function() {
+      getHtmlTpl: function () {
         return genColorPicker(this.noColorText, this.editor);
       },
-      _onTableClick: function(evt) {
+      _onTableClick: function (evt) {
         var tgt = evt.target || evt.srcElement;
         var color = tgt.getAttribute('data-color');
         if (color) {
           this.fireEvent('pickcolor', color);
         }
       },
-      _onTableOver: function(evt) {
+      _onTableOver: function (evt) {
         var tgt = evt.target || evt.srcElement;
         var color = tgt.getAttribute('data-color');
         if (color) {
           this.getDom('preview').style.backgroundColor = color;
         }
       },
-      _onTableOut: function() {
+      _onTableOut: function () {
         this.getDom('preview').style.backgroundColor = '';
       },
-      _onPickNoColor: function() {
+      _onPickNoColor: function () {
         this.fireEvent('picknocolor');
       }
     };
@@ -26465,7 +26465,7 @@
           html += '</tr>' + (i == 60 ?
             '<tr style="border-bottom: 1px solid #ddd;font-size: 13px;line-height: 25px;color:#39C;"><td colspan="10">' +
             editor.getLang("standardColor") + '</td></tr>' : '') + '<tr' + (i == 60 ?
-            ' class="edui-colorpicker-tablefirstrow"' : '') + '>';
+              ' class="edui-colorpicker-tablefirstrow"' : '') + '>';
         }
         html += i < 70 ? '<td style="padding: 0 2px;"><a hidefocus title="' + COLORS[i] +
           '" onclick="return false;" href="javascript:" unselectable="on" class="edui-box edui-colorpicker-colorcell"' +
@@ -26474,7 +26474,7 @@
           (i < 10 || i >= 60 ? 'border-width:1px;' :
             i >= 10 && i < 20 ? 'border-width:1px 1px 0 1px;' :
 
-            'border-width:0 1px 0 1px;') +
+              'border-width:0 1px 0 1px;') +
           '"' +
           '></a></td>' : '';
       }
@@ -26487,12 +26487,12 @@
   // ui/tablepicker.js
   ///import core
   ///import uicore
-  (function() {
+  (function () {
     var utils = baidu.editor.utils,
       uiUtils = baidu.editor.ui.uiUtils,
       UIBase = baidu.editor.ui.UIBase;
 
-    var TablePicker = baidu.editor.ui.TablePicker = function(options) {
+    var TablePicker = baidu.editor.ui.TablePicker = function (options) {
       this.initOptions(options);
       this.initTablePicker();
     };
@@ -26504,10 +26504,10 @@
       numRows: 10,
       numCols: 10,
       lengthOfCellSide: 22,
-      initTablePicker: function() {
+      initTablePicker: function () {
         this.initUIBase();
       },
-      getHtmlTpl: function() {
+      getHtmlTpl: function () {
         var me = this;
         return '<div id="##" class="edui-tablepicker %%">' +
           '<div class="edui-tablepicker-body">' +
@@ -26526,12 +26526,12 @@
           '</div>';
       },
       _UIBase_render: UIBase.prototype.render,
-      render: function(holder) {
+      render: function (holder) {
         this._UIBase_render(holder);
         this.getDom('label').innerHTML = '0' + this.editor.getLang("t_row") + ' x 0' + this.editor.getLang(
           "t_col");
       },
-      _track: function(numCols, numRows) {
+      _track: function (numCols, numRows) {
         var style = this.getDom('overlay').style;
         var sideLen = this.lengthOfCellSide;
         style.width = numCols * sideLen + 'px';
@@ -26542,7 +26542,7 @@
         this.numCols = numCols;
         this.numRows = numRows;
       },
-      _onMouseOver: function(evt, el) {
+      _onMouseOver: function (evt, el) {
         var rel = evt.relatedTarget || evt.fromElement;
         if (!uiUtils.contains(el, rel) && el !== rel) {
           this.getDom('label').innerHTML = '0' + this.editor.getLang("t_col") + ' x 0' + this.editor.getLang(
@@ -26550,7 +26550,7 @@
           this.getDom('overlay').style.visibility = '';
         }
       },
-      _onMouseOut: function(evt, el) {
+      _onMouseOut: function (evt, el) {
         var rel = evt.relatedTarget || evt.toElement;
         if (!uiUtils.contains(el, rel) && el !== rel) {
           this.getDom('label').innerHTML = '0' + this.editor.getLang("t_col") + ' x 0' + this.editor.getLang(
@@ -26558,7 +26558,7 @@
           this.getDom('overlay').style.visibility = 'hidden';
         }
       },
-      _onMouseMove: function(evt, el) {
+      _onMouseMove: function (evt, el) {
         var style = this.getDom('overlay').style;
         var offset = uiUtils.getEventOffset(evt);
         var sideLen = this.lengthOfCellSide;
@@ -26566,7 +26566,7 @@
         var numRows = Math.ceil(offset.top / sideLen);
         this._track(numCols, numRows);
       },
-      _onClick: function() {
+      _onClick: function () {
         this.fireEvent('picktable', this.numCols, this.numRows);
       }
     };
@@ -26575,7 +26575,7 @@
 
 
   // ui/stateful.js
-  (function() {
+  (function () {
     var browser = baidu.editor.browser,
       domUtils = baidu.editor.dom.domUtils,
       uiUtils = baidu.editor.ui.uiUtils;
@@ -26583,8 +26583,8 @@
     var TPL_STATEFUL = 'onmousedown="$$.Stateful_onMouseDown(event, this);"' +
       ' onmouseup="$$.Stateful_onMouseUp(event, this);"' +
       (browser.ie ? (
-          ' onmouseenter="$$.Stateful_onMouseEnter(event, this);"' +
-          ' onmouseleave="$$.Stateful_onMouseLeave(event, this);"') :
+        ' onmouseenter="$$.Stateful_onMouseEnter(event, this);"' +
+        ' onmouseleave="$$.Stateful_onMouseLeave(event, this);"') :
         (
           ' onmouseover="$$.Stateful_onMouseOver(event, this);"' +
           ' onmouseout="$$.Stateful_onMouseOut(event, this);"'));
@@ -26592,88 +26592,88 @@
     baidu.editor.ui.Stateful = {
       alwalysHoverable: false,
       target: null, //目标元素和this指向dom不一样
-      Stateful_init: function() {
+      Stateful_init: function () {
         this._Stateful_dGetHtmlTpl = this.getHtmlTpl;
         this.getHtmlTpl = this.Stateful_getHtmlTpl;
       },
-      Stateful_getHtmlTpl: function() {
+      Stateful_getHtmlTpl: function () {
         var tpl = this._Stateful_dGetHtmlTpl();
         // 使用function避免$转义
-        return tpl.replace(/stateful/g, function() {
+        return tpl.replace(/stateful/g, function () {
           return TPL_STATEFUL;
         });
       },
-      Stateful_onMouseEnter: function(evt, el) {
+      Stateful_onMouseEnter: function (evt, el) {
         this.target = el;
         if (!this.isDisabled() || this.alwalysHoverable) {
           this.addState('hover');
           this.fireEvent('over');
         }
       },
-      Stateful_onMouseLeave: function(evt, el) {
+      Stateful_onMouseLeave: function (evt, el) {
         if (!this.isDisabled() || this.alwalysHoverable) {
           this.removeState('hover');
           this.removeState('active');
           this.fireEvent('out');
         }
       },
-      Stateful_onMouseOver: function(evt, el) {
+      Stateful_onMouseOver: function (evt, el) {
         var rel = evt.relatedTarget;
         if (!uiUtils.contains(el, rel) && el !== rel) {
           this.Stateful_onMouseEnter(evt, el);
         }
       },
-      Stateful_onMouseOut: function(evt, el) {
+      Stateful_onMouseOut: function (evt, el) {
         var rel = evt.relatedTarget;
         if (!uiUtils.contains(el, rel) && el !== rel) {
           this.Stateful_onMouseLeave(evt, el);
         }
       },
-      Stateful_onMouseDown: function(evt, el) {
+      Stateful_onMouseDown: function (evt, el) {
         if (!this.isDisabled()) {
           this.addState('active');
         }
       },
-      Stateful_onMouseUp: function(evt, el) {
+      Stateful_onMouseUp: function (evt, el) {
         if (!this.isDisabled()) {
           this.removeState('active');
         }
       },
-      Stateful_postRender: function() {
+      Stateful_postRender: function () {
         if (this.disabled && !this.hasState('disabled')) {
           this.addState('disabled');
         }
       },
-      hasState: function(state) {
+      hasState: function (state) {
         return domUtils.hasClass(this.getStateDom(), 'edui-state-' + state);
       },
-      addState: function(state) {
+      addState: function (state) {
         if (!this.hasState(state)) {
           this.getStateDom().className += ' edui-state-' + state;
         }
       },
-      removeState: function(state) {
+      removeState: function (state) {
         if (this.hasState(state)) {
           domUtils.removeClasses(this.getStateDom(), ['edui-state-' + state]);
         }
       },
-      getStateDom: function() {
+      getStateDom: function () {
         return this.getDom('state');
       },
-      isChecked: function() {
+      isChecked: function () {
         return this.hasState('checked');
       },
-      setChecked: function(checked) {
+      setChecked: function (checked) {
         if (!this.isDisabled() && checked) {
           this.addState('checked');
         } else {
           this.removeState('checked');
         }
       },
-      isDisabled: function() {
+      isDisabled: function () {
         return this.hasState('disabled');
       },
-      setDisabled: function(disabled) {
+      setDisabled: function (disabled) {
         if (disabled) {
           this.removeState('hover');
           this.removeState('checked');
@@ -26691,11 +26691,11 @@
   ///import core
   ///import uicore
   ///import ui/stateful.js
-  (function() {
+  (function () {
     var utils = baidu.editor.utils,
       UIBase = baidu.editor.ui.UIBase,
       Stateful = baidu.editor.ui.Stateful,
-      Button = baidu.editor.ui.Button = function(options) {
+      Button = baidu.editor.ui.Button = function (options) {
         if (options.name) {
           var btnName = options.name;
           var cssRules = options.cssRules;
@@ -26714,14 +26714,14 @@
       showIcon: true,
       showText: true,
       cssRules: '',
-      initButton: function() {
+      initButton: function () {
         this.initUIBase();
         this.Stateful_init();
         if (this.cssRules) {
           utils.cssRule('edui-customize-' + this.name + '-style', this.cssRules);
         }
       },
-      getHtmlTpl: function() {
+      getHtmlTpl: function () {
         return '<div id="##" class="edui-box %%">' +
           '<div id="##_state" stateful>' +
           '<div class="%%-wrap"><div id="##_body" unselectable="on" ' + (this.title ? 'title="' + this.title +
@@ -26733,23 +26733,23 @@
           '</div>' +
           '</div></div>';
       },
-      postRender: function() {
+      postRender: function () {
         this.Stateful_postRender();
         this.setDisabled(this.disabled)
       },
-      _onMouseDown: function(e) {
+      _onMouseDown: function (e) {
         var target = e.target || e.srcElement,
           tagName = target && target.tagName && target.tagName.toLowerCase();
         if (tagName == 'input' || tagName == 'object' || tagName == 'object') {
           return false;
         }
       },
-      _onClick: function() {
+      _onClick: function () {
         if (!this.isDisabled()) {
           this.fireEvent('click');
         }
       },
-      setTitle: function(text) {
+      setTitle: function (text) {
         var label = this.getDom('label');
         label.innerHTML = text;
       }
@@ -26764,13 +26764,13 @@
   ///import core
   ///import uicore
   ///import ui/stateful.js
-  (function() {
+  (function () {
     var utils = baidu.editor.utils,
       uiUtils = baidu.editor.ui.uiUtils,
       domUtils = baidu.editor.dom.domUtils,
       UIBase = baidu.editor.ui.UIBase,
       Stateful = baidu.editor.ui.Stateful,
-      SplitButton = baidu.editor.ui.SplitButton = function(options) {
+      SplitButton = baidu.editor.ui.SplitButton = function (options) {
         this.initOptions(options);
         this.initSplitButton();
       };
@@ -26778,7 +26778,7 @@
       popup: null,
       uiName: 'splitbutton',
       title: '',
-      initSplitButton: function() {
+      initSplitButton: function () {
         this.initUIBase();
         this.Stateful_init();
         var me = this;
@@ -26789,18 +26789,18 @@
         }
       },
       _UIBase_postRender: UIBase.prototype.postRender,
-      postRender: function() {
+      postRender: function () {
         this.Stateful_postRender();
         this._UIBase_postRender();
       },
-      setPopup: function(popup) {
+      setPopup: function (popup) {
         if (this.popup === popup) return;
         if (this.popup != null) {
           this.popup.dispose();
         }
         popup.addListener('show', utils.bind(this._onPopupShow, this));
         popup.addListener('hide', utils.bind(this._onPopupHide, this));
-        popup.addListener('postrender', utils.bind(function() {
+        popup.addListener('postrender', utils.bind(function () {
           popup.getDom('body').appendChild(
             uiUtils.createElementByHtml('<div id="' +
               this.popup.id + '_bordereraser" class="edui-bordereraser edui-background" style="width:' +
@@ -26810,13 +26810,13 @@
         }, this));
         this.popup = popup;
       },
-      _onPopupShow: function() {
+      _onPopupShow: function () {
         this.addState('opened');
       },
-      _onPopupHide: function() {
+      _onPopupHide: function () {
         this.removeState('opened');
       },
-      getHtmlTpl: function() {
+      getHtmlTpl: function () {
         return '<div id="##" class="edui-box %%">' +
           '<div ' + (this.title ? 'title="' + this.title + '"' : '') +
           ' id="##_state" stateful><div class="%%-body">' +
@@ -26827,19 +26827,19 @@
           '<div class="edui-box edui-arrow" onclick="$$._onArrowClick();"></div>' +
           '</div></div></div>';
       },
-      showPopup: function() {
+      showPopup: function () {
         // 当popup往上弹出的时候，做特殊处理
         var rect = uiUtils.getClientRect(this.getDom());
         rect.top -= this.popup.SHADOW_RADIUS;
         rect.height += this.popup.SHADOW_RADIUS;
         this.popup.showAnchorRect(rect);
       },
-      _onArrowClick: function(event, el) {
+      _onArrowClick: function (event, el) {
         if (!this.isDisabled()) {
           this.showPopup();
         }
       },
-      _onButtonClick: function() {
+      _onButtonClick: function () {
         if (!this.isDisabled()) {
           this.fireEvent('buttonclick');
         }
@@ -26857,27 +26857,27 @@
   ///import ui/colorpicker.js
   ///import ui/popup.js
   ///import ui/splitbutton.js
-  (function() {
+  (function () {
     var utils = baidu.editor.utils,
       uiUtils = baidu.editor.ui.uiUtils,
       ColorPicker = baidu.editor.ui.ColorPicker,
       Popup = baidu.editor.ui.Popup,
       SplitButton = baidu.editor.ui.SplitButton,
-      ColorButton = baidu.editor.ui.ColorButton = function(options) {
+      ColorButton = baidu.editor.ui.ColorButton = function (options) {
         this.initOptions(options);
         this.initColorButton();
       };
     ColorButton.prototype = {
-      initColorButton: function() {
+      initColorButton: function () {
         var me = this;
         this.popup = new Popup({
           content: new ColorPicker({
             noColorText: me.editor.getLang("clearColor"),
             editor: me.editor,
-            onpickcolor: function(t, color) {
+            onpickcolor: function (t, color) {
               me._onPickColor(color);
             },
-            onpicknocolor: function(t, color) {
+            onpicknocolor: function (t, color) {
               me._onPickNoColor(color);
             }
           }),
@@ -26886,24 +26886,24 @@
         this.initSplitButton();
       },
       _SplitButton_postRender: SplitButton.prototype.postRender,
-      postRender: function() {
+      postRender: function () {
         this._SplitButton_postRender();
         this.getDom('button_body').appendChild(
           uiUtils.createElementByHtml('<div id="' + this.id + '_colorlump" class="edui-colorlump"></div>')
         );
         this.getDom().className += ' edui-colorbutton';
       },
-      setColor: function(color) {
+      setColor: function (color) {
         this.getDom('colorlump').style.backgroundColor = color;
         this.color = color;
       },
-      _onPickColor: function(color) {
+      _onPickColor: function (color) {
         if (this.fireEvent('pickcolor', color) !== false) {
           this.setColor(color);
           this.popup.hide();
         }
       },
-      _onPickNoColor: function(color) {
+      _onPickNoColor: function (color) {
         if (this.fireEvent('picknocolor') !== false) {
           this.popup.hide();
         }
@@ -26920,22 +26920,22 @@
   ///import ui/popup.js
   ///import ui/tablepicker.js
   ///import ui/splitbutton.js
-  (function() {
+  (function () {
     var utils = baidu.editor.utils,
       Popup = baidu.editor.ui.Popup,
       TablePicker = baidu.editor.ui.TablePicker,
       SplitButton = baidu.editor.ui.SplitButton,
-      TableButton = baidu.editor.ui.TableButton = function(options) {
+      TableButton = baidu.editor.ui.TableButton = function (options) {
         this.initOptions(options);
         this.initTableButton();
       };
     TableButton.prototype = {
-      initTableButton: function() {
+      initTableButton: function () {
         var me = this;
         this.popup = new Popup({
           content: new TablePicker({
             editor: me.editor,
-            onpicktable: function(t, numCols, numRows) {
+            onpicktable: function (t, numCols, numRows) {
               me._onPickTable(numCols, numRows);
             }
           }),
@@ -26943,7 +26943,7 @@
         });
         this.initSplitButton();
       },
-      _onPickTable: function(numCols, numRows) {
+      _onPickTable: function (numCols, numRows) {
         if (this.fireEvent('picktable', numCols, numRows) !== false) {
           this.popup.hide();
         }
@@ -26957,19 +26957,19 @@
   // ui/autotypesetpicker.js
   ///import core
   ///import uicore
-  (function() {
+  (function () {
     var utils = baidu.editor.utils,
       UIBase = baidu.editor.ui.UIBase;
 
-    var AutoTypeSetPicker = baidu.editor.ui.AutoTypeSetPicker = function(options) {
+    var AutoTypeSetPicker = baidu.editor.ui.AutoTypeSetPicker = function (options) {
       this.initOptions(options);
       this.initAutoTypeSetPicker();
     };
     AutoTypeSetPicker.prototype = {
-      initAutoTypeSetPicker: function() {
+      initAutoTypeSetPicker: function () {
         this.initUIBase();
       },
-      getHtmlTpl: function() {
+      getHtmlTpl: function () {
         var me = this.editor,
           opt = me.options.autotypeset,
           lang = me.getLang("autoTypeSet");
@@ -27049,12 +27049,12 @@
   ///import ui/popup.js
   ///import ui/autotypesetpicker.js
   ///import ui/splitbutton.js
-  (function() {
+  (function () {
     var utils = baidu.editor.utils,
       Popup = baidu.editor.ui.Popup,
       AutoTypeSetPicker = baidu.editor.ui.AutoTypeSetPicker,
       SplitButton = baidu.editor.ui.SplitButton,
-      AutoTypeSetButton = baidu.editor.ui.AutoTypeSetButton = function(options) {
+      AutoTypeSetButton = baidu.editor.ui.AutoTypeSetButton = function (options) {
         this.initOptions(options);
         this.initAutoTypeSetButton();
       };
@@ -27110,7 +27110,7 @@
     }
 
     AutoTypeSetButton.prototype = {
-      initAutoTypeSetButton: function() {
+      initAutoTypeSetButton: function () {
 
         var me = this;
         this.popup = new Popup({
@@ -27119,7 +27119,7 @@
             editor: me.editor
           }),
           'editor': me.editor,
-          hide: function() {
+          hide: function () {
             if (!this._hidden && this.getDom()) {
               getPara(this);
               this.getDom().style.display = 'none';
@@ -27129,19 +27129,19 @@
           }
         });
         var flag = 0;
-        this.popup.addListener('postRenderAfter', function() {
+        this.popup.addListener('postRenderAfter', function () {
           var popupUI = this;
           if (flag) return;
           var cont = this.getDom(),
             btn = cont.getElementsByTagName('button')[0];
 
-          btn.onclick = function() {
+          btn.onclick = function () {
             getPara(popupUI);
             me.editor.execCommand('autotypeset');
             popupUI.hide()
           };
 
-          domUtils.on(cont, 'click', function(e) {
+          domUtils.on(cont, 'click', function (e) {
             var target = e.target || e.srcElement,
               editorId = me.editor.uid;
             if (target && target.tagName == 'INPUT') {
@@ -27170,7 +27170,7 @@
               }
               // 点击radio,选中对应的checkbox
               if (target.name == ('imageBlockLineValue' + editorId) || target.name == ('textAlignValue' +
-                  editorId) || target.name == 'bdc') {
+                editorId) || target.name == 'bdc') {
                 var checkboxs = target.parentNode.previousSibling.getElementsByTagName('input');
                 checkboxs && (checkboxs[0].checked = true);
               }
@@ -27192,7 +27192,7 @@
   // ui/cellalignpicker.js
   ///import core
   ///import uicore
-  (function() {
+  (function () {
     var utils = baidu.editor.utils,
       Popup = baidu.editor.ui.Popup,
       Stateful = baidu.editor.ui.Stateful,
@@ -27203,30 +27203,30 @@
      * 对齐状态为： 竖直居上，水平居中; 其中 align的取值为：'center', 'left', 'right'; valign的取值为: 'top', 'middle', 'bottom'
      * @update 2013/4/2 hancong03@baidu.com
      */
-    var CellAlignPicker = baidu.editor.ui.CellAlignPicker = function(options) {
+    var CellAlignPicker = baidu.editor.ui.CellAlignPicker = function (options) {
       this.initOptions(options);
       this.initSelected();
       this.initCellAlignPicker();
     };
     CellAlignPicker.prototype = {
       //初始化选中状态， 该方法将根据传递进来的参数获取到应该选中的对齐方式图标的索引
-      initSelected: function() {
+      initSelected: function () {
 
         var status = {
 
-            valign: {
-              top: 0,
-              middle: 1,
-              bottom: 2
-            },
-            align: {
-              left: 0,
-              center: 1,
-              right: 2
-            },
-            count: 3
-
+          valign: {
+            top: 0,
+            middle: 1,
+            bottom: 2
           },
+          align: {
+            left: 0,
+            center: 1,
+            right: 2
+          },
+          count: 3
+
+        },
           result = -1;
 
         if (this.selected) {
@@ -27234,11 +27234,11 @@
         }
 
       },
-      initCellAlignPicker: function() {
+      initCellAlignPicker: function () {
         this.initUIBase();
         this.Stateful_init();
       },
-      getHtmlTpl: function() {
+      getHtmlTpl: function () {
 
         var alignType = ['left', 'center', 'right'],
           COUNT = 9,
@@ -27269,10 +27269,10 @@
           '</div>' +
           '</div>';
       },
-      getStateDom: function() {
+      getStateDom: function () {
         return this.target;
       },
-      _onClick: function(evt) {
+      _onClick: function (evt) {
         var target = evt.target || evt.srcElement;
         if (/icon/.test(target.className)) {
           this.items[target.parentNode.getAttribute("index")].onclick();
@@ -27292,22 +27292,22 @@
   // ui/pastepicker.js
   ///import core
   ///import uicore
-  (function() {
+  (function () {
     var utils = baidu.editor.utils,
       Stateful = baidu.editor.ui.Stateful,
       uiUtils = baidu.editor.ui.uiUtils,
       UIBase = baidu.editor.ui.UIBase;
 
-    var PastePicker = baidu.editor.ui.PastePicker = function(options) {
+    var PastePicker = baidu.editor.ui.PastePicker = function (options) {
       this.initOptions(options);
       this.initPastePicker();
     };
     PastePicker.prototype = {
-      initPastePicker: function() {
+      initPastePicker: function () {
         this.initUIBase();
         this.Stateful_init();
       },
-      getHtmlTpl: function() {
+      getHtmlTpl: function () {
         return '<div class="edui-pasteicon" onclick="$$._onClick(this)"></div>' +
           '<div class="edui-pastecontainer">' +
           '<div class="edui-title">' + this.editor.getLang("pasteOpt") + '</div>' +
@@ -27322,14 +27322,14 @@
           '</div>' +
           '</div>'
       },
-      getStateDom: function() {
+      getStateDom: function () {
         return this.target;
       },
-      format: function(param) {
+      format: function (param) {
         this.editor.ui._isTransfer = true;
         this.editor.fireEvent('pasteTransfer', param);
       },
-      _onClick: function(cur) {
+      _onClick: function (cur) {
         var node = domUtils.getNextDomNode(cur),
           screenHt = uiUtils.getViewportRect().height,
           subPop = uiUtils.getClientRect(node);
@@ -27359,21 +27359,21 @@
 
 
   // ui/toolbar.js
-  (function() {
+  (function () {
     var utils = baidu.editor.utils,
       uiUtils = baidu.editor.ui.uiUtils,
       UIBase = baidu.editor.ui.UIBase,
-      Toolbar = baidu.editor.ui.Toolbar = function(options) {
+      Toolbar = baidu.editor.ui.Toolbar = function (options) {
         this.initOptions(options);
         this.initToolbar();
       };
     Toolbar.prototype = {
       items: null,
-      initToolbar: function() {
+      initToolbar: function () {
         this.items = this.items || [];
         this.initUIBase();
       },
-      add: function(item, index) {
+      add: function (item, index) {
         if (index === undefined) {
           this.items.push(item);
         } else {
@@ -27381,7 +27381,7 @@
         }
 
       },
-      getHtmlTpl: function() {
+      getHtmlTpl: function () {
         var buff = [];
         for (var i = 0; i < this.items.length; i++) {
           buff[i] = this.items[i].renderHtml();
@@ -27390,14 +27390,14 @@
           buff.join('') +
           '</div>'
       },
-      postRender: function() {
+      postRender: function () {
         var box = this.getDom();
         for (var i = 0; i < this.items.length; i++) {
           this.items[i].postRender();
         }
         uiUtils.makeUnselectable(box);
       },
-      _onMouseDown: function(e) {
+      _onMouseDown: function (e) {
         var target = e.target || e.srcElement,
           tagName = target && target.tagName && target.tagName.toLowerCase();
         if (tagName == 'input' || tagName == 'object' || tagName == 'object') {
@@ -27415,7 +27415,7 @@
   ///import uicore
   ///import ui\popup.js
   ///import ui\stateful.js
-  (function() {
+  (function () {
     var utils = baidu.editor.utils,
       domUtils = baidu.editor.dom.domUtils,
       uiUtils = baidu.editor.ui.uiUtils,
@@ -27424,29 +27424,29 @@
       Stateful = baidu.editor.ui.Stateful,
       CellAlignPicker = baidu.editor.ui.CellAlignPicker,
 
-      Menu = baidu.editor.ui.Menu = function(options) {
+      Menu = baidu.editor.ui.Menu = function (options) {
         this.initOptions(options);
         this.initMenu();
       };
 
     var menuSeparator = {
-      renderHtml: function() {
+      renderHtml: function () {
         return '<div class="edui-menuitem edui-menuseparator"><div class="edui-menuseparator-inner"></div></div>';
       },
-      postRender: function() {},
-      queryAutoHide: function() {
+      postRender: function () { },
+      queryAutoHide: function () {
         return true;
       }
     };
     Menu.prototype = {
       items: null,
       uiName: 'menu',
-      initMenu: function() {
+      initMenu: function () {
         this.items = this.items || [];
         this.initPopup();
         this.initItems();
       },
-      initItems: function() {
+      initItems: function () {
         for (var i = 0; i < this.items.length; i++) {
           var item = this.items[i];
           if (item == '-') {
@@ -27458,16 +27458,16 @@
           }
         }
       },
-      getSeparator: function() {
+      getSeparator: function () {
         return menuSeparator;
       },
-      createItem: function(item) {
+      createItem: function (item) {
         //新增一个参数menu, 该参数存储了menuItem所对应的menu引用
         item.menu = this;
         return new MenuItem(item);
       },
       _Popup_getContentHtmlTpl: Popup.prototype.getContentHtmlTpl,
-      getContentHtmlTpl: function() {
+      getContentHtmlTpl: function () {
         if (this.items.length == 0) {
           return this._Popup_getContentHtmlTpl();
         }
@@ -27479,14 +27479,14 @@
         return ('<div class="%%-body">' + buff.join('') + '</div>');
       },
       _Popup_postRender: Popup.prototype.postRender,
-      postRender: function() {
+      postRender: function () {
         var me = this;
         for (var i = 0; i < this.items.length; i++) {
           var item = this.items[i];
           item.ownerMenu = this;
           item.postRender();
         }
-        domUtils.on(this.getDom(), 'mouseover', function(evt) {
+        domUtils.on(this.getDom(), 'mouseover', function (evt) {
           evt = evt || event;
           var rel = evt.relatedTarget || evt.fromElement;
           var el = me.getDom();
@@ -27496,7 +27496,7 @@
         });
         this._Popup_postRender();
       },
-      queryAutoHide: function(el) {
+      queryAutoHide: function (el) {
         if (el) {
           if (uiUtils.contains(this.getDom(), el)) {
             return false;
@@ -27509,7 +27509,7 @@
           }
         }
       },
-      clearItems: function() {
+      clearItems: function () {
         for (var i = 0; i < this.items.length; i++) {
           var item = this.items[i];
           clearTimeout(item._showingTimer);
@@ -27520,13 +27520,13 @@
         }
         this.items = [];
       },
-      destroy: function() {
+      destroy: function () {
         if (this.getDom()) {
           domUtils.remove(this.getDom());
         }
         this.clearItems();
       },
-      dispose: function() {
+      dispose: function () {
         this.destroy();
       }
     };
@@ -27536,7 +27536,7 @@
      * @update 2013/04/03 hancong03 新增一个参数menu, 该参数存储了menuItem所对应的menu引用
      * @type {Function}
      */
-    var MenuItem = baidu.editor.ui.MenuItem = function(options) {
+    var MenuItem = baidu.editor.ui.MenuItem = function (options) {
       this.initOptions(options);
       this.initUIBase();
       this.Stateful_init();
@@ -27551,14 +27551,14 @@
             content: new CellAlignPicker(this.subMenu),
             parentMenu: me,
             editor: me.editor,
-            destroy: function() {
+            destroy: function () {
               if (this.getDom()) {
                 domUtils.remove(this.getDom());
               }
             }
           });
-          this.subMenu.addListener("postRenderAfter", function() {
-            domUtils.on(this.getDom(), "mouseover", function() {
+          this.subMenu.addListener("postRenderAfter", function () {
+            domUtils.on(this.getDom(), "mouseover", function () {
               me.addState('opened');
             });
           });
@@ -27573,16 +27573,16 @@
       ownerMenu: null,
       uiName: 'menuitem',
       alwalysHoverable: true,
-      getHtmlTpl: function() {
+      getHtmlTpl: function () {
         return '<div id="##" class="%%" stateful onclick="$$._onClick(event, this);">' +
           '<div class="%%-body">' +
           this.renderLabelHtml() +
           '</div>' +
           '</div>';
       },
-      postRender: function() {
+      postRender: function () {
         var me = this;
-        this.addListener('over', function() {
+        this.addListener('over', function () {
           me.ownerMenu.fireEvent('submenuover', me);
           if (me.subMenu) {
             me.delayShowSubMenu();
@@ -27591,24 +27591,24 @@
         if (this.subMenu) {
           this.getDom().className += ' edui-hassubmenu';
           this.subMenu.render();
-          this.addListener('out', function() {
+          this.addListener('out', function () {
             me.delayHideSubMenu();
           });
-          this.subMenu.addListener('over', function() {
+          this.subMenu.addListener('over', function () {
             clearTimeout(me._closingTimer);
             me._closingTimer = null;
             me.addState('opened');
           });
-          this.ownerMenu.addListener('hide', function() {
+          this.ownerMenu.addListener('hide', function () {
             me.hideSubMenu();
           });
-          this.ownerMenu.addListener('submenuover', function(t, subMenu) {
+          this.ownerMenu.addListener('submenuover', function (t, subMenu) {
             if (subMenu !== me) {
               me.delayHideSubMenu();
             }
           });
           this.subMenu._bakQueryAutoHide = this.subMenu.queryAutoHide;
-          this.subMenu.queryAutoHide = function(el) {
+          this.subMenu.queryAutoHide = function (el) {
             if (el && uiUtils.contains(me.getDom(), el)) {
               return false;
             }
@@ -27619,25 +27619,25 @@
         uiUtils.makeUnselectable(this.getDom());
         this.Stateful_postRender();
       },
-      delayShowSubMenu: function() {
+      delayShowSubMenu: function () {
         var me = this;
         if (!me.isDisabled()) {
           me.addState('opened');
           clearTimeout(me._showingTimer);
           clearTimeout(me._closingTimer);
           me._closingTimer = null;
-          me._showingTimer = setTimeout(function() {
+          me._showingTimer = setTimeout(function () {
             me.showSubMenu();
           }, 250);
         }
       },
-      delayHideSubMenu: function() {
+      delayHideSubMenu: function () {
         var me = this;
         if (!me.isDisabled()) {
           me.removeState('opened');
           clearTimeout(me._showingTimer);
           if (!me._closingTimer) {
-            me._closingTimer = setTimeout(function() {
+            me._closingTimer = setTimeout(function () {
               if (!me.hasState('opened')) {
                 me.hideSubMenu();
               }
@@ -27646,20 +27646,20 @@
           }
         }
       },
-      renderLabelHtml: function() {
+      renderLabelHtml: function () {
         return '<div class="edui-arrow"></div>' +
           '<div class="edui-box edui-icon"></div>' +
           '<div class="edui-box edui-label %%-label">' + (this.label || '') + '</div>';
       },
-      getStateDom: function() {
+      getStateDom: function () {
         return this.getDom();
       },
-      queryAutoHide: function(el) {
+      queryAutoHide: function (el) {
         if (this.subMenu && this.hasState('opened')) {
           return this.subMenu.queryAutoHide(el);
         }
       },
-      _onClick: function(event, this_) {
+      _onClick: function (event, this_) {
         if (this.hasState('disabled')) return;
         if (this.fireEvent('click', event, this_) !== false) {
           if (this.subMenu) {
@@ -27669,7 +27669,7 @@
           }
         }
       },
-      showSubMenu: function() {
+      showSubMenu: function () {
         var rect = uiUtils.getClientRect(this.getDom());
         rect.right -= 5;
         rect.left += 2;
@@ -27679,7 +27679,7 @@
         rect.height += 8;
         this.subMenu.showAnchorRect(rect, true, true);
       },
-      hideSubMenu: function() {
+      hideSubMenu: function () {
         this.subMenu.hide();
       }
     };
@@ -27693,29 +27693,29 @@
   ///import uicore
   ///import ui/menu.js
   ///import ui/splitbutton.js
-  (function() {
+  (function () {
     // todo: menu和item提成通用list
     var utils = baidu.editor.utils,
       uiUtils = baidu.editor.ui.uiUtils,
       Menu = baidu.editor.ui.Menu,
       SplitButton = baidu.editor.ui.SplitButton,
-      Combox = baidu.editor.ui.Combox = function(options) {
+      Combox = baidu.editor.ui.Combox = function (options) {
         this.initOptions(options);
         this.initCombox();
       };
     Combox.prototype = {
       uiName: 'combox',
-      onbuttonclick: function() {
+      onbuttonclick: function () {
         this.showPopup();
       },
-      initCombox: function() {
+      initCombox: function () {
         var me = this;
         this.items = this.items || [];
         for (var i = 0; i < this.items.length; i++) {
           var item = this.items[i];
           item.uiName = 'listitem';
           item.index = i;
-          item.onclick = function() {
+          item.onclick = function () {
             me.selectByIndex(this.index);
           };
         }
@@ -27730,22 +27730,22 @@
         this.initSplitButton();
       },
       _SplitButton_postRender: SplitButton.prototype.postRender,
-      postRender: function() {
+      postRender: function () {
         this._SplitButton_postRender();
         this.setLabel(this.label || '');
         this.setValue(this.initValue || '');
       },
-      showPopup: function() {
+      showPopup: function () {
         var rect = uiUtils.getClientRect(this.getDom());
         rect.top += 1;
         rect.bottom -= 1;
         rect.height -= 2;
         this.popup.showAnchorRect(rect);
       },
-      getValue: function() {
+      getValue: function () {
         return this.value;
       },
-      setValue: function(value) {
+      setValue: function (value) {
         var index = this.indexByValue(value);
         if (index != -1) {
           this.selectedIndex = index;
@@ -27757,14 +27757,14 @@
           this.value = value;
         }
       },
-      setLabel: function(label) {
+      setLabel: function (label) {
         this.getDom('button_body').innerHTML = label;
         this.label = label;
       },
-      getLabelForUnknowValue: function(value) {
+      getLabelForUnknowValue: function (value) {
         return value;
       },
-      indexByValue: function(value) {
+      indexByValue: function (value) {
         for (var i = 0; i < this.items.length; i++) {
           if (value == this.items[i].value) {
             return i;
@@ -27772,10 +27772,10 @@
         }
         return -1;
       },
-      getItem: function(index) {
+      getItem: function (index) {
         return this.items[index];
       },
-      selectByIndex: function(index) {
+      selectByIndex: function (index) {
         if (index < this.items.length && this.fireEvent('select', index) !== false) {
           this.selectedIndex = index;
           this.value = this.items[index].value;
@@ -27792,14 +27792,14 @@
   ///import uicore
   ///import ui/mask.js
   ///import ui/button.js
-  (function() {
+  (function () {
     var utils = baidu.editor.utils,
       domUtils = baidu.editor.dom.domUtils,
       uiUtils = baidu.editor.ui.uiUtils,
       Mask = baidu.editor.ui.Mask,
       UIBase = baidu.editor.ui.UIBase,
       Button = baidu.editor.ui.Button,
-      Dialog = baidu.editor.ui.Dialog = function(options) {
+      Dialog = baidu.editor.ui.Dialog = function (options) {
         if (options.name) {
           var name = options.name;
           var cssRules = options.cssRules;
@@ -27813,9 +27813,9 @@
         this.initOptions(utils.extend({
           autoReset: true,
           draggable: true,
-          onok: function() {},
-          oncancel: function() {},
-          onclose: function(t, ok) {
+          onok: function () { },
+          oncancel: function () { },
+          onclose: function (t, ok) {
             return ok ? this.onok() : this.oncancel();
           },
           //是否控制dialog中的scroll事件， 默认为不阻止
@@ -27829,7 +27829,7 @@
     Dialog.prototype = {
       draggable: false,
       uiName: 'dialog',
-      initDialog: function() {
+      initDialog: function () {
         var me = this,
           theme = this.editor.options.theme;
         if (this.cssRules) {
@@ -27839,7 +27839,7 @@
         this.modalMask = (modalMask || (modalMask = new Mask({
           className: 'edui-dialog-modalmask',
           theme: theme,
-          onclick: function() {
+          onclick: function () {
             activeDialog && activeDialog.close(false);
           }
         })));
@@ -27851,7 +27851,7 @@
           className: 'edui-dialog-closebutton',
           title: me.closeDialog,
           theme: theme,
-          onclick: function() {
+          onclick: function () {
             me.close(false);
           }
         });
@@ -27868,11 +27868,11 @@
           }
         }
       },
-      initResizeEvent: function() {
+      initResizeEvent: function () {
 
         var me = this;
 
-        domUtils.on(window, "resize", function() {
+        domUtils.on(window, "resize", function () {
 
           if (me._hidden || me._hidden === undefined) {
             return;
@@ -27882,7 +27882,7 @@
             window.clearTimeout(me.__resizeTimer);
           }
 
-          me.__resizeTimer = window.setTimeout(function() {
+          me.__resizeTimer = window.setTimeout(function () {
 
             me.__resizeTimer = null;
 
@@ -27905,7 +27905,7 @@
         });
 
       },
-      fitSize: function() {
+      fitSize: function () {
         var popBodyEl = this.getDom('body');
         //            if (!(baidu.editor.browser.ie && baidu.editor.browser.version == 7)) {
         //                uiUtils.removeStyle(popBodyEl, 'width');
@@ -27916,7 +27916,7 @@
         popBodyEl.style.height = size.height + 'px';
         return size;
       },
-      safeSetOffset: function(offset) {
+      safeSetOffset: function (offset) {
         var me = this;
         var el = me.getDom();
         var vpRect = uiUtils.getViewportRect();
@@ -27932,7 +27932,7 @@
         el.style.left = Math.max(left, 0) + 'px';
         el.style.top = Math.max(top, 0) + 'px';
       },
-      showAtCenter: function() {
+      showAtCenter: function () {
 
         var vpRect = uiUtils.getViewportRect();
 
@@ -27988,7 +27988,7 @@
 
         this._show();
       },
-      getContentHtml: function() {
+      getContentHtml: function () {
         var contentHtml = '';
         if (typeof this.content == 'string') {
           contentHtml = this.content;
@@ -28000,7 +28000,7 @@
         }
         return contentHtml;
       },
-      getHtmlTpl: function() {
+      getHtmlTpl: function () {
         var footHtml = '';
 
         if (this.buttons) {
@@ -28014,7 +28014,7 @@
         }
 
         return '<div id="##" class="%%"><div ' + (!this.fullscreen ? 'class="%%"' :
-            'class="%%-wrap edui-dialog-fullscreen-flag"') + '><div id="##_body" class="%%-body">' +
+          'class="%%-wrap edui-dialog-fullscreen-flag"') + '><div id="##_body" class="%%-body">' +
           '<div class="%%-shadow"></div>' +
           '<div id="##_titlebar" class="%%-titlebar">' +
           '<div class="%%-draghandle" onmousedown="$$._onTitlebarMouseDown(event, this);">' +
@@ -28026,7 +28026,7 @@
           footHtml +
           '</div></div></div>';
       },
-      postRender: function() {
+      postRender: function () {
         // todo: 保持居中/记住上次关闭位置选项
         if (!this.modalMask.getDom()) {
           this.modalMask.render();
@@ -28037,10 +28037,10 @@
           this.dragMask.hide();
         }
         var me = this;
-        this.addListener('show', function() {
+        this.addListener('show', function () {
           me.modalMask.show(this.getDom().style.zIndex - 2);
         });
-        this.addListener('hide', function() {
+        this.addListener('hide', function () {
           me.modalMask.hide();
         });
         if (this.buttons) {
@@ -28048,8 +28048,8 @@
             this.buttons[i].postRender();
           }
         }
-        domUtils.on(window, 'resize', function() {
-          setTimeout(function() {
+        domUtils.on(window, 'resize', function () {
+          setTimeout(function () {
             if (!me.isHidden()) {
               me.safeSetOffset(uiUtils.getClientRect(me.getDom()));
             }
@@ -28095,25 +28095,25 @@
         //            }
         this._hide();
       },
-      mesureSize: function() {
+      mesureSize: function () {
         var body = this.getDom('body');
         var width = uiUtils.getClientRect(this.getDom('content')).width;
         var dialogBodyStyle = body.style;
         dialogBodyStyle.width = width;
         return uiUtils.getClientRect(body);
       },
-      _onTitlebarMouseDown: function(evt, el) {
+      _onTitlebarMouseDown: function (evt, el) {
         if (this.draggable) {
           var rect;
           var vpRect = uiUtils.getViewportRect();
           var me = this;
           uiUtils.startDrag(evt, {
-            ondragstart: function() {
+            ondragstart: function () {
               rect = uiUtils.getClientRect(me.getDom());
               me.getDom('contmask').style.visibility = 'visible';
               me.dragMask.show(me.getDom().style.zIndex - 1);
             },
-            ondragmove: function(x, y) {
+            ondragmove: function (x, y) {
               var left = rect.left + x;
               var top = rect.top + y;
               me.safeSetOffset({
@@ -28121,7 +28121,7 @@
                 top: top
               });
             },
-            ondragstop: function() {
+            ondragstop: function () {
               me.getDom('contmask').style.visibility = 'hidden';
               domUtils.removeClasses(me.getDom(), ['edui-state-centered']);
               me.dragMask.hide();
@@ -28129,11 +28129,11 @@
           });
         }
       },
-      reset: function() {
+      reset: function () {
         this.getDom('content').innerHTML = this.getContentHtml();
         this.fireEvent('dialogafterreset');
       },
-      _show: function() {
+      _show: function () {
         if (this._hidden) {
           this.getDom().style.display = '';
 
@@ -28145,10 +28145,10 @@
           baidu.editor.ui.uiUtils.getFixedLayer().style.zIndex = this.getDom().style.zIndex - 4;
         }
       },
-      isHidden: function() {
+      isHidden: function () {
         return this._hidden;
       },
-      _hide: function() {
+      _hide: function () {
         if (!this._hidden) {
           var wrapNode = this.getDom();
           wrapNode.style.display = 'none';
@@ -28159,7 +28159,7 @@
           this.fireEvent('hide');
         }
       },
-      open: function() {
+      open: function () {
         if (this.autoReset) {
           //有可能还没有渲染
           try {
@@ -28173,14 +28173,14 @@
         if (this.iframeUrl) {
           try {
             this.getDom('iframe').focus();
-          } catch (ex) {}
+          } catch (ex) { }
         }
         activeDialog = this;
       },
-      _onCloseButtonClick: function(evt, el) {
+      _onCloseButtonClick: function (evt, el) {
         this.close(false);
       },
-      close: function(ok) {
+      close: function (ok) {
         if (this.fireEvent('close', ok) !== false) {
           //还原环境
           if (this.fullscreen) {
@@ -28214,16 +28214,16 @@
   ///import uicore
   ///import ui/menu.js
   ///import ui/splitbutton.js
-  (function() {
+  (function () {
     var utils = baidu.editor.utils,
       Menu = baidu.editor.ui.Menu,
       SplitButton = baidu.editor.ui.SplitButton,
-      MenuButton = baidu.editor.ui.MenuButton = function(options) {
+      MenuButton = baidu.editor.ui.MenuButton = function (options) {
         this.initOptions(options);
         this.initMenuButton();
       };
     MenuButton.prototype = {
-      initMenuButton: function() {
+      initMenuButton: function () {
         var me = this;
         this.uiName = "menubutton";
         this.popup = new Menu({
@@ -28231,7 +28231,7 @@
           className: me.className,
           editor: me.editor
         });
-        this.popup.addListener('show', function() {
+        this.popup.addListener('show', function () {
           var list = this;
           for (var i = 0; i < list.items.length; i++) {
             list.items[i].removeState('checked');
@@ -28243,7 +28243,7 @@
         });
         this.initSplitButton();
       },
-      setValue: function(value) {
+      setValue: function (value) {
         this._value = value;
       }
 
@@ -28255,23 +28255,23 @@
   ///import core
   ///import uicore
   ///commands 表情
-  (function() {
+  (function () {
     var utils = baidu.editor.utils,
       Popup = baidu.editor.ui.Popup,
       SplitButton = baidu.editor.ui.SplitButton,
-      MultiMenuPop = baidu.editor.ui.MultiMenuPop = function(options) {
+      MultiMenuPop = baidu.editor.ui.MultiMenuPop = function (options) {
         this.initOptions(options);
         this.initMultiMenu();
       };
 
     MultiMenuPop.prototype = {
-      initMultiMenu: function() {
+      initMultiMenu: function () {
         var me = this;
         this.popup = new Popup({
           content: '',
           editor: me.editor,
           iframe_rendered: false,
-          onshow: function() {
+          onshow: function () {
             if (!this.iframe_rendered) {
               this.iframe_rendered = true;
               this.getDom('content').innerHTML = '<iframe id="' + me.id + '_iframe" src="' + me.iframeUrl +
@@ -28283,7 +28283,7 @@
           // canSideUp:false,
           // canSideLeft:false
         });
-        this.onbuttonclick = function() {
+        this.onbuttonclick = function () {
           this.showPopup();
         };
         this.initSplitButton();
@@ -28296,7 +28296,7 @@
 
 
   // ui/shortcutmenu.js
-  (function() {
+  (function () {
     var UI = baidu.editor.ui,
       UIBase = UI.UIBase,
       uiUtils = UI.uiUtils,
@@ -28307,7 +28307,7 @@
       timeID,
       isSubMenuShow = false; //是否有子pop显示
 
-    var ShortCutMenu = UI.ShortCutMenu = function(options) {
+    var ShortCutMenu = UI.ShortCutMenu = function (options) {
       this.initOptions(options);
       this.initShortCutMenu();
     };
@@ -28317,18 +28317,18 @@
     ShortCutMenu.prototype = {
       isHidden: true,
       SPACE: 5,
-      initShortCutMenu: function() {
+      initShortCutMenu: function () {
         this.items = this.items || [];
         this.initUIBase();
         this.initItems();
         this.initEvent();
         allMenus.push(this);
       },
-      initEvent: function() {
+      initEvent: function () {
         var me = this,
           doc = me.editor.document;
 
-        domUtils.on(doc, "mousemove", function(e) {
+        domUtils.on(doc, "mousemove", function (e) {
           if (me.isHidden === false) {
             //有pop显示就不隐藏快捷菜单
             if (me.getSubMenuMark() || me.eventType == "contextmenu") return;
@@ -28344,7 +28344,7 @@
               y = Math.abs(e.screenY - me.top); //离中心距离纵坐标
 
             clearTimeout(timeID);
-            timeID = setTimeout(function() {
+            timeID = setTimeout(function () {
               if (y > 0 && y < distanceY) {
                 me.setOpacity(el, "1");
               } else if (y > distanceY && y < distanceY + 70) {
@@ -28367,7 +28367,7 @@
 
         //ie\ff下 mouseout不准
         if (browser.chrome) {
-          domUtils.on(doc, "mouseout", function(e) {
+          domUtils.on(doc, "mouseout", function (e) {
             var relatedTgt = e.relatedTarget || e.toElement;
 
             if (relatedTgt == null || relatedTgt.tagName == "HTML") {
@@ -28376,14 +28376,14 @@
           });
         }
 
-        me.editor.addListener("afterhidepop", function() {
+        me.editor.addListener("afterhidepop", function () {
           if (!me.isHidden) {
             isSubMenuShow = true;
           }
         });
 
       },
-      initItems: function() {
+      initItems: function () {
         if (utils.isArray(this.items)) {
           for (var i = 0, len = this.items.length; i < len; i++) {
             var item = this.items[i].toLowerCase();
@@ -28395,17 +28395,17 @@
           }
         }
       },
-      setOpacity: function(el, value) {
+      setOpacity: function (el, value) {
         if (browser.ie && browser.version < 9) {
           el.style.filter = "alpha(opacity = " + parseFloat(value) * 100 + ");"
         } else {
           el.style.opacity = value;
         }
       },
-      getSubMenuMark: function() {
+      getSubMenuMark: function () {
         isSubMenuShow = false;
         var layerEle = uiUtils.getFixedLayer();
-        var list = domUtils.getElementsByTagName(layerEle, "div", function(node) {
+        var list = domUtils.getElementsByTagName(layerEle, "div", function (node) {
           return domUtils.hasClass(node, "edui-shortcutsubmenu edui-popup")
         });
 
@@ -28416,7 +28416,7 @@
         }
         return isSubMenuShow;
       },
-      show: function(e, hasContextmenu) {
+      show: function (e, hasContextmenu) {
         var me = this,
           offset = {},
           el = this.getDom(),
@@ -28451,7 +28451,7 @@
           if (menu) {
             setPosByCxtMenu(menu)
           } else {
-            me.editor.addListener("aftershowcontextmenu", function(type, menu) {
+            me.editor.addListener("aftershowcontextmenu", function (type, menu) {
               setPosByCxtMenu(menu);
             });
           }
@@ -28473,20 +28473,20 @@
           fixedlayer.style.zIndex = el.style.zIndex - 1;
         }
       },
-      hide: function() {
+      hide: function () {
         if (this.getDom()) {
           this.getDom().style.display = "none";
         }
         this.isHidden = true;
       },
-      postRender: function() {
+      postRender: function () {
         if (utils.isArray(this.items)) {
           for (var i = 0, item; item = this.items[i++];) {
             item.postRender();
           }
         }
       },
-      getHtmlTpl: function() {
+      getHtmlTpl: function () {
         var buff;
         if (utils.isArray(this.items)) {
           buff = [];
@@ -28508,7 +28508,7 @@
 
     function hideAllMenu(e) {
       var tgt = e.target || e.srcElement,
-        cur = domUtils.findParent(tgt, function(node) {
+        cur = domUtils.findParent(tgt, function (node) {
           return domUtils.hasClass(node, "edui-shortcutmenu") || domUtils.hasClass(node, "edui-popup");
         }, true);
 
@@ -28519,11 +28519,11 @@
       }
     }
 
-    domUtils.on(document, 'mousedown', function(e) {
+    domUtils.on(document, 'mousedown', function (e) {
       hideAllMenu(e);
     });
 
-    domUtils.on(window, 'scroll', function(e) {
+    domUtils.on(window, 'scroll', function (e) {
       hideAllMenu(e);
     });
 
@@ -28531,19 +28531,19 @@
 
 
   // ui/breakline.js
-  (function() {
+  (function () {
     var utils = baidu.editor.utils,
       UIBase = baidu.editor.ui.UIBase,
-      Breakline = baidu.editor.ui.Breakline = function(options) {
+      Breakline = baidu.editor.ui.Breakline = function (options) {
         this.initOptions(options);
         this.initSeparator();
       };
     Breakline.prototype = {
       uiName: 'Breakline',
-      initSeparator: function() {
+      initSeparator: function () {
         this.initUIBase();
       },
-      getHtmlTpl: function() {
+      getHtmlTpl: function () {
         return '<br/>';
       }
     };
@@ -28555,20 +28555,20 @@
   // ui/message.js
   ///import core
   ///import uicore
-  (function() {
+  (function () {
     var utils = baidu.editor.utils,
       domUtils = baidu.editor.dom.domUtils,
       UIBase = baidu.editor.ui.UIBase,
-      Message = baidu.editor.ui.Message = function(options) {
+      Message = baidu.editor.ui.Message = function (options) {
         this.initOptions(options);
         this.initMessage();
       };
 
     Message.prototype = {
-      initMessage: function() {
+      initMessage: function () {
         this.initUIBase();
       },
-      getHtmlTpl: function() {
+      getHtmlTpl: function () {
         return '<div id="##" class="edui-message %%">' +
           ' <div id="##_closer" class="edui-message-closer">×</div>' +
           ' <div id="##_body" class="edui-message-body edui-message-type-info">' +
@@ -28579,11 +28579,11 @@
           ' </div>' +
           '</div>';
       },
-      reset: function(opt) {
+      reset: function (opt) {
         var me = this;
         if (!opt.keepshow) {
           clearTimeout(this.timer);
-          me.timer = setTimeout(function() {
+          me.timer = setTimeout(function () {
             me.hide();
           }, opt.timeout || 4000);
         }
@@ -28593,32 +28593,32 @@
 
         me.show();
       },
-      postRender: function() {
+      postRender: function () {
         var me = this,
           closer = this.getDom('closer');
-        closer && domUtils.on(closer, 'click', function() {
+        closer && domUtils.on(closer, 'click', function () {
           me.hide();
         });
       },
-      setContent: function(content) {
+      setContent: function (content) {
         this.getDom('content').innerHTML = content;
       },
-      setType: function(type) {
+      setType: function (type) {
         type = type || 'info';
         var body = this.getDom('body');
         body.className = body.className.replace(/edui-message-type-[\w-]+/, 'edui-message-type-' + type);
       },
-      getContent: function() {
+      getContent: function () {
         return this.getDom('content').innerHTML;
       },
-      getType: function() {
+      getType: function () {
         var arr = this.getDom('body').match(/edui-message-type-([\w-]+)/);
         return arr ? arr[1] : '';
       },
-      show: function() {
+      show: function () {
         this.getDom().style.display = 'block';
       },
-      hide: function() {
+      hide: function () {
         var dom = this.getDom();
         if (dom) {
           dom.style.display = 'none';
@@ -28636,15 +28636,15 @@
   //ui跟编辑器的适配層
   //那个按钮弹出是dialog，是下拉筐等都是在这个js中配置
   //自己写的ui也要在这里配置，放到baidu.editor.ui下边，当编辑器实例化的时候会根据ueditor.config中的toolbars找到相应的进行实例化
-  (function() {
+  (function () {
     var utils = baidu.editor.utils;
     var editorui = baidu.editor.ui;
     var _Dialog = editorui.Dialog;
     editorui.buttons = {};
 
-    editorui.Dialog = function(options) {
+    editorui.Dialog = function (options) {
       var dialog = new _Dialog(options);
-      dialog.addListener('hide', function() {
+      dialog.addListener('hide', function () {
 
         if (dialog.editor) {
           var editor = dialog.editor;
@@ -28659,7 +28659,7 @@
             }
 
 
-          } catch (ex) {}
+          } catch (ex) { }
         }
       });
       return dialog;
@@ -28703,19 +28703,19 @@
 
     for (var i = 0, ci; ci = btnCmds[i++];) {
       ci = ci.toLowerCase();
-      editorui[ci] = function(cmd) {
-        return function(editor) {
+      editorui[ci] = function (cmd) {
+        return function (editor) {
           var ui = new editorui.Button({
             className: 'edui-for-' + cmd,
             title: editor.options.labelMap[cmd] || editor.getLang("labelMap." + cmd) || '',
-            onclick: function() {
+            onclick: function () {
               editor.execCommand(cmd);
             },
             theme: editor.options.theme,
             showText: false
           });
           editorui.buttons[cmd] = ui;
-          editor.addListener('selectionchange', function(type, causeByUi, uiReady) {
+          editor.addListener('selectionchange', function (type, causeByUi, uiReady) {
             var state = editor.queryCommandState(cmd);
             if (state == -1) {
               ui.setDisabled(true);
@@ -28733,19 +28733,19 @@
     }
 
     //清除文档
-    editorui.cleardoc = function(editor) {
+    editorui.cleardoc = function (editor) {
       var ui = new editorui.Button({
         className: 'edui-for-cleardoc',
         title: editor.options.labelMap.cleardoc || editor.getLang("labelMap.cleardoc") || '',
         theme: editor.options.theme,
-        onclick: function() {
+        onclick: function () {
           if (confirm(editor.getLang("confirmClear"))) {
             editor.execCommand('cleardoc');
           }
         }
       });
       editorui.buttons["cleardoc"] = ui;
-      editor.addListener('selectionchange', function() {
+      editor.addListener('selectionchange', function () {
         ui.setDisabled(editor.queryCommandState('cleardoc') == -1);
       });
       return ui;
@@ -28760,21 +28760,21 @@
 
     for (var p in typeset) {
 
-      (function(cmd, val) {
+      (function (cmd, val) {
         for (var i = 0, ci; ci = val[i++];) {
-          (function(cmd2) {
-            editorui[cmd.replace('float', '') + cmd2] = function(editor) {
+          (function (cmd2) {
+            editorui[cmd.replace('float', '') + cmd2] = function (editor) {
               var ui = new editorui.Button({
                 className: 'edui-for-' + cmd.replace('float', '') + cmd2,
                 title: editor.options.labelMap[cmd.replace('float', '') + cmd2] || editor.getLang(
                   "labelMap." + cmd.replace('float', '') + cmd2) || '',
                 theme: editor.options.theme,
-                onclick: function() {
+                onclick: function () {
                   editor.execCommand(cmd, cmd2);
                 }
               });
               editorui.buttons[cmd] = ui;
-              editor.addListener('selectionchange', function(type, causeByUi, uiReady) {
+              editor.addListener('selectionchange', function (type, causeByUi, uiReady) {
                 ui.setDisabled(editor.queryCommandState(cmd) == -1);
                 ui.setChecked(editor.queryCommandValue(cmd) == cmd2 && !uiReady);
               });
@@ -28787,27 +28787,27 @@
 
     //字体颜色和背景颜色
     for (var i = 0, ci; ci = ['backcolor', 'forecolor'][i++];) {
-      editorui[ci] = function(cmd) {
-        return function(editor) {
+      editorui[ci] = function (cmd) {
+        return function (editor) {
           var ui = new editorui.ColorButton({
             className: 'edui-for-' + cmd,
             color: 'default',
             title: editor.options.labelMap[cmd] || editor.getLang("labelMap." + cmd) || '',
             editor: editor,
-            onpickcolor: function(t, color) {
+            onpickcolor: function (t, color) {
               editor.execCommand(cmd, color);
             },
-            onpicknocolor: function() {
+            onpicknocolor: function () {
               editor.execCommand(cmd, 'default');
               this.setColor('transparent');
               this.color = 'default';
             },
-            onbuttonclick: function() {
+            onbuttonclick: function () {
               editor.execCommand(cmd, this.color);
             }
           });
           editorui.buttons[cmd] = ui;
-          editor.addListener('selectionchange', function() {
+          editor.addListener('selectionchange', function () {
             ui.setDisabled(editor.queryCommandState(cmd) == -1);
           });
           return ui;
@@ -28825,14 +28825,14 @@
     };
 
     for (var p in dialogBtns) {
-      (function(type, vals) {
+      (function (type, vals) {
         for (var i = 0, ci; ci = vals[i++];) {
           //todo opera下存在问题
           if (browser.opera && ci === "searchreplace") {
             continue;
           }
-          (function(cmd) {
-            editorui[cmd] = function(editor, iframeUrl, title) {
+          (function (cmd) {
+            editorui[cmd] = function (editor, iframeUrl, title) {
               iframeUrl = iframeUrl || (editor.options.iframeUrlMap || {})[cmd] || iframeUrlMap[cmd];
               title = editor.options.labelMap[cmd] || editor.getLang("labelMap." + cmd) || '';
 
@@ -28849,21 +28849,21 @@
                   closeDialog: editor.getLang("closeDialog")
                 }, type == 'ok' ? {
                   buttons: [{
-                      className: 'edui-okbutton',
-                      label: editor.getLang("ok"),
-                      editor: editor,
-                      onclick: function() {
-                        dialog.close(true);
-                      }
-                    },
-                    {
-                      className: 'edui-cancelbutton',
-                      label: editor.getLang("cancel"),
-                      editor: editor,
-                      onclick: function() {
-                        dialog.close(false);
-                      }
+                    className: 'edui-okbutton',
+                    label: editor.getLang("ok"),
+                    editor: editor,
+                    onclick: function () {
+                      dialog.close(true);
                     }
+                  },
+                  {
+                    className: 'edui-cancelbutton',
+                    label: editor.getLang("cancel"),
+                    editor: editor,
+                    onclick: function () {
+                      dialog.close(false);
+                    }
+                  }
                   ]
                 } : {}));
 
@@ -28873,7 +28873,7 @@
               var ui = new editorui.Button({
                 className: 'edui-for-' + cmd,
                 title: title,
-                onclick: function() {
+                onclick: function () {
                   if (dialog) {
                     switch (cmd) {
                       case "wordimage":
@@ -28901,7 +28901,7 @@
                   'charts')
               });
               editorui.buttons[cmd] = ui;
-              editor.addListener('selectionchange', function() {
+              editor.addListener('selectionchange', function () {
                 //只存在于右键菜单而无工具栏按钮的ui不需要检测状态
                 var unNeedCheckState = {
                   'edittable': 1
@@ -28923,12 +28923,12 @@
       })(p, dialogBtns[p]);
     }
 
-    editorui.snapscreen = function(editor, iframeUrl, title) {
+    editorui.snapscreen = function (editor, iframeUrl, title) {
       title = editor.options.labelMap['snapscreen'] || editor.getLang("labelMap.snapscreen") || '';
       var ui = new editorui.Button({
         className: 'edui-for-snapscreen',
         title: title,
-        onclick: function() {
+        onclick: function () {
           editor.execCommand("snapscreen");
         },
         theme: editor.options.theme
@@ -28943,44 +28943,44 @@
           className: 'edui-for-snapscreen',
           title: title,
           buttons: [{
-              className: 'edui-okbutton',
-              label: editor.getLang("ok"),
-              editor: editor,
-              onclick: function() {
-                dialog.close(true);
-              }
-            },
-            {
-              className: 'edui-cancelbutton',
-              label: editor.getLang("cancel"),
-              editor: editor,
-              onclick: function() {
-                dialog.close(false);
-              }
+            className: 'edui-okbutton',
+            label: editor.getLang("ok"),
+            editor: editor,
+            onclick: function () {
+              dialog.close(true);
             }
+          },
+          {
+            className: 'edui-cancelbutton',
+            label: editor.getLang("cancel"),
+            editor: editor,
+            onclick: function () {
+              dialog.close(false);
+            }
+          }
           ]
 
         });
         dialog.render();
         editor.ui._dialogs["snapscreenDialog"] = dialog;
       }
-      editor.addListener('selectionchange', function() {
+      editor.addListener('selectionchange', function () {
         ui.setDisabled(editor.queryCommandState('snapscreen') == -1);
       });
       return ui;
     };
 
-    editorui.insertcode = function(editor, list, title) {
+    editorui.insertcode = function (editor, list, title) {
       list = editor.options['insertcode'] || [];
       title = editor.options.labelMap['insertcode'] || editor.getLang("labelMap.insertcode") || '';
       // if (!list.length) return;
       var items = [];
-      utils.each(list, function(key, val) {
+      utils.each(list, function (key, val) {
         items.push({
           label: key,
           value: val,
           theme: editor.options.theme,
-          renderLabelHtml: function() {
+          renderLabelHtml: function () {
             return '<div class="edui-label %%-label" >' + (this.label || '') + '</div>';
           }
         });
@@ -28989,16 +28989,16 @@
       var ui = new editorui.Combox({
         editor: editor,
         items: items,
-        onselect: function(t, index) {
+        onselect: function (t, index) {
           editor.execCommand('insertcode', this.items[index].value);
         },
-        onbuttonclick: function() {
+        onbuttonclick: function () {
           this.showPopup();
         },
         title: title,
         initValue: title,
         className: 'edui-for-insertcode',
-        indexByValue: function(value) {
+        indexByValue: function (value) {
           if (value) {
             for (var i = 0, ci; ci = this.items[i]; i++) {
               if (ci.value.indexOf(value) != -1)
@@ -29010,7 +29010,7 @@
         }
       });
       editorui.buttons['insertcode'] = ui;
-      editor.addListener('selectionchange', function(type, causeByUi, uiReady) {
+      editor.addListener('selectionchange', function (type, causeByUi, uiReady) {
         if (!uiReady) {
           var state = editor.queryCommandState('insertcode');
           if (state == -1) {
@@ -29032,19 +29032,19 @@
       });
       return ui;
     };
-    editorui.fontfamily = function(editor, list, title) {
+    editorui.fontfamily = function (editor, list, title) {
 
       list = editor.options['fontfamily'] || [];
       title = editor.options.labelMap['fontfamily'] || editor.getLang("labelMap.fontfamily") || '';
       if (!list.length) return;
       for (var i = 0, ci, items = []; ci = list[i]; i++) {
         var langLabel = editor.getLang('fontfamily')[ci.name] || "";
-        (function(key, val) {
+        (function (key, val) {
           items.push({
             label: key,
             value: val,
             theme: editor.options.theme,
-            renderLabelHtml: function() {
+            renderLabelHtml: function () {
               return '<div class="edui-label %%-label" style="font-family:' +
                 utils.unhtml(this.value) + '">' + (this.label || '') + '</div>';
             }
@@ -29054,16 +29054,16 @@
       var ui = new editorui.Combox({
         editor: editor,
         items: items,
-        onselect: function(t, index) {
+        onselect: function (t, index) {
           editor.execCommand('FontFamily', this.items[index].value);
         },
-        onbuttonclick: function() {
+        onbuttonclick: function () {
           this.showPopup();
         },
         title: title,
         initValue: title,
         className: 'edui-for-fontfamily',
-        indexByValue: function(value) {
+        indexByValue: function (value) {
           if (value) {
             for (var i = 0, ci; ci = this.items[i]; i++) {
               if (ci.value.indexOf(value) != -1)
@@ -29075,7 +29075,7 @@
         }
       });
       editorui.buttons['fontfamily'] = ui;
-      editor.addListener('selectionchange', function(type, causeByUi, uiReady) {
+      editor.addListener('selectionchange', function (type, causeByUi, uiReady) {
         if (!uiReady) {
           var state = editor.queryCommandState('FontFamily');
           if (state == -1) {
@@ -29094,7 +29094,7 @@
       return ui;
     };
 
-    editorui.fontsize = function(editor, list, title) {
+    editorui.fontsize = function (editor, list, title) {
       title = editor.options.labelMap['fontsize'] || editor.getLang("labelMap.fontsize") || '';
       list = list || editor.options['fontsize'] || [];
       if (!list.length) return;
@@ -29105,7 +29105,7 @@
           label: size,
           value: size,
           theme: editor.options.theme,
-          renderLabelHtml: function() {
+          renderLabelHtml: function () {
             return '<div class="edui-label %%-label" style="line-height:1;font-size:' +
               this.value + '">' + (this.label || '') + '</div>';
           }
@@ -29116,16 +29116,16 @@
         items: items,
         title: title,
         initValue: title,
-        onselect: function(t, index) {
+        onselect: function (t, index) {
           editor.execCommand('FontSize', this.items[index].value);
         },
-        onbuttonclick: function() {
+        onbuttonclick: function () {
           this.showPopup();
         },
         className: 'edui-for-fontsize'
       });
       editorui.buttons['fontsize'] = ui;
-      editor.addListener('selectionchange', function(type, causeByUi, uiReady) {
+      editor.addListener('selectionchange', function (type, causeByUi, uiReady) {
         if (!uiReady) {
           var state = editor.queryCommandState('FontSize');
           if (state == -1) {
@@ -29140,7 +29140,7 @@
       return ui;
     };
 
-    editorui.paragraph = function(editor, list, title) {
+    editorui.paragraph = function (editor, list, title) {
       title = editor.options.labelMap['paragraph'] || editor.getLang("labelMap.paragraph") || '';
       list = editor.options['paragraph'] || [];
       if (utils.isEmptyObject(list)) return;
@@ -29150,7 +29150,7 @@
           value: i,
           label: list[i] || editor.getLang("paragraph")[i],
           theme: editor.options.theme,
-          renderLabelHtml: function() {
+          renderLabelHtml: function () {
             return '<div class="edui-label %%-label"><span class="edui-for-' + this.value + '">' + (this.label ||
               '') + '</span></div>';
           }
@@ -29162,15 +29162,15 @@
         title: title,
         initValue: title,
         className: 'edui-for-paragraph',
-        onselect: function(t, index) {
+        onselect: function (t, index) {
           editor.execCommand('Paragraph', this.items[index].value);
         },
-        onbuttonclick: function() {
+        onbuttonclick: function () {
           this.showPopup();
         }
       });
       editorui.buttons['paragraph'] = ui;
-      editor.addListener('selectionchange', function(type, causeByUi, uiReady) {
+      editor.addListener('selectionchange', function (type, causeByUi, uiReady) {
         if (!uiReady) {
           var state = editor.queryCommandState('Paragraph');
           if (state == -1) {
@@ -29193,13 +29193,13 @@
 
 
     //自定义标题
-    editorui.customstyle = function(editor) {
+    editorui.customstyle = function (editor) {
       var list = editor.options['customstyle'] || [],
         title = editor.options.labelMap['customstyle'] || editor.getLang("labelMap.customstyle") || '';
       if (!list.length) return;
       var langCs = editor.getLang('customstyle');
       for (var i = 0, items = [], t; t = list[i++];) {
-        (function(t) {
+        (function (t) {
           var ck = {};
           ck.label = t.label ? t.label : langCs[t.name];
           ck.style = t.style;
@@ -29209,9 +29209,9 @@
             label: ck.label,
             value: ck,
             theme: editor.options.theme,
-            renderLabelHtml: function() {
+            renderLabelHtml: function () {
               return '<div class="edui-label %%-label">' + '<' + ck.tag + ' ' + (ck.className ?
-                  ' class="' + ck.className + '"' : "") +
+                ' class="' + ck.className + '"' : "") +
                 (ck.style ? ' style="' + ck.style + '"' : "") + '>' + ck.label + "<\/" + ck.tag + ">" +
                 '</div>';
             }
@@ -29225,13 +29225,13 @@
         title: title,
         initValue: title,
         className: 'edui-for-customstyle',
-        onselect: function(t, index) {
+        onselect: function (t, index) {
           editor.execCommand('customstyle', this.items[index].value);
         },
-        onbuttonclick: function() {
+        onbuttonclick: function () {
           this.showPopup();
         },
-        indexByValue: function(value) {
+        indexByValue: function (value) {
           for (var i = 0, ti; ti = this.items[i++];) {
             if (ti.label == value) {
               return i - 1
@@ -29241,7 +29241,7 @@
         }
       });
       editorui.buttons['customstyle'] = ui;
-      editor.addListener('selectionchange', function(type, causeByUi, uiReady) {
+      editor.addListener('selectionchange', function (type, causeByUi, uiReady) {
         if (!uiReady) {
           var state = editor.queryCommandState('customstyle');
           if (state == -1) {
@@ -29261,31 +29261,31 @@
       });
       return ui;
     };
-    editorui.inserttable = function(editor, iframeUrl, title) {
+    editorui.inserttable = function (editor, iframeUrl, title) {
       title = editor.options.labelMap['inserttable'] || editor.getLang("labelMap.inserttable") || '';
       var ui = new editorui.TableButton({
         editor: editor,
         title: title,
         className: 'edui-for-inserttable',
-        onpicktable: function(t, numCols, numRows) {
+        onpicktable: function (t, numCols, numRows) {
           editor.execCommand('InsertTable', {
             numRows: numRows,
             numCols: numCols,
             border: 1
           });
         },
-        onbuttonclick: function() {
+        onbuttonclick: function () {
           this.showPopup();
         }
       });
       editorui.buttons['inserttable'] = ui;
-      editor.addListener('selectionchange', function() {
+      editor.addListener('selectionchange', function () {
         ui.setDisabled(editor.queryCommandState('inserttable') == -1);
       });
       return ui;
     };
 
-    editorui.lineheight = function(editor) {
+    editorui.lineheight = function (editor) {
       var val = editor.options.lineheight || [];
       if (!val.length) return;
       for (var i = 0, ci, items = []; ci = val[i++];) {
@@ -29294,7 +29294,7 @@
           label: ci,
           value: ci,
           theme: editor.options.theme,
-          onclick: function() {
+          onclick: function () {
             editor.execCommand("lineheight", this.value);
           }
         })
@@ -29304,13 +29304,13 @@
         className: 'edui-for-lineheight',
         title: editor.options.labelMap['lineheight'] || editor.getLang("labelMap.lineheight") || '',
         items: items,
-        onbuttonclick: function() {
+        onbuttonclick: function () {
           var value = editor.queryCommandValue('LineHeight') || this.value;
           editor.execCommand("LineHeight", value);
         }
       });
       editorui.buttons['lineheight'] = ui;
-      editor.addListener('selectionchange', function() {
+      editor.addListener('selectionchange', function () {
         var state = editor.queryCommandState('LineHeight');
         if (state == -1) {
           ui.setDisabled(true);
@@ -29326,8 +29326,8 @@
 
     var rowspacings = ['top', 'bottom'];
     for (var r = 0, ri; ri = rowspacings[r++];) {
-      (function(cmd) {
-        editorui['rowspacing' + cmd] = function(editor) {
+      (function (cmd) {
+        editorui['rowspacing' + cmd] = function (editor) {
           var val = editor.options['rowspacing' + cmd] || [];
           if (!val.length) return null;
           for (var i = 0, ci, items = []; ci = val[i++];) {
@@ -29335,7 +29335,7 @@
               label: ci,
               value: ci,
               theme: editor.options.theme,
-              onclick: function() {
+              onclick: function () {
                 editor.execCommand("rowspacing", this.value, cmd);
               }
             })
@@ -29346,13 +29346,13 @@
             title: editor.options.labelMap['rowspacing' + cmd] || editor.getLang("labelMap.rowspacing" +
               cmd) || '',
             items: items,
-            onbuttonclick: function() {
+            onbuttonclick: function () {
               var value = editor.queryCommandValue('rowspacing', cmd) || this.value;
               editor.execCommand("rowspacing", value, cmd);
             }
           });
           editorui.buttons[cmd] = ui;
-          editor.addListener('selectionchange', function() {
+          editor.addListener('selectionchange', function () {
             var state = editor.queryCommandState('rowspacing', cmd);
             if (state == -1) {
               ui.setDisabled(true);
@@ -29370,10 +29370,10 @@
     //有序，无序列表
     var lists = ['insertorderedlist', 'insertunorderedlist'];
     for (var l = 0, cl; cl = lists[l++];) {
-      (function(cmd) {
-        editorui[cmd] = function(editor) {
+      (function (cmd) {
+        editorui[cmd] = function (editor) {
           var vals = editor.options[cmd],
-            _onMenuClick = function() {
+            _onMenuClick = function () {
               editor.execCommand(cmd, this.value);
             },
             items = [];
@@ -29390,13 +29390,13 @@
             className: 'edui-for-' + cmd,
             title: editor.getLang("labelMap." + cmd) || '',
             'items': items,
-            onbuttonclick: function() {
+            onbuttonclick: function () {
               var value = editor.queryCommandValue(cmd) || this.value;
               editor.execCommand(cmd, value);
             }
           });
           editorui.buttons[cmd] = ui;
-          editor.addListener('selectionchange', function() {
+          editor.addListener('selectionchange', function () {
             var state = editor.queryCommandState(cmd);
             if (state == -1) {
               ui.setDisabled(true);
@@ -29412,13 +29412,13 @@
       })(cl)
     }
 
-    editorui.fullscreen = function(editor, title) {
+    editorui.fullscreen = function (editor, title) {
       title = editor.options.labelMap['fullscreen'] || editor.getLang("labelMap.fullscreen") || '';
       var ui = new editorui.Button({
         className: 'edui-for-fullscreen',
         title: title,
         theme: editor.options.theme,
-        onclick: function() {
+        onclick: function () {
           if (editor.ui) {
             editor.ui.setFullScreen(!editor.ui.isFullScreen());
           }
@@ -29426,7 +29426,7 @@
         }
       });
       editorui.buttons['fullscreen'] = ui;
-      editor.addListener('selectionchange', function() {
+      editor.addListener('selectionchange', function () {
         var state = editor.queryCommandState('fullscreen');
         ui.setDisabled(state == -1);
         ui.setChecked(editor.ui.isFullScreen());
@@ -29435,7 +29435,7 @@
     };
 
     // 表情
-    editorui["emotion"] = function(editor, iframeUrl) {
+    editorui["emotion"] = function (editor, iframeUrl) {
       var cmd = "emotion";
       var ui = new editorui.MultiMenuPop({
         title: editor.options.labelMap[cmd] || editor.getLang("labelMap." + cmd + "") || '',
@@ -29445,45 +29445,45 @@
       });
       editorui.buttons[cmd] = ui;
 
-      editor.addListener('selectionchange', function() {
+      editor.addListener('selectionchange', function () {
         ui.setDisabled(editor.queryCommandState(cmd) == -1)
       });
       return ui;
     };
 
-    editorui.autotypeset = function(editor) {
+    editorui.autotypeset = function (editor) {
       var ui = new editorui.AutoTypeSetButton({
         editor: editor,
         title: editor.options.labelMap['autotypeset'] || editor.getLang("labelMap.autotypeset") || '',
         className: 'edui-for-autotypeset',
-        onbuttonclick: function() {
+        onbuttonclick: function () {
           editor.execCommand('autotypeset')
         }
       });
       editorui.buttons['autotypeset'] = ui;
-      editor.addListener('selectionchange', function() {
+      editor.addListener('selectionchange', function () {
         ui.setDisabled(editor.queryCommandState('autotypeset') == -1);
       });
       return ui;
     };
 
     /* 简单上传插件 */
-    editorui["simpleupload"] = function(editor) {
+    editorui["simpleupload"] = function (editor) {
       var name = 'simpleupload',
         ui = new editorui.Button({
           className: 'edui-for-' + name,
           title: editor.options.labelMap[name] || editor.getLang("labelMap." + name) || '',
-          onclick: function() {},
+          onclick: function () { },
           theme: editor.options.theme,
           showText: false
         });
       editorui.buttons[name] = ui;
-      editor.addListener('ready', function() {
+      editor.addListener('ready', function () {
         var b = ui.getDom('body'),
           iconSpan = b.children[0];
         editor.fireEvent('simpleuploadbtnready', iconSpan);
       });
-      editor.addListener('selectionchange', function(type, causeByUi, uiReady) {
+      editor.addListener('selectionchange', function (type, causeByUi, uiReady) {
         var state = editor.queryCommandState(name);
         if (state == -1) {
           ui.setDisabled(true);
@@ -29506,7 +29506,7 @@
   ///commands 全屏
   ///commandsName FullScreen
   ///commandsTitle  全屏
-  (function() {
+  (function () {
     var utils = baidu.editor.utils,
       uiUtils = baidu.editor.ui.uiUtils,
       UIBase = baidu.editor.ui.UIBase,
@@ -29520,7 +29520,7 @@
 
     EditorUI.prototype = {
       uiName: 'editor',
-      initEditorUI: function() {
+      initEditorUI: function () {
         this.editor.ui = this;
         this._dialogs = {};
         this.initUIBase();
@@ -29528,12 +29528,12 @@
         var editor = this.editor,
           me = this;
 
-        editor.addListener('ready', function() {
+        editor.addListener('ready', function () {
           //提供getDialog方法
-          editor.getDialog = function(name) {
+          editor.getDialog = function (name) {
             return editor.ui._dialogs[name + "Dialog"];
           };
-          domUtils.on(editor.window, 'scroll', function(evt) {
+          domUtils.on(editor.window, 'scroll', function (evt) {
             baidu.editor.ui.Popup.postHide(evt);
           });
           //提供编辑器实时宽高(全屏时宽高不变化)
@@ -29576,13 +29576,13 @@
 
         });
 
-        editor.addListener('mousedown', function(t, evt) {
+        editor.addListener('mousedown', function (t, evt) {
           var el = evt.target || evt.srcElement;
           baidu.editor.ui.Popup.postHide(evt, el);
           baidu.editor.ui.ShortCutMenu.postHide(evt);
 
         });
-        editor.addListener("delcells", function() {
+        editor.addListener("delcells", function () {
           if (UE.ui['edittip']) {
             new UE.ui['edittip'](editor);
           }
@@ -29591,7 +29591,7 @@
 
         var pastePop, isPaste = false,
           timer;
-        editor.addListener("afterpaste", function() {
+        editor.addListener("afterpaste", function () {
           if (editor.queryCommandState('pasteplain'))
             return;
           if (baidu.editor.ui.PastePicker) {
@@ -29607,15 +29607,15 @@
           isPaste = true;
         });
 
-        editor.addListener("afterinserthtml", function() {
+        editor.addListener("afterinserthtml", function () {
           clearTimeout(timer);
-          timer = setTimeout(function() {
+          timer = setTimeout(function () {
             if (pastePop && (isPaste || editor.ui._isTransfer)) {
               if (pastePop.isHidden()) {
                 var span = domUtils.createElement(editor.document, 'span', {
-                    'style': "line-height:0px;",
-                    'innerHTML': '\ufeff'
-                  }),
+                  'style': "line-height:0px;",
+                  'innerHTML': '\ufeff'
+                }),
                   range = editor.selection.getRange();
                 range.insertNode(span);
                 var tmp = getDomNode(span, 'firstChild', 'previousSibling');
@@ -29629,17 +29629,17 @@
             }
           }, 200)
         });
-        editor.addListener('contextmenu', function(t, evt) {
+        editor.addListener('contextmenu', function (t, evt) {
           baidu.editor.ui.Popup.postHide(evt);
         });
-        editor.addListener('keydown', function(t, evt) {
+        editor.addListener('keydown', function (t, evt) {
           if (pastePop) pastePop.dispose(evt);
           var keyCode = evt.keyCode || evt.which;
           if (evt.altKey && keyCode == 90) {
             UE.ui.buttons['fullscreen'].onclick();
           }
         });
-        editor.addListener('wordcount', function(type) {
+        editor.addListener('wordcount', function (type) {
           setCount(this, me);
         });
 
@@ -29667,7 +29667,7 @@
           }
         }
 
-        editor.addListener('selectionchange', function() {
+        editor.addListener('selectionchange', function () {
           if (editor.options.elementPathEnabled) {
             me[(editor.queryCommandState('elementpath') == -1 ? 'dis' : 'en') + 'ableElementPath']()
           }
@@ -29680,21 +29680,21 @@
           editor: editor,
           content: '',
           className: 'edui-bubble',
-          _onEditButtonClick: function() {
+          _onEditButtonClick: function () {
             this.hide();
             editor.ui._dialogs.linkDialog.open();
           },
-          _onImgEditButtonClick: function(name) {
+          _onImgEditButtonClick: function (name) {
             this.hide();
             editor.ui._dialogs[name] && editor.ui._dialogs[name].open();
 
           },
-          _onImgSetFloat: function(value) {
+          _onImgSetFloat: function (value) {
             this.hide();
             editor.execCommand("imagefloat", value);
 
           },
-          _setIframeAlign: function(value) {
+          _setIframeAlign: function (value) {
             var frame = popup.anchorEl;
             var newFrame = frame.cloneNode(true);
             switch (value) {
@@ -29713,7 +29713,7 @@
             popup.anchorEl = newFrame;
             popup.showAnchor(popup.anchorEl);
           },
-          _updateIframe: function() {
+          _updateIframe: function () {
             var frame = editor._iframe = popup.anchorEl;
             if (domUtils.hasClass(frame, 'ueditor_baidumap')) {
               editor.selection.getRange().selectNode(frame).select();
@@ -29724,11 +29724,11 @@
               popup.hide();
             }
           },
-          _onRemoveButtonClick: function(cmdName) {
+          _onRemoveButtonClick: function (cmdName) {
             editor.execCommand(cmdName);
             this.hide();
           },
-          queryAutoHide: function(el) {
+          queryAutoHide: function (el) {
             if (el && el.ownerDocument == editor.document) {
               if (el.tagName.toLowerCase() == 'img' || domUtils.findParentByTagName(el, 'a', true)) {
                 return el !== popup.anchorEl;
@@ -29739,7 +29739,7 @@
         });
         popup.render();
         if (editor.options.imagePopup) {
-          editor.addListener('mouseover', function(t, evt) {
+          editor.addListener('mouseover', function (t, evt) {
             evt = evt || window.event;
             var el = evt.target || evt.srcElement;
             if (editor.ui._dialogs.insertframeDialog && /iframe/ig.test(el.tagName)) {
@@ -29750,7 +29750,7 @@
                 '</span>&nbsp;&nbsp;<span onclick=$$._setIframeAlign(-1) class="edui-clickable">' +
                 editor.getLang("justifyleft") +
                 '</span>&nbsp;&nbsp;<span onclick=$$._setIframeAlign(1) class="edui-clickable">' + editor
-                .getLang("justifyright") + '</span>&nbsp;&nbsp;' +
+                  .getLang("justifyright") + '</span>&nbsp;&nbsp;' +
                 ' <span onclick="$$._updateIframe( this);" class="edui-clickable">' + editor.getLang(
                   "modify") + '</span></nobr>');
               if (html) {
@@ -29762,7 +29762,7 @@
               }
             }
           });
-          editor.addListener('selectionchange', function(t, causeByUi) {
+          editor.addListener('selectionchange', function (t, causeByUi) {
             if (!causeByUi) return;
             var html = '',
               str = "",
@@ -29771,7 +29771,7 @@
             if (img && img.tagName == 'IMG') {
               var dialogName = 'insertimageDialog';
               if (img.className.indexOf("edui-faked-video") != -1 || img.className.indexOf(
-                  "edui-upload-video") != -1) {
+                "edui-upload-video") != -1) {
                 dialogName = "insertvideoDialog"
               }
               if (img.className.indexOf("edui-faked-webapp") != -1) {
@@ -29854,7 +29854,7 @@
         }
 
       },
-      _initToolbars: function() {
+      _initToolbars: function () {
         var editor = this.editor;
         var toolbars = this.toolbars || [];
         var toolbarUis = [];
@@ -29903,7 +29903,7 @@
 
         //接受外部定制的UI
 
-        utils.each(UE._customizeUI, function(obj, key) {
+        utils.each(UE._customizeUI, function (obj, key) {
           var itemUI, index;
           if (obj.id && obj.id != editor.key) {
             return false;
@@ -29920,7 +29920,7 @@
 
         this.toolbars = toolbarUis;
       },
-      getHtmlTpl: function() {
+      getHtmlTpl: function () {
         return '<div id="##" class="%%">' +
           '<div id="##_toolbarbox" class="%%-toolbarbox">' +
           (this.toolbars.length ?
@@ -29947,17 +29947,17 @@
           '<div id="##_scalelayer"></div>' +
           '</div>';
       },
-      showWordImageDialog: function() {
+      showWordImageDialog: function () {
         this._dialogs['wordimageDialog'].open();
       },
-      renderToolbarBoxHtml: function() {
+      renderToolbarBoxHtml: function () {
         var buff = [];
         for (var i = 0; i < this.toolbars.length; i++) {
           buff.push(this.toolbars[i].renderHtml());
         }
         return buff.join('');
       },
-      setFullScreen: function(fullscreen) {
+      setFullScreen: function (fullscreen) {
 
         var editor = this.editor,
           container = editor.container.parentNode.parentNode;
@@ -30015,9 +30015,9 @@
             var input = document.createElement('input');
             document.body.appendChild(input);
             editor.body.contentEditable = false;
-            setTimeout(function() {
+            setTimeout(function () {
               input.focus();
-              setTimeout(function() {
+              setTimeout(function () {
                 editor.body.contentEditable = true;
                 editor.fireEvent('fullscreenchanged', fullscreen);
                 editor.selection.getRange().moveToBookmark(bk).select(true);
@@ -30034,12 +30034,12 @@
 
         }
       },
-      _updateFullScreen: function() {
+      _updateFullScreen: function () {
         if (this._fullscreen) {
           var vpRect = uiUtils.getViewportRect();
           this.getDom().style.cssText = 'border:0;position:absolute;left:0;top:' + (this.editor.options.topOffset ||
             0) + 'px;width:' + vpRect.width + 'px;height:' + vpRect.height + 'px;z-index:' + (this.getDom().style
-            .zIndex * 1 + 100);
+              .zIndex * 1 + 100);
           uiUtils.setViewportOffset(this.getDom(), {
             left: 0,
             top: this.editor.options.topOffset || 0
@@ -30057,7 +30057,7 @@
           }
         }
       },
-      _updateElementPath: function() {
+      _updateElementPath: function () {
         var bottom = this.getDom('elementpath'),
           list;
         if (this.elementPathEnabled && (list = this.editor.queryCommandValue('elementpath'))) {
@@ -30075,20 +30075,20 @@
           bottom.style.display = 'none'
         }
       },
-      disableElementPath: function() {
+      disableElementPath: function () {
         var bottom = this.getDom('elementpath');
         bottom.innerHTML = '';
         bottom.style.display = 'none';
         this.elementPathEnabled = false;
 
       },
-      enableElementPath: function() {
+      enableElementPath: function () {
         var bottom = this.getDom('elementpath');
         bottom.style.display = '';
         this.elementPathEnabled = true;
         this._updateElementPath();
       },
-      _scale: function() {
+      _scale: function () {
         var doc = document,
           editor = this.editor,
           editorHolder = editor.container,
@@ -30126,7 +30126,7 @@
 
         var me = this;
         //by xuheng 全屏时关掉缩放
-        this.editor.addListener('fullscreenchanged', function(e, fullScreen) {
+        this.editor.addListener('fullscreenchanged', function (e, fullScreen) {
           if (fullScreen) {
             me.disableScale();
 
@@ -30185,23 +30185,23 @@
             window.getSelection().removeAllRanges();
         }
 
-        this.enableScale = function() {
+        this.enableScale = function () {
           //trace:2868
           if (editor.queryCommandState("source") == 1) return;
           scale.style.display = "";
           this.scaleEnabled = true;
           domUtils.on(scale, "mousedown", down);
         };
-        this.disableScale = function() {
+        this.disableScale = function () {
           scale.style.display = "none";
           this.scaleEnabled = false;
           domUtils.un(scale, "mousedown", down);
         };
       },
-      isFullScreen: function() {
+      isFullScreen: function () {
         return this._fullscreen;
       },
-      postRender: function() {
+      postRender: function () {
         UIBase.prototype.postRender.call(this);
         for (var i = 0; i < this.toolbars.length; i++) {
           this.toolbars[i].postRender();
@@ -30209,20 +30209,20 @@
         var me = this;
         var timerId,
           domUtils = baidu.editor.dom.domUtils,
-          updateFullScreenTime = function() {
+          updateFullScreenTime = function () {
             clearTimeout(timerId);
-            timerId = setTimeout(function() {
+            timerId = setTimeout(function () {
               me._updateFullScreen();
             });
           };
         domUtils.on(window, 'resize', updateFullScreenTime);
 
-        me.addListener('destroy', function() {
+        me.addListener('destroy', function () {
           domUtils.un(window, 'resize', updateFullScreenTime);
           clearTimeout(timerId);
         })
       },
-      showToolbarMsg: function(msg, flag) {
+      showToolbarMsg: function (msg, flag) {
         this.getDom('toolbarmsg_label').innerHTML = msg;
         this.getDom('toolbarmsg').style.display = '';
         //
@@ -30231,13 +30231,13 @@
           w.style.display = 'none';
         }
       },
-      hideToolbarMsg: function() {
+      hideToolbarMsg: function () {
         this.getDom('toolbarmsg').style.display = 'none';
       },
-      mapUrl: function(url) {
+      mapUrl: function (url) {
         return url ? url.replace('~/', this.editor.options.UEDITOR_HOME_URL || '') : ''
       },
-      triggerLayout: function() {
+      triggerLayout: function () {
         var dom = this.getDom();
         if (dom.style.zoom == '1') {
           dom.style.zoom = '100%';
@@ -30252,7 +30252,7 @@
     var instances = {};
 
 
-    UE.ui.Editor = function(options) {
+    UE.ui.Editor = function (options) {
       var editor = new UE.Editor(options);
       editor.options.editor = editor;
       utils.loadFile(document, {
@@ -30263,12 +30263,12 @@
       });
 
       var oldRender = editor.render;
-      editor.render = function(holder) {
+      editor.render = function (holder) {
         if (holder.constructor === String) {
           editor.key = holder;
           instances[holder] = editor;
         }
-        utils.domReady(function() {
+        utils.domReady(function () {
           editor.langIsReady ? renderUI() : editor.addListener("langReady", renderUI);
 
           function renderUI() {
@@ -30288,8 +30288,8 @@
                 var cont = holder.value || holder.innerHTML;
                 editor.options.initialContent = /^[\t\r\n ]*$/.test(cont) ? editor.options.initialContent :
                   cont.replace(/>[\n\r\t]+([ ]{4})+/g, '>')
-                  .replace(/[\n\r\t]+([ ]{4})+</g, '<')
-                  .replace(/>[\n\r\t]+</g, '><');
+                    .replace(/[\n\r\t]+([ ]{4})+</g, '<')
+                    .replace(/>[\n\r\t]+</g, '><');
                 holder.className && (newDiv.className = holder.className);
                 holder.style.cssText && (newDiv.style.cssText = holder.style.cssText);
                 if (/textarea/i.test(holder.tagName)) {
@@ -30377,7 +30377,7 @@
      *  UE.getEditor('containerId'); //返回刚创建的实例
      *
      */
-    UE.getEditor = function(id, opt) {
+    UE.getEditor = function (id, opt) {
       var editor = instances[id];
       if (!editor) {
         editor = instances[id] = new UE.ui.Editor(opt);
@@ -30387,7 +30387,7 @@
     };
 
 
-    UE.delEditor = function(id) {
+    UE.delEditor = function (id) {
       var editor;
       if (editor = instances[id]) {
         editor.key && editor.destroy();
@@ -30395,8 +30395,8 @@
       }
     };
 
-    UE.registerUI = function(uiName, fn, index, editorId) {
-      utils.each(uiName.split(/\s+/), function(name) {
+    UE.registerUI = function (uiName, fn, index, editorId) {
+      utils.each(uiName.split(/\s+/), function (name) {
         UE._customizeUI[name] = {
           id: editorId,
           execFn: fn,
@@ -30409,7 +30409,7 @@
   })();
 
   // adapter/message.js
-  UE.registerUI('message', function(editor) {
+  UE.registerUI('message', function (editor) {
 
     var editorui = baidu.editor.ui;
     var Message = editorui.Message;
@@ -30417,25 +30417,25 @@
     var _messageItems = [];
     var me = editor;
 
-    me.addListener('ready', function() {
+    me.addListener('ready', function () {
       holder = document.getElementById(me.ui.id + '_message_holder');
       updateHolderPos();
-      setTimeout(function() {
+      setTimeout(function () {
         updateHolderPos();
       }, 500);
     });
 
-    me.addListener('showmessage', function(type, opt) {
+    me.addListener('showmessage', function (type, opt) {
       opt = utils.isString(opt) ? {
         'content': opt
       } : opt;
       var message = new Message({
-          'timeout': opt.timeout,
-          'type': opt.type,
-          'content': opt.content,
-          'keepshow': opt.keepshow,
-          'editor': me
-        }),
+        'timeout': opt.timeout,
+        'type': opt.type,
+        'content': opt.content,
+        'keepshow': opt.keepshow,
+        'editor': me
+      }),
         mid = opt.id || ('msg_' + (+new Date()).toString(36));
       message.render(holder);
       _messageItems[mid] = message;
@@ -30444,7 +30444,7 @@
       return mid;
     });
 
-    me.addListener('updatemessage', function(type, id, opt) {
+    me.addListener('updatemessage', function (type, id, opt) {
       opt = utils.isString(opt) ? {
         'content': opt
       } : opt;
@@ -30453,7 +30453,7 @@
       message && message.reset(opt);
     });
 
-    me.addListener('hidemessage', function(type, id) {
+    me.addListener('hidemessage', function (type, id) {
       var message = _messageItems[id];
       message && message.hide();
     });
@@ -30470,13 +30470,13 @@
 
 
   // adapter/autosave.js
-  UE.registerUI('autosave', function(editor) {
+  UE.registerUI('autosave', function (editor) {
     var timer = null,
       uid = null;
-    editor.on('afterautosave', function() {
+    editor.on('afterautosave', function () {
       clearTimeout(timer);
 
-      timer = setTimeout(function() {
+      timer = setTimeout(function () {
         if (uid) {
           editor.trigger('hidemessage', uid);
         }

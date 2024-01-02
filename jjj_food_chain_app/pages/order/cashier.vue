@@ -105,6 +105,7 @@
 			},
 			switch2Change(e) {
 				this.balanceType = e.detail.value;
+				console.log('balancetype',this.balanceType);
 			},
 			submit() {
 				let self = this;

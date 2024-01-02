@@ -65,7 +65,7 @@
           <el-table-column prop="product_name" label="商品" width="400">
             <template #default="scope">
               <div class="product-info">
-                <div class="pic"><img v-img-url="scope.row.image.file_path" /></div>
+                <div class="pic"><img v-img-url="scope.row.image.filePath" /></div>
                 <div class="info">
                   <div class="name">{{ scope.row.product_name }}</div>
                   <div class="gray9" v-if="scope.row.product_attr!=''">{{scope.row.product_attr}}</div>

@@ -38,7 +38,7 @@ let FileApi = {
     },
     /*移动文件*/
     moveFile(formData, errorback) {
-        return request._upload('/shop/file/upload/moveFiles', formData, errorback);
+        return request._upload('/shop/file/file/moveFiles', formData, errorback);
     },
 
 

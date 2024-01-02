@@ -81,7 +81,7 @@
 					<div class="login-wrap">
 						<div class="d-s-c">
 							<image  
-								:src="userInfo.avatarUrl"
+								:src="userInfo.avatarUrl=='' ? '/static/tab/user.png' : userInfo.avatarUrl"
 								class="img"
 								:style="{
 									width: `${itemData.style.loginHeight*(itemData.style.loginAvatarSize/100)*2}rpx`,

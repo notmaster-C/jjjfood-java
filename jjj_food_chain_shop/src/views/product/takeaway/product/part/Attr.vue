@@ -16,7 +16,7 @@
 
         <!--多规格表格-->
         <div class="mb18 p-0-30" v-for="(item,index) in form.model.productAttrList" :key="index"
-          v-if="form.model.productAttrList.length>0">
+          v-if="form.model&&form.model.productAttrList&&form.model.productAttrList.length>0">
           <div class="d-c-c mb16">
             <div style="width: 100px;"><span class="red">*</span>属性名称：</div>
             <div class="flex-1 ml40"><span class="red">*</span>属性值(至少填写两个)</div>
@@ -63,15 +63,16 @@
         restaurants: [],
         restaurants2: [],
         formData: {},
+        productAttrList:[],
       }
     },
     inject: ['form'],
     methods: {
       addAttr() {
-        if (this.form.model.productAttrList == '') {
-          this.form.model.productAttrList = []
+        if (this.productAttrList == '') {
+          this.productAttrList = []
         }
-        this.form.model.productAttrList.push({
+        this.productAttrList.push({
           attributeName: '',
           attributeValue: ['', '']
         })

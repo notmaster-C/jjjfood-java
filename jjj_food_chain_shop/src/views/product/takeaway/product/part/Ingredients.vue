@@ -18,7 +18,7 @@
 
         <!--多规格表格-->
         <div class="p-0-30 mb18" v-for="(item,index) in form.model.productFeedList" :key="index"
-          v-if="form.model.productFeedList.length>0">
+          v-if="form.model.productFeedList&&form.model.productFeedList.length>0">
           <div class="d-c-c mb16">
             <div style="width: 100px;"><span class="red">*</span>加料名称：</div>
             <div class="flex-1 ml20"><span class="red">*</span>价格</div>

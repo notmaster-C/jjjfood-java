@@ -1,5 +1,5 @@
 <template>
-	<vue-ueditor-wrap v-model="msg" :config="this_config" editor-id="editor-demo-01" @ready="ready"></vue-ueditor-wrap>
+	<vue-ueditor-wrap v-model="msg" :config="this_config" :editor-id="editorId" @ready="ready"></vue-ueditor-wrap>
 	<Upload v-if="isupload" :config="{ total: 9 }" :isupload="isupload" @returnImgs="returnImgsFunc">上传图片</Upload>
 </template>
 <script>
@@ -9,7 +9,7 @@ export default {
 	components: {
 		Upload
 	},
-	props: ['text'],
+	props: ['text','editorId'],
 	setup(props, { emit }) {
 		const state = reactive({
 			msg: props.text,
@@ -84,6 +84,7 @@ export default {
 			if (callback) {
 				this.hasCallback = true;
 				this.callback = callback;
+				console.log('callback',this.callback);
 			}
 		},
 

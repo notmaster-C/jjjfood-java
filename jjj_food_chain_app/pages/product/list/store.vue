@@ -83,7 +83,7 @@
 														<text class="linprice"
 															v-if="good.productPrice * 1 != good.linePrice * 1">￥{{ good.linePrice * 1 }}</text>
 													</view>
-													<view class="btn-group" v-if="good.specType == 20">
+													<view class="btn-group" v-if="good.specTypes == 20">
 														<button type="primary" class="btn property_btn"
 															hover-class="none" size="min"
 															@tap.stop="gotoDetail(good)">选规格</button>

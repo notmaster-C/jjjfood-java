@@ -135,17 +135,18 @@ export default {
 			type: '',
 			productPrice: '',
 			feedPrice: 0,
-			space_name: '',
-			attr_name: [],
+			spaceName: '',
+			attrName: [],
 			feedName: [],
-			product_lineprice: '',
+			productLineprice: '',
 			delivery: '',
 			bag_type: 1,
 			dinnerType: 20,
 			cartType: 0,
 			tableId: 0,
 			clock: false,
-			discount_price:0
+			discount_price:0,
+			productFeedList:[]
 		}
 	},
 	computed: {
@@ -161,7 +162,7 @@ export default {
 
 		},
 		lineprice: function() {
-			return ((this.feedPrice * 1 + this.product_lineprice * 1) * this.form.showSku.sum).toFixed(2);
+			return ((this.feedPrice * 1 + this.productLineprice * 1) * this.form.showSku.sum).toFixed(2);
 		},
 		/*判断增加数量*/
 		isadd: function() {
@@ -209,6 +210,7 @@ export default {
 					})
 					return
 				}
+				this.form.detail.productFeed = JSON.parse(res.data.detail.productFeed);
 				/*详情内容格式化*/
 				res.data.detail.content = utils.format_content(res.data.detail.content);
 				self.detail = res.data.detail;
@@ -238,8 +240,8 @@ export default {
 				}
 			};
 			self.form = obj;
-			self.space_name = '';
-			self.attr_name = [];
+			self.spaceName = '';
+			self.attrName = [];
 			self.feedName = [];
 			self.isOpenSpec = true;
 			self.initShowSku();
@@ -257,24 +259,24 @@ export default {
 			})
 		},
 		describe: function() {
-			let space_name = this.space_name;
-			if (space_name != '') {
-				space_name += ';'
+			let spaceName = this.spaceName;
+			if (spaceName != '') {
+				spaceName += ';'
 			}
-			let attr_name = this.attr_name.join(';');
-			if (attr_name != '') {
-				attr_name += ';'
+			let attrName = this.attrName.join(';');
+			if (attrName != '') {
+				attrName += ';'
 			}
 			let feedName = this.feedName.join(',');
 			if (feedName != '') {
 				feedName += ';'
 			}
 
-			return space_name + attr_name + feedName
+			return spaceName + attrName + feedName
 		},
 		/*初始化*/
 		initShowSku() {
-			this.form.detail.productFeed = JSON.parse(this.form.detail.productFeed);
+			this.productFeedList = JSON.parse(this.form.detail.productFeed);
 			this.form.showSku.sku_image = this.form.detail.productImage;
 			this.form.showSku.productPrice = this.form.detail.productPrice;
 			this.form.showSku.bagPrice = this.form.detail.bagPrice;
@@ -286,6 +288,8 @@ export default {
 			this.form.showSku.stockNum = this.form.detail.productStock;
 			this.form.showSku.sum = 1;
 			this.stock = this.form.detail.productStock;
+			this.form.detail.productFeed=this.productFeedList
+			console.log('feed',this.form.detail.productFeed);
 		},
 		/*选择属性*/
 		selecedtSpec(item, index) {
@@ -299,7 +303,7 @@ export default {
 				})
 				item.checked = true;
 				self.form.showSku.productSkuId[0] = item.productSkuId;
-				self.space_name = item.specName;
+				self.spaceName = item.specName;
 				self.$set(self.form.showSku, 'productPrice', item.productPrice)
 				self.$set(self.form.showSku, 'bagPrice', item.bagPrice);
 				self.$set(self.form.showSku, 'linePrice', item.linePrice)
@@ -316,7 +320,7 @@ export default {
 		selectAttr(item, index, aindex) {
 			let self = this;
 			self.$set(self.form.showSku.attr, aindex, index);
-			self.attr_name[aindex] = item;
+			self.attrName[aindex] = item;
 			// 更新商品规格信息
 			self.updateSpecProduct();
 		},
@@ -351,8 +355,8 @@ export default {
 		},
 		updateSpecProduct() {
 			this.productPrice = this.form.showSku.productPrice;
-			console.log(this.product_lineprice)
-			this.product_lineprice = this.form.showSku.linePrice;
+			console.log(this.productLineprice)
+			this.productLineprice = this.form.showSku.linePrice;
 		},
 		/*商品增加*/
 		add() {
@@ -395,6 +399,7 @@ export default {
 				return;
 			}
 			if (this.form.detail.productAttr != null) {
+				console.log('arr',this.form.detail.productAttr);
 				for (let i = 0; i < this.form.detail.productAttr.length; i++) {
 					if (this.form.showSku.attr[i] == null) {
 						uni.showToast({

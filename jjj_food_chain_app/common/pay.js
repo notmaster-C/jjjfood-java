@@ -32,14 +32,14 @@ export const pay = (result, self, success, fail) => {
 		// #ifdef  H5
 		if (self.isWeixin()) {
 			WeixinJSBridge.invoke('getBrandWCPayRequest', {
-					timeStamp: result.data.payment.timeStamp,
-					nonceStr: result.data.payment.nonceStr,
-					package: result.data.payment.packageValue,
-					signType: result.data.payment.signType,
-					paySign: result.data.payment.paySign,
-					appId: result.data.payment.appId
-				},
-				function(res) {
+				timeStamp: result.data.payment.timeStamp,
+				nonceStr: result.data.payment.nonceStr,
+				package: result.data.payment.packageValue,
+				signType: result.data.payment.signType,
+				paySign: result.data.payment.paySign,
+				appId: result.data.payment.appId
+			},
+				function (res) {
 					if (res.err_msg == "get_brand_wcpay_request:ok") {
 						paySuccess(result, self, success);
 					} else if (res.err_msg == "get_brand_wcpay_request:cancel") {
@@ -54,9 +54,9 @@ export const pay = (result, self, success, fail) => {
 				}
 			);
 		} else {
-			if(result.data.wxPayVersion == 2){
+			if (result.data.wxPayVersion == 2) {
 				window.location.href = result.data.payment.mwebUrl + '&redirect_url=' + result.data.returnUrl;
-			}else{
+			} else {
 				window.location.href = result.data.payment + '&redirect_url=' + result.data.returnUrl;
 			}
 			return;
@@ -82,8 +82,8 @@ export const pay = (result, self, success, fail) => {
 		let start = result.data.payment.indexOf("{\"");
 		let end = result.data.payment.indexOf("\"}");
 		let params = result.data.payment.substr(start, (end - start + 1));
-		let new_params = params.replace(/\"/g,"&quot;");
-		div.innerHTML = result.data.payment.substr(0,start)+new_params+result.data.payment.substr(end+1);
+		let new_params = params.replace(/\"/g, "&quot;");
+		div.innerHTML = result.data.payment.substr(0, start) + new_params + result.data.payment.substr(end + 1);
 		document.body.appendChild(div);
 		document.forms[0].submit();
 		div.remove();
@@ -101,7 +101,7 @@ function paySuccess(result, self, success) {
 }
 /*跳到支付成功页*/
 function gotoSuccess(result, self) {
-	self.gotoPage('/pages/order/pay-success/pay-success?order_id=' + result.data.order_id, 'reLaunch');
+	self.gotoPage('/pages/order/pay-success/pay-success?orderId=' + result.data.orderId, 'reLaunch');
 }
 
 /*支付失败跳订单详情*/
@@ -110,7 +110,7 @@ function payError(result, fail, self) {
 		fail(result);
 		return;
 	}
-	self.gotoPage('/pages/order/order-detail?order_id=' + result.data.order_id, 'redirect');
+	self.gotoPage('/pages/order/order-detail?orderId=' + result.data.orderId, 'redirect');
 }
 
 function wxAppPay(result, self, success, fail) {
@@ -118,12 +118,12 @@ function wxAppPay(result, self, success, fail) {
 	uni.requestPayment({
 		provider: 'wxpay',
 		orderInfo: {
-			"appid": result.data.wxPayVersion == 2?payment.appId:payment.appid,
-			"noncestr": result.data.wxPayVersion == 2?payment.nonceStr:payment.noncestr,
+			"appid": result.data.wxPayVersion == 2 ? payment.appId : payment.appid,
+			"noncestr": result.data.wxPayVersion == 2 ? payment.nonceStr : payment.noncestr,
 			"package": payment.packageValue,
 			"partnerid": payment.partnerId,
 			"prepayid": payment.prepayId,
-			"timestamp": result.data.wxPayVersion == 2?payment.timeStamp:payment.timestamp,
+			"timestamp": result.data.wxPayVersion == 2 ? payment.timeStamp : payment.timestamp,
 			"sign": payment.sign
 		},
 		success(res) {

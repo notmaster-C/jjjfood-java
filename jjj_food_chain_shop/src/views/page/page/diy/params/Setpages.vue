@@ -9,19 +9,7 @@
       <span>{{ curItem.name }}</span>
     </div>
     <el-form size="small" :model="curItem" label-width="100px">
-      <!--页面标题-->
-      <el-form-item label="标题类型：">
-        <el-radio-group v-model="logo_type" @change="logechange">
-          <el-radio :label="'image'">图片</el-radio>
-        </el-radio-group>
-      </el-form-item>
-      <!--图片-->
-      <el-form-item label="图片：">
-        <div class="diy-setpages-cover">
-          <img  v-if="curItem.style.toplogo" v-img-url="curItem.style.toplogo" alt="" @click="$parent.onEditorSelectImage(curItem.style, 'toplogo')" :style="'background-color:'+curItem.style.titleBackgroundColor+' ;'">
-          <div>建议尺寸60×60</div>
-        </div>
-      </el-form-item>
+      <div class="f16 gray3 form-subtitle">样式设置</div>
       <!--页面名称-->
       <el-form-item label="页面名称：">
         <el-input v-model="curItem.params.name"></el-input>
@@ -29,16 +17,14 @@
       </el-form-item>
       <!--分享标题-->
       <el-form-item label="分享标题：">
-        <el-input v-model="curItem.params.share_title"></el-input>
+        <el-input v-model="curItem.params.shareTitle"></el-input>
         <p class="gray">小程序端转发时显示的标题</p>
       </el-form-item>
-
-
-      <!-- 背景颜色 -->
-      <el-form-item label="背景颜色：">
-        <div class="d-s-c">
-          <el-color-picker v-model="curItem.style.titleBackgroundColor"></el-color-picker>
-          <el-button type="button" style="margin-left: 10px;" @click.stop="$parent.onEditorResetColor(curItem.style, 'titleBackgroundColor', '#ffffff')">重置</el-button>
+      <!--图片-->
+      <el-form-item label="分享图片：">
+        <div class="diy-setpages-cover">
+          <img  v-if="curItem.params.shareImg" v-img-url="curItem.params.shareImg" alt="" @click="$parent.onEditorSelectImage(curItem.params, 'shareImg')" >
+          <div>建议尺寸60×60</div>
         </div>
       </el-form-item>
     </el-form>
@@ -49,27 +35,13 @@
   export default {
     data() {
       return {
-        logo_type: 'image'
+       
       };
     },
     props: ['curItem', 'selectedIndex', 'opts'],
     created() {
-      console.log(this.curItem.style.toplogo)
-      if(this.curItem.style.toplogo=='text'){
-        this.logo_type='image';
-      }else{
-         this.logo_type='image';
-      }
     },
     methods: {
-      logechange(e){
-        console.log(e)
-        if(e == 'text'){
-         this.curItem.style.toplogo='text';
-        }else{
-         this.curItem.style.toplogo='';
-        }
-      }
     }
   };
 </script>

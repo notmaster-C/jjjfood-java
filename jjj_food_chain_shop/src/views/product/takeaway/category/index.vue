@@ -127,7 +127,7 @@
     methods: {
       // hasImages(e) {
       //   if (e) {
-      //     return e.file_path;
+      //     return e.filePath;
       //   } else {
       //     return '';
       //   }

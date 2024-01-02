@@ -49,7 +49,7 @@
           parentId: '0',
           name: '',
           sort: 100,
-          imageId: 1
+          imageId: ''
         },
         formRules: {
           name: [{

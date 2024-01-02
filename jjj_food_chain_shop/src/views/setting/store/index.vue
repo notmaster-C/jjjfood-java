@@ -103,7 +103,7 @@
         this.isupload = false;
         if (e != null && e.length > 0) {
           if (this.type == 'avatarUrl') {
-            this.form.avatarUrl = e[0].file_path;
+            this.form.avatarUrl = e[0].filePath;
           }
         }
       }

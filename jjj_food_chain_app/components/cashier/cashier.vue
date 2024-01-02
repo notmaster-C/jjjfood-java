@@ -5,7 +5,7 @@
 			<image @click="hidePopupFunc(null)" class="close-img" src="/static/icon/close.png" mode=""></image>
 			<view class="tc f32 fb">支付方式</view>
 			<template v-for="(item,index) in checkedPay" :key='index'>
-				<view class="cashier-item" :class="pay_type == item ? 'active' : ''" @tap="payTypeFunc(item)">
+				<view class="cashier-item" :class="payType == item ? 'active' : ''" @tap="payTypeFunc(item)">
 					<template v-if="item==20">
 						<text class="f28 gray3">微信支付</text>
 						<view class="icon-box d-c-c"><span class="icon iconfont icon-tijiaochenggong"></span></view>
@@ -30,7 +30,7 @@
 		data() {
 			return {
 				checkedPay: [10, 20],
-				pay_type: 10
+				payType: 10
 			}
 		},
 		props: ['isPayPopup'],
@@ -39,10 +39,10 @@
 				this.$emit('close', e);
 			},
 			payTypeFunc(e) {
-				this.pay_type = e;
+				this.payType = e;
 			},
 			subFunc() {
-				this.$emit('submit', this.pay_type);
+				this.$emit('submit', this.payType);
 			}
 		}
 	}

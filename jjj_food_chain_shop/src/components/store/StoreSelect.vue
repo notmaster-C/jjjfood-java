@@ -43,7 +43,7 @@
         <el-table size="small" :data="productList" border style="width: 100%" highlight-current-row v-loading="loading" @selection-change="tableCurrentChange">
           <el-table-column width="70" label="商品图片">
             <template #default="scope">
-              <img :src="scope.row.image && scope.row.image[0] && scope.row.image[0].file_path" :width="30" :height="30" />
+              <img :src="scope.row.image && scope.row.image[0] && scope.row.image[0].filePath" :width="30" :height="30" />
             </template>
           </el-table-column>
           <el-table-column prop="product_name" label="商品名称"></el-table-column>
@@ -197,12 +197,12 @@ export default {
       }
       if (self.islist&&typeof(self.islist)!='undefined') {
         self.multipleSelection.forEach(item=>{
-          item.image=item.image[0].file_path;
+          item.image=item.image[0].filePath;
         });
         params = self.multipleSelection;
       } else {
         params = self.multipleSelection[0];
-        params.image = params.image[0].file_path;
+        params.image = params.image[0].filePath;
       }
       self.params=params;
       self.type='success';

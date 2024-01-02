@@ -11,9 +11,9 @@
       <el-form-item label="属性名称" prop="attributeName" :label-width="formLabelWidth">
         <el-input v-model="form.attributeName" autocomplete="off"></el-input>
       </el-form-item>
-      <el-form-item label="属性值" prop="attributeValueList" :label-width="formLabelWidth">
-        <div class="mb16 d-b-c" v-for="(item,index) in form.attributeValueList" :key='index'>
-          <el-input  v-model="form.attributeValueList[index]" autocomplete="off"></el-input>
+      <el-form-item label="属性值" prop="attributeValue" :label-width="formLabelWidth">
+        <div class="mb16 d-b-c" v-for="(item,index) in form.attributeValue" :key='index'>
+          <el-input  v-model="form.attributeValue[index]" autocomplete="off"></el-input>
           <el-button type="danger" size="small" @click="deleteattr(index)">删除</el-button>
         </div>
         <el-button type="text" @click="addvalue">+添加属性名</el-button>
@@ -41,7 +41,7 @@
         form: {
           attributeName: '',
           sort: 100,
-          attributeValueList: []
+          attributeValue: []
         },
         formRules: {
           attributeName: [{
@@ -49,7 +49,7 @@
             message: '请输入属性名称',
             trigger: 'blur'
           }],
-          attributeValueList: [{
+          attributeValue: [{
             required: true,
             message: '请输入属性值',
             trigger: 'blur'
@@ -77,10 +77,10 @@
     },
     methods: {
       addvalue() {
-        this.form.attributeValueList.push('')
+        this.form.attributeValue.push('')
       },
       deleteattr(i) {
-        this.form.attributeValueList.splice(i, 1)
+        this.form.attributeValue.splice(i, 1)
       },
       submit() {
         let self = this;

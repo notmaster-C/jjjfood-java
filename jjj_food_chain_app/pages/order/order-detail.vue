@@ -141,6 +141,7 @@
 				isPayPopup: false,
 				/*订单id*/
 				orderId: 0,
+				useBalance:1,
 				/*订单详情*/
 				detail: {
 					orderStatus: [],
@@ -277,6 +278,9 @@
 				}
 				self.isPayPopup = false;
 				let orderId = self.orderId;
+				if(self.payType == 10){
+					self.useBalance=1
+				};
 				uni.showLoading({
 					title: '加载中'
 				});
@@ -284,7 +288,8 @@
 					'user/order/pay', {
 						payType: e,
 						orderId: orderId,
-						paySource: self.getPlatform()
+						paySource: self.getPlatform(),
+						useBalance: self.useBalance
 					},
 					function(res) {
 						uni.hideLoading();

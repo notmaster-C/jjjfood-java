@@ -416,7 +416,7 @@
 					nickName: e.detail.value.nickName
 				};
 				self.loading = true;
-				self._post('user/user/updateInfo', params, function(res) {
+				self._post('user/user/update', params, function(res) {
 					self.showSuccess(
 						'修改成功',
 						function() {
