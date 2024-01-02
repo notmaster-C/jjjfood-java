@@ -17,12 +17,14 @@ import net.jjjshop.common.entity.app.AppWx;
 import net.jjjshop.common.entity.order.*;
 import net.jjjshop.common.entity.supplier.Supplier;
 import net.jjjshop.common.entity.user.User;
+import net.jjjshop.common.entity.user.UserAddress;
 import net.jjjshop.common.enums.OrderTypeEnum;
 import net.jjjshop.common.enums.SettingEnum;
 import net.jjjshop.common.factory.product.vo.UpdateProductStockVo;
 import net.jjjshop.common.service.app.AppWxService;
 import net.jjjshop.common.service.order.*;
 import net.jjjshop.common.service.supplier.SupplierService;
+import net.jjjshop.common.service.user.UserAddressService;
 import net.jjjshop.common.service.user.UserService;
 import net.jjjshop.common.settings.vo.StoreVo;
 import net.jjjshop.common.settings.vo.TradeVo;
@@ -32,6 +34,10 @@ import net.jjjshop.framework.common.exception.BusinessException;
 import net.jjjshop.framework.core.util.RequestDetailThreadLocal;
 import net.jjjshop.framework.util.PhoneUtil;
 import org.apache.commons.lang3.StringUtils;
+import org.gavaghan.geodesy.Ellipsoid;
+import org.gavaghan.geodesy.GeodeticCalculator;
+import org.gavaghan.geodesy.GeodeticCurve;
+import org.gavaghan.geodesy.GlobalCoordinates;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.springframework.beans.BeanUtils;
@@ -69,6 +75,8 @@ public class OrderUtils {
     private AppWxUtils appWxUtils;
     @Autowired
     private OrderDeliverService orderDeliverService;
+    @Autowired
+    private UserAddressService userAddressService;
     /**
      * 生成订单号
      * @return
@@ -170,8 +178,28 @@ public class OrderUtils {
         orderDeliver.setDeliverStatus(3);
         orderDeliver.setPhone(supplier.getLinkPhone());
         //配送距离
-        //orderDeliver.setDistance();
+        orderDeliver.setDistance(getDistance(supplier,order.getUserId()));
         orderDeliverService.save(orderDeliver);
+    }
+
+    public Integer getDistance(Supplier supplier,Integer userId){
+        //门店坐标经度
+        double ulon = Double.parseDouble(supplier.getLongitude());
+        //门店坐标纬度
+        double ulat = Double.parseDouble(supplier.getLatitude());
+        UserAddress address = userAddressService.getById(userService.getById(userId).getAddressId());
+        if(address == null){
+            return 0;
+        }
+        //用户坐标经度
+        double slon = Double.parseDouble(address.getLongitude());
+        //用户坐标纬度
+        double slat = Double.parseDouble(address.getLatitude());
+        GlobalCoordinates source = new GlobalCoordinates(ulon, ulat);
+        GlobalCoordinates target = new GlobalCoordinates(slon, slat);
+        //创建GeodeticCalculator，调用计算方法，传入坐标系、经纬度用于计算距离
+        GeodeticCurve geoCurve = new GeodeticCalculator().calculateGeodeticCurve(Ellipsoid.Sphere, source, target);
+        return (int)geoCurve.getEllipsoidalDistance();
     }
 
     /**

@@ -31,7 +31,7 @@ public class ThemeController {
     @OperationLog(name = "index")
     @ApiOperation(value = "index", response = String.class)
     public ApiResult<JSONObject> index() throws Exception{
-        JSONObject vo = settingUtils.getShopSetting(SettingEnum.THEME.getKey(), 0l);
+        JSONObject vo = settingUtils.getShopSetting(SettingEnum.THEME.getKey(), null);
         return ApiResult.ok(vo);
     }
 

@@ -42,4 +42,7 @@ public class ProductListVo extends Product {
 
     @ApiModelProperty("购物车数量")
     private Integer cartNum;
+
+    @ApiModelProperty("产品属性(10单属性 20多属性)")
+    private Integer specTypes;
 }

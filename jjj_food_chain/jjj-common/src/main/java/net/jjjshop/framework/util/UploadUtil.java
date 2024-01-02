@@ -45,12 +45,12 @@ public class UploadUtil {
         String path = request.getRequestURI();
         if(path.startsWith("/api/admin/file/upload/image")){
             //获取admin端配置
-            JSONObject vo = settingUtils.getSetting(SettingEnum.SYS_CONFIG.getKey(), 0L);
+            JSONObject vo = settingUtils.getShopSetting(SettingEnum.SYS_CONFIG.getKey(), 0L);
             JSONObject storage = vo.getJSONObject("storageVo");
             storageVo = JSONObject.toJavaObject(storage, StorageVo.class);
         }else {
             //获取shop端配置
-            JSONObject vo = settingUtils.getSetting(SettingEnum.STORAGE.getKey(), null);
+            JSONObject vo = settingUtils.getShopSetting(SettingEnum.STORAGE.getKey(), null);
             storageVo = JSONObject.toJavaObject(vo, StorageVo.class);
         }
 
