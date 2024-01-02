@@ -262,14 +262,14 @@ public class ProductUtils {
                     .eq(ProductAttribute::getAttributeName,param.getAttributeName())
                     .eq(ProductAttribute::getShopSupplierId,shopSupplierId));
             if(count == 0){
-                if(CollectionUtils.isEmpty(param.getAttributeValueList())){
+                if(CollectionUtils.isEmpty(param.getAttributeValue())){
                     throw new BusinessException("属性值不能为空");
                 }
 
                 ProductAttribute bean = new ProductAttribute();
                 BeanUtils.copyProperties(param,bean);
                 //数组转字符串
-                bean.setAttributeValue(String.join("|", param.getAttributeValueList()));
+                bean.setAttributeValue(String.join("|", param.getAttributeValue()));
                 bean.setShopSupplierId(shopSupplierId);
                 list.add(bean);
             }

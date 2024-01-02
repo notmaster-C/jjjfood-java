@@ -103,8 +103,7 @@ public class OrderDeliverServiceImpl extends BaseServiceImpl<OrderDeliverMapper,
         OrderDeliver orderDeliver = this.getById(deliveId);
         Order order = orderService.getById(orderDeliver.getOrderId());
         //订单状态10=>进行中，20=>已经取消，30=>已完成
-        if (order.getOrderStatus() == 20 || order.getOrderStatus() == 30
-                || orderDeliver.getStatus() != 10) {
+        if (order.getOrderStatus() == 20 || orderDeliver.getStatus() != 10) {
             throw new BusinessException("该订单不满足确认条件");
         }
         //更新配送状态

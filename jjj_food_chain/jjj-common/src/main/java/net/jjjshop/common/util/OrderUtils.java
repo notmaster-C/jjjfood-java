@@ -111,13 +111,18 @@ public class OrderUtils {
         if(order.getPayStatus() == 10){
             return "待付款";
         }
-        // 发货状态(10未发货 20已发货)
-        if (order.getDeliveryStatus() == 10) {
-            return "待配送";
-        }
-        //收货状态(10未收货 20已收货)
-        if (order.getReceiptStatus() == 10) {
-            return "配送中";
+        //配送方式(10外卖配送 20上门取30打包带走40店内就餐
+        if(order.getDeliveryType() == 10){
+            // 发货状态(10未发货 20已发货)
+            if (order.getDeliveryStatus() == 10) {
+                return "待配送";
+            }
+            //收货状态(10未收货 20已收货)
+            if (order.getReceiptStatus() == 10) {
+                return "配送中";
+            }
+        }else {
+            return "进行中";
         }
         return "";
     }

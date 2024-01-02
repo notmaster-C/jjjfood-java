@@ -443,8 +443,13 @@ public class OrderServiceImpl extends BaseServiceImpl<OrderMapper, Order> implem
         vo.setDeliveryTypeText(DeliveryTypeEnum.getName(vo.getDeliveryType()));
         //10未收货 20已收货
         vo.setReceiptStatusText(vo.getReceiptStatus() == 10 ? "待收货" : "已收货");
-        //设置发货状态
-        vo.setDeliveryStatusText(vo.getDeliveryStatus() == 10 ? "待配送" : "已配送");
+        //配送方式(10外卖配送 20上门取30打包带走40店内就餐
+        if(order.getDeliveryType() == 10){
+            //设置发货状态
+            vo.setDeliveryStatusText(vo.getDeliveryStatus() == 10 ? "待配送" : "已配送");
+        }else {
+            vo.setDeliveryStatusText("进行中");
+        }
         //设置后台修改价格
         if (vo.getUpdatePrice().compareTo(BigDecimal.ZERO) > 0) {
             vo.setUpdatePriceSymbol("+");

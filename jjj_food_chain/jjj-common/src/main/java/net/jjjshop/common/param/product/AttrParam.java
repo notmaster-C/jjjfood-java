@@ -33,8 +33,7 @@ public class AttrParam implements Serializable {
     private String attributeName;
 
     @ApiModelProperty("属性值List")
-    @NotNull(message = "属性值不能为空")
-    private List<String> attributeValueList;
+    private List<String> attributeValue;
 
     @ApiModelProperty("排序")
     private Integer sort;

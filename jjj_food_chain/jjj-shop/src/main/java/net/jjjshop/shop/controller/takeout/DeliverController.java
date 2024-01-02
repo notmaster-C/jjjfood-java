@@ -78,8 +78,8 @@ public class DeliverController {
     @RequiresPermissions("/takeout/deliver/verify")
     @OperationLog(name = "verify")
     @ApiOperation(value = "verify", response = String.class)
-    public ApiResult<String> verify(Integer deliveId) throws Exception{
-        if(orderDeliverService.verify(deliveId)){
+    public ApiResult<String> verify(Integer deliverId) throws Exception{
+        if(orderDeliverService.verify(deliverId)){
             return ApiResult.ok(null, "操作成功");
         }else {
             return ApiResult.fail("操作失败");
@@ -91,8 +91,8 @@ public class DeliverController {
     @RequiresPermissions("/takeout/deliver/cancel")
     @OperationLog(name = "cancel")
     @ApiOperation(value = "cancel", response = String.class)
-    public ApiResult<String> cancel(Integer deliveId) throws Exception{
-        if(orderDeliverService.cancel(deliveId)){
+    public ApiResult<String> cancel(Integer deliverId) throws Exception{
+        if(orderDeliverService.cancel(deliverId)){
             return ApiResult.ok(null, "操作成功");
         }else {
             return ApiResult.fail("操作失败");

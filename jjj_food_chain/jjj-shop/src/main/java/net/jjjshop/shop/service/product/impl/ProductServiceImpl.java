@@ -358,20 +358,22 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
         }
         //更新属性
         List<AttrParam> productAttr = productParam.getProductAttrList();
-        if(CollectionUtils.isEmpty(productAttr)){
-            throw new BusinessException("请填写属性");
+        if(CollectionUtils.isNotEmpty(productAttr)){
+            product.setProductAttr(JSON.toJSONString(productAttr));
+            productUtils.updateAttr(productAttr,product.getShopSupplierId());
+        }else {
+            product.setProductAttr("");
         }
-        product.setProductAttr(JSON.toJSONString(productAttr));
-        productUtils.updateAttr(productAttr,product.getShopSupplierId());
         //更新商品规格
         productUtils.updatespec(specList,product.getShopSupplierId());
         //更新加料
         List<FeedParam> productFeed = productParam.getProductFeedList();
-        if(CollectionUtils.isEmpty(productFeed)){
-            throw new BusinessException("请填写加料");
+        if(CollectionUtils.isNotEmpty(productFeed)){
+            product.setProductFeed(JSON.toJSONString(productFeed));
+            productUtils.updateFeed(productFeed,product.getShopSupplierId());
+        }else {
+            product.setProductFeed("");
         }
-        product.setProductFeed(JSON.toJSONString(productFeed));
-        productUtils.updateFeed(productFeed,product.getShopSupplierId());
         //更新单位
         productUtils.updateUnit(product.getProductUnit(),product.getShopSupplierId());
     }
