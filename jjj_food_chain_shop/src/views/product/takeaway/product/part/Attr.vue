@@ -13,11 +13,9 @@
           <div class="d-s-c ">商品属性: <div class="blue ml30" @click="addAttr">添加属性+</div>
           </div>
         </div>
-
         <!--多规格表格-->
-        <div class="mb18 p-0-30" v-for="(item,index) in form.model.productAttrList" :key="index"
-          v-if="form.model&&form.model.productAttrList&&form.model.productAttrList.length>0">
-          <div class="d-c-c mb16">
+  <div class="mb18 p-0-30" v-for="(item,index) in form.model.productAttrList" :key="index"  v-if="form.model.productAttrList.length>0">
+    <div class="d-c-c mb16">
             <div style="width: 100px;"><span class="red">*</span>属性名称：</div>
             <div class="flex-1 ml40"><span class="red">*</span>属性值(至少填写两个)</div>
           </div>
@@ -49,6 +47,7 @@
             </div>
           </div>
         </div>
+      
         <!-- </el-form-item> -->
       </div>
     </div>
@@ -69,13 +68,15 @@
     inject: ['form'],
     methods: {
       addAttr() {
-        if (this.productAttrList == '') {
-          this.productAttrList = []
+        if (this.form.model.productAttrList == '') {
+          this.form.model.productAttrList = []
         }
-        this.productAttrList.push({
+     	this.$nextTick(() => {
+					this.form.model.productAttrList.push({
           attributeName: '',
           attributeValue: ['', '']
         })
+				})  
       },
       querySearch(queryString, cb) {
         let self = this;
