@@ -113,4 +113,6 @@ public interface UserService extends BaseService<User> {
 
     //h5绑定手机号
     boolean bindMobile(String mobile, String code);
+
+    boolean updateUser(String avatarUrl, String nickName);
 }

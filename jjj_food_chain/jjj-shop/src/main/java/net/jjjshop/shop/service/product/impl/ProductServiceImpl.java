@@ -453,6 +453,12 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
         vo.setProductAttrList(JSON.parseArray(product.getProductAttr()));
         //商品加料列表
         vo.setProductFeedList(JSON.parseArray(product.getProductFeed()));
+        if(vo.getProductAttrList() == null){
+            vo.setProductAttrList(new JSONArray());
+        }
+        if(vo.getProductFeedList() == null){
+            vo.setProductFeedList(new JSONArray());
+        }
         //店铺
         vo.setSupplier(supplierService.getById(product.getShopSupplierId()));
         // sku规格

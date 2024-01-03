@@ -496,6 +496,15 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
         return this.updateById(user);
     }
 
+    public boolean updateUser(String avatarUrl, String nickName) {
+        User user = new User();
+        user.setUserId(LoginUtil.getUserId());
+        user.setAvatarUrl(avatarUrl);
+        user.setNickName(nickName);
+        this.updateById(user);
+        return true;
+    }
+
     /**
      * 获取sessionKey
      *

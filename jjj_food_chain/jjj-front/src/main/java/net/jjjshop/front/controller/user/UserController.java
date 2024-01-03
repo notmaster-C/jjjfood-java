@@ -34,4 +34,15 @@ public class UserController extends BaseController {
             return ApiResult.fail("修改失败");
         }
     }
+
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    @OperationLog(name = "update")
+    @ApiOperation(value = "update", response = String.class)
+    public ApiResult<String> update(String avatarUrl, String nickName){
+        if(userService.updateUser(avatarUrl, nickName)){
+            return ApiResult.ok(null, "修改成功");
+        }else{
+            return ApiResult.fail("修改失败");
+        }
+    }
 }

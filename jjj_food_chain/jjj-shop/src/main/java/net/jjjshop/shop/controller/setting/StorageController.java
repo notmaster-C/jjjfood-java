@@ -31,7 +31,7 @@ public class StorageController {
     @OperationLog(name = "index")
     @ApiOperation(value = "index", response = String.class)
     public ApiResult<JSONObject> index() throws Exception{
-        JSONObject vo = settingUtils.getSetting(SettingEnum.STORAGE.getKey(), null);
+        JSONObject vo = settingUtils.getShopSetting(SettingEnum.STORAGE.getKey(), null);
         return ApiResult.ok(vo);
     }
 
@@ -40,7 +40,7 @@ public class StorageController {
     @OperationLog(name = "index")
     @ApiOperation(value = "index", response = String.class)
     public ApiResult<String> index(@RequestBody JSONObject jsonData) throws Exception{
-        settingUtils.saveSetting(SettingEnum.STORAGE.getKey(), jsonData);
+        settingUtils.saveShopSetting(SettingEnum.STORAGE.getKey(), jsonData);
         return ApiResult.ok("保存成功");
     }
 }

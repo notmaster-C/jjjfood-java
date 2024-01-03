@@ -387,11 +387,11 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
         List<Product> productList = this.list(wrapper);
 
         return productList.stream().map(e -> {
-            return this.transProductList(e,param);
+            return this.transCategoryProductList(e,param);
         }).collect(Collectors.toList());
     }
 
-    private ProductListVo transProductList(Product product,CategoryListParam productParam) {
+    private ProductListVo transCategoryProductList(Product product,CategoryListParam productParam) {
         ProductListVo vo = new ProductListVo();
         BeanUtil.copyProperties(product, vo);
         vo.setProductImage(uploadFileUtils.getImagePathByProductId(vo.getProductId()));
@@ -410,6 +410,12 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
             productParam.setUserId(userId);
             productParam.setProductId(product.getProductId());
             vo.setCartNum(userCartMapper.getCartNum(productParam));
+        }
+        //是否多属性
+        if(vo.getSpecType() == 20 || StringUtils.isNotEmpty(vo.getProductAttr())
+                || StringUtils.isNotEmpty(vo.getProductFeed())){
+            //产品属性(10单属性 20多属性)
+            vo.setSpecTypes(20);
         }
         return vo;
     }

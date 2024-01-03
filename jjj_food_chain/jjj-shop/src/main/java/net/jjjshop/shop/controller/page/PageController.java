@@ -70,6 +70,7 @@ public class PageController {
     @OperationLog(name = "setPage")
     @ApiOperation(value = "setPage", response = String.class)
     public ApiResult<String> setPage(Integer pageId) {
+        //页面类型(10首页 20自定义页)
         if(pageService.setDefaultPage(pageId,10)) {
             return ApiResult.ok(null, "修改成功");
         }else{
@@ -101,7 +102,7 @@ public class PageController {
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
-    @RequiresPermissions("/page/page/delete")
+    @RequiresPermissions("/page/page/deletePage")
     @OperationLog(name = "delete")
     @ApiOperation(value = "delete", response = String.class)
     public ApiResult<String> delete(Integer pageId) throws Exception{
