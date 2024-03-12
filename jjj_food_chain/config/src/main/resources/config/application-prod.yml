@@ -1,5 +1,5 @@
 server:
-  port: 8890
+  port: 8891
 
 spring-boot-jjj:
   # 是否启用ansi控制台输出有颜色的字体，dev环境建议开启，服务器环境设置为false
