@@ -1,9 +1,4 @@
 <template>
-  <!--
-      作者 luoyiming
-      时间：2019-10-26
-      描述：设置-清理缓存
-  -->
   <div class="product-add">
     <!--form表单-->
     <el-form size="small" ref="form" :model="form" label-width="200px">
@@ -21,42 +16,37 @@
 </template>
 
 <script>
-  import SettingApi from '@/api/setting.js';
+import SettingApi from "@/api/setting.js";
 
-  export default {
-    data() {
-      return {
-        form: {}
-      };
-    },
-    created() {
-
-    },
-    methods: {
-      //提交表单
-      onSubmit() {
-        let self = this;
-        SettingApi.clearCache({}, true)
-          .then(data => {
-            ElMessage ({
-              message: '恭喜你，清理成功',
-              type: 'success'
-            });
-            self.$router.push('/setting/clear/index');
-
-          })
-          .catch(error => {
-
+export default {
+  data() {
+    return {
+      form: {},
+    };
+  },
+  created() {},
+  methods: {
+    //提交表单
+    onSubmit() {
+      let self = this;
+      SettingApi.clearCache({}, true)
+        .then((data) => {
+          ElMessage({
+            message: "恭喜你，清理成功",
+            type: "success",
           });
-      },
-      //监听复选框选中
-      handleCheckedCitiesChange(val) {},
-    }
-  };
+          self.$router.push("/setting/clear/index");
+        })
+        .catch((error) => {});
+    },
+    //监听复选框选中
+    handleCheckedCitiesChange(val) {},
+  },
+};
 </script>
 
 <style>
-  .tips {
-    color: #ccc;
-  }
+.tips {
+  color: #ccc;
+}
 </style>

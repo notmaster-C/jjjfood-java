@@ -1,50 +1,77 @@
 <template>
-  <!--
-    	作者：luoyiming
-    	时间：2020-06-20
-    	描述：diy组件-参数设置
-    -->
   <div id="diy-editor" ref="diy-editor" class="diy-editor form-horizontal">
     <template v-if="form.curItem">
-      	<!--顶部设置-->
-			<template v-if="form.curItem.type == 'page'">
-				<SetpagesIndex :curItem="form.curItem"></SetpagesIndex>
-			</template>
+      <!--顶部设置-->
+      <template v-if="form.curItem.type == 'page'">
+        <SetpagesIndex :curItem="form.curItem"></SetpagesIndex>
+      </template>
       <!--图片轮播-->
       <template v-if="form.curItem.type == 'banner'">
-        <Banner :curItem="form.curItem" :selectedIndex="form.selectedIndex"></Banner>
+        <Banner
+          :curItem="form.curItem"
+          :selectedIndex="form.selectedIndex"
+        ></Banner>
       </template>
       <!--图片橱窗-->
       <template v-if="form.curItem.type == 'window'">
-        <Window :curItem="form.curItem" :selectedIndex="form.selectedIndex"></Window>
+        <Window
+          :curItem="form.curItem"
+          :selectedIndex="form.selectedIndex"
+        ></Window>
       </template>
-      			<!--广告导航-->
-			<template v-if="form.curItem.type == 'adNav'">
-				<adNav :curItem="form.curItem" :selectedIndex="form.selectedIndex"></adNav>
-			</template>
+      <!--广告导航-->
+      <template v-if="form.curItem.type == 'adNav'">
+        <adNav
+          :curItem="form.curItem"
+          :selectedIndex="form.selectedIndex"
+        ></adNav>
+      </template>
       <!--导航组-->
       <template v-if="form.curItem.type == 'navBar'">
-        <NavBar :curItem="form.curItem" :selectedIndex="form.selectedIndex"></NavBar>
+        <NavBar
+          :curItem="form.curItem"
+          :selectedIndex="form.selectedIndex"
+        ></NavBar>
       </template>
       <!--富文本-->
       <template v-if="form.curItem.type == 'richText'">
-        <RichText :curItem="form.curItem" :selectedIndex="form.selectedIndex"></RichText>
+        <RichText
+          :curItem="form.curItem"
+          :selectedIndex="form.selectedIndex"
+        ></RichText>
       </template>
       <!--辅助空白-->
       <template v-if="form.curItem.type == 'blank'">
-        <Blank :curItem="form.curItem" :selectedIndex="form.selectedIndex"></Blank>
+        <Blank
+          :curItem="form.curItem"
+          :selectedIndex="form.selectedIndex"
+        ></Blank>
       </template>
       <!--辅助线-->
       <template v-if="form.curItem.type == 'guide'">
-        <Guide :curItem="form.curItem" :selectedIndex="form.selectedIndex"></Guide>
+        <Guide
+          :curItem="form.curItem"
+          :selectedIndex="form.selectedIndex"
+        ></Guide>
       </template>
     </template>
 
     <!--上传图片-->
-    <Upload v-if="isupload" :isupload="isupload" :config="{ total: 3 }" @returnImgs="returnImgsFunc"></Upload>
+    <Upload
+      v-if="isupload"
+      :isupload="isupload"
+      :config="{ total: 3 }"
+      @returnImgs="returnImgsFunc"
+    ></Upload>
 
     <!--选择商品-->
-    <ProductSelect :isproduct="isproduct" :excludeIds="excludeIds" :islist="islist" @closeDialog="closeProductDialogFunc($event)">产品列表弹出层</ProductSelect>
+    <ProductSelect
+      :isproduct="isproduct"
+      :excludeIds="excludeIds"
+      :islist="islist"
+      @closeDialog="closeProductDialogFunc($event)"
+      >产品列表弹出层</ProductSelect
+    >
 
     <!--选择门店-->
     <StoreSelect :isstore="isstore" :islist="isstorelist"></StoreSelect>
@@ -52,18 +79,18 @@
 </template>
 
 <script>
-import { deepClone } from '@/utils/base.js';
-import SetpagesIndex from './params/Setpages.vue';
-import Banner from './params/Banner.vue';
-import Window from './params/Window.vue';
-import NavBar from './params/NavBar.vue';
-import RichText from './params/RichText.vue';
-import Blank from './params/Blank.vue';
-import Guide from './params/Guide.vue';
-import adNav from './params/adNav.vue';
-import Upload from '@/components/file/Upload.vue';
-import ProductSelect from '@/components/product/Product.vue';
-import StoreSelect from '@/components/store/StoreSelect.vue';
+import { deepClone } from "@/utils/base.js";
+import SetpagesIndex from "./params/Setpages.vue";
+import Banner from "./params/Banner.vue";
+import Window from "./params/Window.vue";
+import NavBar from "./params/NavBar.vue";
+import RichText from "./params/RichText.vue";
+import Blank from "./params/Blank.vue";
+import Guide from "./params/Guide.vue";
+import adNav from "./params/adNav.vue";
+import Upload from "@/components/file/Upload.vue";
+import ProductSelect from "@/components/product/Product.vue";
+import StoreSelect from "@/components/store/StoreSelect.vue";
 
 export default {
   components: {
@@ -104,19 +131,21 @@ export default {
       /*是否显示门店选中*/
       isstore: false,
       /*门店是否多选*/
-      isstorelist: false
+      isstorelist: false,
     };
   },
-  props: ['form', 'defaultData', 'diyData', 'opts'],
+  props: ["form", "defaultData", "diyData", "opts"],
   created() {},
   methods: {
     /**
      * 编辑器：添加data元素
      */
-    onEditorAddData: function() {
+    onEditorAddData: function () {
       let self = this;
       // 新增data数据
-      var newDataItem = deepClone(self.defaultData[self.form.curItem.type].data[0]);
+      var newDataItem = deepClone(
+        self.defaultData[self.form.curItem.type].data[0]
+      );
       self.form.curItem.data.push(newDataItem);
     },
     /**
@@ -125,7 +154,7 @@ export default {
      * @param attribute
      * @param color
      */
-    onEditorResetColor: function(holder, attribute, color) {
+    onEditorResetColor: function (holder, attribute, color) {
       holder[attribute].titleBackgroundColor = color;
     },
     /**
@@ -133,12 +162,12 @@ export default {
      * @param index
      * @param selectedIndex
      */
-    onEditorDeleleData: function(index, selectedIndex) {
+    onEditorDeleleData: function (index, selectedIndex) {
       let self = this;
       if (self.diyData.items[selectedIndex].data.length <= 1) {
         ElMessage({
-          message: '至少保留一个',
-          type: 'error'
+          message: "至少保留一个",
+          type: "error",
         });
         return false;
       }
@@ -149,18 +178,18 @@ export default {
      * @param source
      * @param index
      */
-    onEditorSelectImage: function(index, imgUrl) {
+    onEditorSelectImage: function (index, imgUrl) {
       this.isupload = true;
       this.imgModel = {
         index: index,
-        imgUrl: imgUrl
+        imgUrl: imgUrl,
       };
     },
 
     /*上传图片*/
     returnImgsFunc(e) {
       if (e != null) {
-        this.imgModel.index[this.imgModel.imgUrl] = e[0]['filePath'];
+        this.imgModel.index[this.imgModel.imgUrl] = e[0]["filePath"];
       }
       this.isupload = false;
     },
@@ -168,11 +197,11 @@ export default {
     /*商品选择列表弹出层*/
     openProduct(list, islist) {
       let arr = [];
-      list.forEach(item => {
+      list.forEach((item) => {
         arr.push(item.product_id);
       });
       this.excludeIds = arr;
-      if (islist && typeof islist != 'undefined') {
+      if (islist && typeof islist != "undefined") {
         this.islist = true;
       } else {
         this.islist = false;
@@ -186,7 +215,7 @@ export default {
         return;
       }
       this.isproduct = false;
-      if (e.type == 'success') {
+      if (e.type == "success") {
         if (this.islist) {
           this.form.curItem.data = this.form.curItem.data.concat(e.params);
         } else {
@@ -198,18 +227,18 @@ export default {
     /*商品选择列表弹出层*/
     openStore(list, islist) {
       let arr = [];
-      list.forEach(item => {
+      list.forEach((item) => {
         arr.push(item.store_id);
       });
       this.excludeIds = arr;
-      if (islist && typeof islist != 'undefined') {
+      if (islist && typeof islist != "undefined") {
         this.isstorelist = true;
       } else {
         this.isstorelist = false;
       }
       this.isstore = true;
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -222,10 +251,12 @@ export default {
   line-height: 20px;
   width: 100%;
 }
-.param-img-item .url-box, .param-img-item p, .param-img-item .icon{
+.param-img-item .url-box,
+.param-img-item p,
+.param-img-item .icon {
   margin-bottom: 10px;
 }
-.param-img-item .d-s-c{
+.param-img-item .d-s-c {
   gap: 8px;
 }
 .param-img-item .delete-box {
@@ -239,7 +270,7 @@ export default {
 .param-img-item .delete-box:hover {
   color: rgb(255, 51, 0);
 }
-.param-img-item .pic{
+.param-img-item .pic {
   margin-bottom: 10px;
 }
 .param-img-item .pic img {

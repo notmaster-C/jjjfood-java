@@ -1,9 +1,4 @@
 <template>
-  <!--
-    	作者：luoyiming
-    	时间：2020-06-20
-    	描述：diy组件-参数设置-顶部设置栏
-    -->
   <div>
     <div class="common-form">
       <span>{{ curItem.name }}</span>
@@ -23,7 +18,12 @@
       <!--图片-->
       <el-form-item label="分享图片：">
         <div class="diy-setpages-cover">
-          <img  v-if="curItem.params.shareImg" v-img-url="curItem.params.shareImg" alt="" @click="$parent.onEditorSelectImage(curItem.params, 'shareImg')" >
+          <img
+            v-if="curItem.params.shareImg"
+            v-img-url="curItem.params.shareImg"
+            alt=""
+            @click="$parent.onEditorSelectImage(curItem.params, 'shareImg')"
+          />
           <div>建议尺寸60×60</div>
         </div>
       </el-form-item>
@@ -32,23 +32,19 @@
 </template>
 
 <script>
-  export default {
-    data() {
-      return {
-       
-      };
-    },
-    props: ['curItem', 'selectedIndex', 'opts'],
-    created() {
-    },
-    methods: {
-    }
-  };
+export default {
+  data() {
+    return {};
+  },
+  props: ["curItem", "selectedIndex", "opts"],
+  created() {},
+  methods: {},
+};
 </script>
 
 <style>
-  .diy-setpages-cover>img{
-    width: 60px;
-    height: 60px;
-  }
+.diy-setpages-cover > img {
+  width: 60px;
+  height: 60px;
+}
 </style>

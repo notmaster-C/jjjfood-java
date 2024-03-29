@@ -1,21 +1,33 @@
 <template>
-  <!--
-      作者：luoyiming
-      时间：2020-06-01
-      描述：广告-编辑
-    -->
   <div class="product-add pb50" v-loading="loading">
     <!--编辑广告-->
-    <el-form size="small" :model="form" ref="form" :rules="rules" label-width="100px">
+    <el-form
+      size="small"
+      :model="form"
+      ref="form"
+      :rules="rules"
+      label-width="100px"
+    >
       <div class="common-form">编辑菜单</div>
-      <el-form-item label="菜单名称" prop="name"><el-input v-model="form.name" placeholder="请输入广告标题" class="max-w460"></el-input></el-form-item>
+      <el-form-item label="菜单名称" prop="name"
+        ><el-input
+          v-model="form.name"
+          placeholder="请输入广告标题"
+          class="max-w460"
+        ></el-input
+      ></el-form-item>
       <el-form-item label="图标" prop="icon">
         <div>
           <el-button type="primary" @click="openUpload">上传图片</el-button>
           <img class="mt10" :src="form.icon" :width="50" :height="50" alt="" />
-          <div style="color: red;">图标大小为:25*25</div>
+          <div style="color: red">图标大小为:25*25</div>
           <!--上传图片组件-->
-          <Upload v-if="isupload" :isupload="isupload" @returnImgs="returnImgsFunc">上传图片</Upload>
+          <Upload
+            v-if="isupload"
+            :isupload="isupload"
+            @returnImgs="returnImgsFunc"
+            >上传图片</Upload
+          >
         </div>
       </el-form-item>
       <el-form-item label="状态">
@@ -24,40 +36,78 @@
           <el-radio :label="false">隐藏</el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item label="排序"><el-input type="number" v-model="form.sort" placeholder="请输入数字" class="max-w460"></el-input></el-form-item>
+      <el-form-item label="排序"
+        ><el-input
+          type="number"
+          v-model="form.sort"
+          placeholder="请输入数字"
+          class="max-w460"
+        ></el-input
+      ></el-form-item>
       <el-form-item label="链接" prop="path">
         <el-row>
           <div class="url-box flex-1">
-            <el-input :disabled="form.appId == 0" v-model="form.path" type="text" class="max-w460" style="width: 380px;"></el-input>
-             <span></span>
-            <el-button :disabled="form.appId == 0" type="primary" @click="changeLink()">
+            <el-input
+              :disabled="form.appId == 0"
+              v-model="form.path"
+              type="text"
+              class="max-w460"
+              style="width: 380px"
+            ></el-input>
+            <span></span>
+            <el-button
+              :disabled="form.appId == 0"
+              type="primary"
+              @click="changeLink()"
+            >
               选择链接
             </el-button>
-            <div class="tips" id="tips" style="color: #000;">{{ tips_Id }}</div>
-            <el-input v-model="form.name" type="hidden" class="max-w460"></el-input>
+            <div class="tips" id="tips" style="color: #000">{{ tips_Id }}</div>
+            <el-input
+              v-model="form.name"
+              type="hidden"
+              class="max-w460"
+            ></el-input>
           </div>
-          <div class="url-box ml10" style="float: right;"></div>
+          <div class="url-box ml10" style="float: right"></div>
         </el-row>
       </el-form-item>
-      <Setlink v-if="is_linkset" :is_linkset="is_linkset" @closeDialog="closeLinkset">选择链接</Setlink>
+      <Setlink
+        v-if="is_linkset"
+        :is_linkset="is_linkset"
+        @closeDialog="closeLinkset"
+        >选择链接</Setlink
+      >
       <!--提交-->
       <div class="common-button-wrapper">
-        <el-button size="small" type="info" @click="cancelFunc" :loading="loading">取消</el-button>
-        <el-button size="small" type="primary" @click="onSubmit" :loading="loading">提交</el-button>
+        <el-button
+          size="small"
+          type="info"
+          @click="cancelFunc"
+          :loading="loading"
+          >取消</el-button
+        >
+        <el-button
+          size="small"
+          type="primary"
+          @click="onSubmit"
+          :loading="loading"
+          >提交</el-button
+        >
       </div>
     </el-form>
   </div>
 </template>
 
 <script>
-import PageApi from '@/api/page.js';
-import Upload from '@/components/file/Upload.vue';
-import Setlink from '@/components/setlink/Setlink.vue';
+import PageApi from "@/api/page.js";
+import Upload from "@/components/file/Upload.vue";
+import Setlink from "@/components/setlink/Setlink.vue";
 export default {
   components: {
     /*图片上传*/
     Upload: Upload,
-    Setlink
+    Setlink,
   },
   data() {
     return {
@@ -67,42 +117,42 @@ export default {
       isupload: false,
       /*form表单数据*/
       is_linkset: false,
-      tips_Id: '',
+      tips_Id: "",
       form: {
-        adId: '',
-        name: '',
-        categoryId: '',
-        icon: '',
+        adId: "",
+        name: "",
+        categoryId: "",
+        icon: "",
         image: {},
-        pathName:'',
+        pathName: "",
         sort: 1,
-        isShow: '0',
-        sysTag: ''
+        isShow: "0",
+        sysTag: "",
       },
       /*验证规则*/
       rules: {
         name: [
           {
             required: true,
-            message: '请输入菜单名称',
-            trigger: 'blur'
-          }
+            message: "请输入菜单名称",
+            trigger: "blur",
+          },
         ],
         path: [
           {
             required: true,
-            message: '请选择链接地址',
-            trigger: 'blur'
-          }
+            message: "请选择链接地址",
+            trigger: "blur",
+          },
         ],
-         icon: [
+        icon: [
           {
             required: true,
-            message: '请选择链接地址',
-            trigger: 'blur'
-          }
-        ]
-      }
+            message: "请选择链接地址",
+            trigger: "blur",
+          },
+        ],
+      },
     };
   },
   created() {
@@ -119,9 +169,9 @@ export default {
       this.is_linkset = false;
       if (e != null) {
         this.form.path = e.url;
-        this.form.pathName = '链接到' + ' ' + e.type + ' ' + e.name;
-        this.form.sysTag = e.sysTag || '';
-        this.tips_Id = '链接到' + ' ' + e.type + ' ' + e.name;
+        this.form.pathName = "链接到" + " " + e.type + " " + e.name;
+        this.form.sysTag = e.sysTag || "";
+        this.tips_Id = "链接到" + " " + e.type + " " + e.name;
       }
     },
     /*上传*/
@@ -144,11 +194,11 @@ export default {
       const params = self.$route.query.menuId;
       PageApi.menuDetail(
         {
-          menuId: params
+          menuId: params,
         },
         true
       )
-        .then(res => {
+        .then((res) => {
           self.form = res.data;
           self.tips_Id = res.data.name;
           if (!self.form.image) {
@@ -156,7 +206,7 @@ export default {
           }
           self.loading = false;
         })
-        .catch(error => {});
+        .catch((error) => {});
     },
 
     /*修改*/
@@ -164,17 +214,17 @@ export default {
       let self = this;
       let params = this.form;
       // // 取到路由带过来的参数
-      self.$refs.form.validate(valid => {
+      self.$refs.form.validate((valid) => {
         if (valid) {
           PageApi.editMenu(params, true)
-            .then(data => {
+            .then((data) => {
               ElMessage({
                 message: data.msg,
-                type: 'success'
+                type: "success",
               });
-              self.$router.push('/page/page/mymenu/index');
+              self.$router.push("/page/page/mymenu/index");
             })
-            .catch(error => {});
+            .catch((error) => {});
         }
       });
     },
@@ -182,16 +232,16 @@ export default {
     /*取消添加，返回文章列表*/
     cancelFunc() {
       this.$router.push({
-        path: '/page/page/mymenu/index'
+        path: "/page/page/mymenu/index",
       });
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style>
 .edit_container {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

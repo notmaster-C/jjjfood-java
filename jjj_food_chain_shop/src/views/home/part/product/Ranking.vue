@@ -1,9 +1,4 @@
 <template>
-  <!--
-          作者：luoyiming
-          时间：2019-10-24
-          描述：统计-销售统计-商品统计-排行榜
-      -->
   <div class="right-box d-s-s d-c">
     <div class="lh30 f16 tl">商品排行榜</div>
     <div class="ww100 mt10">
@@ -13,20 +8,24 @@
       </el-tabs>
     </div>
     <div class="list ww100">
-      <ul v-if="listData.length>0">
-        <li v-for="(item, index) in listData" :key="index" class="d-s-c p-6-0 border-b-d">
+      <ul v-if="listData.length > 0">
+        <li
+          v-for="(item, index) in listData"
+          :key="index"
+          class="d-s-c p-6-0 border-b-d"
+        >
           <span class="key-box">{{ index + 1 }}</span>
-          <span class="text-ellipsis-2 flex-1 ml10">{{ item.productName }}</span>
-          <span class="gray9 tr" style="width: 200px;" >
-            <template v-if="activeName=='sale'">
-              销量：{{ item.totalNum }}
-              销售额：{{ item.totalPrice }}
+          <span class="text-ellipsis-2 flex-1 ml10">{{
+            item.productName
+          }}</span>
+          <span class="gray9 tr" style="width: 200px">
+            <template v-if="activeName == 'sale'">
+              销量：{{ item.totalNum }} 销售额：{{ item.totalPrice }}
             </template>
-            <template v-if="activeName=='view'">
-              销量：{{ item.totalNum }}
-              销售额：{{ item.totalPrice }}
+            <template v-if="activeName == 'view'">
+              销量：{{ item.totalNum }} 销售额：{{ item.totalPrice }}
             </template>
-           </span>
+          </span>
         </li>
       </ul>
       <div v-else class="tc pt30">暂无上榜记录</div>
@@ -38,27 +37,25 @@
 export default {
   data() {
     return {
-      activeName: 'sale',
+      activeName: "sale",
       /*列表数据*/
-      listData: []
+      listData: [],
     };
   },
-  inject: ['dataRank'],
+  inject: ["dataRank"],
   created() {
- this.listData = this.dataRank.salesMoneyRank;
+    this.listData = this.dataRank.salesMoneyRank;
   },
-  mounted() {
-   
-  },
+  mounted() {},
   methods: {
     handleClick() {
-      if(this.activeName=='sale'){
-        this.listData=this.dataRank.salesNumRank;
-      }else if(this.activeName=='view'){
-        this.listData=this.dataRank.salesMoneyRank;
+      if (this.activeName == "sale") {
+        this.listData = this.dataRank.salesNumRank;
+      } else if (this.activeName == "view") {
+        this.listData = this.dataRank.salesMoneyRank;
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

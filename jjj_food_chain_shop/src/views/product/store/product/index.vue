@@ -1,9 +1,4 @@
 <template>
-  <!--
-      作者：luoyiming
-      时间：2019-10-24
-      描述：商品管理
-  -->
   <div class="product-list">
     <!--搜索表单-->
     <div class="common-seach-wrap">
@@ -11,33 +6,75 @@
         <el-tab-pane label="上架中" name="sell"></el-tab-pane>
         <el-tab-pane label="下架中" name="lower">
           <template #label>
-            <span>下架中 <el-tag size="mini">{{product_count.lower}}</el-tag></span>
+            <span
+              >下架中
+              <el-tag size="mini">{{ product_count.lower }}</el-tag></span
+            >
           </template>
         </el-tab-pane>
       </el-tabs>
-      <el-form size="small" :inline="true" :model="searchForm" class="demo-form-inline">
+      <el-form
+        size="small"
+        :inline="true"
+        :model="searchForm"
+        class="demo-form-inline"
+      >
         <el-form-item label="商品分类">
-          <el-select size="small" v-model="searchForm.categoryId" placeholder="所有分类">
+          <el-select
+            size="small"
+            v-model="searchForm.categoryId"
+            placeholder="所有分类"
+          >
             <el-option label="全部" value="0"></el-option>
-            <el-option v-for="(item, index) in categoryList" :key="index" :label="item.name" :value="item.categoryId"></el-option>
+            <el-option
+              v-for="(item, index) in categoryList"
+              :key="index"
+              :label="item.name"
+              :value="item.categoryId"
+            ></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="商品名称"><el-input size="small" v-model="searchForm.productName" placeholder="请输入商品名称"></el-input></el-form-item>
+        <el-form-item label="商品名称"
+          ><el-input
+            size="small"
+            v-model="searchForm.productName"
+            placeholder="请输入商品名称"
+          ></el-input
+        ></el-form-item>
         <el-form-item>
-          <el-button size="small" type="primary" icon="Search" @click="onSubmit">查询</el-button>
+          <el-button size="small" type="primary" icon="Search" @click="onSubmit"
+            >查询</el-button
+          >
         </el-form-item>
       </el-form>
     </div>
     <!--添加产品-->
-    <div class="common-level-rail"><el-button size="small" type="primary" icon="Plus" v-auth="'/product/store/product/add'" @click="addClick">添加产品</el-button></div>
+    <div class="common-level-rail">
+      <el-button
+        size="small"
+        type="primary"
+        icon="Plus"
+        v-auth="'/product/store/product/add'"
+        @click="addClick"
+        >添加产品</el-button
+      >
+    </div>
     <!--内容-->
     <div class="product-content">
       <div class="table-wrap">
-        <el-table size="small" :data="tableData" border style="width: 100%" v-loading="loading">
+        <el-table
+          size="small"
+          :data="tableData"
+          border
+          style="width: 100%"
+          v-loading="loading"
+        >
           <el-table-column prop="productName" label="产品" width="400px">
             <template #default="scope">
               <div class="product-info">
-                <div class="pic"><img v-img-url="scope.row.imagePath" alt="" /></div>
+                <div class="pic">
+                  <img v-img-url="scope.row.imagePath" alt="" />
+                </div>
                 <div class="info">
                   <div class="name">{{ scope.row.productName }}</div>
                   <div class="price">销售价：{{ scope.row.productPrice }}</div>
@@ -46,13 +83,31 @@
             </template>
           </el-table-column>
           <el-table-column prop="categoryName" label="分类"></el-table-column>
-          <el-table-column prop="salesActual" label="实际销量"></el-table-column>
+          <el-table-column
+            prop="salesActual"
+            label="实际销量"
+          ></el-table-column>
           <el-table-column prop="productStock" label="库存"></el-table-column>
           <el-table-column prop="productStatus.text" label="状态">
-             <template #default="scope">
-              <span :class="{ green: scope.row.productStatus == 10, gray: scope.row.productStatus == 20 }">
-               <el-tag v-if="scope.row.productStatus == 10" size="small" type="success">上架</el-tag>
-               <el-tag v-if="scope.row.productStatus == 20" size="small" type="info">下架</el-tag>
+            <template #default="scope">
+              <span
+                :class="{
+                  green: scope.row.productStatus == 10,
+                  gray: scope.row.productStatus == 20,
+                }"
+              >
+                <el-tag
+                  v-if="scope.row.productStatus == 10"
+                  size="small"
+                  type="success"
+                  >上架</el-tag
+                >
+                <el-tag
+                  v-if="scope.row.productStatus == 20"
+                  size="small"
+                  type="info"
+                  >下架</el-tag
+                >
               </span>
             </template>
           </el-table-column>
@@ -60,10 +115,36 @@
           <el-table-column prop="productSort" label="排序"></el-table-column>
           <el-table-column fixed="right" label="操作" width="160">
             <template #default="scope">
-              <el-button @click="editClick(scope.row)" type="text" size="small" v-auth="'/product/store/product/edit'">编辑</el-button>
-              <el-button @click="undercarriage(scope.row,20)" type="text" size="small" v-auth="'/product/store/product/state'" v-if="scope.row.productStatus!=20">下架</el-button>
-              <el-button @click="undercarriage(scope.row,10)" type="text" size="small" v-auth="'/product/store/product/state'" v-else>上架</el-button>
-              <el-button @click="deleteClick(scope.row)" type="text" size="small" v-auth="'/product/store/product/delete'">删除</el-button>
+              <el-button
+                @click="editClick(scope.row)"
+                type="text"
+                size="small"
+                v-auth="'/product/store/product/edit'"
+                >编辑</el-button
+              >
+              <el-button
+                @click="undercarriage(scope.row, 20)"
+                type="text"
+                size="small"
+                v-auth="'/product/store/product/state'"
+                v-if="scope.row.productStatus != 20"
+                >下架</el-button
+              >
+              <el-button
+                @click="undercarriage(scope.row, 10)"
+                type="text"
+                size="small"
+                v-auth="'/product/store/product/state'"
+                v-else
+                >上架</el-button
+              >
+              <el-button
+                @click="deleteClick(scope.row)"
+                type="text"
+                size="small"
+                v-auth="'/product/store/product/delete'"
+                >删除</el-button
+              >
             </template>
           </el-table-column>
         </el-table>
@@ -85,15 +166,15 @@
 </template>
 
 <script>
-import PorductApi from '@/api/product.js';
+import PorductApi from "@/api/product.js";
 export default {
   components: {},
   data() {
     return {
       /*切换菜单*/
-      activeName: 'sell',
+      activeName: "sell",
       /*切换选中值*/
-      activeIndex: '0',
+      activeIndex: "0",
       /*是否正在加载*/
       loading: true,
       /*一页多少条*/
@@ -104,15 +185,15 @@ export default {
       curPage: 1,
       /*搜索参数*/
       searchForm: {
-        productName: '',
-        categoryId: ''
+        productName: "",
+        categoryId: "",
       },
       /*列表数据*/
       tableData: [],
       /*全部分类*/
       categoryList: [],
       /*商品统计*/
-      product_count: {}
+      product_count: {},
     };
   },
   created() {
@@ -150,14 +231,14 @@ export default {
       Params.type = self.activeName;
       self.loading = true;
       PorductApi.storeProductList(Params, true)
-        .then(data => {
+        .then((data) => {
           self.loading = false;
           self.tableData = data.data.list.records;
           self.categoryList = data.data.category;
           self.totalDataNumber = data.data.list.total;
           self.product_count = data.data.productCount;
         })
-        .catch(error => {
+        .catch((error) => {
           self.loading = false;
         });
     },
@@ -170,77 +251,73 @@ export default {
 
     /*打开添加*/
     addClick() {
-      this.$router.push('/product/store/product/add');
+      this.$router.push("/product/store/product/add");
     },
 
     /*打开编辑*/
     editClick(row) {
       this.$router.push({
-        path: '/product/store/product/edit',
+        path: "/product/store/product/edit",
         query: {
           productId: row.productId,
-          scene: 'edit'
-        }
+          scene: "edit",
+        },
       });
     },
     /* 强制下架上架*/
-    undercarriage(row,state){
+    undercarriage(row, state) {
       let self = this;
-      let war="";
-      let war_='';
-      if(state==20){
-        war="强制下架",
-        war_='下架'
-      }else if(state==10){
-        war="重新上架",
-        war_='上架'
+      let war = "";
+      let war_ = "";
+      if (state == 20) {
+        (war = "强制下架"), (war_ = "下架");
+      } else if (state == 10) {
+        (war = "重新上架"), (war_ = "上架");
       }
-    ElMessageBox.confirm("确认要"+war+"吗?", '提示', {
-          type: 'warning'
-        })
-        .then(() => {
-          PorductApi.storeStateProduct({
-            productId: row.productId,
-            state
-          }).then(data => {
-            ElMessage({
-              message: war_+'成功',
-              type: 'success'
-            });
-            self.getData();
+      ElMessageBox.confirm("确认要" + war + "吗?", "提示", {
+        type: "warning",
+      }).then(() => {
+        PorductApi.storeStateProduct({
+          productId: row.productId,
+          state,
+        }).then((data) => {
+          ElMessage({
+            message: war_ + "成功",
+            type: "success",
           });
+          self.getData();
         });
+      });
     },
     /*打开复制*/
     copyClick(row) {
       this.$router.push({
-        path: '/product/product/edit',
+        path: "/product/product/edit",
         query: {
           productId: row.productId,
-          scene: 'copy'
-        }
+          scene: "copy",
+        },
       });
     },
 
     /*删除*/
-    deleteClick: function(row) {
+    deleteClick: function (row) {
       let self = this;
-   ElMessageBox.confirm('删除后不可恢复，确认删除该记录吗?', '提示', {
-          type: 'warning'
-        })
-        .then(() => {
-          PorductApi.storeDelProduct({
-            productId: row.productId
-          }).then(data => {
-            ElMessage({
-              message: '删除成功',
-              type: 'success'
-            });
-            self.getData();
+      ElMessageBox.confirm("删除后不可恢复，确认删除该记录吗?", "提示", {
+        type: "warning",
+      }).then(() => {
+        PorductApi.storeDelProduct({
+          productId: row.productId,
+        }).then((data) => {
+          ElMessage({
+            message: "删除成功",
+            type: "success",
           });
+          self.getData();
         });
-    }
-  }
+      });
+    },
+  },
 };
 </script>
 

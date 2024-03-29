@@ -1,9 +1,4 @@
 <template>
-  <!--
-      作者：luoyiming
-      时间：2019-10-25
-      描述：订单详情
-  -->
   <div class="pb50" v-loading="loading">
     <div class="product-content">
       <!--基本信息-->
@@ -79,9 +74,13 @@
           </el-col>
           <el-col :span="5">
             <div class="pb16">
-              <span class="gray9" v-if="detail.deliveryType==10">配送时间：</span>
-              <span class="gray9" v-if="detail.deliveryType==20">取餐时间：</span>
-              {{ detail.mealtime}}
+              <span class="gray9" v-if="detail.deliveryType == 10"
+                >配送时间：</span
+              >
+              <span class="gray9" v-if="detail.deliveryType == 20"
+                >取餐时间：</span
+              >
+              {{ detail.mealtime }}
             </div>
           </el-col>
           <el-col :span="5">
@@ -107,21 +106,33 @@
       <!--商品信息-->
       <div class="common-form mt16">商品信息</div>
       <div class="table-wrap">
-        <el-table size="small" :data="detail.product" border style="width: 100%">
+        <el-table
+          size="small"
+          :data="detail.product"
+          border
+          style="width: 100%"
+        >
           <el-table-column prop="product_name" label="商品" width="400">
             <template #default="scope">
               <div class="product-info">
                 <div class="pic"><img v-img-url="scope.row.imagePath" /></div>
                 <div class="info">
                   <div class="name">{{ scope.row.productName }}</div>
-                  <div class="gray9" v-if="scope.row.productAttr!=''">{{scope.row.productAttr}}</div>
+                  <div class="gray9" v-if="scope.row.productAttr != ''">
+                    {{ scope.row.productAttr }}
+                  </div>
                   <div class="orange" v-if="scope.row.refund">
                     {{ scope.row.refund.type }}-{{ scope.row.refund.status }}
                   </div>
                   <div class="price">
-                    <span :class="{'text-d-line':scope.row.isUserGrade==1,'gray6':scope.row.isUserGrade!=1}">￥
-                      {{ scope.row.productPrice }}</span>
-                    <span class="ml10" v-if="scope.row.isUserGrade==1">
+                    <span
+                      :class="{
+                        'text-d-line': scope.row.isUserGrade == 1,
+                        gray6: scope.row.isUserGrade != 1,
+                      }"
+                      >￥ {{ scope.row.productPrice }}</span
+                    >
+                    <span class="ml10" v-if="scope.row.isUserGrade == 1">
                       会员折扣价：￥ {{ scope.row.gradeProductPrice }}
                     </span>
                   </div>
@@ -316,7 +327,10 @@
       </div>
 
       <!--取消信息-->
-      <div class="table-wrap" v-if="detail.orderStatus == 20 && detail.cancelRemark != ''">
+      <div
+        class="table-wrap"
+        v-if="detail.orderStatus == 20 && detail.cancelRemark != ''"
+      >
         <div class="common-form mt16">取消信息</div>
         <div class="table-wrap">
           <el-row>
@@ -331,10 +345,13 @@
       </div>
     </div>
     <div class="common-button-wrapper">
-      <el-button size="small" type="info" @click="cancelFunc">返回上一页</el-button>
+      <el-button size="small" type="info" @click="cancelFunc"
+        >返回上一页</el-button
+      >
       <!--确认送达-->
       <template v-if="deliver.status == 10">
-        <el-button size="small" type="primary" @click="onSubmit">确认送达
+        <el-button size="small" type="primary" @click="onSubmit"
+          >确认送达
         </el-button>
       </template>
     </div>
@@ -342,114 +359,112 @@
 </template>
 
 <script>
-  import TakeOutApi from '@/api/takeout.js';
-  import {
-    deepClone,
-
-  } from '@/utils/base.js';
-  export default {
-    components: {
+import TakeOutApi from "@/api/takeout.js";
+import { deepClone } from "@/utils/base.js";
+export default {
+  components: {},
+  data() {
+    return {
+      active: 0,
+      /*是否加载完成*/
+      loading: true,
+      /*订单数据*/
+      detail: {
+        payStatus: [],
+        payType: [],
+        deliveryType: [],
+        user: {},
+        address: [],
+        product: [],
+        orderStatus: [],
+        extract: [],
+        extract_store: [],
+        express: [],
+        delivery_status: [],
+        extractClerk: [],
+        supplier: {
+          name: "",
+        },
+      },
+      /*是否打开添加弹窗*/
+      open_add: false,
+      /*一页多少条*/
+      pageSize: 20,
+      /*一共多少条数据*/
+      totalDataNumber: 0,
+      /*当前是第几页*/
+      curPage: 1,
+      order: {},
+      deliveryType: 0,
+      addressData: {
+        name: "",
+        phone: "",
+        detail: "",
+        address: "",
+      },
+      deliver: {},
+    };
+  },
+  created() {
+    /*获取列表*/
+    this.getParams();
+  },
+  methods: {
+    next() {
+      if (this.active++ > 4) this.active = 0;
     },
-    data() {
-      return {
-        active: 0,
-        /*是否加载完成*/
-        loading: true,
-        /*订单数据*/
-        detail: {
-          payStatus: [],
-          payType: [],
-          deliveryType: [],
-          user: {},
-          address: [],
-          product: [],
-          orderStatus: [],
-          extract: [],
-          extract_store: [],
-          express: [],
-          delivery_status: [],
-          extractClerk: [],
-          supplier: {
-            name: ''
+    /*获取参数*/
+    getParams() {
+      let self = this;
+      // 取到路由带过来的参数
+      const params = this.$route.query.deliverId;
+      TakeOutApi.detail(
+        {
+          deliverId: params,
+        },
+        true
+      )
+        .then((data) => {
+          self.loading = false;
+          self.detail = data.data.detail;
+          self.deliver = data.data.deliver;
+          if (self.detail.address != null) {
+            self.addressData = self.detail.address;
           }
-        },
-        /*是否打开添加弹窗*/
-        open_add: false,
-        /*一页多少条*/
-        pageSize: 20,
-        /*一共多少条数据*/
-        totalDataNumber: 0,
-        /*当前是第几页*/
-        curPage: 1,
-        order: {},
-        deliveryType: 0,
-        addressData: {
-          name: '',
-          phone: '',
-          detail: '',
-          address: ''
-        },
-        deliver:{}
-      };
+          console.log(self.addressData);
+        })
+        .catch((error) => {
+          self.loading = false;
+        });
     },
-    created() {
-      /*获取列表*/
-      this.getParams();
-    },
-    methods: {
-      next() {
-        if (this.active++ > 4) this.active = 0;
-      },
-      /*获取参数*/
-      getParams() {
-        let self = this;
-        // 取到路由带过来的参数
-        const params = this.$route.query.deliverId;
-        TakeOutApi.detail({
-              deliverId: params
-            },
-            true
-          )
-          .then(data => {
-            self.loading = false;
-            self.detail = data.data.detail;
-            self.deliver = data.data.deliver;
-            if (self.detail.address != null) {
-              self.addressData = self.detail.address;
-            }
-            console.log(self.addressData)
-          })
-          .catch(error => {
-            self.loading = false;
-          });
-      },
 
-      /*确认送达*/
-      onSubmit() {
-        let self = this;
-        let deliverId = this.$route.query.deliverId;
-        TakeOutApi.verify({
-              deliverId: deliverId
-            },
-            true
-          )
-          .then(data => {
-            self.loading = false;
-            ElMessage({
-              message: '恭喜你，操作成功',
-              type: 'success'
-            });
-            self.getParams();
-          })
-          .catch(error => {
-            self.loading = false;
+    /*确认送达*/
+    onSubmit() {
+      let self = this;
+      let deliverId = this.$route.query.deliverId;
+      TakeOutApi.verify(
+        {
+          deliverId: deliverId,
+        },
+        true
+      )
+        .then((data) => {
+          self.loading = false;
+          ElMessage({
+            message: "恭喜你，操作成功",
+            type: "success",
           });
-      },
-      /*取消*/
-      cancelFunc() {
-        this.$router.back(-1);
-      },
-    }
-  };
+          self.getParams();
+        })
+        .catch((error) => {
+          self.loading = false;
+        });
+    },
+    /*取消*/
+    cancelFunc() {
+      this.$router.back(-1);
+    },
+  },
+};
 </script>
 <style></style>
