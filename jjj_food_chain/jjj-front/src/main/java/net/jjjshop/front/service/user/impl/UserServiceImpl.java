@@ -9,6 +9,7 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 import me.chanjar.weixin.common.bean.WxOAuth2UserInfo;
+import me.chanjar.weixin.common.error.WxErrorException;
 import net.jjjshop.common.entity.user.User;
 import net.jjjshop.common.entity.user.UserBalanceLog;
 import net.jjjshop.common.enums.BalanceLogEnum;
@@ -207,7 +208,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
                 this.afterReg(bean.getUserId(), appWxParam.getRefereeId(), appWxParam.getInvitationId());
                 return this.getLoginUserTokenVo(bean);
             }
-        } catch (Exception e) {
+        } catch (WxErrorException e) {
             log.info("微信小程序登录异常：", e.getMessage());
             return null;
         }
