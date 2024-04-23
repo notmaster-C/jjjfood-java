@@ -3,7 +3,7 @@
 		<view class="main">
 			<view class="nav">
 				<view class="header">
-					<view class="left" @click="selectShop('/pages/shop/shop_storelist')">
+					<view class="left">
 						<view class="store-name">
 							<text class="fb">{{ supplier.name }}</text>
 							<view class="iconfont icon icon-jiantou"></view>
