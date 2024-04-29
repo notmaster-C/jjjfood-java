@@ -339,14 +339,14 @@ export default {
       searchForm: {
         orderNo: "",
         styleId: "",
-        createTime: "",
+        createTime: [],
       },
       /*配送方式*/
       exStyle: [],
       /*门店列表*/
       shopList: [],
       /*时间*/
-      createTime: "",
+      createTime: [],
       /*统计*/
       orderCount: {
         all: 0,

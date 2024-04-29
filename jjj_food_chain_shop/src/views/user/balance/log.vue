@@ -152,12 +152,12 @@ export default {
       formInline: {
         nickName: "",
         scene: "",
-        value1: "",
+        value1: [],
       },
       /*场景*/
       Scene: [],
       /*时间*/
-      value1: "",
+      value1: [],
     };
   },
   created() {
