@@ -98,7 +98,7 @@
 			radioChange(e) {
 				let self = this;
 				self.defaultId = e;
-				self._postBody('user/address/setDefault', {
+				self._post('user/address/setDefault', {
 					addressId: e,
 				}, function(res) {
 					if (self.options.source === 'order') {

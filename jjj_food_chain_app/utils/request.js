@@ -35,7 +35,16 @@ function requestFun(app) {
                         fail && fail(res);
                     });
                     return false;
-                } else {
+                } else if (res.data.code === 10) {
+					/* 店铺不存在 */
+					this.showError(res.data.msg, function() {
+						uni.removeStorageSync('selectedId');
+						uni.reLaunch({
+							url:'/pages/index/index'
+						})
+					});
+					return false;
+				}else {
                     success && success(res.data);
                 }
             },
@@ -143,17 +152,17 @@ function requestFun(app) {
                 "pages/login/weblogin" != currentPage.route &&
                 "pages/login/openlogin" != currentPage.route) {
                 uni.setStorageSync("currentPage", currentPage.route);
-                uni.setStorageSync("currentPageOptions", currentPage.options);
+                uni.setStorageSync("currentPageOptions", currentPage.$page.options);
             }
         }
         console.log('appId=' + this.getAppId())
         //公众号
         // #ifdef  H5
-        if (this.isWeixin()) {
-            window.location.href = this.websiteUrl + '/api/front/user.usermp/login?appId=' + this.getAppId() +
-                '&referee_id=' + uni.getStorageSync('referee_id');
+        if (this.isWeixin() && uni.getStorageSync('mpState') == 1) {
+            window.location.href = this.websiteUrl + '/api/front/user/userMp/login?appId=' + this.getAppId() +
+                '&refereeId=' + uni.getStorageSync('refereeId') + '&invitationId=' + (uni.getStorageSync('invitationId') || 0);
         } else {
-            this.gotoPage("/pages/login/weblogin");
+            this.gotoPage("/pages/login/weblogin", 'redirect');
         }
         // #endif
         // #ifdef APP-PLUS
@@ -162,7 +171,15 @@ function requestFun(app) {
         // #endif
         // 非公众号,跳转授权页面
         // #ifndef  H5
-        this.gotoPage("/pages/login/login");
+        /*
+             wxOpen true 开启微信授权 false 不开启微信授权
+         */
+        let wxOpen = uni.getStorageSync('wxOpen');
+        if (wxOpen) {
+            this.gotoPage("/pages/login/login");
+        } else {
+            this.gotoPage("/pages/login/weblogin");
+        }
         // #endif
     };
 }

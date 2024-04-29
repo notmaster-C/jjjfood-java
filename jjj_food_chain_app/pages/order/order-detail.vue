@@ -33,7 +33,7 @@
 								<view class="f20 gray9 w-b-a">
 									{{ good.productAttr }}
 								</view>
-								<view class="f22 gray9">￥{{ good.totalNum }}</view>
+								<view class="f22 gray9">x{{ good.totalNum }}</view>
 							</view>
 							<view class="pro-price-item">
 								<view class="f24 gray3 mb10">￥{{ good.productPrice }}</view>

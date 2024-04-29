@@ -4,7 +4,7 @@ function validator(app) {
      * 获取应用ID
      */
     app.config.globalProperties.getAppId = function () {
-        return this.appId || 10001;
+        return uni.getStorageSync('appId') || config.appId || 10001
     };
     app.config.globalProperties.compareVersion = function (v1, v2) {
         v1 = v1.split('.')
@@ -34,10 +34,10 @@ function validator(app) {
     /**
      * 获取访客
      */
-    app.config.globalProperties.getVisitcode = function() {
+    app.config.globalProperties.getVisitcode = function () {
         let visitcode = uni.getStorageSync('visitcode');
         if (!visitcode) {
-            visitcode = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            visitcode = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
                 var r = Math.random() * 16 | 0,
                     v = c == 'x' ? r : (r & 0x3 | 0x8);
                 return v.toString(16);
@@ -51,7 +51,7 @@ function validator(app) {
     /**
      * 订阅通知,目前仅小程序
      */
-    app.config.globalProperties.subMessage = function(temlIds, callback) {
+    app.config.globalProperties.subMessage = function (temlIds, callback) {
         let self = this;
         // #ifdef  MP-WEIXIN
         //小程序订阅消息
@@ -60,8 +60,8 @@ function validator(app) {
             uni.hideLoading();
             wx.requestSubscribeMessage({
                 tmplIds: temlIds,
-                success(res) {},
-                fail(res) {},
+                success(res) { },
+                fail(res) { },
                 complete(res) {
                     callback();
                 },
@@ -119,17 +119,17 @@ function validator(app) {
     /**
      * 是否是ios
      */
-    app.config.globalProperties.ios = function() {
+    app.config.globalProperties.ios = function () {
         const u = navigator.userAgent.toLowerCase();
         if (u.indexOf("like mac os x") < 0 || u.match(/MicroMessenger/i) != 'micromessenger') {
-        return false;
+            return false;
         }
         return true;
     };
     /**
      * 获取当前平台
      */
-    app.config.globalProperties.isWeixin = function() {
+    app.config.globalProperties.isWeixin = function () {
         var ua = navigator.userAgent.toLowerCase();
         if (ua.match(/MicroMessenger/i) == "micromessenger") {
             return true;
@@ -137,7 +137,7 @@ function validator(app) {
             return false;
         }
     };
-    app.config.globalProperties.getPlatform = function(params) {
+    app.config.globalProperties.getPlatform = function (params) {
         let platform = 'wx';
         // #ifdef  APP-PLUS
         if (uni.getSystemInfoSync().platform == 'android') {
@@ -155,7 +155,7 @@ function validator(app) {
         // #endif
         return platform;
     };
-    app.config.globalProperties.topBarTop = function() {
+    app.config.globalProperties.topBarTop = function () {
         // #ifdef MP-WEIXIN
         return uni.getMenuButtonBoundingClientRect().top;
         // #endif
@@ -164,7 +164,7 @@ function validator(app) {
         return SystemInfo.statusBarHeight;
         // #endif
     };
-    app.config.globalProperties.topBarHeight = function() {
+    app.config.globalProperties.topBarHeight = function () {
         // #ifdef MP-WEIXIN
         return uni.getMenuButtonBoundingClientRect().height;
         // #endif
@@ -173,7 +173,7 @@ function validator(app) {
         // #endif
     };
     /* 小数点截取 */
-    app.config.globalProperties.subPrice = function(str, val) {
+    app.config.globalProperties.subPrice = function (str, val) {
         let strs = String(str);
         if (val == 1) {
             return strs.substring(0, strs.indexOf("."));
@@ -183,7 +183,7 @@ function validator(app) {
         }
     }
     /*转两位数*/
-    app.config.globalProperties.convertTwo = function(n) {
+    app.config.globalProperties.convertTwo = function (n) {
         let str = '';
         if (n < 10) {
             str = '0' + n;
@@ -192,7 +192,7 @@ function validator(app) {
         }
         return str;
     }
-    app.config.globalProperties.yulan = function(e, i) {
+    app.config.globalProperties.yulan = function (e, i) {
         let image_path_arr = [];
         if (!Array.isArray(e)) {
             image_path_arr = [e];
@@ -212,7 +212,7 @@ function validator(app) {
         });
     }
     /* 截取小数点前后 */
-    app.config.globalProperties.subpoint = function(str, val) {
+    app.config.globalProperties.subpoint = function (str, val) {
         let strs = String(str);
         if (val == 1) {
             return strs.substring(0, strs.indexOf("."));

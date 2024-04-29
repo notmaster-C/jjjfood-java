@@ -44,7 +44,7 @@ export default {
   },
   inject: ["dataRank"],
   created() {
-    this.listData = this.dataRank.salesMoneyRank;
+    this.listData = this.dataRank.salesNumRank;
   },
   mounted() {},
   methods: {

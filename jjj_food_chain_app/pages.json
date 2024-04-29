@@ -95,18 +95,7 @@
 				}
 			}
 		},
-		{
-			"path": "pages/shop/shop_storelist",
-			"style": {
-				"navigationBarTitleText": "选择门店",
-				"enablePullDownRefresh": false,
-				"app-plus": {
-					//#ifdef H5
-					"titleNView": false
-					//#endif
-				}
-			}
-		},
+	
 		{
 			"path": "pages/user/index/index",
 			"style": {

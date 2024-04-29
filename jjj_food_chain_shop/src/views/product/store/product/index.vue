@@ -3,12 +3,21 @@
     <!--搜索表单-->
     <div class="common-seach-wrap">
       <el-tabs v-model="activeName" @tab-change="handleClick">
-        <el-tab-pane label="上架中" name="sell"></el-tab-pane>
+        <el-tab-pane label="上架中" name="sell">
+          <template #label>
+            <span>
+              上架
+              <el-tag v-if="product_count.sell" size="small">{{
+                product_count.sell
+              }}</el-tag>
+            </span>
+          </template>
+        </el-tab-pane>
         <el-tab-pane label="下架中" name="lower">
           <template #label>
             <span
               >下架中
-              <el-tag size="mini">{{ product_count.lower }}</el-tag></span
+              <el-tag size="small">{{ product_count.lower }}</el-tag></span
             >
           </template>
         </el-tab-pane>

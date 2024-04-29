@@ -133,7 +133,10 @@
 				// #ifdef  H5
 				let appId = query.appId;
 				if (appId > 0) {
-					this.config.appId = appId;
+					uni.setStorageSync('appId', appId);
+				}
+				if (uni.getStorageSync('appId')) {
+					this.config.appId = uni.getStorageSync('appId');
 				}
 				// #endif
 			},
