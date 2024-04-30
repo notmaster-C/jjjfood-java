@@ -85,7 +85,7 @@ public class ProductAttributeServiceImpl extends BaseServiceImpl<ProductAttribut
 
     @Override
     public boolean edit(AttrParam param) {
-        if(CollectionUtils.isEmpty(param.getAttributeValue())){
+        if(CollectionUtils.isEmpty(param.getAttributeValueList())){
             throw new BusinessException("属性值不能为空");
         }
         int count = this.count(new LambdaQueryWrapper<ProductAttribute>()
@@ -98,7 +98,7 @@ public class ProductAttributeServiceImpl extends BaseServiceImpl<ProductAttribut
         ProductAttribute bean = new ProductAttribute();
         BeanUtils.copyProperties(param,bean);
         //数组转字符串
-        bean.setAttributeValue(String.join("|", param.getAttributeValue()));
+        bean.setAttributeValue(String.join("|", param.getAttributeValueList()));
         return this.updateById(bean);
     }
 

@@ -7,6 +7,7 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import net.jjjshop.common.entity.supplier.Supplier;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Data
@@ -48,4 +49,16 @@ public class SupplierVo extends Supplier {
 
     @ApiModelProperty("店内用餐方式")
     private List<Integer> storeSetList;
+
+    @ApiModelProperty("门店距离")
+    private BigDecimal distanceValue;
+
+    @ApiModelProperty("门店距离字符串")
+    private String distance;
+
+    @ApiModelProperty("门店距离单位")
+    private String distanceUnit;
+
+    @ApiModelProperty("是否可选")
+    private Integer isSelect;
 }

@@ -4,6 +4,7 @@ import net.jjjshop.common.entity.supplier.Supplier;
 import net.jjjshop.common.entity.user.User;
 import net.jjjshop.framework.common.service.BaseService;
 import net.jjjshop.framework.core.pagination.Paging;
+import net.jjjshop.front.param.order.CategoryListParam;
 import net.jjjshop.front.vo.supplier.SupplierVo;
 
 /**
@@ -14,7 +15,7 @@ import net.jjjshop.front.vo.supplier.SupplierVo;
  */
 public interface SupplierService extends BaseService<Supplier> {
 
-    SupplierVo getDetail(User user);
+    SupplierVo getDetail(CategoryListParam param);
 
     SupplierVo getDetailById(Integer shopSupplierId);
 }

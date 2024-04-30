@@ -43,7 +43,7 @@ public class CategoryController extends BaseController {
     public ApiResult<Map<String, Object>> index(@RequestBody CategoryListParam param) {
         User user = this.getUser(false);
         Map<String, Object> result = new HashMap<>();
-        SupplierVo supplierVo = supplierService.getDetail(user);
+        SupplierVo supplierVo = supplierService.getDetail(param);
         param.setShopSupplierId(supplierVo.getShopSupplierId());
         result.put("list", productCategoryService.getList(param));
         result.put("addressId", user == null?0 : user.getAddressId());

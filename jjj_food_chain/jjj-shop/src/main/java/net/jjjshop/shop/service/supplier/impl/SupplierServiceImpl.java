@@ -97,9 +97,6 @@ public class SupplierServiceImpl extends BaseServiceImpl<SupplierMapper, Supplie
         if (StringUtils.isNotEmpty(supplier.getLatitude())) {
             vo.setCoordinate(supplier.getLatitude() + "," + supplier.getLongitude());
         }
-        vo.setProvince(regionService.getById(supplier.getProvinceId()).getName());
-        vo.setCity(regionService.getById(supplier.getCityId()).getName());
-        vo.setRegion(regionService.getById(supplier.getRegionId()).getName());
         return vo;
     }
 

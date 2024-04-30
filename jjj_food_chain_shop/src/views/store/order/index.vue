@@ -478,9 +478,10 @@ export default {
       let Params = {};
       Params.dataType = self.activeName;
       Params.orderNo = search.orderNo;
-      Params.startDate = search.createTime[0];
-      Params.endDate = search.createTime[1];
+      Params.createTime = search.createTime;
       Params.tokenshop = self.token;
+      Params.pageIndex = self.curPage;
+      Params.pageSize = self.pageSize;
       let baseUrl = import.meta.env.VITE_BASIC_URL;
       if (!baseUrl) {
         baseUrl = window.location.protocol + "//" + window.location.host;

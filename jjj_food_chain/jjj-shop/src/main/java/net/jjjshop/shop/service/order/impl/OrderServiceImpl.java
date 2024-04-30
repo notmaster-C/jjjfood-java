@@ -342,15 +342,9 @@ public class OrderServiceImpl extends BaseServiceImpl<OrderMapper, Order> implem
         //是否删除
         wrapper.eq(Order::getIsDelete, 0);
         wrapper.orderByDesc(Order::getCreateTime);
-        //查询参数：开始时间
-        if (StringUtils.isNotEmpty(orderPageParam.getStartDate())) {
-            Date startTime = DateUtil.parse(orderPageParam.getStartDate() + " 00:00:00");
-            wrapper.ge(Order::getCreateTime, startTime);
-        }
-        //查询参数：结束时间
-        if (StringUtils.isNotEmpty(orderPageParam.getEndDate())) {
-            Date endTime = DateUtil.parse(orderPageParam.getEndDate() + " 23:59:59");
-            wrapper.le(Order::getCreateTime, endTime);
+        //查询时间
+        if(CollectionUtils.isNotEmpty(orderPageParam.getCreateTime()) && orderPageParam.getCreateTime().size() == 2) {
+            wrapper.between(Order::getCreateTime, orderPageParam.getCreateTime().get(0)+ " 00:00:00", orderPageParam.getCreateTime().get(1) + " 23:59:59");
         }
         //配送方式,10外卖配送,20外卖自提,30店内打包40店内堂食
         if (orderPageParam.getStyleId() != null && orderPageParam.getStyleId() > 0) {
