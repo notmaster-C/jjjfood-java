@@ -272,6 +272,9 @@ public class OrderServiceImpl extends BaseServiceImpl<OrderMapper, Order> implem
     public Map<String, Object> orderPay(OrderPayParam orderPayParam, User user) {
         Map<String, Object> result = new HashMap<>();
         Order order = this.getUserOrderDetail(orderPayParam.getOrderId(), user.getUserId());
+        if(order != null && order.getUserId() != user.getUserId()){
+            order.setUserId(user.getUserId());
+        }
         // 判断订单状态
         if (order.getOrderStatus().intValue() != OrderStatusEnum.NORMAL.getValue().intValue()
                 || order.getPayStatus().intValue() != OrderPayStatusEnum.PENDING.getValue().intValue()) {
@@ -313,10 +316,12 @@ public class OrderServiceImpl extends BaseServiceImpl<OrderMapper, Order> implem
                             orderPayParam.getPaySource(), result, value);
                     // 微信支付版本号
                     result.put("wxPayVersion", appService.getById(user.getAppId()).getWxPayKind());
+                }else {
+                    throw new BusinessException("很抱歉，用户余额不足，无法支付");
                 }
             } catch (Exception e) {
                 log.info("微信支付异常：", e.getMessage());
-                throw new BusinessException("支付失败，请重试");
+                throw new BusinessException("支付失败:" + e.getMessage());
             }
         }
         result.put("orderId", orderPayParam.getOrderId());
@@ -449,6 +454,18 @@ public class OrderServiceImpl extends BaseServiceImpl<OrderMapper, Order> implem
             vo.setDeliveryStatusText(vo.getDeliveryStatus() == 10 ? "待配送" : "已配送");
         }else {
             vo.setDeliveryStatusText("进行中");
+        }
+        //付款状态(10未付款 20已付款)
+        if(vo.getPayStatus() == 10){
+            vo.setDeliveryStatusText("待支付");
+        }
+        //订单状态10=>进行中，20=>已经取消，30=>已完成
+        if(vo.getOrderStatus() == 20){
+            vo.setDeliveryStatusText("已取消");
+        }
+        //订单状态10=>进行中，20=>已经取消，30=>已完成
+        if(vo.getOrderStatus() == 30){
+            vo.setDeliveryStatusText("已完成");
         }
         //设置后台修改价格
         if (vo.getUpdatePrice().compareTo(BigDecimal.ZERO) > 0) {

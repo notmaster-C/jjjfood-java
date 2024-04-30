@@ -17,6 +17,8 @@ import net.jjjshop.shop.service.page.CenterMenuService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 /**
  * 个人中心菜单 服务实现类
  * @author jjjshop
@@ -78,6 +80,7 @@ public class CenterMenuServiceImpl extends BaseServiceImpl<CenterMenuMapper, Cen
         CenterMenu menu = new CenterMenu();
         menu.setMenuId(menuId);
         menu.setIsShow(isShow);
+        menu.setUpdateTime(new Date());
         return this.updateById(menu);
     }
 
@@ -89,6 +92,7 @@ public class CenterMenuServiceImpl extends BaseServiceImpl<CenterMenuMapper, Cen
     public Boolean edit(CenterParam centerParam){
         CenterMenu menu = new CenterMenu();
         BeanUtils.copyProperties(centerParam, menu);
+        menu.setUpdateTime(new Date());
         return this.updateById(menu);
     }
 

@@ -6,6 +6,7 @@ import net.jjjshop.common.cache.ProductCategoryCache;
 import net.jjjshop.common.entity.product.ProductCategory;
 import net.jjjshop.common.entity.user.User;
 import net.jjjshop.common.mapper.cashier.ProductCategoryMapper;
+import net.jjjshop.common.util.UploadFileUtils;
 import net.jjjshop.common.vo.product.CategoryVo;
 import net.jjjshop.framework.common.service.impl.BaseServiceImpl;
 import net.jjjshop.front.param.order.CategoryListParam;
@@ -31,6 +32,8 @@ public class ProductCategoryServiceImpl extends BaseServiceImpl<ProductCategoryM
     private ProductCategoryCache productCategoryCache;
     @Autowired
     private ProductService productService;
+    @Autowired
+    private UploadFileUtils uploadFileUtils;
 
     /**
      * 商品详情
@@ -45,8 +48,10 @@ public class ProductCategoryServiceImpl extends BaseServiceImpl<ProductCategoryM
 
     @Override
     public List<CategoryVo> getList(CategoryListParam param) {
-        LambdaQueryWrapper<ProductCategory> wrapper = new LambdaQueryWrapper<ProductCategory>()
-                .orderByAsc(ProductCategory::getSort)
+        LambdaQueryWrapper<ProductCategory> wrapper = new LambdaQueryWrapper<ProductCategory>();
+        //0普通1特殊
+        wrapper.orderByDesc(ProductCategory::getIsSpecial);
+        wrapper.orderByAsc(ProductCategory::getSort)
                 .orderByDesc(ProductCategory::getCreateTime);
         if(param.getShopSupplierId() != null && param.getShopSupplierId() != 0){
             wrapper.eq(ProductCategory::getShopSupplierId,param.getShopSupplierId());
@@ -66,6 +71,7 @@ public class ProductCategoryServiceImpl extends BaseServiceImpl<ProductCategoryM
     public CategoryVo transVo(ProductCategory category,CategoryListParam param){
         CategoryVo vo = new CategoryVo();
         BeanUtils.copyProperties(category,vo);
+        vo.setImagePath(uploadFileUtils.getFilePath(vo.getImageId()));
         vo.setProducts(productService.getListByCategoryIds(category.getCategoryId(),param));
         return vo;
     }

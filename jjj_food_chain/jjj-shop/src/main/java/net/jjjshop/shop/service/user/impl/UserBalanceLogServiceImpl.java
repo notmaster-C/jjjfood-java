@@ -37,11 +37,9 @@ public class UserBalanceLogServiceImpl extends BaseServiceImpl<UserBalanceLogMap
         // 开始页码
         userBalanceLogPageParam.setStartIndex((userBalanceLogPageParam.getPageIndex() - 1) * userBalanceLogPageParam.getPageSize());
 
-        if(userBalanceLogPageParam.getStartDate() != null){
-            userBalanceLogPageParam.setStartDate(DateUtil.parse(DateUtil.format(userBalanceLogPageParam.getStartDate(), "yyyy-MM-dd 00:00:00")));
-        }
-        if(userBalanceLogPageParam.getEndDate() != null){
-            userBalanceLogPageParam.setEndDate(DateUtil.parse(DateUtil.format(userBalanceLogPageParam.getEndDate(), "yyyy-MM-dd 23:59:59")));
+        if(userBalanceLogPageParam.getValue1() != null && userBalanceLogPageParam.getValue1().size() == 2){
+            userBalanceLogPageParam.setStartDate(userBalanceLogPageParam.getValue1().get(0) + " 00:00:00");
+            userBalanceLogPageParam.setEndDate(userBalanceLogPageParam.getValue1().get(1) + " 23:59:59");
         }
         // 查询当前页列表
         List<UserBalanceLogVo> list = userBalanceLogMapper.getList(userBalanceLogPageParam);

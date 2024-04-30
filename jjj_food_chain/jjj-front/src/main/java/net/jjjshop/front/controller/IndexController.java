@@ -11,6 +11,7 @@ import net.jjjshop.common.enums.SettingEnum;
 import net.jjjshop.common.util.SettingUtils;
 import net.jjjshop.framework.common.api.ApiResult;
 import net.jjjshop.framework.log.annotation.OperationLog;
+import net.jjjshop.front.param.order.CategoryListParam;
 import net.jjjshop.front.service.supplier.SupplierService;
 import net.jjjshop.front.service.page.PageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +43,8 @@ public class IndexController extends BaseController {
         Map<String, Object> result = new HashMap<>();
         User user = this.getUser(false);
         result.put("page", pageService.getPageData(user, pageId,10));
-        result.put("supplier", supplierService.getDetail(user));
+        CategoryListParam param = new CategoryListParam();
+        result.put("supplier", supplierService.getDetail(param));
         result.put("user", user);
         return ApiResult.ok(result);
     }
@@ -63,4 +65,12 @@ public class IndexController extends BaseController {
         return ApiResult.ok(this.getUser(false));
     }
 
+    //登录设置
+    @RequestMapping(value = "/loginSetting", method = RequestMethod.GET)
+    @OperationLog(name = "loginSetting")
+    @ApiOperation(value = "loginSetting", response = String.class)
+    public ApiResult<JSONObject> loginSetting(){
+        JSONObject vo = settingUtils.getShopSetting(SettingEnum.STORE.getKey(), null);
+        return ApiResult.ok(vo);
+    }
 }

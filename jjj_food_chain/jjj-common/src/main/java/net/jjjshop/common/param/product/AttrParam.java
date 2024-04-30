@@ -35,6 +35,9 @@ public class AttrParam implements Serializable {
     @ApiModelProperty("属性值List")
     private List<String> attributeValue;
 
+    @ApiModelProperty("属性值List")
+    private List<String> attributeValueList;
+
     @ApiModelProperty("排序")
     private Integer sort;
 }

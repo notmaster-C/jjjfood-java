@@ -108,6 +108,7 @@ public class ProductUtils {
         return skuList.stream().map(e -> {
             ProductSkuVo productSkuVo = new ProductSkuVo();
             BeanUtils.copyProperties(e, productSkuVo);
+            productSkuVo.setLinePrice(e.getProductPrice());
             if(e.getImageId() != 0){
                 productSkuVo.setImagePath(uploadFileUtils.getFilePath(e.getImageId()));
             }

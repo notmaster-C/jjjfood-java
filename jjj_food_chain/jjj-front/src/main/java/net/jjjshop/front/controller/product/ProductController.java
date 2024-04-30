@@ -66,7 +66,7 @@ public class ProductController extends BaseController {
         // 购物车数量
         result.put("cartTotalNum", userCartService.getTotalCartNum(user));
         // 店铺
-        result.put("supplier", supplierService.getDetail(user));
+        result.put("supplier", supplierService.getDetailById(detail.getShopSupplierId()));
         return ApiResult.ok(result);
     }
 

@@ -410,7 +410,7 @@ public class ShopUserServiceImpl extends BaseServiceImpl<ShopUserMapper, ShopUse
     public boolean setStatus(ShopUserParam shopUserParam) {
         ShopUser shopUser = new ShopUser();
         shopUser.setShopUserId(shopUserParam.getShopUserId());
-        shopUser.setIsStatus(shopUserParam.getIsStatus());
+        shopUser.setIsStatus(shopUserParam.getStatus());
         return this.updateById(shopUser);
     }
 

@@ -9,6 +9,7 @@ import net.jjjshop.framework.core.pagination.BasePageOrderParam;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Accessors(chain = true)
@@ -28,10 +29,11 @@ public class UserBalanceLogPageParam extends BasePageOrderParam {
     private Integer scene;
 
     @ApiModelProperty("开始时间")
-    private Date startDate;
+    private String startDate;
 
     @ApiModelProperty("结束时间")
-    private Date endDate;
+    private String endDate;
 
+    private List<String> value1;
 
 }

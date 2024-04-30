@@ -123,7 +123,7 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
         //分类列表
         CategoryParam param = new CategoryParam();
         //0外卖1店内
-        param.setType(0);
+        param.setType(productPageParam.getProductType());
         //0普通1特殊
         param.setIsSpecial(0);
         result.put("category", productCategoryService.getIndex(param));

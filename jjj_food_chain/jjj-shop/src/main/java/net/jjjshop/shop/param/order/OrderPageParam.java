@@ -9,6 +9,8 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import net.jjjshop.framework.core.pagination.BasePageOrderParam;
 
+import java.util.List;
+
 /**
  * 部门 查询参数对象
  */
@@ -45,4 +47,7 @@ public class OrderPageParam extends BasePageOrderParam {
 
     @ApiModelProperty("配送公司(10商家配送20达达30配送员)")
     private Integer deliversource;
+
+    @ApiModelProperty("查询日期")
+    private List<String> createTime;
 }

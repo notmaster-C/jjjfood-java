@@ -63,7 +63,7 @@ public class OrderController {
         result.put("list", orderService.getList(orderPageParam));
         result.put("orderCount", jsonObject);
         //店内配送方式
-        result.put("exStyle", DeliveryTypeEnum.getStoreList());
+        result.put("exStyle", DeliveryTypeEnum.getTakeoutList());
         // 获取商城配送设置
         JSONObject vo = settingUtils.getSetting(SettingEnum.DELIVER.getKey(), Long.valueOf(ShopLoginUtil.getShopSupplierId()));
         DeliverVo deliverVo = JSONObject.toJavaObject(vo, DeliverVo.class);

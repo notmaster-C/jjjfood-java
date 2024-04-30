@@ -177,29 +177,37 @@ public class OrderUtils {
         //配送状态(待接单＝1,待取货＝2,配送中＝3,已完成＝4,已取消＝5)
         orderDeliver.setDeliverStatus(3);
         orderDeliver.setPhone(supplier.getLinkPhone());
-        //配送距离
-        orderDeliver.setDistance(getDistance(supplier,order.getUserId()));
+        UserAddress address = userAddressService.getById(userService.getById(order.getUserId()).getAddressId());
+        if(address != null){
+            //配送距离
+            orderDeliver.setDistance(getDistance(supplier,address.getLongitude(),address.getLatitude()).intValue());
+        }else {
+            orderDeliver.setDistance(0);
+        }
         orderDeliverService.save(orderDeliver);
     }
 
-    public Integer getDistance(Supplier supplier,Integer userId){
+    //距离门店距离
+    public Double getDistance(Supplier supplier,String longitude,String latitude){
+        if(StringUtils.isEmpty(longitude) || StringUtils.isEmpty(latitude)){
+            return 0.0;
+        }
+        if(StringUtils.isEmpty(supplier.getLongitude()) || StringUtils.isEmpty(supplier.getLatitude())){
+            return 0.0;
+        }
         //门店坐标经度
         double ulon = Double.parseDouble(supplier.getLongitude());
         //门店坐标纬度
         double ulat = Double.parseDouble(supplier.getLatitude());
-        UserAddress address = userAddressService.getById(userService.getById(userId).getAddressId());
-        if(address == null){
-            return 0;
-        }
         //用户坐标经度
-        double slon = Double.parseDouble(address.getLongitude());
+        double slon = Double.parseDouble(longitude);
         //用户坐标纬度
-        double slat = Double.parseDouble(address.getLatitude());
+        double slat = Double.parseDouble(latitude);
         GlobalCoordinates source = new GlobalCoordinates(ulon, ulat);
         GlobalCoordinates target = new GlobalCoordinates(slon, slat);
         //创建GeodeticCalculator，调用计算方法，传入坐标系、经纬度用于计算距离
         GeodeticCurve geoCurve = new GeodeticCalculator().calculateGeodeticCurve(Ellipsoid.Sphere, source, target);
-        return (int)geoCurve.getEllipsoidalDistance();
+        return geoCurve.getEllipsoidalDistance();
     }
 
     /**

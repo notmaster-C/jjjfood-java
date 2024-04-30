@@ -34,7 +34,7 @@ public class ShopUserParam implements Serializable {
     private String realName;
 
     @ApiModelProperty("是否禁用1禁用，0未禁用")
-    private Integer isStatus;
+    private Integer status;
 
     @ApiModelProperty("用户角色")
     private List<Integer> roleId;

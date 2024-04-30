@@ -4,8 +4,8 @@
 
     <select id="getProductData" resultType="net.jjjshop.common.vo.order.OrderProductVo">
         SELECT op.*, o.create_time
-        FROM jjjshop_order_product op
-        LEFT JOIN jjjshop_order o
+        FROM ${prefix}order_product op
+        LEFT JOIN ${prefix}order o
         ON o.order_id = op.order_id
         <where>
             <if test="startDate!= null" >

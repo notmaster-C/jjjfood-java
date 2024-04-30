@@ -62,6 +62,10 @@ public class ProductRankingServiceImpl implements ProductRankingService {
         List<ProductSaleRankingVo> result = productRankingMapper.getSaleNumRank(param);
         //去重
         result = result.stream().collect(Collectors.collectingAndThen(Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(ProductSaleRankingVo::getProductId))), ArrayList::new));
+        result.stream().forEach(e -> {
+            e.setImagePath(uploadFileUtils.getImagePathByProductId(e.getProductId()));
+        });
+        result = result.stream().sorted(Comparator.comparing(ProductSaleRankingVo::getTotalNum).reversed()).collect(Collectors.toList());
         return result;
     }
 
@@ -71,6 +75,11 @@ public class ProductRankingServiceImpl implements ProductRankingService {
         List<ProductSaleRankingVo> result = productRankingMapper.getSaleMoneyRank(param);
         //去重
         result = result.stream().collect(Collectors.collectingAndThen(Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(ProductSaleRankingVo::getProductId))), ArrayList::new));
+        result.stream().forEach(e -> {
+            e.setImagePath(uploadFileUtils.getImagePathByProductId(e.getProductId()));
+            e.setViewTimes(productService.getById(e.getProductId()).getViewTimes());
+        });
+        result = result.stream().sorted(Comparator.comparing(ProductSaleRankingVo::getTotalPrice).reversed()).collect(Collectors.toList());
         return result;
     }
 

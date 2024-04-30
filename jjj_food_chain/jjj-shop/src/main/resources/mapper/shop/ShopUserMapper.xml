@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="net.jjjshop.shop.mapper.shop.ShopUserMapper">
     <select id="getAccessByUserId" parameterType="java.lang.Integer" resultType="net.jjjshop.common.entity.shop.ShopAccess">
-        select sa.* from jjjshop_shop_user_role ur LEFT JOIN jjjshop_shop_role_access ra on ur.role_id = ra.role_id LEFT JOIN
-                      jjjshop_shop_access sa on ra.access_id = sa.access_id where ur.shop_user_id = #{userId} and sa.is_show = 1
+        select sa.* from ${prefix}shop_user_role ur LEFT JOIN ${prefix}shop_role_access ra on ur.role_id = ra.role_id LEFT JOIN
+                      ${prefix}shop_access sa on ra.access_id = sa.access_id where ur.shop_user_id = #{userId} and sa.is_show = 1
     </select>
 </mapper>
