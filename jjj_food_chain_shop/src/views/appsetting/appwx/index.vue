@@ -5,11 +5,11 @@
       <!--小程序设置-->
       <div class="common-form">小程序设置</div>
       <el-form-item label="AppID 小程序ID">
-        <el-input v-model="form.wxappId" class="max-w460"></el-input>
+        <el-input v-model.trim="form.wxappId" class="max-w460"></el-input>
       </el-form-item>
       <el-form-item label="AppSecret 小程序密钥">
         <el-input
-          v-model="form.wxappSecret"
+          v-model.trim="form.wxappSecret"
           type="password"
           class="max-w460"
         ></el-input>
