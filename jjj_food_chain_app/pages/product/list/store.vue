@@ -46,7 +46,7 @@
 							<view class="menu" :id="`menu-${item.categoryId}`"
 								:class="{ current: item.categoryId === currentCateId }"
 								v-if="item.products.length != 0" @tap="handleMenuTap(item.categoryId)">
-								<image v-if="item.images" class="f-s-0 mr10" :src="item.images.filePath"
+								<image v-if="item.imagePath" class="f-s-0 mr10" :src="item.imagePath"
 									mode="aspectFill" style="width: 30rpx;height: 30rpx;"></image>
 								<text>{{ item.name }}</text>
 								<view class="dot" v-if="menuCartNum(item.categoryId)">

@@ -434,9 +434,13 @@
 						_linkman = self.$refs.getShopinfoData.linkman;
 					}
 				}
-
+				 console.log(this.tabType, "type");
+      				if (self.tabType == 1) {
+        				self.delivery = 20;
+      				  self.dinnerType = 20;
+     				 }
 				let params = {
-					delivery: self.options.delivery,
+					delivery: self.delivery,
 					storeId: 1,
 					linkman: self.linkman,
 					phone: self.phone,

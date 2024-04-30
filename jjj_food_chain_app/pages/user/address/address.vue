@@ -75,7 +75,8 @@
 			getData() {
 				let self = this;
 				let dataType = self.dataType;
-				self._get('user/address/lists', {}, function(res) {
+				let shopSupplierId = uni.getStorageSync("selectedId");
+				self._get('user/address/lists', {shopSupplierId: shopSupplierId }, function(res) {
 					self.listData = res.data.list;
 					self.defaultId = res.data.defaultId + '';
 					self.loadding = false;

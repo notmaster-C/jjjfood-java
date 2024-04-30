@@ -34,11 +34,11 @@ $theme-thir: #FAB714;
 $theme-fou: #D12E32;
 $theme-fiv: #007aff;
 /* 文字基本颜色 */
-$uni-text-color:#333;//基本色
-$uni-text-color-inverse:#fff;//反色
-$uni-text-color-grey:#999;//辅助灰色，如加载更多的提示信息
+$uni-text-color: #333; //基本色
+$uni-text-color-inverse: #fff; //反色
+$uni-text-color-grey: #999; //辅助灰色，如加载更多的提示信息
 $uni-text-color-placeholder: #808080;
-$uni-text-color-disable:#c0c0c0;
+$uni-text-color-disable: #c0c0c0;
 /* 文字基本颜色 */
 $text-color-base: #5A5B5C; //基本色
 $text-color-assist: #919293; //辅助色
@@ -47,34 +47,34 @@ $text-color-grey: #878889; //灰
 $text-color-white: #ffffff; //白
 
 /* 背景颜色 */
-$uni-bg-color:#ffffff;
-$uni-bg-color-grey:#f8f8f8;
-$uni-bg-color-hover:#f1f1f1;//点击状态颜色
-$uni-bg-color-mask:rgba(0, 0, 0, 0.4);//遮罩颜色
+$uni-bg-color: #ffffff;
+$uni-bg-color-grey: #f8f8f8;
+$uni-bg-color-hover: #f1f1f1; //点击状态颜色
+$uni-bg-color-mask: rgba(0, 0, 0, 0.4); //遮罩颜色
 /* 背景颜色 */
 $bg-color: #F1F8FA;
 $bg-color-grey: #F5F5F5;
 $bg-color-primary: #E8EACF;
 /* 边框颜色 */
-$uni-border-color:#c8c7cc;
+$uni-border-color: #c8c7cc;
 /* 边框颜色 */
-$border-color:#e2e2e2;
+$border-color: #e2e2e2;
 /* 尺寸变量 */
 
 /* 文字尺寸 */
-$uni-font-size-sm:24upx;
-$uni-font-size-base:28upx;
-$uni-font-size-lg:32upx;
+$uni-font-size-sm: 24upx;
+$uni-font-size-base: 28upx;
+$uni-font-size-lg: 32upx;
 
 /* 文字尺寸 */
-$font-size-sm:24rpx;
-$font-size-base:28rpx;
-$font-size-lg:32rpx;
+$font-size-sm: 24rpx;
+$font-size-base: 28rpx;
+$font-size-lg: 32rpx;
 
 /* 图片尺寸 */
-$uni-img-size-sm:40upx;
-$uni-img-size-base:52upx;
-$uni-img-size-lg:80upx;
+$uni-img-size-sm: 40upx;
+$uni-img-size-base: 52upx;
+$uni-img-size-lg: 80upx;
 
 /* Border Radius */
 $uni-border-radius-sm: 4upx;
@@ -97,89 +97,85 @@ $uni-opacity-disabled: 0.3; // 组件禁用态的透明度
 
 /* 文章场景相关 */
 $uni-color-title: #2C405A; // 文章标题颜色
-$uni-font-size-title:40upx;
+$uni-font-size-title: 40upx;
 $uni-color-subtitle: #555555; // 二级标题颜色
-$uni-font-size-subtitle:36upx;
+$uni-font-size-subtitle: 36upx;
 $uni-color-paragraph: #3F536E; // 文章段落颜色
-$uni-font-size-paragraph:30upx;
+$uni-font-size-paragraph: 30upx;
 
 $box-shadow: 0 20rpx 20rpx -20rpx rgba($color: #333, $alpha: 0.1);
 
 /* start--主题色--start */
 $themes: (
-
-  theme0: (
-    font_color: #FFCC00,
+  theme0: (font_color: #FFCC00,
     background_color: #FFCC00,
+    font_color_inverse: #261203,
     border_color: #FFCC00,
     opacify_background_0: rgba(255, 204, 0, 0.09),
-	text_color:#ffffff,
-	bg-op:rgba($color: #FFCC00, $alpha: 0.15),
+    text_color:#ffffff,
+    bg-op:rgba($color: #FFCC00, $alpha: 0.15),
   ),
-  red_theme: (
-    font_color: #e60b30,
+  red_theme: (font_color: #e60b30,
     background_color: #e60b30,
     border_color: #e60b30,
     opacify_background_0: rgba(230, 11, 48, 0.05),
-	text_color:#ffffff,
-	bg-op:rgba($color: #e60b30, $alpha: 0.15),
+    text_color:#ffffff,
+    bg-op:rgba($color: #e60b30, $alpha: 0.15),
   ),
-  theme1: (
-    font_color: #8f2df3,
+  theme1: (font_color: #8f2df3,
     background_color: #8f2df3,
     border_color: #8f2df3,
     opacify_background_0: rgba(143, 45, 243, 0.05),
-	text_color:#ffffff,
-	bg-op:rgba($color: #8f2df3, $alpha: 0.15),
+    text_color:#ffffff,
+    bg-op:rgba($color: #8f2df3, $alpha: 0.15),
   ),
-  theme2: (
-    font_color: #33a7ff,
+  theme2: (font_color: #33a7ff,
     background_color: #33a7ff,
     border_color: #33a7ff,
     opacify_background_0: rgba(51, 167, 255, 0.05),
-	text_color:#ffffff,
-	bg-op:rgba($color: #33a7ff, $alpha: 0.15),
+    text_color:#ffffff,
+    bg-op:rgba($color: #33a7ff, $alpha: 0.15),
   ),
-  theme3: (
-    font_color: #1fc551,
+  theme3: (font_color: #1fc551,
     background_color: #1fc551,
     border_color: #1fc551,
     opacify_background_0: rgba(31, 197, 81, 0.05),
-	text_color:#ffffff,
-	bg-op:rgba($color: #1fc551, $alpha: 0.15),
+    text_color:#ffffff,
+    bg-op:rgba($color: #1fc551, $alpha: 0.15),
   ),
-  theme4: (
-    font_color: #ff7f00,
+  theme4: (font_color: #ff7f00,
     background_color: #ff7f00,
     border_color: #ff7f00,
     opacify_background_0: rgba(255, 127, 0, 0.05),
-	text_color:#ffffff,
-	bg-op:rgba($color: #ff7f00, $alpha: 0.15),
+    text_color:#ffffff,
+    bg-op:rgba($color: #ff7f00, $alpha: 0.15),
   ),
-  theme5: (
-    font_color: #caa45a,
+  theme5: (font_color: #caa45a,
     background_color: #caa45a,
     border_color: #caa45a,
     opacify_background_0: rgba(202, 164, 90, 0.05),
-	text_color:#ffffff,
-	bg-op:rgba($color: #caa45a, $alpha: 0.15),
+    text_color:#ffffff,
+    bg-op:rgba($color: #caa45a, $alpha: 0.15),
   )
 );
+
 //遍历主题map
 @mixin themeify {
   @each $theme-name, $theme-map in $themes {
     $theme-map: $theme-map !global;
-  
-	/* #ifdef MP-ALIPAY */
-	.#{$theme-name} & {
-	  @content;
-	}
-	/* #endif */
-	/* #ifndef MP-ALIPAY */
-	[data-theme='#{$theme-name}'] & {
-	  @content;
-	}
-	/* #endif */
+
+    /* #ifdef MP-ALIPAY */
+    .#{$theme-name} & {
+      @content;
+    }
+
+    /* #endif */
+    /* #ifndef MP-ALIPAY */
+    [data-theme='#{$theme-name}'] & {
+      @content;
+    }
+
+    /* #endif */
   }
 }
 
@@ -195,7 +191,7 @@ $themes: (
 }
 
 //获取渐变背景颜色
-@mixin background_linear($color,$color1, $deg, $min, $max) {
+@mixin background_linear($color, $color1, $deg, $min, $max) {
   @include themeify {
     background: linear-gradient($deg, themed($color) $min, themed($color1) $max) !important;
   }
@@ -207,6 +203,7 @@ $themes: (
     color: themed($color) !important;
   }
 }
+
 //获取主题背景下的字体颜色
 @mixin text_color($color) {
   @include themeify {

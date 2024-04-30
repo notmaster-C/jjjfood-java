@@ -1,4 +1,5 @@
 import utils from '@/common/utils.js';
+import config from '@/env/config.js';
 function validator(app) {
     /**
      * 获取应用ID
