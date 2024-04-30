@@ -4,14 +4,17 @@ import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import lombok.extern.slf4j.Slf4j;
+import net.jjjshop.common.entity.supplier.Supplier;
 import net.jjjshop.common.entity.user.User;
 import net.jjjshop.common.entity.user.UserAddress;
 import net.jjjshop.common.mapper.user.UserAddressMapper;
 import net.jjjshop.common.service.settings.RegionService;
+import net.jjjshop.common.util.OrderUtils;
 import net.jjjshop.common.vo.user.UserAddressVo;
 import net.jjjshop.framework.common.exception.BusinessException;
 import net.jjjshop.framework.common.service.impl.BaseServiceImpl;
 import net.jjjshop.front.param.user.UserAddressParam;
+import net.jjjshop.front.service.supplier.SupplierService;
 import net.jjjshop.front.service.user.UserAddressService;
 import net.jjjshop.front.service.user.UserService;
 import org.apache.commons.lang3.StringUtils;
@@ -19,6 +22,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,6 +44,10 @@ public class UserAddressServiceImpl extends BaseServiceImpl<UserAddressMapper, U
     private UserService userService;
     @Autowired
     private RegionService regionService;
+    @Autowired
+    private SupplierService supplierService;
+    @Autowired
+    private OrderUtils orderUtils;
 
 
     /**
@@ -46,14 +55,29 @@ public class UserAddressServiceImpl extends BaseServiceImpl<UserAddressMapper, U
      * @param userId
      * @return
      */
-    public Map<String, Object> getList(Integer userId) {
+    public Map<String, Object> getList(Integer userId,Integer shopSupplierId) {
+        Supplier supplier = null;
+        if(shopSupplierId != null && shopSupplierId != 0){
+            supplier = supplierService.getById(shopSupplierId);
+        }
         HashMap<String, Object> map = new HashMap<>();
         User user = userService.getById(userId);
         Integer addressId = user.getAddressId();
         List<UserAddress> userAddresses = this.list(new LambdaQueryWrapper<UserAddress>().eq(UserAddress::getUserId, userId));
+        Supplier finalSupplier = supplier;
         List<UserAddressVo> userAddressVos = userAddresses.stream().map(e -> {
             UserAddressVo vo = new UserAddressVo();
             BeanUtils.copyProperties(e, vo);
+            if(finalSupplier != null){
+                vo.setStatus(1);
+                vo.setDistance(BigDecimal.valueOf(orderUtils.getDistance(finalSupplier, vo.getLongitude(), vo.getLatitude()))
+                        .divide(new BigDecimal(1000),2, RoundingMode.DOWN));
+                //大于配送范围km
+                if(vo.getDistance().compareTo(BigDecimal.valueOf(finalSupplier.getDeliveryDistance())) > 0){
+                    //0超出配送距离,1正常
+                    vo.setStatus(0);
+                }
+            }
             return vo;
         }).collect(Collectors.toList());
         map.put("defaultId", addressId);

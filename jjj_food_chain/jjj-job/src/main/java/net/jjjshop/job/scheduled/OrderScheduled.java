@@ -174,47 +174,40 @@ public class OrderScheduled {
                 //是否禁用0否1是
                 .eq(Supplier::getIsRecycle,0)
         );
-        List<Integer> supplierIds = new ArrayList<>();
+        List<Integer> deliverOrderId = new ArrayList<>();
         for(Supplier supplier : supplierList){
             // 获取商城配送设置
             JSONObject vo = settingUtils.getSetting(SettingEnum.DELIVER.getKey(), Long.valueOf(supplier.getShopSupplierId()));
             DeliverVo deliverVo = JSONObject.toJavaObject(vo, DeliverVo.class);
             if("local".equals(deliverVo.getDefaults())){
-                supplierIds.add(supplier.getShopSupplierId());
-            }
-        }
-        // 订单id集
-        List<Integer> orderIds = new ArrayList<>();
-        List<Order> items = new ArrayList<>();
-        if(supplierIds.size() > 0){
-            // 查询截止时间未支付的订单
-            items = orderService.list(new LambdaQueryWrapper<Order>()
-                    //付款状态(10未付款 20已付款)
-                    .eq(Order::getPayStatus, 20)
-                    //订单状态10=>进行中，20=>已经取消，30=>已完成
-                    .eq(Order::getOrderStatus, 10)
-                    //配送状态，待接单＝1,待取货＝2,配送中＝3,已完成＝4
-                    .eq(Order::getDeliverStatus, 0)
-                    //发货状态(10未发货 20已发货)
-                    .eq(Order::getDeliveryStatus, 10)
-                    .eq(Order::getIsDelete, 0)
-                    .in(Order::getShopSupplierId,supplierIds)
-                    .isNotNull(Order::getPayEndTime)
-                    .lt(Order::getPayEndTime, new Date()));
-            orderIds = items.stream().map(Order::getOrderId).collect(Collectors.toList());
-        }
-        List<Integer> deliverOrderId = new ArrayList<>();
-        // 自动配送订单
-        if (orderIds.size() > 0) {
-            for (Order order:items) {
-                //未配送订单自动配送
-                if(orderService.sellerDeliver(order)){
-                    deliverOrderId.add(order.getOrderId());
+                // 查询未配送的订单
+                List<Order> items = orderService.list(new LambdaQueryWrapper<Order>()
+                        //付款状态(10未付款 20已付款)
+                        .eq(Order::getPayStatus, 20)
+                        //订单状态10=>进行中，20=>已经取消，30=>已完成
+                        .eq(Order::getOrderStatus, 10)
+                        //配送状态，待接单＝1,待取货＝2,配送中＝3,已完成＝4
+                        .eq(Order::getDeliverStatus, 0)
+                        //订单类型0外卖1店内
+                        .eq(Order::getOrderType, 0)
+                        //配送方式(10外卖配送 20上门取30打包带走40店内就餐)
+                        .eq(Order::getDeliveryType, 10)
+                        //发货状态(10未发货 20已发货)
+                        .eq(Order::getDeliveryStatus, 10)
+                        .eq(Order::getIsDelete, 0)
+                        .eq(Order::getShopSupplierId,supplier.getShopSupplierId()));
+                // 自动配送订单
+                for(Order order : items){
+                    //未配送订单自动配送
+                    if(orderService.sellerDeliver(order)){
+                        deliverOrderId.add(order.getOrderId());
+                    }
                 }
             }
         }
+
         // 记录日志
-        if(orderIds.size() > 0){
+        if(deliverOrderId.size() > 0){
             log.info(String.format("order scheduled sellerDeliver deliverOrderId:%s", deliverOrderId));
         }
     }
