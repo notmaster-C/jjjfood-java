@@ -21,7 +21,7 @@ public interface UserAddressService extends BaseService<UserAddress> {
      * @param userId
      * @return
      */
-    Map<String, Object> getList(Integer userId);
+    Map<String, Object> getList(Integer userId,Integer shopSupplierId);
 
     /**
      * 添加收货地址

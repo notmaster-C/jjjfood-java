@@ -180,9 +180,17 @@ public class UserOrderServiceImpl implements UserOrderService {
             return "待付款";
         }
         if (order.getDeliveryStatus() == 10) {
+            //配送方式(10外卖配送 20上门取30打包带走40店内就餐
+            if(order.getDeliveryType() != 10){
+                return "进行中";
+            }
             return "待配送";
         }
         if (order.getDeliveryStatus() == 20) {
+            //配送方式(10外卖配送 20上门取30打包带走40店内就餐
+            if(order.getDeliveryType() != 10){
+                return "进行中";
+            }
             return "配送中";
         }
         return "";

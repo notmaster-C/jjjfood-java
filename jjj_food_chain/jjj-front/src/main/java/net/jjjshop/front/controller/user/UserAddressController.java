@@ -11,10 +11,7 @@ import net.jjjshop.front.param.user.UserAddressParam;
 import net.jjjshop.front.service.user.UserAddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,8 +30,8 @@ public class UserAddressController extends BaseController {
     @RequestMapping(value = "/lists", method = RequestMethod.GET)
     @OperationLog(name = "lists")
     @ApiOperation(value = "lists", response = String.class)
-    public ApiResult<Map<String, Object>> lists(Integer pageIndex, Integer pageSize) {
-        return ApiResult.ok(userAddressService.getList(this.getUser(true).getUserId()));
+    public ApiResult<Map<String, Object>> lists(@RequestParam Integer shopSupplierId) {
+        return ApiResult.ok(userAddressService.getList(this.getUser(true).getUserId(),shopSupplierId));
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
