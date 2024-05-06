@@ -5166,3 +5166,6 @@ CREATE TABLE `jjjfood_version`  (
 INSERT INTO `jjjfood_version` VALUES ('1.0');
 
 SET FOREIGN_KEY_CHECKS = 1;
+
+ALTER TABLE `jjjfood_supplier`
+    MODIFY COLUMN `is_recycle` tinyint(3) UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否禁用0否1是' AFTER `total_gift`;

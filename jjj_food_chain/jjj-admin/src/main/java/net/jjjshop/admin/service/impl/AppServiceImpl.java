@@ -140,6 +140,9 @@ public class AppServiceImpl extends BaseServiceImpl<AppMapper, App> implements A
             app.setExpireTime(DateUtil.parseDateTime(appParam.getExpireTime() + " 23:59:59"));
         }
         this.save(app);
+        if(app.getExpireTime() == null){
+            this.updateById(app);
+        }
 
         //新增门店
         Supplier supplier = new Supplier();

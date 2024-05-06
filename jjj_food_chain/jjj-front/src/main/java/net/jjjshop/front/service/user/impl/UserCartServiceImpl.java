@@ -101,7 +101,7 @@ public class UserCartServiceImpl extends BaseServiceImpl<UserCartMapper, UserCar
     public boolean productSub(UserCartParam param) {
         SupplierVo supplier = supplierService.getDetailById(param.getShopSupplierId());
         //店铺状态0营业中1停止营业
-        if(supplier.getIsDelete() == 1 || supplier.getIsRecycle() == 1 || supplier.getStatus() == 1){
+        if(supplier.getIsDelete() == 1  || supplier.getStatus() == 1){
             throw new BusinessException("店铺休息中");
         }
         //外卖营业时间
@@ -176,7 +176,7 @@ public class UserCartServiceImpl extends BaseServiceImpl<UserCartMapper, UserCar
     public Boolean add(User user, CartParam param) {
         SupplierVo supplier = supplierService.getDetailById(param.getShopSupplierId());
         //店铺状态0营业中1停止营业
-        if(supplier.getIsDelete() == 1 || supplier.getIsRecycle() == 1 || supplier.getStatus() == 1){
+        if(supplier.getIsDelete() == 1  || supplier.getStatus() == 1){
             throw new BusinessException("店铺休息中");
         }
         //外卖营业时间

@@ -54,7 +54,7 @@ public class PageServiceImpl extends BaseServiceImpl<PageMapper, Page> implement
      * @param
      * @return
      */
-    public PageVo getDefault(Integer pageType){
+    public synchronized PageVo getDefault(Integer pageType){
         PageVo vo = new PageVo();
         Page page = this.getOne(new LambdaQueryWrapper<Page>()
                 .eq(Page::getPageType, pageType)

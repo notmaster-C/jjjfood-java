@@ -42,7 +42,7 @@ public class PageServiceImpl extends BaseServiceImpl<PageMapper, Page> implement
      * @param pageId
      * @return
      */
-    public JSONObject getPageData(User user, Integer pageId,Integer pageType){
+    public synchronized JSONObject getPageData(User user, Integer pageId,Integer pageType){
         // 如果pageId为空，则查首页
         Page page = null;
         LambdaQueryWrapper<Page> wrapper = new LambdaQueryWrapper<Page>()
