@@ -62,7 +62,7 @@
             >
               选择链接
             </el-button>
-            <div class="tips" id="tips" style="color: #000">{{ tips_Id }}</div>
+            <!-- <div class="tips" id="tips" style="color: #000">{{ tips_Id }}</div> -->
             <el-input
               v-model="form.name"
               type="hidden"
