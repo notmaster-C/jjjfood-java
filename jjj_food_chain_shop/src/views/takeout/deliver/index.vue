@@ -172,7 +172,7 @@ export default {
       searchForm: {
         orderNo: "",
         deliverSource: "",
-        createTime: "",
+        createTime: [],
       },
       /*时间*/
       createTime: "",
