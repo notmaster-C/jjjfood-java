@@ -51,7 +51,8 @@ public class PageServiceImpl extends BaseServiceImpl<PageMapper, Page> implement
                 .eq(Page::getIsDelete, 0)
                 .eq(Page::getIsDefault, true);
         if(pageId == null){
-            page = this.getOne(wrapper);
+            List<Page> pageList = this.list(wrapper);
+            page = pageList.get(0);
             if(page == null){
                 //生成默认页
                 page = PageUtils.getPage(pageType);
