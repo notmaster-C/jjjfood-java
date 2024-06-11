@@ -123,6 +123,7 @@ public class OrderServiceImpl extends BaseServiceImpl<OrderMapper, Order> implem
         return productList.stream().map(e -> {
             UpdateProductStockVo vo = new UpdateProductStockVo();
             BeanUtils.copyProperties(e, vo);
+            vo.setTotalNum(e.getProductNum());
             return vo;
         }).collect(Collectors.toList());
     }
