@@ -50,7 +50,7 @@ public class UploadFileUtils {
         String filePath = "";
         if(file != null){
             if(StorageEnum.LOCAL.getValue().equals(file.getStorage())){
-                filePath = springBootJjjProperties.getResourceAccessUrl() + "uploads/" + file.getFileName();
+                filePath = springBootJjjProperties.getResourceAccessUrl()  + file.getFileName();
             }else{
                 filePath = file.getFileUrl() + "/" + file.getFileName();
             }
