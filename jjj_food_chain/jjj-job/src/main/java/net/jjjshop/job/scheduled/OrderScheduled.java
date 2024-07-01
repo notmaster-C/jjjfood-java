@@ -90,7 +90,7 @@ public class OrderScheduled {
      */
     private void receive(Integer receiveDays, Integer appId){
         // 截止时间
-        if (receiveDays < 1) return;
+        if (receiveDays ==null||receiveDays < 1) return;
         Date deadlineTime = DateUtil.offsetDay(new Date(), -receiveDays);
         // 条件
         List<Order> orderList = orderService.list(new LambdaQueryWrapper<Order>()
